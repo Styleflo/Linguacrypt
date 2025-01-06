@@ -22,8 +22,14 @@ public class PartieBuilder {
      * C'est un objet PartieBuilder, il faut donc finir par .build pour construire la Partie
      */
     public PartieBuilder() {
-        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+        System.out.println("passe");
+
+        WordsFileHandler fileHandler = new WordsFileHandler("cards.json");
+
+        System.out.println("passefilehanlder");
+
         this.thematicListsSelected = fileHandler.getAllThemes();
+        System.out.println("passe");
 
         this.partie = new Partie();
         partie.setHeightParameter(heightParameter);

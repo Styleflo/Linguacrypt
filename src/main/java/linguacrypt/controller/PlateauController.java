@@ -3,6 +3,7 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import linguacrypt.model.Jeu;
@@ -42,16 +43,16 @@ public class PlateauController implements Observer {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
 
-            VBox carte = creerCarte(jeu.getPartie().getPlateau().getCard(i,j).getWord());
+            AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i,j).getWord());
             gridPane.add(carte, i, j);
         }
         }
     }
 
-    private VBox creerCarte(String mot) {
+    private AnchorPane creerCarte(String mot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/neutral_card.fxml"));
-            VBox card = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
+            AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
             controller.setMot(mot);
             return card;
@@ -61,12 +62,9 @@ public class PlateauController implements Observer {
         }
     }
 
-
-
     @Override
     public void reagir() {
-
+        afficherCartes();
     }
-
 
 }

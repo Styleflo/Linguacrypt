@@ -3,6 +3,7 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import linguacrypt.model.Jeu;
@@ -26,6 +27,14 @@ public class CartesController implements Observer {
         mots.add("Souris");
         mots.add("Carnaval");
         mots.add("Tourniquet");
+        mots.add("Avion");
+        mots.add("Souris");
+        mots.add("Carnaval");
+        mots.add("Tourniquet");
+        mots.add("Avion");
+        mots.add("Souris");
+        mots.add("Carnaval");
+        mots.add("Tourniquet");
     }
 
     public void setJeu(Jeu jeu) {
@@ -42,15 +51,12 @@ public class CartesController implements Observer {
 
         int row = 0;
         int col = 0;
-        int maxCols = 2;
+        int maxCols = 4;
 
         // Calculer la taille des cartes
-        double cardWidth = (900 - (2 * 25) - ((maxCols - 1) * 50)) / maxCols;
-        double cardHeight = cardWidth * 0.75;  // ratio 4:3
 
         for (int i = 0; i < mots.size(); i++) {
-            VBox carte = creerCarte(mots.get(i));
-            carte.setPrefSize(cardWidth, cardHeight);
+            AnchorPane carte = creerCarte(mots.get(i));
 
             gridPane.add(carte, col, row);
 
@@ -62,10 +68,10 @@ public class CartesController implements Observer {
         }
     }
 
-    private VBox creerCarte(String mot) {
+    private AnchorPane creerCarte(String mot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/neutral_card.fxml"));
-            VBox card = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
+            AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
             controller.setMot(mot);
             return card;

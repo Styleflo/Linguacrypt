@@ -23,7 +23,9 @@ public class WordsFileHandler {
         file = new File(resource.getFile());
 
         try {
+            System.out.println("passe");
             wordsCategories = objectMapper.readValue(file, WordsCategories.class);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
