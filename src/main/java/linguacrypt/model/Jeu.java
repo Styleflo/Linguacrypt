@@ -38,7 +38,6 @@ public class Jeu {
 
     /**
      * Ajoute un observer à la liste des observeur du model Jeu.
-     * @param Observer
      */
     public void addObserver(Observer o) {
         this.observers.add(o);
@@ -46,7 +45,7 @@ public class Jeu {
 
     /**
      * Supprime un observer à la liste des observeur du model Jeu.
-     * @param Observer
+
      */
     public void removeObserver(Observer o) {
         this.observers.remove(o);
