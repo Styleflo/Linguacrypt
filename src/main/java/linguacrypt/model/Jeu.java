@@ -28,6 +28,15 @@ public class Jeu {
     }
 
     /**
+     * Permet de mettre a jour les Observers
+     */
+    public void notifierObserver() {
+        for (Observer obs : observers) {
+            obs.reagir();
+        }
+    }
+
+    /**
      * Ajoute un observer à la liste des observeur du model Jeu.
      * @param Observer
      */

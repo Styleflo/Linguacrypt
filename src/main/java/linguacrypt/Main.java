@@ -32,7 +32,7 @@ public class Main extends Application {
 
         // On set les autres vues
         mainControlleur.setMenuInitial();
-
+        mainControlleur.setCartes();
 
 
         // Créer la scène et l'afficher

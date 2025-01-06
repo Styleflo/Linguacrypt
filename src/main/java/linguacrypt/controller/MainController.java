@@ -1,6 +1,7 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import linguacrypt.model.Jeu;
 
@@ -23,6 +24,8 @@ public class MainController implements Observer {
     private AnchorPane content;
 
     private StackPane menuInitialRoot;
+
+    private ScrollPane cartesRoot;
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -54,10 +57,33 @@ public class MainController implements Observer {
         }
     }
 
+    public void setCartes() {
+        // Charger le fichier FXML du menu et obtenir le contrôleur Cartes
+        try {
+            FXMLLoader menuInitialLoader = new FXMLLoader(getClass().getResource("/view/cartes.fxml"));
+            cartesRoot = menuInitialLoader.load();
+            CartesController cartes = menuInitialLoader.getController();
+            cartes.setJeu(jeu);
+            jeu.addObserver(cartes);
+
+            AnchorPane.setTopAnchor(cartesRoot, 0.0);
+            AnchorPane.setBottomAnchor(cartesRoot, 0.0);
+            AnchorPane.setLeftAnchor(cartesRoot, 0.0);
+            AnchorPane.setRightAnchor(cartesRoot, 0.0);
+
+            content.getChildren().clear();
+            content.getChildren().add(menuInitialRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void update() {
         content.getChildren().clear();
         if (this.jeu.getView() == "MenuInitial") {
             content.getChildren().add(menuInitialRoot);
+        } else if (this.jeu.getView() == "Cartes") {
+            content.getChildren().add(cartesRoot);
         } else {
             System.out.println(jeu.getView());
         }

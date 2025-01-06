@@ -18,8 +18,8 @@
                         <Font size="52.0" />
                     </font>
                 </Label>
-                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Jouer" />
-                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Carte" />
+                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Jouer" onAction="#handleJouerButtonAction" />
+                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Cartes" onAction="#handleCartesButtonAction" />
             </children>
         </VBox>
     </children>
