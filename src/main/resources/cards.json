@@ -1,0 +1,64 @@
+{
+  "thematicLists": {
+    "nature": [
+      "forêt", "océan", "montagne", "soleil", "rivière", "arbre", "fleur", "nuage", "vent", "pluie",
+      "neige", "feuille", "pierre", "étoile", "lune", "plage", "volcan", "désert", "lac", "prairie",
+      "orage", "cascade", "glacier", "brouillard", "arc-en-ciel", "aube", "crépuscule", "grotte", "colline", "vallée",
+      "jungle", "iceberg", "geyser", "ouragan", "rosée", "avalanche", "marée", "delta", "oasis", "canyon"
+    ],
+    "animaux": [
+      "lion", "éléphant", "dauphin", "aigle", "chat", "chien", "serpent", "tigre", "ours", "loup",
+      "pingouin", "girafe", "singe", "baleine", "tortue", "hibou", "requin", "panda", "koala", "zèbre",
+      "crocodile", "papillon", "gorille", "kangourou", "perroquet", "hippopotame", "rhinocéros", "écureuil", "loutre", "chauve-souris",
+      "manchot", "panthère", "antilope", "flamant", "méduse", "jaguar", "hamster", "autruche", "otarie", "colibri"
+    ],
+    "nourriture": [
+      "pizza", "chocolat", "pomme", "pain", "fromage", "pâtes", "gâteau", "café", "thé", "sushi",
+      "glace", "carotte", "banane", "viande", "poisson", "salade", "soupe", "riz", "fraise", "orange",
+      "biscuit", "miel", "crêpe", "sandwich", "yaourt", "croissant", "tarte", "bonbon", "raisin", "tomate",
+      "poulet", "hamburger", "ravioli", "omelette", "baguette", "muffin", "lasagne", "crème", "fruits", "légumes"
+    ],
+    "sports": [
+      "football", "tennis", "basketball", "natation", "rugby", "golf", "boxe", "ski", "athlétisme", "volleyball",
+      "cyclisme", "judo", "escalade", "hockey", "surf", "patinage", "équitation", "karaté", "plongée", "yoga",
+      "baseball", "handball", "voile", "aviron", "escrime", "badminton", "marathon", "tir", "lutte", "triathlon",
+      "squash", "bowling", "curling", "cricket", "gymnastique", "pétanque", "skateboard", "randonnée", "danse", "capoeira"
+    ],
+    "métiers": [
+      "médecin", "professeur", "avocat", "cuisinier", "architecte", "pilote", "pompier", "artiste", "policier", "journaliste",
+      "ingénieur", "musicien", "boulanger", "jardinier", "dentiste", "électricien", "plombier", "coiffeur", "acteur", "écrivain",
+      "photographe", "menuisier", "fermier", "vétérinaire", "infirmier", "chauffeur", "peintre", "danseur", "boucher", "libraire",
+      "couturier", "facteur", "astronaute", "bijoutier", "vendeur", "chimiste", "pêcheur", "guide", "comptable", "maçon"
+    ],
+    "objets": [
+      "table", "chaise", "téléphone", "livre", "clé", "montre", "lunettes", "lampe", "ordinateur", "crayon",
+      "miroir", "valise", "parapluie", "appareil", "couteau", "brosse", "tasse", "casque", "réveil", "caméra",
+      "télévision", "radio", "ballon", "marteau", "pinceau", "peigne", "échelle", "ciseaux", "bouteille", "corde",
+      "boussole", "jumelles", "cadenas", "éponge", "briquet", "pelle", "sac", "carte", "trousse", "fourchette"
+    ],
+    "lieux": [
+      "maison", "école", "hôpital", "restaurant", "musée", "cinéma", "parc", "bibliothèque", "gare", "aéroport",
+      "plage", "hôtel", "zoo", "stade", "théâtre", "église", "supermarché", "banque", "café", "jardin",
+      "château", "prison", "usine", "port", "garage", "piscine", "bureau", "université", "boulangerie", "pharmacie",
+      "librairie", "casino", "aquarium", "cirque", "camping", "phare", "cave", "station", "marché", "centre"
+    ],
+    "sciences": [
+      "atome", "planète", "cellule", "galaxie", "microscope", "formule", "enzyme", "neutron", "satellite", "virus",
+      "molécule", "télescope", "gravité", "énergie", "cristal", "climat", "spectre", "proton", "vaccin", "laser",
+      "électron", "météore", "génome", "fusion", "plasma", "équation", "bactérie", "photon", "comète", "fission",
+      "radar", "quark", "sonde", "hormone", "météorite", "neurone", "théorème", "isotope", "ADN", "clone"
+    ],
+    "arts": [
+      "peinture", "sculpture", "musique", "danse", "théâtre", "cinéma", "poésie", "roman", "dessin", "photo",
+      "ballet", "concert", "opéra", "fresque", "gravure", "portrait", "mosaïque", "aquarelle", "comédie", "tragédie",
+      "fiction", "scénario", "orchestre", "mélodie", "rythme", "poème", "tableau", "esquisse", "statue", "collage",
+      "jazz", "symphonie", "costume", "décor", "masque", "conte", "chanson", "galerie", "scène", "exposition"
+    ],
+    "transports": [
+      "voiture", "train", "avion", "bateau", "vélo", "bus", "métro", "taxi", "tramway", "hélicoptère",
+      "moto", "camion", "fusée", "sous-marin", "scooter", "navire", "ambulance", "planeur", "yacht", "kayak",
+      "montgolfière", "dirigeable", "cargo", "chariot", "caravane", "tracteur", "jet", "péniche", "limousine", "segway",
+      "ferry", "tank", "traîneau", "télécabine", "catamaran", "tricycle", "pirogue", "calèche", "dragon", "vaisseau"
+    ]
+  }
+}
