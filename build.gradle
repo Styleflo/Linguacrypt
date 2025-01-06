@@ -16,6 +16,7 @@ dependencies {
     implementation("org.openjfx:javafx-fxml:23.0.1:linux")
     implementation("org.openjfx:javafx-graphics:23.0.1:linux")
     implementation("org.openjfx:javafx-media:23.0.1:linux")
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 }
 
 test {

@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import linguacrypt.model.Plateau;
+import linguacrypt.utils.WordsFileHandler;
 import linguacrypt.model.Jeu;
 
 import linguacrypt.controller.*;
@@ -12,6 +14,8 @@ import linguacrypt.model.Plateau;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main extends Application {
 
