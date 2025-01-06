@@ -1,5 +1,7 @@
+
 .card {
-    -fx-background-color: #85e3ff;
+    -fx-background-color: #ff9b7d
+;
     -fx-background-radius: 60px; /* Coins arrondis avec un rayon de 30px */
 }
 
@@ -17,12 +19,12 @@
 
 
 .small_rectangle {
-    -fx-background-color:#5cd6fa;
+    -fx-background-color:#ff6233;
     -fx-border-color: black;
     -fx-background-radius: 60px;
     -fx-border-radius: 60px;
     -fx-border-width: 3px;
-    -fx-border-color: #1c7e9c;
+    -fx-border-color: #c23f17;
 
 }
 .small_rectangle2 {
@@ -38,6 +40,6 @@
 }
 
 .ligne {
-    -fx-stroke: #1c7e9c;        /* Couleur de la ligne */
+    -fx-stroke: #c23f17;        /* Couleur de la ligne */
     -fx-stroke-width: 4;    /* Épaisseur de la ligne */
 }
