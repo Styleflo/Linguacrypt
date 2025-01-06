@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="linguacrypt.controller.MainController">
+    <top>
+        <VBox fx:id="menuContainer"/>
+    </top>
+    <center>
+        <AnchorPane prefHeight="900.0" prefWidth="700.0" fx:id="content">
+            <children>
+                <!-- les pages seront à afficher ici ! -->
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

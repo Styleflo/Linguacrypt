@@ -5,28 +5,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import linguacrypt.controller.MainController;
+import linguacrypt.model.Jeu;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class Main extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL fxmlURL = getClass().getResource("/view/Red_card.fxml");
-        if (fxmlURL == null) {
-            System.err.println("Could not find test.fxml");
-            System.exit(1);
-        }
-        Parent root = FXMLLoader.load(fxmlURL);
-        Scene scene = new Scene(root, 200, 200);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX Bootstrap Project using FXML");
-        primaryStage.show();
-    }
 
-    public static void main(String[] args) {
-        launch();
+        // Créer une instance de Jeu
+        Jeu jeu = new Jeu();
+
+        // Charger le fichier FXML principal
+        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
+        Parent root = mainLoader.load();
+
+        // On set le mainControlleur
+        MainController mainControlleur = mainLoader.getController();
+        jeu.addObserver(mainControlleur);
+        mainControlleur.setJeu(jeu);
+
+        // On set les autres vues
+        mainControlleur.setMenuInitial();
+        mainControlleur.setCartes();
+
+        // Créer la scène et l'afficher
+        Scene scene = new Scene(root, 900, 700);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("LinguaCrypt");
+        primaryStage.show();
     }
 
 }
