@@ -1,14 +1,12 @@
 package linguacrypt.controller;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.StackPane;
-import linguacrypt.model.Jeu;
-
-
-import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import linguacrypt.model.Jeu;
 
 import java.io.IOException;
 

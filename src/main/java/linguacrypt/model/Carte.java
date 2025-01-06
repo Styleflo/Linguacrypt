@@ -23,5 +23,7 @@ public class Carte {
         covered = true;
     }
 
-    public boolean isCovered() { return covered; }
+    public boolean isCovered() {
+        return covered;
+    }
 }

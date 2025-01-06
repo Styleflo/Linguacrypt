@@ -9,7 +9,7 @@
     -fx-scale-y: 1.1;
 }
 
-.text{
+.text {
     -fx-font-size: 50px;
     -fx-alignement: center;
     -fx-font-family: "Helvetica";
@@ -18,7 +18,7 @@
 
 
 .small_rectangle {
-    -fx-background-color:#ebcfa7;
+    -fx-background-color: #ebcfa7;
     -fx-border-color: black;
     -fx-background-radius: 60px;
     -fx-border-radius: 40px;
@@ -26,11 +26,12 @@
     -fx-border-color: #b8a282;
 
 }
+
 .small_rectangle2 {
     -fx-background-color: white;
 }
 
-.text_rectangle{
+.text_rectangle {
     -fx-background-color: white;
     -fx-border-radius: 0 0 10 10;
     -fx-background-radius: 0 0 10 10;
@@ -39,7 +40,7 @@
 }
 
 .ligne {
-    -fx-stroke: #b8a282;        /* Couleur de la ligne */
-    -fx-stroke-width: 4;    /* Épaisseur de la ligne */
+    -fx-stroke: #b8a282; /* Couleur de la ligne */
+    -fx-stroke-width: 4; /* Épaisseur de la ligne */
 }
 
