@@ -22,4 +22,6 @@ public class Carte {
     public void setCovered() {
         covered = true;
     }
+
+    public boolean isCovered() { return covered; }
 }
