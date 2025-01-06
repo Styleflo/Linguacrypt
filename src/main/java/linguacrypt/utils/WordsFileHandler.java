@@ -62,4 +62,16 @@ public class WordsFileHandler {
 
         return words;
     }
+
+    public ArrayList<String> getAllThemes() {
+        ArrayList<String> themes = new ArrayList<>();
+
+        List<WordsCategory> categories = wordsCategories.getCategories();
+
+        for (WordsCategory category : categories) {
+            themes.add(category.getName());
+        }
+
+        return themes;
+    }
 }
