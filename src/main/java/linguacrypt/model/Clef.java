@@ -7,9 +7,11 @@ import java.util.Random;
 
 public class Clef {
     private final boolean blueStarts;
-    private final ArrayList<ArrayList<Integer>> grid = new ArrayList<>();
+    private final int[][] grid;
+    private int[] cardsCounts;
 
     public Clef(int width, int height) {
+        grid = new int[height][width];
         int blue_and_red_count, red_count, blue_count, white_count, black_count;
 
         Random random = new Random();
@@ -28,6 +30,12 @@ public class Clef {
 
         white_count = width * height - (blue_and_red_count * 2 + 1) - black_count;
 
+        cardsCounts = new int[4];
+        cardsCounts[0] = blue_count;
+        cardsCounts[1] = red_count;
+        cardsCounts[2] = black_count;
+        cardsCounts[3] = white_count;
+
         List<Integer> types = new ArrayList<>();
         for (int i = 0; i < blue_count; i++) types.add(0);
         for (int i = 0; i < red_count; i++) types.add(1);
@@ -38,13 +46,9 @@ public class Clef {
 
         int index = 0;
         for (int j = 0; j < height; j++) {
-            ArrayList<Integer> line = new ArrayList<>();
-
-            for (int i = 0; i < height; i++) {
-                line.add(types.get(index++));
+            for (int i = 0; i < width; i++) {
+                grid[i][j] = types.get(index++);
             }
-
-            grid.add(line);
         }
     }
 
@@ -60,7 +64,14 @@ public class Clef {
 
     public boolean isRedStarting() { return !blueStarts; }
 
-    public ArrayList<ArrayList<Integer>> getGrid() {
+    public int[][] getGrid() {
         return grid;
     }
+
+    public int getCardType(int i, int j) {
+        /* Utilise les coordonnées matricielles */
+        return grid[i][j];
+    }
+
+    public int[] getCardsCounts() { return cardsCounts; }
 }
