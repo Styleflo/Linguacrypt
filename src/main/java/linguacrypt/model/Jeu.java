@@ -4,89 +4,66 @@ import java.util.ArrayList;
 import linguacrypt.controller.*;
 
 /**
- * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement
- * Contient un Plateau de cartes de mots ou d'images
- * Contient une string du nom de la vue courante à afficher
- **/
+ * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement.
+ * Contient une partie
+ * Contient une string du nom de la vue courante à afficher.
+ */
 public class Jeu {
     private ArrayList<Observer> observers = new ArrayList<>();
-    private Plateau plateau;
-    private boolean win = false;
+    private Partie partie;
     private String currentView;
+    //private listmot
 
 
-    public Jeu(Plateau plateau) {
-        this.plateau = plateau;
+    public Jeu() {
         //A completer avec le nom de la vue initial à afficher
         currentView = "";
     }
 
     /**
-     * Explicite
-     **/
-    public Plateau getPlateau() {
-        return this.plateau;
-    }
-
-    /**
-     * Permet de set un plateau specifique
-     * @param plateau
-     **/
-    public void setPlateau(Plateau plateau) {
-        this.plateau = plateau;
-    }
-
-    /**
-     * Permet de recuperer la liste des observers
-     **/
+     * Permet de recuperer la liste des observers.
+     */
     public ArrayList<Observer> getObservers() {
         return this.observers;
     }
 
     /**
-     * Ajoute un observer à la liste des observeur du model Jeu
+     * Ajoute un observer à la liste des observeur du model Jeu.
      * @param Observer
-     **/
+     */
     public void addObserver(Observer o) {
         this.observers.add(o);
     }
 
     /**
-     * Supprime un observer à la liste des observeur du model Jeu
+     * Supprime un observer à la liste des observeur du model Jeu.
      * @param Observer
-     **/
+     */
     public void removeObserver(Observer o) {
         this.observers.remove(o);
     }
 
     /**
-     * Permet de recuperer la vue courrante
-     **/
-    public void getView() {
+     * Permet de recuperer la vue courrante.
+     * @return String
+     */
+    public String getView() {
         return this.currentView;
     }
 
     /**
-     * Permet de set une nouvelle vue courrante pour changer l'affichage
+     * Permet de set une nouvelle vue courrante pour changer l'affichage.
      * @param currentView
-     **/
+     */
     public void setView(String currentView) {
         this.currentView = currentView;
     }
 
     /**
-     * Permet de savoir si une équipe a déjà gagné
-     * @return boolean
-     **/
-    public boolean isWin() {
-        return this.win;
-    }
-
-    /**
-     * Cette fonction doit etre appelée apres chaque modification du jeu
-     * Elle permet de notifier à chaque controler de reagir à ce changement
-     * Le changement se propage ainsi aux views
-     **/
+     * Cette fonction doit etre appelée apres chaque modification du jeu.
+     * Elle permet de notifier à chaque controler de reagir à ce changement.
+     * Le changement se propage ainsi aux views.
+     */
     public void notifyObservers() {
         for (Observer o : observers) {
             o.reagir();
@@ -94,19 +71,21 @@ public class Jeu {
     }
 
     /**
-     * Permet de relancer une partie avec de nouvelles cartes
+     * Permet de lancer ou relancer une partie avec de nouvelles cartes.
      **/
-    public void newGame() {
-        this.plateau = new Plateau();
-        //faire la logique que recommence une partie
+    public void newPartie() {
+        this.partie.newPartie();
+        //A completer avec le nom de la vue initial à afficher
+        this.currentView = "";
     }
 
     /**
-     * Permet de changer l'etat du jeu en gagné
-     * une equipe à alors gagné
-     **/
+     * Permet de changer l'etat du jeu en gagné.
+     *
+     * Une equipe a alors gagné.
+     */
     public void win() {
-        this.win = true;
+        this.partie.setWin();
         // A completer avec le nom de la vue de win
         this.currentView = "";
     }
