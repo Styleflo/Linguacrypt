@@ -1,15 +1,30 @@
+
 .card {
     -fx-background-color: #616161;
     -fx-background-radius: 20px; /* Coins arrondis avec un rayon de 30px */
 }
 
 .card:hover {
-    -fx-background-color: #383838;
-    -fx-scale-y: 1.1;
-}
+    -fx-background-color: linear-gradient(to top right,#616161, #818181);
+    -fx-background-size: 200% 200%; /* Pour permettre à l'animation d'être visible */
+    -fx-background-position: 0% 50%;
+    -fx-transition: background-position 10s infinite ease-in-out;
+    -fx-animation: gradientAnimation 10s ease infinite;
 
+}
+@keyframes gradientAnimation {
+    0% {
+        -fx-background-position: 0% 50%;
+    }
+    50% {
+        -fx-background-position: 100% 50%;
+    }
+    100% {
+        -fx-background-position: 0% 50%;
+    }
+}
 .text{
-    -fx-font-size: 15px;
+    -fx-font-size: 25px;
     -fx-alignement: center;
     -fx-font-family: "Helvetica";
     -fx-font-weight: bold;
@@ -20,8 +35,8 @@
     -fx-background-color:#404040;
     -fx-border-color: black;
     -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
     -fx-border-color: black;
 
 }
@@ -31,8 +46,8 @@
 
 .text_rectangle{
     -fx-background-color: black;
-    -fx-border-radius: 0 0 5 5;
-    -fx-background-radius: 0 0 5 5;
+    -fx-border-radius: 0 0 8 8;
+    -fx-background-radius: 0 0 8 8;
 
     /* top-left, top-right, bottom-right, and bottom-left corners, in that order. */
 }
@@ -41,3 +56,6 @@
     -fx-stroke: black;        /* Couleur de la ligne */
     -fx-stroke-width: 1;    /* Épaisseur de la ligne */
 }
+
+
+

@@ -13,13 +13,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL fxmlURL = getClass().getResource("/view/Neutral_card.fxml");
+        URL fxmlURL = getClass().getResource("/view/Red_card.fxml");
         if (fxmlURL == null) {
             System.err.println("Could not find test.fxml");
             System.exit(1);
         }
         Parent root = FXMLLoader.load(fxmlURL);
-        root.getStylesheets().add(getClass().getResource("/css/Neutral_card.css").toExternalForm());
         Scene scene = new Scene(root, 200, 200);
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaFX Bootstrap Project using FXML");

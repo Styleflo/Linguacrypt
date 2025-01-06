@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="251.0" styleClass="card" stylesheets="@../css/Black_card.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="-513.0" layoutY="127.0" prefHeight="16.0" prefWidth="314.0" styleClass="text" stylesheets="@../css/Neutral_card.css" text="Coucou !!!">
-         <font>
-            <Font size="42.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="30.0" layoutY="52.0" prefHeight="296.0" prefWidth="541.0" styleClass="small_rectangle" stylesheets="@../css/Black_card.css" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="50">
+      <AnchorPane layoutX="12.0" layoutY="21.0" prefHeight="170.0" prefWidth="260.0" styleClass="small_rectangle" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="21.0">
          <children>
-            <AnchorPane layoutX="28.0" layoutY="188.0" prefHeight="87.0" prefWidth="486.0" styleClass="text_rectangle" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
+            <VBox alignment="BASELINE_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="141.0" prefWidth="238.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="10.0" prefHeight="68.0" prefWidth="455.0" styleClass="text_rectangle" text="LE MOT" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </Label>
+                  <Pane prefHeight="14.0" prefWidth="248.0" VBox.vgrow="ALWAYS" />
+                  <ImageView fitHeight="94.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/black_head.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="25.0" prefWidth="260.0">
+                     <children>
+                        <Line endX="-100" layoutX="95.0" layoutY="7.0" startX="0" styleClass="ligne" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="6.0" prefWidth="291.0" />
+                  <VBox prefHeight="46.0" prefWidth="260.0" styleClass="text_rectangle">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="52.0" prefWidth="246.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="247.0" prefWidth="253.0" />
+                     </children>
+                  </VBox>
                </children>
-            </AnchorPane>
-            <Line endX="214.0" layoutX="115.0" layoutY="177.0" startX="-85.0" styleClass="ligne" />
-            <ImageView fitHeight="146.0" fitWidth="123.0" layoutX="364.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/black_head.png" />
-               </image>
-            </ImageView>
+            </VBox>
          </children>
       </AnchorPane>
    </children>
-   <stylesheets>
-      <URL value="@../css/Red_card.css" />
-      <URL value="@../css/Black_card.css" />
-   </stylesheets>
 </AnchorPane>
