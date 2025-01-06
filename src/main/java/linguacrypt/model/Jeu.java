@@ -7,12 +7,13 @@ import linguacrypt.controller.*;
  * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement.
  * Contient une partie
  * Contient une string du nom de la vue courante à afficher.
+ * Contient une liste de l'ensemble des mots de la base de donnée (les cartes dispos)
  */
 public class Jeu {
     private ArrayList<Observer> observers = new ArrayList<>();
     private Partie partie;
     private String currentView;
-    //private listmot
+    private ArrayList<String> wordList;
 
 
     public Jeu() {
@@ -44,6 +45,14 @@ public class Jeu {
     }
 
     /**
+     * permet de lier une partie à notre jeu
+     * cela lance la partie
+     */
+    public void setPartie(Partie partie) {
+        this.partie = partie;
+    }
+
+    /**
      * Permet de recuperer la vue courrante.
      * @return String
      */
@@ -71,20 +80,11 @@ public class Jeu {
     }
 
     /**
-     * Permet de lancer ou relancer une partie avec de nouvelles cartes.
-     */
-    public void newPartie() {
-        this.partie.newPartie();
-        //A completer avec le nom de la vue initial à afficher
-        this.currentView = "";
-    }
-
-    /**
      * Permet de changer l'etat du jeu en gagné.
      * Une equipe a alors gagné.
      */
     public void win() {
-        this.partie.setWin();
+        this.partie.setWon();
         // A completer avec le nom de la vue de win
         this.currentView = "";
     }
