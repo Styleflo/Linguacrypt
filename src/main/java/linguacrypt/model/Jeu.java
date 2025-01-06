@@ -1,7 +1,8 @@
 package linguacrypt.model;
 
+import linguacrypt.controller.Observer;
+
 import java.util.ArrayList;
-import linguacrypt.controller.*;
 
 /**
  * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement.
@@ -10,7 +11,7 @@ import linguacrypt.controller.*;
  * Contient une liste de l'ensemble des mots de la base de donnée (les cartes dispos)
  */
 public class Jeu {
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private final ArrayList<Observer> observers = new ArrayList<>();
     private Partie partie;
     private String currentView;
     private ArrayList<String> wordList;
@@ -29,6 +30,7 @@ public class Jeu {
 
     /**
      * Ajoute un observer à la liste des observeur du model Jeu.
+     *
      * @param observer
      */
     public void addObserver(Observer observer) {
@@ -37,6 +39,7 @@ public class Jeu {
 
     /**
      * Supprime un observer à la liste des observeur du model Jeu.
+     *
      * @param observer
      */
     public void removeObserver(Observer observer) {
@@ -53,6 +56,7 @@ public class Jeu {
 
     /**
      * Permet de recuperer la vue courrante.
+     *
      * @return String
      */
     public String getView() {
@@ -61,6 +65,7 @@ public class Jeu {
 
     /**
      * Permet de set une nouvelle vue courrante pour changer l'affichage.
+     *
      * @param currentView
      */
     public void setView(String currentView) {

@@ -1,4 +1,5 @@
 package linguacrypt.model;
+
 import linguacrypt.utils.WordsFileHandler;
 
 import java.util.ArrayList;
@@ -10,11 +11,11 @@ import java.util.ArrayList;
  * Contient l'ensemble des themes par default
  */
 public class PartieBuilder {
-    private Partie partie;
     private final int TIMER = -1;
     private final int heightParameter = 5;
     private final int widthParameter = 5;
-    private ArrayList<String> thematicListsSelected;
+    private final Partie partie;
+    private final ArrayList<String> thematicListsSelected;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
@@ -34,6 +35,7 @@ public class PartieBuilder {
     /**
      * Permet de choisir le temps de chaque tour.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
      * @param timer
      * @return PartieBuilder
      */
@@ -45,6 +47,7 @@ public class PartieBuilder {
     /**
      * Permet de choisir la hauteur de la grille de jeu.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
      * @param heightParameter
      * @return PartieBuilder
      */
@@ -56,6 +59,7 @@ public class PartieBuilder {
     /**
      * Permet de choisir la largeur de la grille de jeu.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
      * @param widthParameter
      * @return PartieBuilder
      */
@@ -67,6 +71,7 @@ public class PartieBuilder {
     /**
      * Permet de choisir les themes des cartes pour la partie
      * Attention Il faut finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
      * @param thematicListsSelected
      * @return PartieBuilder
      */
@@ -77,6 +82,7 @@ public class PartieBuilder {
 
     /**
      * Construit une instance de `Partie`.
+     *
      * @return Partie
      */
     public Partie build() {

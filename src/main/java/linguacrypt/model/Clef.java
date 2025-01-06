@@ -6,7 +6,8 @@ public class Clef {
     private final boolean blueStarts;
     private final int[][] grid;
     private final int[] cardsCounts;
-    private int width, height;
+    private final int width;
+    private final int height;
 
     public Clef(int width, int height) {
         this.width = width;
