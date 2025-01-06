@@ -1,11 +1,13 @@
 package linguacrypt.controller;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import linguacrypt.model.Jeu;
 
 import java.io.IOException;
@@ -53,10 +55,15 @@ public class CartesController implements Observer {
         int col = 0;
         int maxCols = 4;
 
+
+
+
         // Calculer la taille des cartes
 
         for (int i = 0; i < mots.size(); i++) {
             AnchorPane carte = creerCarte(mots.get(i));
+
+            create_transition(carte);
 
             gridPane.add(carte, col, row);
 
@@ -66,6 +73,7 @@ public class CartesController implements Observer {
                 row++;
             }
         }
+
     }
 
     private AnchorPane creerCarte(String mot) {
@@ -81,6 +89,23 @@ public class CartesController implements Observer {
         }
     }
 
+    public void create_transition(AnchorPane carte){
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(0.5));
+        transition.setToX(10);
+        transition.setToY(5);
+
+        carte.setOnMouseEntered(event -> {
+            transition.setNode(carte);
+            transition.play();
+        });
+
+        carte.setOnMouseExited(event -> {
+            carte.setTranslateX(0);
+            carte.setTranslateY(0);
+        });
+
+    }
 
     @Override
     public void reagir() {
