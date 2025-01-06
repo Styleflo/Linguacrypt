@@ -1,4 +1,6 @@
 package linguacrypt.model;
+import linguacrypt.utils.WordsFileHandler;
+
 import java.util.ArrayList;
 
 /**
@@ -12,18 +14,21 @@ public class PartieBuilder {
     private final int TIMER = -1;
     private final int heightParameter = 5;
     private final int widthParameter = 5;
-    // A completer avec la fonction d'hippo qui recupere toutes les clefs
-    //private ArrayList<String> thematicListsSelected = ;
+    private ArrayList<String> thematicListsSelected;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
      * C'est un objet PartieBuilder, il faut donc finir par .build pour construire la Partie
      */
     public PartieBuilder() {
+        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+        this.thematicListsSelected = fileHandler.getAllThemes();
+
         this.partie = new Partie();
         partie.setHeightParameter(heightParameter);
         partie.setWidthParameter(widthParameter);
         partie.setTimer(TIMER);
+        partie.setThematicListsSelected(thematicListsSelected);
     }
 
     /**

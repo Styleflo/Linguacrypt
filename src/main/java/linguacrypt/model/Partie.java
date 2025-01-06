@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import linguacrypt.utils.*;
+
 import java.util.ArrayList;
 
 /**
@@ -45,7 +47,8 @@ public class Partie {
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void newPlateau() {
-        this.plateau = new Plateau(this.widthParameter, this.heightParameter, //fonction d'hippo à appliquer sur ArrayList<String> thematicListsSelected);
+        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+        this.plateau = new Plateau(this.widthParameter, this.heightParameter, fileHandler.getWordsByThemes(this.thematicListsSelected));
         this.won = false;
     }
 
