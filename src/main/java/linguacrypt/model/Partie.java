@@ -1,17 +1,24 @@
 package linguacrypt.model;
 
+import linguacrypt.utils.*;
+
+import java.util.ArrayList;
+
 /**
  * Contient un Plateau de cartes de mots ou d'images.
- * Contient un boolean pour connaitre l'etat du jeu entre gagné ou en cours. Gagné étant true
+ * Contient un boolean pour connaitre l'etat du jeu entre gagné ou en cours. Gagné étant true.
+ * Contient un entier pour le temps de jeu de chaque équipe.
+ * Contient une liste des themes selectionnés pour la partie
+ * Contient la largeur du plateau
+ * Contient la hauteur du plateau
  */
 public class Partie {
     private Plateau plateau;
-    private boolean win = false;
-
-
-    public Partie(Plateau plateau) {
-        this.plateau = plateau;
-    }
+    private boolean won = false;
+    private int timer;
+    private ArrayList<String> thematicListsSelected;
+    private int heightParameter;
+    private int widthParameter;
 
     /**
      * Explicite.
@@ -34,21 +41,81 @@ public class Partie {
      *
      * @return boolean
      */
-    public boolean isWin() {
-        return this.win;
+    public boolean isWon() {
+        return this.won;
     }
 
     /**
-     * Permet de relancer une partie avec de nouvelles cartes.
+     * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
-    public void newPartie() {
-        this.win = false;
+    public void newPlateau() {
+        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+        this.plateau = new Plateau(this.widthParameter, this.heightParameter, fileHandler.getWordsByThemes(this.thematicListsSelected));
+        this.won = false;
     }
 
     /**
      * Permet de changer l'etat du jeu en gagné
-     **/
-    public void setWin() {
-        this.win = true;
+     */
+    public void setWon() {
+        this.won = true;
+    }
+
+    /**
+     * Permet de recuperer les thematiques selectionnées
+     * @return ArrayList<String>
+     */
+    public ArrayList<String> getThematicListsSelected() {
+        return this.thematicListsSelected;
+    }
+
+    /**
+     * Permet de set les thematiques selectionnées
+     * @param thematicListsSelected
+     */
+    public void setThematicListsSelected(ArrayList<String> thematicListsSelected) {
+        this.thematicListsSelected = thematicListsSelected;
+    }
+
+    /**
+     * Explicite.
+     */
+    public int getTimer() {
+        return timer;
+    }
+
+    /**
+     * Explicite.
+     */
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
+    /**
+     * Explicite.
+     */
+    public int getHeightParameter() {
+        return heightParameter;
+    }
+
+    /**
+     * Explicite.
+     */
+    public void setHeightParameter(int heightParameter) {
+        this.heightParameter = heightParameter;
+    }
+
+    /**
+     * Explicite.
+     */
+    public int getWidthParameter() {
+        return widthParameter;
+    }
+
+    /**
+     * Explicite.
+     */
+    public void setWidthParameter(int widthParameter) {
+        this.widthParameter = widthParameter;
     }
 }
