@@ -2,6 +2,7 @@ package linguacrypt.model;
 
 import linguacrypt.utils.WordsFileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +22,7 @@ public class PartieBuilder {
      * Le constructeur à appeler pour creer une Partie et la build.
      * C'est un objet PartieBuilder, il faut donc finir par .build pour construire la Partie
      */
-    public PartieBuilder() {
+    public PartieBuilder() throws IOException {
         WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
         this.thematicListsSelected = fileHandler.getAllThemes();
 
@@ -85,7 +86,7 @@ public class PartieBuilder {
      *
      * @return Partie
      */
-    public Partie build() {
+    public Partie build() throws IOException{
         this.partie.newPlateau();
         return this.partie;
     }

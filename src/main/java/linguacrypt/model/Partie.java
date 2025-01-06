@@ -2,6 +2,7 @@ package linguacrypt.model;
 
 import linguacrypt.utils.WordsFileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -48,7 +49,7 @@ public class Partie {
     /**
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
-    public void newPlateau() {
+    public void newPlateau() throws IOException {
         WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
         this.plateau = new Plateau(this.widthParameter, this.heightParameter, fileHandler.getWordsByThemes(this.thematicListsSelected));
         this.won = false;
