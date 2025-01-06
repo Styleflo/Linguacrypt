@@ -1,0 +1,45 @@
+
+.card {
+    -fx-background-color: #ebcfa7;
+    -fx-background-radius: 60px; /* Coins arrondis avec un rayon de 30px */
+}
+
+.card:hover {
+    -fx-background-color: #383838;
+    -fx-scale-y: 1.1;
+}
+
+.text{
+    -fx-font-size: 50px;
+    -fx-alignement: center;
+    -fx-font-family: "Helvetica";
+    -fx-font-weight: bold;
+}
+
+
+.small_rectangle {
+    -fx-background-color:#ebcfa7;
+    -fx-border-color: black;
+    -fx-background-radius: 60px;
+    -fx-border-radius: 40px;
+    -fx-border-width: 3px;
+    -fx-border-color: #b8a282;
+
+}
+.small_rectangle2 {
+    -fx-background-color: white;
+}
+
+.text_rectangle{
+    -fx-background-color: white;
+    -fx-border-radius: 0 0 10 10;
+    -fx-background-radius: 0 0 10 10;
+
+    /* top-left, top-right, bottom-right, and bottom-left corners, in that order. */
+}
+
+.ligne {
+    -fx-stroke: #b8a282;        /* Couleur de la ligne */
+    -fx-stroke-width: 4;    /* Épaisseur de la ligne */
+}
+
