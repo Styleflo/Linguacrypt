@@ -46,7 +46,7 @@ public class Partie {
 
     /**
      * Permet de changer l'etat du jeu en gagné
-     **/
+     */
     public void setWin() {
         this.win = true;
     }

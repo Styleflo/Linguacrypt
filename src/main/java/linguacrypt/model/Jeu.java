@@ -72,7 +72,7 @@ public class Jeu {
 
     /**
      * Permet de lancer ou relancer une partie avec de nouvelles cartes.
-     **/
+     */
     public void newPartie() {
         this.partie.newPartie();
         //A completer avec le nom de la vue initial à afficher
@@ -81,7 +81,6 @@ public class Jeu {
 
     /**
      * Permet de changer l'etat du jeu en gagné.
-     *
      * Une equipe a alors gagné.
      */
     public void win() {
