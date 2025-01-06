@@ -21,11 +21,9 @@ public class MenuInitialController implements Observer {
     @FXML
     private void handleJouerButtonAction() {
         jeu.setView("Plateau");
-        System.out.println("avant");
         PartieBuilder partieBuilder = new PartieBuilder();
         Partie partie = partieBuilder.build();
         jeu.setPartie(partie);
-        System.out.println("passe");
         jeu.notifyObservers();
     }
 
