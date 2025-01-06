@@ -1,6 +1,7 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.StackPane;
 import linguacrypt.model.Jeu;
 
 
@@ -21,7 +22,7 @@ public class MainController implements Observer {
     @FXML
     private AnchorPane content;
 
-    private AnchorPane menuInitialRoot;
+    private StackPane menuInitialRoot;
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -40,6 +41,12 @@ public class MainController implements Observer {
             MenuInitialController menuinitial = menuInitialLoader.getController();
             menuinitial.setJeu(jeu);
             jeu.addObserver(menuinitial);
+
+            AnchorPane.setTopAnchor(menuInitialRoot, 0.0);
+            AnchorPane.setBottomAnchor(menuInitialRoot, 0.0);
+            AnchorPane.setLeftAnchor(menuInitialRoot, 0.0);
+            AnchorPane.setRightAnchor(menuInitialRoot, 0.0);
+
             content.getChildren().clear();
             content.getChildren().add(menuInitialRoot);
         } catch (IOException e) {

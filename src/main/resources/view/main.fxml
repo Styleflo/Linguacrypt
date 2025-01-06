@@ -10,9 +10,9 @@
         <VBox fx:id="menuContainer" />
     </top>
     <center>
-        <AnchorPane fx:id="content">
+        <AnchorPane prefHeight="900.0" prefWidth="700.0" fx:id="content">
             <children>
-                <!-- les pages sont a afficher ici ! -->
+                <!-- les pages seront à afficher ici ! -->
             </children>
         </AnchorPane>
     </center>

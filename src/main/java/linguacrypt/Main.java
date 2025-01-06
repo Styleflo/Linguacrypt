@@ -36,7 +36,7 @@ public class Main extends Application {
 
 
         // Créer la scène et l'afficher
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 900, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaFX Album Project");
         primaryStage.show();

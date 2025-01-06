@@ -6,14 +6,21 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.MenuInitialController">
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.MenuInitialController">
     <children>
-        <Button layoutX="125.0" layoutY="237.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Jouer" />
-        <Button layoutX="376.0" layoutY="237.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Carte" />
-        <Label layoutX="125.0" layoutY="91.0" prefHeight="72.0" prefWidth="350.0" text="Linguacrypt">
-            <font>
-                <Font size="52.0" />
-            </font>
-        </Label>
+        <VBox alignment="CENTER" spacing="20">
+            <children>
+                <Label text="Linguacrypt">
+                    <font>
+                        <Font size="52.0" />
+                    </font>
+                </Label>
+                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Jouer" />
+                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="94.0" text="Carte" />
+            </children>
+        </VBox>
     </children>
-</AnchorPane>
+</StackPane>
