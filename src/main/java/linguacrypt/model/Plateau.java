@@ -3,6 +3,8 @@ package linguacrypt.model;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static java.lang.Math.max;
+
 public class Plateau {
     private final Carte[][] cards;
     private final Clef key;
@@ -61,8 +63,10 @@ public class Plateau {
     public void prettyPrint() {
         for (Carte[] card : cards) {
             for (Carte carte : card) {
-                System.out.print(carte.getWord() + "\t");
+                System.out.print(carte.getWord());
+                System.out.print(" ".repeat(max(15 - carte.getWord().length(), 0)));
             }
+
             System.out.println();
         }
     }
