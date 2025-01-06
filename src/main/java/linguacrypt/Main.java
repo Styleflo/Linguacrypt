@@ -5,29 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Main extends Application {
-
-    public static void main(String[] args) {
-        launch();
+public class Main {
+    public static void main(String[] args) throws IOException {
+        WordsFileHandler wordsFileHandler = new WordsFileHandler("cards.json");
     }
-
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        URL fxmlURL = getClass().getResource("/view/test.fxml");
-        if (fxmlURL == null) {
-            System.err.println("Could not find test.fxml");
-            System.exit(1);
-        }
-        Parent root = FXMLLoader.load(fxmlURL);
-
-        Scene scene = new Scene(root, 800, 600);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX Bootstrap Project using FXML");
-        primaryStage.show();
-    }
-
 }
