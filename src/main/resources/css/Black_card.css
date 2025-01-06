@@ -1,11 +1,11 @@
 
 .card {
-    -fx-background-color: #ebcfa7;
+    -fx-background-color: #616161;
     -fx-background-radius: 20px; /* Coins arrondis avec un rayon de 30px */
 }
 
 .card:hover {
-    -fx-background-color: linear-gradient(to top right,#85e3ff, #ff6233);
+    -fx-background-color: linear-gradient(to top right,#616161, #818181);
     -fx-background-size: 200% 200%; /* Pour permettre à l'animation d'être visible */
     -fx-background-position: 0% 50%;
     -fx-transition: background-position 10s infinite ease-in-out;
@@ -32,12 +32,12 @@
 
 
 .small_rectangle {
-    -fx-background-color:#ebcfa7;
+    -fx-background-color:#404040;
     -fx-border-color: black;
     -fx-background-radius: 20px;
     -fx-border-radius: 10px;
     -fx-border-width: 2px;
-    -fx-border-color: #b8a282;
+    -fx-border-color: black;
 
 }
 .small_rectangle2 {
@@ -45,7 +45,7 @@
 }
 
 .text_rectangle{
-    -fx-background-color: white;
+    -fx-background-color: black;
     -fx-border-radius: 0 0 8 8;
     -fx-background-radius: 0 0 8 8;
 
@@ -53,7 +53,9 @@
 }
 
 .ligne {
-    -fx-stroke: #b8a282;        /* Couleur de la ligne */
+    -fx-stroke: black;        /* Couleur de la ligne */
     -fx-stroke-width: 1;    /* Épaisseur de la ligne */
 }
+
+
 
