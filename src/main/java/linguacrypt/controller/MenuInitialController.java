@@ -2,6 +2,8 @@ package linguacrypt.controller;
 
 import javafx.fxml.FXML;
 import linguacrypt.model.Jeu;
+import linguacrypt.model.Partie;
+import linguacrypt.model.PartieBuilder;
 
 
 public class MenuInitialController implements Observer {
@@ -18,7 +20,11 @@ public class MenuInitialController implements Observer {
 
     @FXML
     private void handleJouerButtonAction() {
-        System.out.println("Bouton 'Jouer' cliqué !");
+        jeu.setView("Plateau");
+        PartieBuilder partieBuilder = new PartieBuilder();
+        Partie partie = partieBuilder.build();
+        jeu.setPartie(partie);
+        jeu.notifyObservers();
     }
 
     @FXML
