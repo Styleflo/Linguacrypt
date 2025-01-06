@@ -5,6 +5,8 @@ import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
 
+import java.io.IOException;
+
 
 public class MenuInitialController implements Observer {
 
@@ -19,7 +21,7 @@ public class MenuInitialController implements Observer {
     }
 
     @FXML
-    private void handleJouerButtonAction() {
+    private void handleJouerButtonAction() throws IOException {
         jeu.setView("Plateau");
         PartieBuilder partieBuilder = new PartieBuilder();
         Partie partie = partieBuilder.build();
