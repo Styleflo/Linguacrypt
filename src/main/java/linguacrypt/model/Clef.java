@@ -101,4 +101,26 @@ public class Clef {
             System.out.println();
         }
     }
+
+    public String toString() {
+        Map<Integer, String> int_to_square = new HashMap<>();
+        int_to_square.put(0, "🟦");
+        int_to_square.put(1, "🟥");
+        int_to_square.put(2, "⬛️");️️️
+        int_to_square.put(3, "⬜");️️
+        String res ;
+        if (blueStarts) {
+            res = "bleu commence \n";
+        } else {
+            res = "rouge commence \n";
+        }
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                res = res.concat(int_to_square.get(grid[i][j]));
+
+            }
+            res = res.concat("\n");
+        }
+    }
+
 }
