@@ -11,6 +11,11 @@ repositories {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.openjfx:javafx-base:23.0.1:linux")
+    implementation("org.openjfx:javafx-controls:23.0.1:linux")
+    implementation("org.openjfx:javafx-fxml:23.0.1:linux")
+    implementation("org.openjfx:javafx-graphics:23.0.1:linux")
+    implementation("org.openjfx:javafx-media:23.0.1:linux")
 }
 
 test {

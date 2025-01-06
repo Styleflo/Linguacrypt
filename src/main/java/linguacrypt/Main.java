@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import linguacrypt.model.Jeu;
 
+import linguacrypt.controller.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -13,16 +15,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL fxmlURL = getClass().getResource("/view/test.fxml");
-        if (fxmlURL == null) {
-            System.err.println("Could not find test.fxml");
-            System.exit(1);
-        }
-        Parent root = FXMLLoader.load(fxmlURL);
 
+        // Créer une instance de Jeu
+
+        // Charger le fichier FXML principal
+        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
+        Parent root = mainLoader.load();
+
+        MainController mainControlleur = mainLoader.getController();
+
+
+        // Créer la scène et l'afficher
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX Bootstrap Project using FXML");
+        primaryStage.setTitle("JavaFX Album Project");
         primaryStage.show();
     }
 
