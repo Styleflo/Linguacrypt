@@ -1,4 +1,4 @@
-package album;
+package linguacrypt;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
