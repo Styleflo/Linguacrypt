@@ -18,7 +18,7 @@ public class CartesController implements Observer {
     @FXML
     private GridPane gridPane;
 
-    private List<String> mots;
+    private final List<String> mots;
 
     public CartesController() {
         mots = new ArrayList<>();

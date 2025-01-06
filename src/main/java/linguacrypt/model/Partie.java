@@ -1,6 +1,6 @@
 package linguacrypt.model;
 
-import linguacrypt.utils.*;
+import linguacrypt.utils.WordsFileHandler;
 
 import java.util.ArrayList;
 
@@ -63,6 +63,7 @@ public class Partie {
 
     /**
      * Permet de recuperer les thematiques selectionnées
+     *
      * @return ArrayList<String>
      */
     public ArrayList<String> getThematicListsSelected() {
@@ -71,6 +72,7 @@ public class Partie {
 
     /**
      * Permet de set les thematiques selectionnées
+     *
      * @param thematicListsSelected
      */
     public void setThematicListsSelected(ArrayList<String> thematicListsSelected) {
