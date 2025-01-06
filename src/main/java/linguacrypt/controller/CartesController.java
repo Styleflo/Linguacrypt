@@ -1,10 +1,13 @@
 package linguacrypt.controller;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import linguacrypt.model.Jeu;
 
 import java.io.IOException;
@@ -26,6 +29,14 @@ public class CartesController implements Observer {
         mots.add("Souris");
         mots.add("Carnaval");
         mots.add("Tourniquet");
+        mots.add("Avion");
+        mots.add("Souris");
+        mots.add("Carnaval");
+        mots.add("Tourniquet");
+        mots.add("Avion");
+        mots.add("Souris");
+        mots.add("Carnaval");
+        mots.add("Tourniquet");
     }
 
     public void setJeu(Jeu jeu) {
@@ -42,15 +53,17 @@ public class CartesController implements Observer {
 
         int row = 0;
         int col = 0;
-        int maxCols = 2;
+        int maxCols = 4;
+
+
+
 
         // Calculer la taille des cartes
-        double cardWidth = (900 - (2 * 25) - ((maxCols - 1) * 50)) / maxCols;
-        double cardHeight = cardWidth * 0.75;  // ratio 4:3
 
         for (int i = 0; i < mots.size(); i++) {
-            VBox carte = creerCarte(mots.get(i));
-            carte.setPrefSize(cardWidth, cardHeight);
+            AnchorPane carte = creerCarte(mots.get(i));
+
+            create_transition(carte);
 
             gridPane.add(carte, col, row);
 
@@ -60,12 +73,13 @@ public class CartesController implements Observer {
                 row++;
             }
         }
+
     }
 
-    private VBox creerCarte(String mot) {
+    private AnchorPane creerCarte(String mot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/neutral_card.fxml"));
-            VBox card = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
+            AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
             controller.setMot(mot);
             return card;
@@ -75,6 +89,23 @@ public class CartesController implements Observer {
         }
     }
 
+    public void create_transition(AnchorPane carte){
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(0.5));
+        transition.setToX(10);
+        transition.setToY(5);
+
+        carte.setOnMouseEntered(event -> {
+            transition.setNode(carte);
+            transition.play();
+        });
+
+        carte.setOnMouseExited(event -> {
+            carte.setTranslateX(0);
+            carte.setTranslateY(0);
+        });
+
+    }
 
     @Override
     public void reagir() {

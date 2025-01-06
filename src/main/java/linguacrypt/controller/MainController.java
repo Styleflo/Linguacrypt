@@ -23,6 +23,9 @@ public class MainController implements Observer {
 
     private StackPane menuInitialRoot;
 
+    private StackPane plateauRoot;
+
+
     private ScrollPane cartesRoot;
 
     public void MainControlleur() {
@@ -76,12 +79,33 @@ public class MainController implements Observer {
         }
     }
 
+    public void setPlateau() {
+        // Charger le fichier FXML du menu et obtenir le contrôleur Plateau
+        try {
+            FXMLLoader plateauLoader = new FXMLLoader(getClass().getResource("/view/plateau.fxml"));
+            plateauRoot = plateauLoader.load();
+            PlateauController plateau = plateauLoader.getController();
+            plateau.setJeu(jeu);
+            jeu.addObserver(plateau);
+
+            AnchorPane.setTopAnchor(plateauRoot, 0.0);
+            AnchorPane.setBottomAnchor(plateauRoot, 0.0);
+            AnchorPane.setLeftAnchor(plateauRoot, 0.0);
+            AnchorPane.setRightAnchor(plateauRoot, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void update() {
         content.getChildren().clear();
         if (this.jeu.getView() == "MenuInitial") {
             content.getChildren().add(menuInitialRoot);
         } else if (this.jeu.getView() == "Cartes") {
             content.getChildren().add(cartesRoot);
+        } else if (this.jeu.getView() == "Plateau") {
+            content.getChildren().add(plateauRoot);
         } else {
             System.out.println(jeu.getView());
         }

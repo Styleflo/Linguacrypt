@@ -10,6 +10,7 @@
     -fx-background-position: 0% 50%;
     -fx-transition: background-position 10s infinite ease-in-out;
     -fx-animation: gradientAnimation 10s ease infinite;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 60, 0, 10, 10);
 
 }
 @keyframes gradientAnimation {

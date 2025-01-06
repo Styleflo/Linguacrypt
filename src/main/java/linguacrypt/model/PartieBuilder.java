@@ -23,7 +23,8 @@ public class PartieBuilder {
      * C'est un objet PartieBuilder, il faut donc finir par .build pour construire la Partie
      */
     public PartieBuilder() throws IOException {
-        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+
+        WordsFileHandler fileHandler = new WordsFileHandler("cards.json");
         this.thematicListsSelected = fileHandler.getAllThemes();
 
         this.partie = new Partie();
