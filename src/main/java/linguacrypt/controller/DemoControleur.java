@@ -1,4 +1,4 @@
-package linguacrypt.controleur;
+package linguacrypt.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

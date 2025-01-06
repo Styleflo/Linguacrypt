@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        URL fxmlURL = getClass().getResource("/test.fxml");
+        URL fxmlURL = getClass().getResource("/view/test.fxml");
         if (fxmlURL == null) {
             System.err.println("Could not find test.fxml");
             System.exit(1);
