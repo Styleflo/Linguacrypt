@@ -1,6 +1,7 @@
 package linguacrypt.model;
 
 import java.util.ArrayList;
+
 import linguacrypt.controller.*;
 
 /**
@@ -22,6 +23,7 @@ public class Jeu {
 
     /**
      * Permet de recuperer la liste des observers.
+     * @return ArrayList<Observer>
      */
     public ArrayList<Observer> getObservers() {
         return this.observers;
