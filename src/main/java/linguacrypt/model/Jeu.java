@@ -15,7 +15,6 @@ public class Jeu {
     private String currentView;
     private ArrayList<String> wordList;
 
-
     public Jeu() {
         //A completer avec le nom de la vue initial à afficher
         currentView = "";
