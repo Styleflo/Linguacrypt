@@ -8,7 +8,8 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="-513.0" layoutY="127.0" prefHeight="16.0" prefWidth="314.0" styleClass="text" stylesheets="@../css/Neutral_card.css" text="Coucou !!!">
          <font>
@@ -39,4 +40,4 @@
       <URL value="@../css/Neutral_card.css" />
       <URL value="@../css/Blue_card.css" />
    </stylesheets>
-</Pane>
+</AnchorPane>

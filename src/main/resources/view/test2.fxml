@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="295.0" styleClass="card" stylesheets="@../css/Neutral_card.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="18.0" layoutY="19.0" prefHeight="155.0" prefWidth="259.0" styleClass="small_rectangle" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+         <children>
+            <VBox layoutX="16.0" layoutY="93.0" prefHeight="51.0" prefWidth="225.0" styleClass="text_rectangle" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+               <children>
+                  <Label alignment="CENTER" prefHeight="57.0" prefWidth="227.0" text="Label" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <VBox layoutX="497.0" layoutY="305.0" prefHeight="127.0" prefWidth="69.0" />
+   </children>
+</AnchorPane>

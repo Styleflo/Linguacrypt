@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="linguacrypt.controller.DemoControleur">
-   <center>
-      <Label fx:id="versionLabel" text="Hello, World!" />
-   </center>
-</BorderPane>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="586.0" styleClass="card" stylesheets="@../css/Black_card.css">
+         <children>
+            <AnchorPane layoutX="44.0" layoutY="40.0" prefHeight="319.0" prefWidth="510.0" styleClass="small_rectangle">
+               <children>
+                  <AnchorPane layoutX="35.0" layoutY="200.0" prefHeight="92.0" prefWidth="441.0" styleClass="text_rectangle">
+                     <children>
+                        <Label layoutX="144.0" layoutY="16.0" styleClass="text" text="Label" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
