@@ -54,9 +54,13 @@ public class Jeu {
     }
 
     /**
-     *
+     *Permet de recuperer la partie en cours
+     * @return Partie
      */
     public Partie getPartie() {
+        if (this.partie == null) {
+            System.out.println("Il n'y a pas de partie pour le moment");
+        }
         return this.partie;
     }
 
