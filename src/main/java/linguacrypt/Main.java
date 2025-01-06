@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
 
 import linguacrypt.controller.*;
+import linguacrypt.model.Plateau;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -17,12 +19,20 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         // Créer une instance de Jeu
+        Jeu jeu = new Jeu();
 
         // Charger le fichier FXML principal
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
         Parent root = mainLoader.load();
 
+        // On set le mainControlleur
         MainController mainControlleur = mainLoader.getController();
+        jeu.addObserver(mainControlleur);
+        mainControlleur.setJeu(jeu);
+
+        // On set les autres vues
+        mainControlleur.setMenuInitial();
+
 
 
         // Créer la scène et l'afficher

@@ -40,7 +40,6 @@ public class Partie {
      * Permet de relancer une partie avec de nouvelles cartes.
      */
     public void newPartie() {
-        this.plateau = new Plateau();
         this.win = false;
     }
 

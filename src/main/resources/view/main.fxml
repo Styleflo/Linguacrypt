@@ -10,6 +10,10 @@
         <VBox fx:id="menuContainer" />
     </top>
     <center>
-        <AnchorPane id="content" />
+        <AnchorPane fx:id="content">
+            <children>
+                <!-- les pages sont a afficher ici ! -->
+            </children>
+        </AnchorPane>
     </center>
 </BorderPane>

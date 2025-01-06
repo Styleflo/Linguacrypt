@@ -17,7 +17,7 @@ public class Jeu {
 
     public Jeu() {
         //A completer avec le nom de la vue initial à afficher
-        currentView = "";
+        currentView = "MenuInitial";
     }
 
     /**
