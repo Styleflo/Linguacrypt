@@ -110,9 +110,10 @@ public class Clef {
         Map<Integer, String> int_to_square = new HashMap<>();
         int_to_square.put(0, "🟦");
         int_to_square.put(1, "🟥");
-        int_to_square.put(2, "⬛️");️️️
-        int_to_square.put(3, "⬜");️️
-        String res ;
+        int_to_square.put(2, "⬛");
+        int_to_square.put(3, "⬜");
+        String res;
+
         if (blueStarts) {
             res = "bleu commence \n";
         } else {
@@ -125,6 +126,7 @@ public class Clef {
             }
             res = res.concat("\n");
         }
-    }
 
+        return res;
+    }
 }
