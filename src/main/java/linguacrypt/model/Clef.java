@@ -60,9 +60,13 @@ public class Clef {
         this(5, 5);
     }
 
-    public int getHeight() { return height; }
+    public int getHeight() {
+        return height;
+    }
 
-    public int getWidth() { return width; }
+    public int getWidth() {
+        return width;
+    }
 
     public boolean isBlueStarting() {
         return blueStarts;

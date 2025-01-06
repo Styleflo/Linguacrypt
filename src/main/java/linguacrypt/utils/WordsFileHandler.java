@@ -10,8 +10,8 @@ import java.util.List;
 
 public class WordsFileHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private WordsCategories wordsCategories;
     private final File file;
+    private WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) {
         URL resource = getClass().getClassLoader().getResource(filePath);

@@ -22,6 +22,7 @@ public class Partie {
 
     /**
      * Permet de set un plateau specifique.
+     *
      * @param plateau
      */
     public void setPlateau(Plateau plateau) {
@@ -30,6 +31,7 @@ public class Partie {
 
     /**
      * Permet de savoir si une équipe a déjà gagné.
+     *
      * @return boolean
      */
     public boolean isWin() {

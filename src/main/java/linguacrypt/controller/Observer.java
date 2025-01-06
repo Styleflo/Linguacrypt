@@ -1,5 +1,5 @@
 package linguacrypt.controller;
 
-public interface Observer{
+public interface Observer {
     void reagir();
 }

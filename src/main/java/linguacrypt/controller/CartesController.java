@@ -25,7 +25,7 @@ public class CartesController implements Observer {
         mots.add("Avion");
         mots.add("Souris");
         mots.add("Carnaval");
-        mots.add("Tourniquet"); 
+        mots.add("Tourniquet");
     }
 
     public void setJeu(Jeu jeu) {

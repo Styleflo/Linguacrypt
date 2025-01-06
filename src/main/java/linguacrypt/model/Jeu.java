@@ -1,7 +1,8 @@
 package linguacrypt.model;
 
+import linguacrypt.controller.Observer;
+
 import java.util.ArrayList;
-import linguacrypt.controller.*;
 
 /**
  * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement.
@@ -45,7 +46,6 @@ public class Jeu {
 
     /**
      * Supprime un observer à la liste des observeur du model Jeu.
-
      */
     public void removeObserver(Observer o) {
         this.observers.remove(o);
@@ -53,6 +53,7 @@ public class Jeu {
 
     /**
      * Permet de recuperer la vue courrante.
+     *
      * @return String
      */
     public String getView() {
@@ -61,6 +62,7 @@ public class Jeu {
 
     /**
      * Permet de set une nouvelle vue courrante pour changer l'affichage.
+     *
      * @param currentView
      */
     public void setView(String currentView) {
@@ -89,7 +91,7 @@ public class Jeu {
 
     /**
      * Permet de changer l'etat du jeu en gagné.
-     *
+     * <p>
      * Une equipe a alors gagné.
      */
     public void win() {
