@@ -2,6 +2,16 @@ package linguacrypt.model;
 
 import java.util.*;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
 public class Clef {
     private final boolean blueStarts;
     private final int[][] grid;
@@ -93,10 +103,10 @@ public class Clef {
 
     public void prettyPrint() {
         Map<Integer, String> int_to_square = new HashMap<>();
-        int_to_square.put(0, "🟦");
-        int_to_square.put(1, "🟥");
-        int_to_square.put(2, "⬛️");
-        int_to_square.put(3, "⬜");
+        int_to_square.put(0, "Blue ");
+        int_to_square.put(1, "Red  ");
+        int_to_square.put(2, "Black");
+        int_to_square.put(3, "White");
 
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -109,10 +119,10 @@ public class Clef {
 
     public String toString() {
         Map<Integer, String> int_to_square = new HashMap<>();
-        int_to_square.put(0, "🟦");
-        int_to_square.put(1, "🟥");
-        int_to_square.put(2, "⬛");
-        int_to_square.put(3, "⬜");
+        int_to_square.put(0, "Blue ");
+        int_to_square.put(1, "Red  ");
+        int_to_square.put(2, "Black");
+        int_to_square.put(3, "White");
         String res;
 
         if (blueStarts) {
@@ -129,5 +139,13 @@ public class Clef {
         }
 
         return res;
+    }
+    public void to_qrcode() throws WriterException, IOException {
+        String text = this.toString();
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 300, 300);
+
+        Path path = new File("src/main/resources/assets/clef.png").toPath();
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
 }
