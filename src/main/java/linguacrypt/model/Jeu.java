@@ -5,6 +5,10 @@ public class Jeu {
 
 }
 
+public Jeu(Plateau plateau) {
+    this.plateau = plateau;
+}
+
 public Plateau getPlateau() {
     return this.plateau;
 }
@@ -12,4 +16,3 @@ public Plateau getPlateau() {
 public void setPlateau(Plateau plateau) {
     this.plateau = plateau;
 }
-
