@@ -1,16 +1,16 @@
 package linguacrypt.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Clef {
     private final boolean blueStarts;
     private final int[][] grid;
     private final int[] cardsCounts;
+    private int width, height;
 
     public Clef(int width, int height) {
+        this.width = width;
+        this.height = height;
         grid = new int[height][width];
         int blue_and_red_count, red_count, blue_count, white_count, black_count;
 
@@ -60,6 +60,10 @@ public class Clef {
         this(5, 5);
     }
 
+    public int getHeight() { return height; }
+
+    public int getWidth() { return width; }
+
     public boolean isBlueStarting() {
         return blueStarts;
     }
@@ -78,6 +82,23 @@ public class Clef {
     }
 
     public int[] getCardsCounts() {
+        /* [bleu, rouge, noir, blanc] */
         return cardsCounts;
+    }
+
+    public void prettyPrint() {
+        Map<Integer, String> int_to_square = new HashMap<>();
+        int_to_square.put(0, "🟦");
+        int_to_square.put(1, "🟥");
+        int_to_square.put(2, "⬛️");
+        int_to_square.put(3, "⬜");
+
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                String square = int_to_square.get(grid[i][j]);
+                System.out.print(square);
+            }
+            System.out.println();
+        }
     }
 }
