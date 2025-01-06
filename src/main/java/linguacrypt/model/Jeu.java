@@ -52,6 +52,13 @@ public class Jeu {
     }
 
     /**
+     *
+     */
+    public Partie getPartie() {
+        return this.partie;
+    }
+
+    /**
      * Permet de recuperer la vue courrante.
      * @return String
      */
