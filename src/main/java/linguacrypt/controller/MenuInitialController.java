@@ -24,7 +24,7 @@ public class MenuInitialController implements Observer {
     @FXML
     private void handleCartesButtonAction() {
         jeu.setView("Cartes");
-        jeu.notifierObserver();
+        jeu.notifyObservers();
     }
 
 
