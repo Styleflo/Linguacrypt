@@ -5,9 +5,9 @@ import java.util.Collections;
 
 public class Plateau {
     private final Carte[][] cards;
-    private boolean isBlueTurn;
     private final Clef key;
-    private int[] coveredCardsCounts;
+    private final boolean isBlueTurn;
+    private final int[] coveredCardsCounts;
 
     public Plateau(int width, int height, ArrayList<String> word_list) {
         cards = new Carte[height][width];
@@ -28,11 +28,25 @@ public class Plateau {
         coveredCardsCounts = new int[4];
     }
 
-    public boolean isBlueTurn() { return isBlueTurn; }
+    public boolean isBlueTurn() {
+        return isBlueTurn;
+    }
 
-    public boolean isRedTurn() { return !isBlueTurn; }
+    public boolean isRedTurn() {
+        return !isBlueTurn;
+    }
 
-    public Carte getCard(int i, int j) { return cards[i][j]; }
+    public Carte getCard(int i, int j) {
+        return cards[i][j];
+    }
 
-    public int[] getCoveredCardsCounts() { return coveredCardsCounts; }
+    public int[] getCoveredCardsCounts() {
+        return coveredCardsCounts;
+    }
+
+    public int coverCard(int i, int j) {
+        Carte card = cards[i][j];
+        card.setCovered();
+        return card.getType();
+    }
 }

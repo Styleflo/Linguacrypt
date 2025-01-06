@@ -11,6 +11,10 @@ import java.net.URL;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         URL fxmlURL = getClass().getResource("/view/test.fxml");
@@ -24,10 +28,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaFX Bootstrap Project using FXML");
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 public class Clef {
     private final boolean blueStarts;
     private final int[][] grid;
-    private int[] cardsCounts;
+    private final int[] cardsCounts;
 
     public Clef(int width, int height) {
         grid = new int[height][width];
@@ -60,9 +60,13 @@ public class Clef {
         this(5, 5);
     }
 
-    public boolean isBlueStarting() { return blueStarts; }
+    public boolean isBlueStarting() {
+        return blueStarts;
+    }
 
-    public boolean isRedStarting() { return !blueStarts; }
+    public boolean isRedStarting() {
+        return !blueStarts;
+    }
 
     public int[][] getGrid() {
         return grid;
@@ -73,5 +77,7 @@ public class Clef {
         return grid[i][j];
     }
 
-    public int[] getCardsCounts() { return cardsCounts; }
+    public int[] getCardsCounts() {
+        return cardsCounts;
+    }
 }
