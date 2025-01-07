@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="StackPane" prefHeight="939.0" prefWidth="1361.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
+<StackPane prefHeight="939.0" prefWidth="1361.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
     <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="608.0" prefWidth="828.0">
         <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="556.0">
@@ -34,9 +34,11 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
                 <children>
-                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="gauche" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="87.0" />
-                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="droite" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="138.0" />
-               <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" />
+                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="gauche" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="87.0"
+                            onAction="#previousCategory"/>
+                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="droite" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="138.0"
+                            onAction="#nextCategory"/>
+               <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" fx:id="themeLabel"/>
                <Button layoutX="575.0" layoutY="104.0" mnemonicParsing="false" text="Ajouter un mot à la collection" />
                 </children>
             </AnchorPane>
