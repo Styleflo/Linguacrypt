@@ -4,29 +4,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordsFileHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file;
+    //private final File file;
     private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
-        URL resource = getClass().getClassLoader().getResource(filePath);
+        InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
 
         if (resource == null) {
             throw new IllegalArgumentException("File not found : " + filePath);
         }
 
-        file = new File(resource.getFile());
+        //file = new File(resource.getFile());
 
-        wordsCategories = objectMapper.readValue(file, WordsCategories.class);
+        wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
     }
 
     public void writeJsonFile() throws IOException {
-        objectMapper.writeValue(file, wordsCategories);
+        //objectMapper.writeValue(file, wordsCategories);
     }
 
     public ArrayList<String> getWordsByTheme(String theme) {
