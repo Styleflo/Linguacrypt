@@ -12,6 +12,11 @@
     -fx-wrap-text: true;
     -fx-line-spacing: 10px;
 }
+.button1:hover{
+    -fx-translate-x: 8px;  /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 8px;  /* Déplacer de 10px vers le bas */
+}
+
 
 .orange_button{
     -fx-background-color: orange; /* Green */
@@ -62,6 +67,7 @@
 .blue_petit_panneau{
     -fx-background-color: #3399FF;
     -fx-background-radius: 20px;
+
 }
 
 .red_petit_panneau{
