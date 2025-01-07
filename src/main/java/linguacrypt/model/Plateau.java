@@ -46,6 +46,7 @@ public class Plateau {
     }
 
     public Carte getCard(int i, int j) {
+        // Coordonnées matricielles
         return cards[i][j];
     }
 
@@ -54,6 +55,7 @@ public class Plateau {
     }
 
     public int coverCard(int i, int j) {
+        // Coordonnées matrcielles
         Carte card = cards[i][j];
         card.setCovered();
         return card.getType();

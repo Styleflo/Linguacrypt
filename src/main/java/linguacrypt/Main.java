@@ -6,8 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import linguacrypt.controller.MainController;
-import linguacrypt.model.Clef;
 import linguacrypt.model.Jeu;
+
 import java.io.IOException;
 
 public class Main extends Application {
@@ -35,9 +35,11 @@ public class Main extends Application {
         mainControlleur.setPlateau();
 
         // Créer la scène et l'afficher
-        Scene scene = new Scene(root, 900, 700);
+        Scene scene = new Scene(root, 1920, 1080);
         primaryStage.setScene(scene);
         primaryStage.setTitle("LinguaCrypt");
+        primaryStage.setFullScreen(true);
+
         primaryStage.show();
     }
 

@@ -5,14 +5,15 @@
 }
 
 .card:hover {
-    -fx-background-color: linear-gradient(to top right,#85e3ff, #ff6233);
+    -fx-background-color: linear-gradient(to top right, #85e3ff, #ff6233);
     -fx-background-size: 200% 200%; /* Pour permettre à l'animation d'être visible */
     -fx-background-position: 0% 50%;
     -fx-transition: background-position 10s infinite ease-in-out;
     -fx-animation: gradientAnimation 10s ease infinite;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 60, 0, 10, 10);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 60, 0, 10, 10);
 
 }
+
 @keyframes gradientAnimation {
     0% {
         -fx-background-position: 0% 50%;
@@ -24,8 +25,9 @@
         -fx-background-position: 0% 50%;
     }
 }
-.text{
-    -fx-font-size: 25px;
+
+.text {
+    -fx-font-size: 18px;
     -fx-alignement: center;
     -fx-font-family: "Helvetica";
     -fx-font-weight: bold;
@@ -33,7 +35,7 @@
 
 
 .small_rectangle {
-    -fx-background-color:#ebcfa7;
+    -fx-background-color: #ebcfa7;
     -fx-border-color: black;
     -fx-background-radius: 20px;
     -fx-border-radius: 10px;
@@ -41,11 +43,12 @@
     -fx-border-color: #b8a282;
 
 }
+
 .small_rectangle2 {
     -fx-background-color: white;
 }
 
-.text_rectangle{
+.text_rectangle {
     -fx-background-color: white;
     -fx-border-radius: 0 0 8 8;
     -fx-background-radius: 0 0 8 8;
@@ -54,7 +57,7 @@
 }
 
 .ligne {
-    -fx-stroke: #b8a282;        /* Couleur de la ligne */
-    -fx-stroke-width: 1;    /* Épaisseur de la ligne */
+    -fx-stroke: #b8a282; /* Couleur de la ligne */
+    -fx-stroke-width: 1; /* Épaisseur de la ligne */
 }
 

@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Plateau;
 
@@ -48,14 +47,14 @@ public class PlateauController implements Observer {
             for (int j = 0; j < row; j++) {
                 final int currentI = i;
                 final int currentJ = j;
-            AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i,j).getWord());
+                AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
 
             carte.setOnMouseClicked(event -> {
             handleCardClick(currentI, currentJ, carte);
             });
 
-            gridPane.add(carte, i, j);
-        }
+                gridPane.add(carte, i, j);
+            }
         }
         this.updateLabel();
     }
@@ -117,7 +116,8 @@ public class PlateauController implements Observer {
 
     @Override
     public void reagir() {
-        afficherCartes();
+        if (jeu.getView() == "Plateau") {
+            afficherCartes();
+        }
     }
-
 }

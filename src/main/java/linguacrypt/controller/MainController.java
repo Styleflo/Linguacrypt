@@ -2,7 +2,6 @@ package linguacrypt.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +25,7 @@ public class MainController implements Observer {
     private StackPane plateauRoot;
 
 
-    private ScrollPane cartesRoot;
+    private StackPane cartesRoot;
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
