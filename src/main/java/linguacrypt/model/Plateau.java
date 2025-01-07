@@ -77,19 +77,23 @@ public class Plateau {
             this.addBluePoint();
         }
     }
+    public void changeTurn(){
+        this.isBlueTurn = !this.isBlueTurn;
+    }
     public void updateTurn(int color){
         switch (color){
             case 0:
                 if(this.isRedTurn()){
-                    this.isBlueTurn = !this.isBlueTurn;
+                    this.changeTurn();
                 }
             case 1:
                 if(this.isBlueTurn()){
-                    this.isBlueTurn = !this.isBlueTurn;
+                    this.changeTurn();
                 };
-            case 2:
-                this.isBlueTurn = !this.isBlueTurn;
-            case 3:;
+            case 2:;
+
+            case 3:
+                this.changeTurn();
 
         }
     }

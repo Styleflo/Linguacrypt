@@ -57,6 +57,7 @@ public class PlateauController implements Observer {
             gridPane.add(carte, i, j);
         }
         }
+        this.updateLabel();
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
@@ -68,7 +69,6 @@ public class PlateauController implements Observer {
             case 1:
                 carte.setStyle("-fx-background-color: #ff6b6b;");
                 jeu.getPartie().getPlateau().updatePoint(1);
-                jeu.getPartie().getPlateau().updateIndice(1);
                 jeu.getPartie().getPlateau().updateTurn(1);
 
                 break;
@@ -78,13 +78,13 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(0);
 
                 break;
-            case 3:
-                carte.setStyle("-fx-background-color: #343a40;");
-                jeu.getPartie().getPlateau().updateTurn(3);
-                break;
             case 2:
-                carte.setStyle("-fx-background-color: #f8f9fa;");
+                carte.setStyle("-fx-background-color: #343a40;");
                 jeu.getPartie().getPlateau().updateTurn(2);
+                break;
+            case 3:
+                carte.setStyle("-fx-background-color: #f8f9fa;");
+                jeu.getPartie().getPlateau().updateTurn(3);
                 break;
         }
 
@@ -108,9 +108,9 @@ public class PlateauController implements Observer {
 
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
-            labelEquipe.setText("C'est le tour de Bleu il y a"+ this.jeu.getPartie().getPlateau().CurrentNBCarteDevineePourIndice() +"indice trouves sur"+jeu.getPartie().getPlateau().NbCarteADevinerPourIndice()+"a trouver");
+            labelEquipe.setText("C'est le tour de Bleu");
         }else{
-            labelEquipe.setText("C'est le tour de Rouge il y a"+ this.jeu.getPartie().getPlateau().CurrentNBCarteDevineePourIndice() +"indice trouves sur"+jeu.getPartie().getPlateau().NbCarteADevinerPourIndice()+"a trouver");
+            labelEquipe.setText("C'est le tour de Rouge");
 
         }
     }
