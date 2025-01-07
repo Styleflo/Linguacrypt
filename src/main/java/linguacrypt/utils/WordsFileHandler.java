@@ -11,7 +11,7 @@ import java.util.List;
 public class WordsFileHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File file;
-    private WordsCategories wordsCategories;
+    private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
         URL resource = getClass().getClassLoader().getResource(filePath);
