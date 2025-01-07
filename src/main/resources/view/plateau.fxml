@@ -21,13 +21,13 @@
         <items>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css">
                 <children>
-                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0" layoutY="653.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE">
+                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0" layoutY="653.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE" onAction="#handleNouvellePartie">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="red_button" />
                         </styleClass>
                     </Button>
-                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0" layoutY="742.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
+                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0" layoutY="742.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal" textAlignment="CENTER" textFill="WHITE" onAction="#handleMenuPrincipal">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="orange_button" />
@@ -48,71 +48,71 @@
                         <children>
                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="30.0" prefWidth="288.0" styleClass="text" text="Cartes trouvées" textFill="WHITE" />
                             <AnchorPane layoutX="29.0" layoutY="58.0" prefHeight="71.0" prefWidth="109.0" styleClass="blue_petit_panneau">
-                        <children>
-                           <Label layoutX="25.0" layoutY="21.0" text="0/10" textFill="WHITE" />
-                        </children>
-                     </AnchorPane>
+                                <children>
+                                    <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
+                                </children>
+                            </AnchorPane>
                             <AnchorPane layoutX="208.0" layoutY="58.0" prefHeight="71.0" prefWidth="109.0" styleClass="red_petit_panneau">
-                        <children>
-                           <Label layoutX="25.0" layoutY="21.0" text="0/10" />
-                        </children>
-                     </AnchorPane>
+                                <children>
+                                    <Label fx:id="lbred" layoutX="25.0" layoutY="21.0" text="" />
+                                </children>
+                            </AnchorPane>
                         </children>
                     </AnchorPane>
-               <Pane layoutX="29.0" layoutY="26.0" prefHeight="317.0" prefWidth="342.0">
-                  <styleClass>
-                     <String fx:value="logo_panneau" />
-                     <String fx:value="logo_panneau_rouge" />
-                  </styleClass>
-                  <children>
-                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
-                     <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../assets/lingua.png" />
-                        </image>
-                     </ImageView>
-                  </children>
-               </Pane>
-               <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="232.0" layoutY="653.0" mnemonicParsing="false" prefHeight="160.0" prefWidth="138.0" stylesheets="@../css/gui.css" text="Proposer Indice" textAlignment="CENTER" textFill="WHITE">
-                  <styleClass>
-                     <String fx:value="button1" />
-                     <String fx:value="purple_button" />
-                  </styleClass>
-               </Button>
+                    <Pane layoutX="29.0" layoutY="26.0" prefHeight="317.0" prefWidth="342.0">
+                        <styleClass>
+                            <String fx:value="logo_panneau" />
+                            <String fx:value="logo_panneau_rouge" />
+                        </styleClass>
+                        <children>
+                            <Label fx:id="labelEquipe" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
+                            <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../assets/lingua.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </Pane>
+                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="232.0" layoutY="653.0" mnemonicParsing="false" prefHeight="160.0" prefWidth="138.0" stylesheets="@../css/gui.css" text="Tour suivant" textAlignment="CENTER" textFill="WHITE" onAction="#handleTourSuivant">
+                        <styleClass>
+                            <String fx:value="button1" />
+                            <String fx:value="purple_button" />
+                        </styleClass>
+                    </Button>
                 </children>
                 <styleClass>
                     <String fx:value="main_panneau" />
                     <String fx:value="red_main_panneau" />
                 </styleClass>
             </AnchorPane>
-         <StackPane prefHeight="1010.0" prefWidth="1275.0">
-            <children>
-               <ImageView fitHeight="853.0" fitWidth="1102.0" pickOnBounds="true">
-                  <image>
-                     <Image url="@../assets/fondrouge2.png" />
-                  </image>
-                  <effect>
-                     <GaussianBlur radius="18.25" />
-                  </effect>
-               </ImageView>
-               <GridPane fx:id="gridPane" prefHeight="827.0" prefWidth="1102.0">
-                 <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                 </columnConstraints>
-                 <rowConstraints>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 </rowConstraints>
-               </GridPane>
-            </children>
-         </StackPane>
+            <StackPane prefHeight="1010.0" prefWidth="1275.0">
+                <children>
+                    <ImageView fitHeight="853.0" fitWidth="1102.0" pickOnBounds="true">
+                        <image>
+                            <Image url="@../assets/fondrouge2.png" />
+                        </image>
+                        <effect>
+                            <GaussianBlur radius="18.25" />
+                        </effect>
+                    </ImageView>
+                    <GridPane fx:id="gridPane" prefHeight="827.0" prefWidth="1102.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                    </GridPane>
+                </children>
+            </StackPane>
 
         </items>
     </SplitPane>

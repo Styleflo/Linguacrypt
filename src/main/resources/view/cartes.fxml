@@ -26,15 +26,15 @@
                         </content>
                     </ScrollPane>
                     <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            text="Revenir au Menu"/>
+                            text="Revenir au menu"/>
                 </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
                 <children>
-                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="Thèmes précédent"
+                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="Thème précédent"
                             AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="87.0"
                             onAction="#previousCategory"/>
-                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="Thèmes suivant"
+                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="Thème suivant"
                             AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="138.0"
                             onAction="#nextCategory"/>
                     <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" fx:id="themeLabel"/>
