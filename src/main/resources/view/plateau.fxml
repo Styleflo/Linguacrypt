@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -16,46 +17,64 @@
         <items>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1238.0" prefWidth="442.0" stylesheets="@../css/gui.css">
                 <children>
-                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="20.0" layoutY="631.0" mnemonicParsing="false" prefHeight="214.0" prefWidth="182.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE">
+                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="19.0" layoutY="945.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="red_button" />
                         </styleClass>
                     </Button>
-                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="234.0" layoutY="631.0" mnemonicParsing="false" prefHeight="214.0" prefWidth="182.0" stylesheets="@../css/gui.css" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
+                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="19.0" layoutY="1080.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="orange_button" />
                         </styleClass>
                     </Button>
                     <FlowPane prefHeight="200.0" prefWidth="200.0" />
-                    <AnchorPane layoutX="20.0" layoutY="460.0" prefHeight="134.0" prefWidth="182.0" styleClass="dark_petit_panneau">
+                    <AnchorPane layoutX="19.0" layoutY="788.0" prefHeight="134.0" prefWidth="405.0" styleClass="dark_petit_panneau">
                         <children>
-                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" styleClass="text" text="Tour" textFill="WHITE" />
-                            <AnchorPane layoutX="28.0" layoutY="49.0" prefHeight="71.0" prefWidth="126.0" styleClass="light_petit_panneau">
+                            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="30.0" prefWidth="381.0" styleClass="text" text="Tour" textFill="WHITE" />
+                            <AnchorPane layoutX="19.0" layoutY="49.0" prefHeight="71.0" prefWidth="367.0" styleClass="light_petit_panneau">
                                 <children>
-                                    <Label layoutX="25.0" layoutY="21.0" text="Label" textFill="#da8300" />
+                                    <Label alignment="CENTER" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="330.0" text="0" textAlignment="CENTER" textFill="#f4cf0f" />
                                 </children>
                             </AnchorPane>
                         </children>
                     </AnchorPane>
-                    <AnchorPane layoutX="20.0" layoutY="263.0" prefHeight="184.0" prefWidth="405.0" styleClass="dark_petit_panneau">
+                    <AnchorPane layoutX="19.0" layoutY="337.0" prefHeight="184.0" prefWidth="405.0" styleClass="dark_petit_panneau">
                         <children>
                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="381.0" styleClass="text" text="Cartes trouvées" textFill="WHITE" />
-                            <AnchorPane layoutX="14.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="blue_petit_panneau" />
-                            <AnchorPane layoutX="222.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="red_petit_panneau" />
+                            <AnchorPane layoutX="14.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="blue_petit_panneau">
+                        <children>
+                           <Label layoutX="54.0" layoutY="44.0" text="0/10" textFill="WHITE" />
+                        </children></AnchorPane>
+                            <AnchorPane layoutX="222.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="red_petit_panneau">
+                        <children>
+                           <Label layoutX="54.0" layoutY="44.0" text="0/10" />
+                        </children></AnchorPane>
                         </children>
                     </AnchorPane>
-               <AnchorPane layoutX="234.0" layoutY="460.0" prefHeight="134.0" prefWidth="182.0" styleClass="dark_petit_panneau">
+               <AnchorPane layoutX="19.0" layoutY="541.0" prefHeight="226.0" prefWidth="405.0" styleClass="dark_petit_panneau">
                   <children>
-                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" styleClass="text" text="Cartes a trouver" textFill="WHITE" />
-                     <AnchorPane layoutX="28.0" layoutY="49.0" prefHeight="71.0" prefWidth="126.0" styleClass="light_petit_panneau">
+                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="109.0" prefWidth="381.0" styleClass="text" text="Nombre de cartes restantes à trouver ce tour" textAlignment="CENTER" textFill="WHITE" />
+                     <AnchorPane layoutX="19.0" layoutY="141.0" prefHeight="71.0" prefWidth="367.0" styleClass="light_petit_panneau">
                         <children>
-                           <Label layoutX="25.0" layoutY="21.0" text="Label" textFill="#da8300" />
+                           <Label alignment="CENTER" layoutX="19.0" layoutY="21.0" prefHeight="30.0" prefWidth="330.0" text="0/0" textAlignment="CENTER" textFill="#f4cf0f" />
                         </children>
                      </AnchorPane>
                   </children>
                </AnchorPane>
+               <Pane layoutX="19.0" layoutY="32.0" prefHeight="279.0" prefWidth="405.0">
+                  <styleClass>
+                     <String fx:value="logo_panneau" />
+                     <String fx:value="logo_panneau_rouge" />
+                  </styleClass>
+               </Pane>
+               <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="236.0" layoutY="945.0" mnemonicParsing="false" prefHeight="243.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Proposer Indice" textAlignment="CENTER" textFill="WHITE">
+                  <styleClass>
+                     <String fx:value="button1" />
+                     <String fx:value="purple_button" />
+                  </styleClass>
+               </Button>
                 </children>
                 <styleClass>
                     <String fx:value="main_panneau" />

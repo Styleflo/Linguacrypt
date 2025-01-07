@@ -1,7 +1,7 @@
 .button1{
 
     -fx-border: none;
-    -fx-text-fill: white;
+
     -fx-text-align: center;
     -fx-text-decoration: none;
     -fx-display: inline-block;
@@ -20,11 +20,18 @@
 
 .orange_button{
     -fx-background-color: orange; /* Green */
+    -fx-text-fill: white;
 
 }
 
 .red_button{
     -fx-background-color: red; /* Green */
+    -fx-text-fill: white;
+}
+
+.purple_button{
+    -fx-background-color: green;
+    -fx-text-fill: white;
 }
 
 
@@ -76,3 +83,19 @@
     -fx-background-radius: 20px;
 }
 
+.logo_panneau{
+    -fx-border-width: 8px 8px 8px 8px;
+    -fx-background-color: #414141;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+
+}
+
+.logo_panneau_bleu{
+    -fx-border-color: #2658af #2658af #2658af #2658af;
+}
+
+.logo_panneau_rouge{
+    -fx-border-color: #f70d1a #f70d1a #f70d1a #f70d1a;
+
+}
