@@ -75,7 +75,7 @@ public class PartieBuilder {
         return this;
     }
 
-    public PartieBuilder useThemes(ArrayList<String> themes) {
+    public PartieBuilder setUsedThemes(ArrayList<String> themes) {
         this.partie.setWords(wordsFileHandler.getWordsByThemes(themes));
         return this;
     }

@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
@@ -48,7 +49,8 @@ public class CartesController implements Observer {
     }
 
     private void updateCurrentThemeLabel() {
-        themeLabel.setText(themes.get(currentThemeIndex));
+        String name = themes.get(currentThemeIndex);
+        themeLabel.setText(StringUtils.capitalizeFirstLetter(name));
     }
 
     private void afficherCartes() {
@@ -130,7 +132,7 @@ public class CartesController implements Observer {
             currentThemeIndex = 0;
         }
         currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
-        themeLabel.setText(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
         afficherCartes();
     }
 
@@ -141,7 +143,7 @@ public class CartesController implements Observer {
             currentThemeIndex = themes.size() - 1;
         }
         currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
-        themeLabel.setText(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
         afficherCartes();
     }
 

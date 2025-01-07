@@ -26,7 +26,7 @@
                         </content>
                     </ScrollPane>
                     <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            text="Revenir au Menu"/>
+                            text="Revenir au menu"/>
                 </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">

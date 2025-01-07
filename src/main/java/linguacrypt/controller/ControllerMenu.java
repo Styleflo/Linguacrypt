@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class ControllerMenu {
-
     @FXML
     private Label versionLabel;
 
@@ -15,5 +14,4 @@ public class ControllerMenu {
 
         versionLabel.setText("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
     }
-
 }
