@@ -65,7 +65,6 @@ public class CartesController implements Observer {
         int col = 0;
         int maxCols = 5;
 
-
         for (int i = 0; i < currentMots.size(); i++) {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
@@ -83,22 +82,34 @@ public class CartesController implements Observer {
                 row++;
             }
         }
-
     }
 
     private void handleCardClick(String word, double x, double y) {
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem infoItem = new MenuItem("Supprimer" + word);
+        MenuItem deleteButton = new MenuItem("Supprimer \"" + word + "\" ?");
 
-        infoItem.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        deleteButton.setOnAction(_ -> {
+            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Suppression d'un mot");
             alert.setHeaderText(null);
-            alert.setContentText("Voulez vous supprimer le mot " + word + " ?");
-            alert.showAndWait();
+            alert.setContentText("Voulez vous supprimer le mot \"" + word + "\" ?");
+            if (alert.showAndWait().isPresent()) {
+                WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+                wordsFileHandler.removeWordFromCategory(themes.get(currentThemeIndex), word);
+                currentMots.remove(word);
+
+                try {
+                    wordsFileHandler.writeJsonFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                reagir();
+            }
         });
 
-        contextMenu.getItems().add(infoItem);
+        contextMenu.getItems().add(deleteButton);
+        contextMenu.getItems().add(new MenuItem("Annuler"));
         contextMenu.show(gridPane.getScene().getWindow(), x, y);
     }
 

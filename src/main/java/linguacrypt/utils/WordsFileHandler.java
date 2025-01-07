@@ -17,7 +17,7 @@ public class WordsFileHandler {
         URL resource = getClass().getClassLoader().getResource(filePath);
 
         if (resource == null) {
-            throw new IllegalArgumentException("File not found: " + filePath);
+            throw new IllegalArgumentException("File not found : " + filePath);
         }
 
         file = new File(resource.getFile());
@@ -96,5 +96,19 @@ public class WordsFileHandler {
         }
 
         return new Object[]{false, "La catégorie " + category + " n'existe pas"};
+    }
+
+    public void removeWordFromCategory(String category, String word) {
+        List<WordsCategory> categories = wordsCategories.getCategories();
+
+        for (WordsCategory cat : categories) {
+            if (cat.getName().equals(category)) {
+                if (cat.getWords().contains(word)) {
+                    cat.getWords().remove(word);
+                    return;
+                }
+            }
+        }
+
     }
 }
