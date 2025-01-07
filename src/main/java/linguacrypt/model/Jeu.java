@@ -1,8 +1,10 @@
 package linguacrypt.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import linguacrypt.controller.*;
+import linguacrypt.utils.WordsFileHandler;
 
 /**
  * Contient une liste d'observers qui peuvent être notifiés lors d'un quelconque changement.
@@ -14,11 +16,12 @@ public class Jeu {
     private ArrayList<Observer> observers = new ArrayList<>();
     private Partie partie;
     private String currentView;
-    private ArrayList<String> wordList;
+    private WordsFileHandler wordsFileHandler;
 
-    public Jeu() {
+    public Jeu() throws IOException {
         //Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "menuInitial";
+        wordsFileHandler = new WordsFileHandler("./cards.json");
     }
 
     /**
@@ -101,4 +104,7 @@ public class Jeu {
         this.currentView = "";
     }
 
+    public WordsFileHandler getWordsFileHandler() {
+        return wordsFileHandler;
+    }
 }

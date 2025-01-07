@@ -9,38 +9,35 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartesController implements Observer {
-
     private Jeu jeu;
 
     @FXML
     private GridPane gridPane;
 
-    private final List<String> mots;
+    private List<String> currentMots;
+    private int currentThemeIndex;
+    private ArrayList<String> themes;
 
     public CartesController() {
-        mots = new ArrayList<>();
-        mots.add("Avion");
-        mots.add("Souris");
-        mots.add("Carnaval");
-        mots.add("Tourniquet");
-        mots.add("Avion");
-        mots.add("Souris");
-        mots.add("Carnaval");
-        mots.add("Tourniquet");
-        mots.add("Avion");
-        mots.add("Souris");
-        mots.add("Carnaval");
-        mots.add("Tourniquet");
+        currentMots = new ArrayList<>();
+        themes = new ArrayList<>();
+        currentThemeIndex = 0;
     }
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+
+        themes = wordsFileHandler.getAllThemes();
+        currentThemeIndex = 0;
+        currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
     }
 
     private void afficherCartes() {
@@ -56,8 +53,8 @@ public class CartesController implements Observer {
         int maxCols = 7;
 
 
-        for (int i = 0; i < mots.size(); i++) {
-            AnchorPane carte = creerCarte(mots.get(i));
+        for (int i = 0; i < currentMots.size(); i++) {
+            AnchorPane carte = creerCarte(currentMots.get(i));
 
             create_transition(carte);
 
@@ -100,7 +97,6 @@ public class CartesController implements Observer {
             carte.setTranslateX(0);
             carte.setTranslateY(0);
         });
-
     }
 
     @Override

@@ -15,9 +15,7 @@ public class MenuInitialController implements Observer {
 
     private Jeu jeu;
 
-    public MenuInitialController() {
-
-    }
+    public MenuInitialController() { }
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
@@ -26,8 +24,8 @@ public class MenuInitialController implements Observer {
     @FXML
     private void handleJouerButtonAction() throws IOException {
         jeu.setView("Plateau");
-        PartieBuilder partieBuilder = new PartieBuilder();
-        Partie partie = partieBuilder.build();
+        PartieBuilder partieBuilder = new PartieBuilder(jeu);
+        Partie partie = partieBuilder.getResult();
         jeu.setPartie(partie);
         jeu.notifyObservers();
     }
@@ -43,7 +41,6 @@ public class MenuInitialController implements Observer {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
-
 
     @Override
     public void reagir() {
