@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import javafx.scene.layout.AnchorPane;
+
 public class Carte {
     private final String word;
     private final int type;  // 0: bleu ; 1: rouge ; 2: noir ; 3: blanc

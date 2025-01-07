@@ -10,9 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import linguacrypt.model.Carte;
 import linguacrypt.model.Jeu;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlateauController implements Observer {
     private Jeu jeu;
@@ -38,6 +41,29 @@ public class PlateauController implements Observer {
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
     }
+
+    private List<AnchorPane> recupererCartes() {
+        List<AnchorPane> cartes = new ArrayList<>();
+
+        for (javafx.scene.Node node : gridPane.getChildren()) {
+            if (node instanceof AnchorPane) {
+                cartes.add((AnchorPane) node);
+            }
+        }
+
+        return cartes;
+    }
+    private AnchorPane findAnchorCard(String mot) {
+        List<AnchorPane> cartes = recupererCartes();
+        for (AnchorPane carte : cartes) {
+            NeutralCardController controller = (NeutralCardController) carte.getUserData(); // Récupérer le contrôleur associé à la carte
+            if (controller.getLabelMot() != null && controller.getLabelMot().getText().equals(mot)) {
+                return carte;
+            }
+        }
+        return null; // Si aucune carte ne correspond au mot, on retourne null
+    }
+
 
 
     private void afficherCartes() {
@@ -98,17 +124,49 @@ public class PlateauController implements Observer {
         }
         if(jeu.getPartie().BlueWon()){
             System.out.println("Blue Won");
+            revealCard();
             showWinnerPopup("blue");
             //setWinnerPopup("Blue");
         }
         if(jeu.getPartie().RedWon()){
             System.out.println("Red Won");
+            revealCard();
             showWinnerPopup("red");
             //setWinnerPopup("Red");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
         this.updateLabel();
+    }
+
+    private void revealCard() {
+        Carte[][] listCard = jeu.getPartie().getPlateau().getCards();
+        //List<AnchorPane> listAnchorCarte = recupererCartes();
+        for (Carte[] row : listCard) { // Parcours des lignes
+            for (Carte card : row) { // Parcours des cartes dans une ligne
+                AnchorPane carteVisu = findAnchorCard(card.getWord());
+                int color = card.getType();
+
+                switch (color) {
+                    case 1: //couleur de la carte est rouge
+                        carteVisu.setStyle("-fx-background-color: #ff6b6b;");
+
+                        break;
+                    case 0: //couleur de la carte est bleue
+                        carteVisu.setStyle("-fx-background-color: #4dabf7;");
+
+                        break;
+                    case 2: //couleur de la carte est noire (celui qui l'a retourné a perdu)
+                        carteVisu.setStyle("-fx-background-color: #343a40;");
+
+                        break;
+                    case 3: //couleur de la carte est neutre
+                        carteVisu.setStyle("-fx-background-color: #f8f9fa;");
+                        break;
+                }
+            }
+        }
+
     }
 
     private void showWinnerPopup(String winningTeam) {
@@ -122,7 +180,7 @@ public class PlateauController implements Observer {
     public void setWinnerPopup(String winningTeam) {
         try {
             // Charger le fichier FXML du WinnerPopup
-            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("/view/WinnerPopup.fxml"));
+            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
             popupRoot = popupLoader.load();
 
             // Obtenir le contrôleur du pop-up
@@ -147,6 +205,7 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            card.setUserData(controller);
             controller.setMot(mot);
             return card;
         } catch (IOException e) {

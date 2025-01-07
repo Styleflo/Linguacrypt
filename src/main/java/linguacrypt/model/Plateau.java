@@ -50,6 +50,10 @@ public class Plateau {
         return cards[i][j];
     }
 
+    public Carte[][] getCards() {
+        return cards;
+    }
+
     public int[] getCoveredCardsCounts() {
         return coveredCardsCounts;
     }
