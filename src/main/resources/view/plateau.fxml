@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.PlateauController">
+<StackPane prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.PlateauController">
 
     <SplitPane fx:id="splitpane" dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="1082.0" prefWidth="1761.0">
         <items>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="400.0" stylesheets="@../css/gui.css">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css">
                 <children>
                     <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0" layoutY="653.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE">
                         <styleClass>
@@ -49,23 +49,23 @@
                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="30.0" prefWidth="288.0" styleClass="text" text="Cartes trouvées" textFill="WHITE" />
                             <AnchorPane layoutX="29.0" layoutY="58.0" prefHeight="71.0" prefWidth="109.0" styleClass="blue_petit_panneau">
                         <children>
-                           <Label layoutX="36.0" layoutY="26.0" text="0/10" textFill="WHITE" />
+                           <Label layoutX="25.0" layoutY="21.0" text="0/10" textFill="WHITE" />
                         </children>
                      </AnchorPane>
                             <AnchorPane layoutX="208.0" layoutY="58.0" prefHeight="71.0" prefWidth="109.0" styleClass="red_petit_panneau">
                         <children>
-                           <Label layoutX="36.0" layoutY="26.0" text="0/10" />
+                           <Label layoutX="25.0" layoutY="21.0" text="0/10" />
                         </children>
                      </AnchorPane>
                         </children>
                     </AnchorPane>
-               <Pane layoutX="19.0" layoutY="26.0" prefHeight="317.0" prefWidth="350.0">
+               <Pane layoutX="29.0" layoutY="26.0" prefHeight="317.0" prefWidth="342.0">
                   <styleClass>
                      <String fx:value="logo_panneau" />
                      <String fx:value="logo_panneau_rouge" />
                   </styleClass>
                   <children>
-                     <Label alignment="CENTER" contentDisplay="CENTER" layoutY="265.0" prefHeight="30.0" prefWidth="364.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
+                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
                      <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@../assets/lingua.png" />
@@ -87,15 +87,15 @@
             </AnchorPane>
          <StackPane prefHeight="1010.0" prefWidth="1275.0">
             <children>
-               <ImageView fitHeight="848.0" fitWidth="1047.0" pickOnBounds="true">
+               <ImageView fitHeight="853.0" fitWidth="1102.0" pickOnBounds="true">
                   <image>
-                     <Image url="@../assets/fond_rouge.png" />
+                     <Image url="@../assets/fondrouge2.png" />
                   </image>
                   <effect>
-                     <GaussianBlur radius="30.25" />
+                     <GaussianBlur radius="18.25" />
                   </effect>
                </ImageView>
-               <GridPane fx:id="gridPane" prefHeight="911.0" prefWidth="951.0">
+               <GridPane fx:id="gridPane" prefHeight="827.0" prefWidth="1102.0">
                  <columnConstraints>
                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

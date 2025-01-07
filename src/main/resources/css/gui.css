@@ -62,7 +62,7 @@
 }
 
 .text{
-    -fx-font-size: 15px;
+    -fx-font-size: 24px;
     -fx-alignement: center;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
