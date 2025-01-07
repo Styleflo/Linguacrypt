@@ -36,14 +36,6 @@ public class Partie {
         this.plateau = plateau;
     }
 
-    /**
-     * Permet de savoir si une équipe a déjà gagné.
-     *
-     * @return boolean
-     */
-    public boolean isWon() {
-        return this.won;
-    }
 
     /**
      * Permet de set le type de jeu.
