@@ -90,6 +90,15 @@ public abstract class PlateauBase {
         }
     }
 
+    public int getPointBlue() {
+        return this.pointBlue;
+    }
+
+    public int getPointRed() {
+        return this.pointRed;
+    }
+
+
     /**
      * Explicite
      */
