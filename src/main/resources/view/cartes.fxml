@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
-<StackPane prefHeight="939.0" prefWidth="1361.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="939.0" prefWidth="1361.0"
+           xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.CartesController">
     <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="608.0" prefWidth="828.0">
         <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="556.0">
                 <children>
-                    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="50.0">
-                       <content>
-                           <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0" prefWidth="943.0">
-                              <columnConstraints>
-                                 <ColumnConstraints hgrow="ALWAYS" />
-                                 <ColumnConstraints hgrow="ALWAYS" />
-                              </columnConstraints>
-                               <rowConstraints>
-                                   <RowConstraints vgrow="ALWAYS" />
-                                   <RowConstraints vgrow="ALWAYS" />
-                               </rowConstraints>
+                    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0"
+                                AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0"
+                                AnchorPane.topAnchor="50.0">
+                        <content>
+                            <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0"
+                                      prefWidth="943.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints vgrow="ALWAYS"/>
+                                    <RowConstraints vgrow="ALWAYS"/>
+                                </rowConstraints>
                             </GridPane>
                         </content>
                     </ScrollPane>
-                <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" text="Revenir au Menu" />
+                    <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
+                            text="Revenir au Menu"/>
                 </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
                 <children>
-                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="Thèmes précédent" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="87.0"
+                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="Thèmes précédent"
+                            AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="87.0"
                             onAction="#previousCategory"/>
-                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="Thèmes suivant" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="138.0"
+                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="Thèmes suivant"
+                            AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="138.0"
                             onAction="#nextCategory"/>
-               <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" fx:id="themeLabel"/>
-               <Button layoutX="575.0" layoutY="104.0" mnemonicParsing="false" text="Ajouter un mot à la collection" />
+                    <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" fx:id="themeLabel"/>
+                    <Button layoutX="575.0" layoutY="104.0" mnemonicParsing="false"
+                            text="Ajouter un mot à la collection"/>
                 </children>
             </AnchorPane>
         </items>

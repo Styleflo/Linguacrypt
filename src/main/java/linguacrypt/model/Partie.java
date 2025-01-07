@@ -1,7 +1,5 @@
 package linguacrypt.model;
 
-import linguacrypt.utils.WordsFileHandler;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -103,11 +101,11 @@ public class Partie {
         this.widthParameter = widthParameter;
     }
 
-    public void setWords(ArrayList<String> words) {
-        this.words = words;
-    }
-
     public ArrayList<String> getWords() {
         return words;
+    }
+
+    public void setWords(ArrayList<String> words) {
+        this.words = words;
     }
 }

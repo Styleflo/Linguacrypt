@@ -15,7 +15,8 @@ public class MenuInitialController implements Observer {
 
     private Jeu jeu;
 
-    public MenuInitialController() { }
+    public MenuInitialController() {
+    }
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;

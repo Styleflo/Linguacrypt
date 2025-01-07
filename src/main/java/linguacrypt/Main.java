@@ -6,8 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import linguacrypt.controller.MainController;
-import linguacrypt.model.Clef;
 import linguacrypt.model.Jeu;
+
 import java.io.IOException;
 
 public class Main extends Application {
@@ -39,7 +39,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("LinguaCrypt");
         primaryStage.setFullScreen(true);
-        
+
         primaryStage.show();
     }
 

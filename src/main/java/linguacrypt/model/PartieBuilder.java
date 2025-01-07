@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class PartieBuilder {
     private final Partie partie;
+
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
      * C'est un objet PartieBuilder, il faut donc finir par .getResult pour obtenir la partie construite
@@ -83,7 +84,7 @@ public class PartieBuilder {
      *
      * @return Partie
      */
-    public Partie getResult() throws IOException{
+    public Partie getResult() throws IOException {
         return this.partie;
     }
 }
