@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="894.0" prefWidth="442.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.NeutralCardController">
+   <children>
+      <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="20.0" layoutY="631.0" mnemonicParsing="false" prefHeight="214.0" prefWidth="182.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE">
+         <styleClass>
+            <String fx:value="button1" />
+            <String fx:value="red_button" />
+         </styleClass>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="234.0" layoutY="631.0" mnemonicParsing="false" prefHeight="214.0" prefWidth="182.0" stylesheets="@../css/gui.css" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
+         <styleClass>
+            <String fx:value="button1" />
+            <String fx:value="orange_button" />
+         </styleClass>
+      </Button>
+      <FlowPane prefHeight="200.0" prefWidth="200.0" />
+      <AnchorPane layoutX="17.0" layoutY="460.0" prefHeight="134.0" prefWidth="182.0" styleClass="dark_petit_panneau">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" styleClass="text" text="Tour" textFill="WHITE" />
+            <AnchorPane layoutX="21.0" layoutY="49.0" prefHeight="71.0" prefWidth="126.0" styleClass="light_petit_panneau">
+               <children>
+                  <Label layoutX="27.0" layoutY="21.0" text="Label" textFill="#da8300" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="20.0" layoutY="263.0" prefHeight="184.0" prefWidth="405.0" styleClass="dark_petit_panneau">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="381.0" styleClass="text" text="Cartes trouvées" textFill="WHITE" />
+            <AnchorPane layoutX="14.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="blue_petit_panneau" />
+            <AnchorPane layoutX="222.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="red_petit_panneau" />
+         </children>
+      </AnchorPane>
+   </children>
+   <styleClass>
+      <String fx:value="main_panneau" />
+      <String fx:value="red_main_panneau" />
+   </styleClass>
+</AnchorPane>
