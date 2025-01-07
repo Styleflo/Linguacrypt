@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
+/**
+ * herite de la classe PlateauBase
+ * Contient les carteImages sous le type CarteBase
+ */
 public class PlateauImage extends PlateauBase {
     private final CarteBase[][] cardsImages;
 

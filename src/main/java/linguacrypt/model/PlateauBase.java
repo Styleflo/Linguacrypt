@@ -2,6 +2,13 @@ package linguacrypt.model;
 
 import java.util.Collections;
 
+/**
+ * Contient un une Clef (la feuille qui dit les mots à faire deviner
+ * Contient un boolean si c'est le tour des bleu
+ * Contient une liste des cartes couvertes
+ * Contient le nombre de poitn bleu
+ * Contient le nombre de poitn bleu
+ */
 public abstract class PlateauBase {
     protected final Clef key;
     protected boolean isBlueTurn;
@@ -9,6 +16,11 @@ public abstract class PlateauBase {
     protected int pointBlue;
     protected int pointRed;
 
+    /**
+     * Constructeur
+     * @param width
+     * @param height
+     */
     public PlateauBase(int width, int height) {
         key = new Clef(width, height);
         pointBlue = 0;
@@ -17,32 +29,59 @@ public abstract class PlateauBase {
         coveredCardsCounts = new int[4];
     }
 
+    /**
+     * donne une carte
+     * @param i
+     * @param j
+     * @return CarteBase
+     */
     public abstract CarteBase getCard(int i, int j);
 
     public boolean isBlueTurn() {
         return isBlueTurn;
     }
 
+    /**
+     * Explicite
+     * @return boolean
+     */
     public boolean isRedTurn() {
         return !isBlueTurn;
     }
 
+    /**
+     * donne les cartes couvertes
+     * @return int[]
+     */
     public int[] getCoveredCardsCounts() {
         return coveredCardsCounts;
     }
 
+    /**
+     * Explicite
+     * @return Clef
+     */
     public Clef getKey() {
         return key;
     }
 
+    /**
+     * Donne un point à l'équipe bleue
+     */
     public void addBluePoint(){
         this.pointBlue ++ ;
     }
 
+    /**
+     * Donne un point à l'équipe rouge
+     */
     public void addRedPoint(){
         this.pointRed ++ ;
     }
 
+    /**
+     * Donne un point à l'équipe qui joue
+     */
     public void updatePoint(int color){
         if (color == 1){
             this.addRedPoint();
@@ -51,10 +90,16 @@ public abstract class PlateauBase {
         }
     }
 
+    /**
+     * Explicite
+     */
     public void changeTurn(){
         this.isBlueTurn = !this.isBlueTurn;
     }
 
+    /**
+     * Une grosse fonction qui change le tour de la personne si c'est une mauvaise carte ou game over
+     */
     public void updateTurn(int color){
         switch (color){
             case 0:
