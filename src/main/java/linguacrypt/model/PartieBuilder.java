@@ -93,7 +93,7 @@ public class PartieBuilder {
     }
 
     /**
-     * Construit une instance de `Partie`.
+     * Construit une instance de Partie.
      *
      * @return Partie
      */
