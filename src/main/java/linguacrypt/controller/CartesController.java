@@ -1,56 +1,70 @@
 package linguacrypt.controller;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CartesController implements Observer {
-
     private Jeu jeu;
 
     @FXML
     private GridPane gridPane;
+    @FXML
+    private Label themeLabel;
 
-    private final List<String> mots;
+
+
+    private List<String> currentMots;
+    private int currentThemeIndex;
+    private ArrayList<String> themes;
 
     public CartesController() {
-        mots = new ArrayList<>();
-        mots.add("Avion");
-        mots.add("Souris");
-        mots.add("Carnaval");
-        mots.add("Tourniquet");
+        currentMots = new ArrayList<>();
+        themes = new ArrayList<>();
+        currentThemeIndex = 0;
     }
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+
+        themes = wordsFileHandler.getAllThemes();
+        currentThemeIndex = 0;
+        currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
     }
 
     private void afficherCartes() {
         if (jeu == null) return;
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(50);
-        gridPane.setVgap(50);
-        gridPane.setPadding(new Insets(25));
+        gridPane.setHgap(15);
+        gridPane.setVgap(15);
+        gridPane.setPadding(new Insets(7));
 
         int row = 0;
         int col = 0;
-        int maxCols = 2;
+        int maxCols = 7;
 
-        // Calculer la taille des cartes
-        double cardWidth = (900 - (2 * 25) - ((maxCols - 1) * 50)) / maxCols;
-        double cardHeight = cardWidth * 0.75;  // ratio 4:3
 
-        for (int i = 0; i < mots.size(); i++) {
-            VBox carte = creerCarte(mots.get(i));
-            carte.setPrefSize(cardWidth, cardHeight);
+        for (int i = 0; i < currentMots.size(); i++) {
+            AnchorPane carte = creerCarte(currentMots.get(i));
+
+            create_transition(carte);
 
             gridPane.add(carte, col, row);
 
@@ -60,12 +74,13 @@ public class CartesController implements Observer {
                 row++;
             }
         }
+
     }
 
-    private VBox creerCarte(String mot) {
+    private AnchorPane creerCarte(String mot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/neutral_card.fxml"));
-            VBox card = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
+            AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
             controller.setMot(mot);
             return card;
@@ -75,9 +90,82 @@ public class CartesController implements Observer {
         }
     }
 
+    public void create_transition(AnchorPane carte) {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(0.5));
+        transition.setToX(10);
+        transition.setToY(5);
+
+        carte.setOnMouseEntered(event -> {
+            transition.setNode(carte);
+            transition.play();
+        });
+
+        carte.setOnMouseExited(event -> {
+            carte.setTranslateX(0);
+            carte.setTranslateY(0);
+        });
+    }
+
+    @FXML
+    private void handleRevenirMenuAction() {
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
+    }
 
     @Override
     public void reagir() {
+        if (jeu.getView().equals("Cartes")) {
+            afficherCartes();
+        }
+    }
+
+    @FXML
+    public void nextCategory() {
+        currentThemeIndex++;
+        if (currentThemeIndex >= themes.size()) {
+            currentThemeIndex = 0;
+        }
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        themeLabel.setText(themes.get(currentThemeIndex));
         afficherCartes();
+    }
+
+    @FXML
+    public void previousCategory() {
+        currentThemeIndex--;
+        if (currentThemeIndex < 0) {
+            currentThemeIndex = themes.size() - 1;
+        }
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        themeLabel.setText(themes.get(currentThemeIndex));
+        afficherCartes();
+    }
+
+    @FXML
+    private void handleAjouterMotAction() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Ajouter un mot");
+        dialog.setHeaderText("Ajouter un mot à la collection");
+        dialog.setContentText("Veuillez entrer un mot:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(mot -> {
+            if (mot.length() > 13) {
+                // Afficher une boîte de dialogue d'erreur
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Mot trop long");
+                alert.setContentText("Le mot doit contenir moins de 13 lettres.");
+                alert.showAndWait();
+            } else {
+                // Code pour ajouter le mot à la catégorie actuelle
+                jeu.getWordsFileHandler().addWordToCategory(themes.get(currentThemeIndex), mot.toLowerCase().trim());
+                currentMots.add(mot);
+                System.out.println("Mot ajouté: " + mot);
+                
+            }
+        });
+        this.reagir();
     }
 }

@@ -1,7 +1,14 @@
 package linguacrypt.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
+import linguacrypt.model.Partie;
+import linguacrypt.model.PartieBuilder;
+
+import java.io.IOException;
 
 
 public class MenuInitialController implements Observer {
@@ -9,7 +16,6 @@ public class MenuInitialController implements Observer {
     private Jeu jeu;
 
     public MenuInitialController() {
-
     }
 
     public void setJeu(Jeu jeu) {
@@ -17,8 +23,12 @@ public class MenuInitialController implements Observer {
     }
 
     @FXML
-    private void handleJouerButtonAction() {
-        System.out.println("Bouton 'Jouer' cliqué !");
+    private void handleJouerButtonAction() throws IOException {
+        jeu.setView("Plateau");
+        PartieBuilder partieBuilder = new PartieBuilder(jeu);
+        Partie partie = partieBuilder.createPlateau().getResult();
+        jeu.setPartie(partie);
+        jeu.notifyObservers();
     }
 
     @FXML
@@ -27,6 +37,11 @@ public class MenuInitialController implements Observer {
         jeu.notifyObservers();
     }
 
+    @FXML
+    private void handleQuitterButtonAction(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
 
     @Override
     public void reagir() {

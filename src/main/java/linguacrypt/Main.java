@@ -17,7 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
         // Créer une instance de Jeu
         Jeu jeu = new Jeu();
 
@@ -33,11 +32,14 @@ public class Main extends Application {
         // On set les autres vues
         mainControlleur.setMenuInitial();
         mainControlleur.setCartes();
+        mainControlleur.setPlateau();
 
         // Créer la scène et l'afficher
-        Scene scene = new Scene(root, 900, 700);
+        Scene scene = new Scene(root, 1920, 1080);
         primaryStage.setScene(scene);
         primaryStage.setTitle("LinguaCrypt");
+        primaryStage.setFullScreen(true);
+
         primaryStage.show();
     }
 

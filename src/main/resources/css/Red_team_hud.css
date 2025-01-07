@@ -1,0 +1,8 @@
+.card {
+    -fx-background-color: #d63d0f;
+    -fx-background-radius: 30px; /* Coins arrondis avec un rayon de 30px */
+}
+
+.image {
+    -fx-background-radius: 30px;
+}

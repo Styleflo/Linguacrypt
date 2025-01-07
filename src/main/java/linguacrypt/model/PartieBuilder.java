@@ -2,6 +2,7 @@ package linguacrypt.model;
 
 import linguacrypt.utils.WordsFileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -11,26 +12,19 @@ import java.util.ArrayList;
  * Contient l'ensemble des themes par default
  */
 public class PartieBuilder {
-    private final int TIMER = -1;
-    private final int heightParameter = 5;
-    private final int widthParameter = 5;
     private final Partie partie;
-    private final ArrayList<String> thematicListsSelected;
-    private final TypePartie TYPE_JEU = TypePartie.WORDS;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
-     * C'est un objet PartieBuilder, il faut donc finir par .build pour construire la Partie
+     * C'est un objet PartieBuilder, il faut donc finir par .getResult pour obtenir la partie construite
      */
-    public PartieBuilder() {
-        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
-        this.thematicListsSelected = fileHandler.getAllThemes();
-
+    public PartieBuilder(Jeu jeu) throws IOException {
         this.partie = new Partie();
-        partie.setHeightParameter(heightParameter);
-        partie.setWidthParameter(widthParameter);
-        partie.setTimer(TIMER);
-        partie.setThematicListsSelected(thematicListsSelected);
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        partie.setWords(wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        partie.setTimer(-1);
+        partie.setWidthParameter(5);
+        partie.setHeightParameter(5);
         partie.setTypePartie(TypePartie.WORDS);
     }
 
@@ -71,14 +65,18 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir les themes des cartes pour la partie
-     * Attention Il faut finir par .build à la fin de tout les parametres pour construire la Partie.
+     * Permet de choisir les mots utilisées sans la partie
      *
-     * @param thematicListsSelected
+     * @param words
      * @return PartieBuilder
      */
-    public PartieBuilder setThematicListsSelected(ArrayList<String> thematicListsSelected) {
-        this.partie.setThematicListsSelected(thematicListsSelected);
+    public PartieBuilder setWordsUsed(ArrayList<String> words) {
+        this.partie.setWords(words);
+        return this;
+    }
+
+    public PartieBuilder createPlateau() throws IOException {
+        this.partie.newPlateau();
         return this;
     }
 
@@ -99,8 +97,7 @@ public class PartieBuilder {
      *
      * @return Partie
      */
-    public Partie build() {
-        this.partie.newPlateau();
+    public Partie getResult() throws IOException {
         return this.partie;
     }
 }

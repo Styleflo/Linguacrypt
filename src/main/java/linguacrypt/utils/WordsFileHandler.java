@@ -13,7 +13,7 @@ public class WordsFileHandler {
     private final File file;
     private WordsCategories wordsCategories;
 
-    public WordsFileHandler(String filePath) {
+    public WordsFileHandler(String filePath) throws IOException {
         URL resource = getClass().getClassLoader().getResource(filePath);
 
         if (resource == null) {
@@ -22,19 +22,11 @@ public class WordsFileHandler {
 
         file = new File(resource.getFile());
 
-        try {
-            wordsCategories = objectMapper.readValue(file, WordsCategories.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        wordsCategories = objectMapper.readValue(file, WordsCategories.class);
     }
 
-    public void writeJsonFile() {
-        try {
-            objectMapper.writeValue(file, wordsCategories);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void writeJsonFile() throws IOException {
+        objectMapper.writeValue(file, wordsCategories);
     }
 
     public ArrayList<String> getWordsByTheme(String theme) {
@@ -73,5 +65,21 @@ public class WordsFileHandler {
         }
 
         return themes;
+    }
+
+    public void addCategory(String category) {
+        category = category.trim().toLowerCase();
+        wordsCategories.getCategories().add(new WordsCategory(category, new ArrayList<>()));
+    }
+
+    public void addWordToCategory(String category, String word) {
+        List<WordsCategory> categories = wordsCategories.getCategories();
+
+        for (WordsCategory cat : categories) {
+            if (cat.getName().equals(category)) {
+                cat.getWords().add(word);
+                return;
+            }
+        }
     }
 }
