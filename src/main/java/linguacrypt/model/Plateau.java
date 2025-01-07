@@ -116,4 +116,6 @@ public class Plateau {
             System.out.println();
         }
     }
+    public int getPointBlue(){ return this.pointBlue; }
+    public int getPointRed(){ return this.pointRed; }
 }

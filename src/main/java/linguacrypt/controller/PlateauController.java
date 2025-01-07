@@ -25,6 +25,9 @@ public class PlateauController implements Observer {
     @FXML
     private Label lbbleu;
 
+    @FXML
+    private Label lbred;
+
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
     }
@@ -112,7 +115,13 @@ public class PlateauController implements Observer {
             labelEquipe.setText("C'est le tour de Bleu");
         } else {
             labelEquipe.setText("C'est le tour de Rouge");
-
+        }
+        if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "" );
+            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "");
+        }else{
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "" );
+            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "");
         }
     }
 
