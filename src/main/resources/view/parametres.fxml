@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/parametre.css" >
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="anchor-pane">
+         <children>
+            <Label alignment="CENTER" layoutX="241.0" layoutY="36.0" prefHeight="41.0" prefWidth="119.0" text="Paramètres" styleClass="label"/>
+            <TextField layoutX="230.0" layoutY="117.0" styleClass="text-field"/>
+            <Label alignment="CENTER" layoutX="43.0" layoutY="109.0" prefHeight="41.0" prefWidth="161.0" text="Nombre de colonnes :" styleClass="label"/>
+            <Label alignment="CENTER" layoutX="43.0" layoutY="172.0" prefHeight="41.0" prefWidth="161.0" text="Nombre de lignes :" styleClass="label"/>
+            <TextField layoutX="230.0" layoutY="181.0" styleClass="text-field"/>
+            <Button layoutX="108.0" layoutY="334.0" mnemonicParsing="false" text="Choisir ses cartes" styleClass="button"/>
+            <Button layoutX="309.0" layoutY="334.0" mnemonicParsing="false" text="Mettre les cartes en aléatoire" styleClass="button"/>
+            <Label alignment="CENTER" layoutX="43.0" layoutY="238.0" prefHeight="41.0" prefWidth="161.0" text="Choisir un temps :" styleClass="label"/>
+            <TextField layoutX="230.0" layoutY="247.0" styleClass="text-field"/>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
