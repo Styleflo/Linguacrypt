@@ -7,10 +7,10 @@
     -fx-display: inline-block;
     -fx-background-radius: 20px;    /* Arrondi du fond du bouton */
     -fx-border-radius: 20px;
-    -fx-font: bold 27px "Helvetica";
+    -fx-font: bold 20px "Helvetica";
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 10, 10);
     -fx-wrap-text: true;
-    -fx-line-spacing: 10px;
+    -fx-line-spacing: 7px;
 }
 .button1:hover{
     -fx-translate-x: 8px;  /* Déplacer de 10px vers la droite */
@@ -62,7 +62,7 @@
 }
 
 .text{
-    -fx-font-size: 25px;
+    -fx-font-size: 15px;
     -fx-alignement: center;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
