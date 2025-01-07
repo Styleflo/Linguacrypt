@@ -2,6 +2,7 @@ plugins {
     id 'application'
     id 'com.adarshr.test-logger' version '4.0.0'
     id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 repositories {
@@ -56,10 +57,15 @@ application {
     mainClass.set("linguacrypt.Main")
 }
 
-jar {
+shadowJar {
+    archiveClassifier.set("all") // Nom du fichier JAR final
     manifest {
-        attributes("Main-Class": application.mainClass)
+        attributes("Main-Class": application.mainClass.get()) // Définit la classe principale
+
     }
 
+    jar {
+        enabled = false
+    }
 
 }
