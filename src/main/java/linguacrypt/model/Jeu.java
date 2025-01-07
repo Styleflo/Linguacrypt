@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import linguacrypt.controller.*;
 
 /**
- * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement.
+ * Contient une liste d'observers qui peuvent être notifiés lors d'un quelconque changement.
  * Contient une partie
- * Contient une string du nom de la vue courante à afficher.
- * Contient une liste de l'ensemble des mots de la base de donnée (les cartes dispos)
+ * Contient une string du nom de la vue courante à afficher
+ * Contient une liste de l'ensemble des mots de la base de données (les cartes dispos)
  */
 public class Jeu {
     private ArrayList<Observer> observers = new ArrayList<>();

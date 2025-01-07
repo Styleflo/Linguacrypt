@@ -149,4 +149,6 @@ gradle-app.setting
 
 .idea/
 
+### QR Code Generator ###
+src/main/resources/assets/clef.png
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,java,gradle,visualstudiocode
