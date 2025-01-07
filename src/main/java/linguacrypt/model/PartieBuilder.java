@@ -89,7 +89,7 @@ public class PartieBuilder {
         return this;
     }
 
-    public PartieBuilder createPlateau() throws IOException {
+    public PartieBuilder createPlateau() {
         this.partie.newPlateau();
         return this;
     }

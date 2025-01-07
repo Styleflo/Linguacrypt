@@ -51,9 +51,8 @@ public class PlateauController implements Observer {
                 final int currentJ = j;
                 AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
 
-                carte.setOnMouseClicked(event -> {
-                    handleCardClick(currentI, currentJ, carte);
-                });
+                assert carte != null;
+                carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
 
                 gridPane.add(carte, i, j);
             }
@@ -150,7 +149,7 @@ public class PlateauController implements Observer {
 
     @Override
     public void reagir() {
-        if (jeu.getView() == "Plateau") {
+        if (jeu.getView().equals("Plateau")) {
             afficherCartes();
         }
     }

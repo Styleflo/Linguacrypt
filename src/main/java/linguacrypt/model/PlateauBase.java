@@ -1,7 +1,5 @@
 package linguacrypt.model;
 
-import java.util.Collections;
-
 /**
  * Contient un une Clef (la feuille qui dit les mots à faire deviner
  * Contient un boolean si c'est le tour des bleu
@@ -121,7 +119,7 @@ public abstract class PlateauBase {
                     this.changeTurn();
                 }
                 break;
-            case 2:;
+            case 2:
                 break;
             case 3:
                 this.changeTurn();

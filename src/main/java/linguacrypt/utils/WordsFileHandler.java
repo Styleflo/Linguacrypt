@@ -2,15 +2,12 @@ package linguacrypt.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordsFileHandler {
-    private final ObjectMapper objectMapper = new ObjectMapper();
     //private final File file;
     private final WordsCategories wordsCategories;
 
@@ -23,10 +20,11 @@ public class WordsFileHandler {
 
         //file = new File(resource.getFile());
 
+        ObjectMapper objectMapper = new ObjectMapper();
         wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
     }
 
-    public void writeJsonFile() throws IOException {
+    public void writeJsonFile() {
         //objectMapper.writeValue(file, wordsCategories);
     }
 

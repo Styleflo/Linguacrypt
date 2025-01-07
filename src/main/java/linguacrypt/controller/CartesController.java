@@ -68,11 +68,10 @@ public class CartesController implements Observer {
         for (int i = 0; i < currentMots.size(); i++) {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
+            assert carte != null;
             create_transition(carte);
             int finalI = i;
-            carte.setOnMouseClicked(event -> {
-                handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY());
-            });
+            carte.setOnMouseClicked(event -> handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY()));
 
             gridPane.add(carte, col, row);
 
@@ -98,11 +97,7 @@ public class CartesController implements Observer {
                 wordsFileHandler.removeWordFromCategory(themes.get(currentThemeIndex), word);
                 currentMots.remove(word);
 
-                try {
-                    wordsFileHandler.writeJsonFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                wordsFileHandler.writeJsonFile();
 
                 reagir();
             }
@@ -181,9 +176,7 @@ public class CartesController implements Observer {
         Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
 
-        dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            okButton.setDisable(newValue.trim().isEmpty());
-        });
+        dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> okButton.setDisable(newValue.trim().isEmpty()));
 
         Optional<String> result = dialog.showAndWait();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
@@ -223,11 +216,7 @@ public class CartesController implements Observer {
         if (motRefuse.get()) {
             handleAjouterMotAction();
         } else {
-            try {
-                wordsFileHandler.writeJsonFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            wordsFileHandler.writeJsonFile();
         }
     }
 
