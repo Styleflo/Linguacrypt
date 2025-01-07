@@ -59,7 +59,7 @@ public class CartesController implements Observer {
         gridPane.getChildren().clear();
         gridPane.setHgap(15);
         gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(30));
+        gridPane.setPadding(new Insets(33));
 
         int row = 0;
         int col = 0;
