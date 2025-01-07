@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CartesController implements Observer {
     private Jeu jeu;
@@ -45,7 +46,12 @@ public class CartesController implements Observer {
 
         themes = wordsFileHandler.getAllThemes();
         currentThemeIndex = 0;
+        updateCurrentThemeLabel();
         currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
+    }
+
+    private void updateCurrentThemeLabel() {
+        themeLabel.setText(themes.get(currentThemeIndex));
     }
 
     private void afficherCartes() {
@@ -163,7 +169,7 @@ public class CartesController implements Observer {
                 jeu.getWordsFileHandler().addWordToCategory(themes.get(currentThemeIndex), mot.toLowerCase().trim());
                 currentMots.add(mot);
                 System.out.println("Mot ajouté: " + mot);
-                
+
             }
         });
         this.reagir();

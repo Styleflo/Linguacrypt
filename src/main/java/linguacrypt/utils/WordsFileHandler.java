@@ -67,19 +67,30 @@ public class WordsFileHandler {
         return themes;
     }
 
-    public void addCategory(String category) {
+    public boolean addCategory(String category) {
         category = category.trim().toLowerCase();
+
+        for (WordsCategory cat : wordsCategories.getCategories()) {
+            if (cat.getName().equals(category)) {
+                return false;
+            }
+        }
+
         wordsCategories.getCategories().add(new WordsCategory(category, new ArrayList<>()));
+
+        return true;
     }
 
-    public void addWordToCategory(String category, String word) {
+    public boolean addWordToCategory(String category, String word) {
         List<WordsCategory> categories = wordsCategories.getCategories();
 
         for (WordsCategory cat : categories) {
             if (cat.getName().equals(category)) {
                 cat.getWords().add(word);
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 }
