@@ -12,6 +12,10 @@ public class WordsCategory {
         this.words = words;
     }
 
+    public WordsCategory() {
+        words = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
