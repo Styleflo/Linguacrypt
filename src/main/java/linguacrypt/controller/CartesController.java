@@ -53,12 +53,8 @@ public class CartesController implements Observer {
 
         int row = 0;
         int col = 0;
-        int maxCols = 4;
+        int maxCols = 7;
 
-
-
-
-        // Calculer la taille des cartes
 
         for (int i = 0; i < mots.size(); i++) {
             AnchorPane carte = creerCarte(mots.get(i));
