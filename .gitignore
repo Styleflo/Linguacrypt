@@ -15,7 +15,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -148,6 +147,7 @@ gradle-app.setting
 *.hprof
 
 .idea/
+out/
 
 ### QR Code Generator ###
 src/main/resources/assets/clef.png
