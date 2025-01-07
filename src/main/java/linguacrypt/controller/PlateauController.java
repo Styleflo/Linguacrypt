@@ -10,7 +10,6 @@ import linguacrypt.model.Jeu;
 import java.io.IOException;
 
 public class PlateauController implements Observer {
-
     private Jeu jeu;
 
     @FXML

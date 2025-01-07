@@ -86,6 +86,10 @@ public class WordsFileHandler {
 
         for (WordsCategory cat : categories) {
             if (cat.getName().equals(category)) {
+                if (cat.getWords().contains(word)) {
+                    return false;
+                }
+
                 cat.getWords().add(word);
                 return true;
             }

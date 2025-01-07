@@ -157,7 +157,6 @@ public class CartesController implements Observer {
         Optional<String> result = dialog.showAndWait();
 
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-        AtomicBoolean wordAdded = new AtomicBoolean(false);
 
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
@@ -172,7 +171,7 @@ public class CartesController implements Observer {
             } else if (wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot)) {
                 // Ajoute le mot à la catégorie actuelle
                 currentMots.add(mot);
-                wordAdded.set(true);
+                reagir();
             } else {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Erreur");
@@ -180,10 +179,6 @@ public class CartesController implements Observer {
                 alert.setContentText("Ce mot est déjà dans une catégorie");
                 alert.showAndWait();
             }
-        }
-
-        if (wordAdded.get()) {
-            this.reagir();
         }
     }
 }
