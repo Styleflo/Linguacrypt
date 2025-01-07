@@ -53,3 +53,11 @@ javafx {
 application {
     mainClass.set("linguacrypt.Main")
 }
+
+jar {
+    manifest {
+        attributes("Main-Class": application.mainClass)
+    }
+
+
+}
