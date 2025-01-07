@@ -58,6 +58,7 @@
     -fx-font-size: 25px;
     -fx-alignement: center;
     -fx-font-weight: bold;
+    -fx-wrap-text: true;
 }
 
 .text_font{
