@@ -8,14 +8,17 @@ import static java.lang.Math.max;
 public class Plateau {
     private final Carte[][] cards;
     private final Clef key;
-    private final boolean isBlueTurn;
-    private final int[] coveredCardsCounts;  // [0] = blue, [1] = red, [2] = assassin, [3] = neutral
+    private boolean isBlueTurn;
+    private final int[] coveredCardsCounts;
+    private int pointBlue;
+    private int pointRed;
 
     public Plateau(int width, int height, ArrayList<String> words_list) {
         cards = new Carte[height][width];
         key = new Clef(width, height);
         Collections.shuffle(words_list);
-
+        pointBlue = 0;
+        pointRed = 0;
         int index = 0;
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -62,6 +65,42 @@ public class Plateau {
         return key;
     }
 
+    public void addBluePoint(){
+        this.pointBlue ++ ;
+    }
+
+    public void addRedPoint(){
+        this.pointRed ++ ;
+    }
+    public void updatePoint(int color){
+        if (color == 1){
+            this.addRedPoint();
+        }else {
+            this.addBluePoint();
+        }
+    }
+    public void changeTurn(){
+        this.isBlueTurn = !this.isBlueTurn;
+    }
+    public void updateTurn(int color){
+        switch (color){
+            case 0:
+                if(this.isRedTurn()){
+                    this.changeTurn();
+                }
+                break;
+            case 1:
+                if(this.isBlueTurn()){
+                    this.changeTurn();
+                }
+                break;
+            case 2:;
+                break;
+            case 3:
+                this.changeTurn();
+                break;
+        }
+    }
     public void prettyPrint() {
         for (Carte[] card : cards) {
             for (Carte carte : card) {
