@@ -29,9 +29,6 @@ public class PlateauController implements Observer {
         this.jeu = jeu;
     }
 
-
-
-
     private void afficherCartes() {
         if (jeu == null) return;
 
