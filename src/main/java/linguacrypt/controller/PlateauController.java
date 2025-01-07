@@ -123,12 +123,13 @@ public class PlateauController implements Observer {
         } else {
             labelEquipe.setText("C'est le tour de Rouge");
         }
+        int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
-            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "" );
-            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "");
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1)  );
+            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + nbpoint);
         }else{
-            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "" );
-            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "");
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + nbpoint );
+            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + (nbpoint + 1));
         }
     }
 
