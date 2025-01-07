@@ -1,10 +1,16 @@
 package linguacrypt.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WordsCategory {
     private String name;
     private List<String> words;
+
+    public WordsCategory(String name, ArrayList<String> words) {
+        this.name = name;
+        this.words = words;
+    }
 
     public String getName() {
         return name;

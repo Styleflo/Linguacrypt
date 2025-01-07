@@ -66,4 +66,20 @@ public class WordsFileHandler {
 
         return themes;
     }
+
+    public void addCategory(String category) {
+        category = category.trim().toLowerCase();
+        wordsCategories.getCategories().add(new WordsCategory(category, new ArrayList<>()));
+    }
+
+    public void addWordToCategory(String category, String word) {
+        List<WordsCategory> categories = wordsCategories.getCategories();
+
+        for (WordsCategory cat : categories) {
+            if (cat.getName().equals(category)) {
+                cat.getWords().add(word);
+                return;
+            }
+        }
+    }
 }
