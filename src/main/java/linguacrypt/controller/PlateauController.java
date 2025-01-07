@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import linguacrypt.model.Jeu;
-import linguacrypt.model.Plateau;
 
 import java.io.IOException;
 
@@ -29,8 +28,6 @@ public class PlateauController implements Observer {
     }
 
 
-
-
     private void afficherCartes() {
         if (jeu == null) return;
 
@@ -48,9 +45,9 @@ public class PlateauController implements Observer {
                 final int currentJ = j;
                 AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
 
-            carte.setOnMouseClicked(event -> {
-            handleCardClick(currentI, currentJ, carte);
-            });
+                carte.setOnMouseClicked(event -> {
+                    handleCardClick(currentI, currentJ, carte);
+                });
 
                 gridPane.add(carte, i, j);
             }
@@ -99,7 +96,7 @@ public class PlateauController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-               e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
     }
@@ -107,7 +104,7 @@ public class PlateauController implements Observer {
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
             labelEquipe.setText("C'est le tour de Bleu");
-        }else{
+        } else {
             labelEquipe.setText("C'est le tour de Rouge");
 
         }

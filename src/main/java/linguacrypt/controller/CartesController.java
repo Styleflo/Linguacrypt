@@ -27,7 +27,6 @@ public class CartesController implements Observer {
     private Label themeLabel;
 
 
-
     private List<String> currentMots;
     private int currentThemeIndex;
     private ArrayList<String> themes;

@@ -14,7 +14,8 @@
 
     <SplitPane fx:id="splitpane" orientation="HORIZONTAL">
         <items>
-            <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity"
                         minWidth="-Infinity" prefHeight="894.0" prefWidth="442.0"
                         xmlns="http://javafx.com/javafx/23.0.1">
                 <children>

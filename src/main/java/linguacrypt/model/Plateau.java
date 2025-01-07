@@ -8,8 +8,8 @@ import static java.lang.Math.max;
 public class Plateau {
     private final Carte[][] cards;
     private final Clef key;
-    private boolean isBlueTurn;
     private final int[] coveredCardsCounts;
+    private boolean isBlueTurn;
     private int pointBlue;
     private int pointRed;
 
@@ -65,42 +65,47 @@ public class Plateau {
         return key;
     }
 
-    public void addBluePoint(){
-        this.pointBlue ++ ;
+    public void addBluePoint() {
+        this.pointBlue++;
     }
 
-    public void addRedPoint(){
-        this.pointRed ++ ;
+    public void addRedPoint() {
+        this.pointRed++;
     }
-    public void updatePoint(int color){
-        if (color == 1){
+
+    public void updatePoint(int color) {
+        if (color == 1) {
             this.addRedPoint();
-        }else {
+        } else {
             this.addBluePoint();
         }
     }
-    public void changeTurn(){
+
+    public void changeTurn() {
         this.isBlueTurn = !this.isBlueTurn;
     }
-    public void updateTurn(int color){
-        switch (color){
+
+    public void updateTurn(int color) {
+        switch (color) {
             case 0:
-                if(this.isRedTurn()){
+                if (this.isRedTurn()) {
                     this.changeTurn();
                 }
                 break;
             case 1:
-                if(this.isBlueTurn()){
+                if (this.isBlueTurn()) {
                     this.changeTurn();
                 }
                 break;
-            case 2:;
+            case 2:
+                ;
                 break;
             case 3:
                 this.changeTurn();
                 break;
         }
     }
+
     public void prettyPrint() {
         for (Carte[] card : cards) {
             for (Carte carte : card) {
