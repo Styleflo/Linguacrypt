@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -40,7 +42,7 @@
                             </AnchorPane>
                         </children>
                     </AnchorPane>
-                    <AnchorPane layoutX="19.0" layoutY="337.0" prefHeight="184.0" prefWidth="405.0" styleClass="dark_petit_panneau">
+                    <AnchorPane layoutX="19.0" layoutY="399.0" prefHeight="184.0" prefWidth="405.0" styleClass="dark_petit_panneau">
                         <children>
                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="381.0" styleClass="text" text="Cartes trouvées" textFill="WHITE" />
                             <AnchorPane layoutX="14.0" layoutY="53.0" prefHeight="117.0" prefWidth="169.0" styleClass="blue_petit_panneau">
@@ -53,23 +55,31 @@
                         </children></AnchorPane>
                         </children>
                     </AnchorPane>
-               <AnchorPane layoutX="19.0" layoutY="541.0" prefHeight="226.0" prefWidth="405.0" styleClass="dark_petit_panneau">
+               <AnchorPane layoutX="19.0" layoutY="595.0" prefHeight="184.0" prefWidth="405.0" styleClass="dark_petit_panneau">
                   <children>
-                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="109.0" prefWidth="381.0" styleClass="text" text="Nombre de cartes restantes à trouver ce tour" textAlignment="CENTER" textFill="WHITE" />
-                     <AnchorPane layoutX="19.0" layoutY="141.0" prefHeight="71.0" prefWidth="367.0" styleClass="light_petit_panneau">
+                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" prefHeight="109.0" prefWidth="381.0" styleClass="text" text="Nombre de cartes à trouver ce tour" textAlignment="CENTER" textFill="WHITE" />
+                     <AnchorPane layoutX="19.0" layoutY="96.0" prefHeight="71.0" prefWidth="367.0" styleClass="light_petit_panneau">
                         <children>
                            <Label alignment="CENTER" layoutX="19.0" layoutY="21.0" prefHeight="30.0" prefWidth="330.0" text="0/0" textAlignment="CENTER" textFill="#f4cf0f" />
                         </children>
                      </AnchorPane>
                   </children>
                </AnchorPane>
-               <Pane layoutX="19.0" layoutY="32.0" prefHeight="279.0" prefWidth="405.0">
+               <Pane layoutX="19.0" layoutY="61.0" prefHeight="279.0" prefWidth="405.0">
                   <styleClass>
                      <String fx:value="logo_panneau" />
                      <String fx:value="logo_panneau_rouge" />
                   </styleClass>
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="235.0" prefHeight="30.0" prefWidth="392.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
+                     <ImageView fitHeight="184.0" fitWidth="349.0" layoutX="27.0" layoutY="31.0" pickOnBounds="true">
+                        <image>
+                           <Image url="@../assets/s200_gerald.oster.jpg" />
+                        </image>
+                     </ImageView>
+                  </children>
                </Pane>
-               <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="236.0" layoutY="945.0" mnemonicParsing="false" prefHeight="243.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Proposer Indice" textAlignment="CENTER" textFill="WHITE">
+               <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="236.0" layoutY="942.0" mnemonicParsing="false" prefHeight="247.0" prefWidth="181.0" stylesheets="@../css/gui.css" text="Proposer Indice" textAlignment="CENTER" textFill="WHITE">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="purple_button" />
