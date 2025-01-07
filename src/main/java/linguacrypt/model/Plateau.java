@@ -86,15 +86,17 @@ public class Plateau {
                 if(this.isRedTurn()){
                     this.changeTurn();
                 }
+                break;
             case 1:
                 if(this.isBlueTurn()){
                     this.changeTurn();
-                };
+                }
+                break;
             case 2:;
-
+                break;
             case 3:
                 this.changeTurn();
-
+                break;
         }
     }
     public void prettyPrint() {
