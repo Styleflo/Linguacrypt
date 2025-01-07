@@ -1,29 +1,22 @@
 package linguacrypt.model;
 
-public class CarteImage {
+public class CarteImage extends CarteBase {
     private final String url;
-    private final int carteType;  // 0: bleu ; 1: rouge ; 2: noir ; 3: blanc
-    private boolean covered;
+
 
     public CarteImage(String url, int carteType) {
+        super(carteType);
         this.url = url;
-        this.carteType = carteType;
-        covered = false;
     }
 
-    public int getType() {
-        return carteType;
-    }
-
-    public String getWord() {
+    @Override
+    public String getUrl() {
         return url;
     }
 
-    public void setCovered() {
-        covered = true;
+    @Override
+    public String getWord() {
+        return "Attention la carte est une carte image, elle a un url de phot et non un mot";
     }
 
-    public boolean isCovered() {
-        return covered;
-    }
 }

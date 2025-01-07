@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Contient la hauteur du plateau
  */
 public class Partie {
-    private Plateau plateau;
+    private PlateauBase plateau;
     private boolean won = false;
     private int timer;
     private ArrayList<String> words;
@@ -23,7 +23,7 @@ public class Partie {
     /**
      * Explicite.
      */
-    public Plateau getPlateau() {
+    public PlateauBase getPlateau() {
         return this.plateau;
     }
 
