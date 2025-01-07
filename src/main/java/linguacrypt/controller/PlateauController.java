@@ -88,7 +88,12 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(3);
                 break;
         }
-
+        if(jeu.getPartie().BlueWon()){
+            System.out.println("Blue Won");
+        }
+        if(jeu.getPartie().RedWon()){
+            System.out.println("Red Won");
+        }
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
         this.updateLabel();
