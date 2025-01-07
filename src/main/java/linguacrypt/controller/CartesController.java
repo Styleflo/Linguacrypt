@@ -59,11 +59,11 @@ public class CartesController implements Observer {
         gridPane.getChildren().clear();
         gridPane.setHgap(15);
         gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(7));
+        gridPane.setPadding(new Insets(30));
 
         int row = 0;
         int col = 0;
-        int maxCols = 7;
+        int maxCols = 5;
 
 
         for (int i = 0; i < currentMots.size(); i++) {
