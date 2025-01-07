@@ -31,15 +31,16 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
                 <children>
-                    <VBox spacing="40.0" alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                    <VBox spacing="40.0" alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0"
                           AnchorPane.bottomAnchor="0.0">
-                    <HBox spacing="80.0" alignment="CENTER">
-                        <Button text="Thème précédent" onAction="#previousCategory"/>
-                        <Label text="Collection Actuelle" fx:id="themeLabel"/>
-                        <Button text="Thème suivant" onAction="#nextCategory"/>
-                    </HBox>
-                    <Button text="Ajouter une carte" onAction="#handleAjouterMotAction"/>
-                </VBox>
+                        <HBox spacing="80.0" alignment="CENTER">
+                            <Button text="Thème précédent" onAction="#previousCategory"/>
+                            <Label text="Collection Actuelle" fx:id="themeLabel"/>
+                            <Button text="Thème suivant" onAction="#nextCategory"/>
+                        </HBox>
+                        <Button text="Ajouter une carte" onAction="#handleAjouterMotAction"/>
+                    </VBox>
                 </children>
             </AnchorPane>
         </items>

@@ -9,13 +9,14 @@ package linguacrypt.model;
  */
 public abstract class PlateauBase {
     protected final Clef key;
-    protected boolean isBlueTurn;
     protected final int[] coveredCardsCounts;
+    protected boolean isBlueTurn;
     protected int pointBlue;
     protected int pointRed;
 
     /**
      * Constructeur
+     *
      * @param width
      * @param height
      */
@@ -29,6 +30,7 @@ public abstract class PlateauBase {
 
     /**
      * donne une carte
+     *
      * @param i
      * @param j
      * @return CarteBase
@@ -41,6 +43,7 @@ public abstract class PlateauBase {
 
     /**
      * Explicite
+     *
      * @return boolean
      */
     public boolean isRedTurn() {
@@ -49,6 +52,7 @@ public abstract class PlateauBase {
 
     /**
      * donne les cartes couvertes
+     *
      * @return int[]
      */
     public int[] getCoveredCardsCounts() {
@@ -57,6 +61,7 @@ public abstract class PlateauBase {
 
     /**
      * Explicite
+     *
      * @return Clef
      */
     public Clef getKey() {
@@ -66,24 +71,24 @@ public abstract class PlateauBase {
     /**
      * Donne un point à l'équipe bleue
      */
-    public void addBluePoint(){
-        this.pointBlue ++ ;
+    public void addBluePoint() {
+        this.pointBlue++;
     }
 
     /**
      * Donne un point à l'équipe rouge
      */
-    public void addRedPoint(){
-        this.pointRed ++ ;
+    public void addRedPoint() {
+        this.pointRed++;
     }
 
     /**
      * Donne un point à l'équipe qui joue
      */
-    public void updatePoint(int color){
-        if (color == 1){
+    public void updatePoint(int color) {
+        if (color == 1) {
             this.addRedPoint();
-        }else {
+        } else {
             this.addBluePoint();
         }
     }
@@ -100,22 +105,22 @@ public abstract class PlateauBase {
     /**
      * Explicite
      */
-    public void changeTurn(){
+    public void changeTurn() {
         this.isBlueTurn = !this.isBlueTurn;
     }
 
     /**
      * Une grosse fonction qui change le tour de la personne si c'est une mauvaise carte ou game over
      */
-    public void updateTurn(int color){
-        switch (color){
+    public void updateTurn(int color) {
+        switch (color) {
             case 0:
-                if(this.isRedTurn()){
+                if (this.isRedTurn()) {
                     this.changeTurn();
                 }
                 break;
             case 1:
-                if(this.isBlueTurn()){
+                if (this.isBlueTurn()) {
                     this.changeTurn();
                 }
                 break;
