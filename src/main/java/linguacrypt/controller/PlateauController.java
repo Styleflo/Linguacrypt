@@ -42,11 +42,41 @@ public class PlateauController implements Observer {
 
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-
+                final int currentI = i;
+                final int currentJ = j;
             AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i,j).getWord());
+
+            carte.setOnMouseClicked(event -> {
+            handleCardClick(currentI, currentJ, carte);
+            });
+
             gridPane.add(carte, i, j);
         }
         }
+    }
+
+    private void handleCardClick(int x, int y, AnchorPane carte) {
+        // Récupérer la couleur de la carte depuis le modèle
+        int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+
+        // Appliquer le style CSS correspondant
+        switch (couleur) {
+            case 1:
+                carte.setStyle("-fx-background-color: #ff6b6b;");
+                break;
+            case 0:
+                carte.setStyle("-fx-background-color: #4dabf7;");
+                break;
+            case 3:
+                carte.setStyle("-fx-background-color: #343a40;");
+                break;
+            case 2:
+                carte.setStyle("-fx-background-color: #f8f9fa;");
+                break;
+        }
+
+        // Marquer la carte comme révélée dans le modèle si nécessaire
+        jeu.getPartie().getPlateau().getCard(x, y).setCovered();
     }
 
     private AnchorPane creerCarte(String mot) {
@@ -57,7 +87,7 @@ public class PlateauController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-            e.printStackTrace();
+               e.printStackTrace();
             return null;
         }
     }
