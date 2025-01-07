@@ -1,14 +1,12 @@
 package linguacrypt.controller;
 
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.WordsFileHandler;
@@ -86,7 +84,7 @@ public class CartesController implements Observer {
         }
     }
 
-    public void create_transition(AnchorPane carte){
+    public void create_transition(AnchorPane carte) {
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(0.5));
         transition.setToX(10);

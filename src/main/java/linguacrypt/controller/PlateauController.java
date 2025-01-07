@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import linguacrypt.model.Jeu;
 
 import java.io.IOException;
@@ -64,8 +63,8 @@ public class PlateauController implements Observer {
 
     @Override
     public void reagir() {
-        if (jeu.getView() == "Plateau"){
+        if (jeu.getView() == "Plateau") {
             afficherCartes();
-         }
+        }
     }
 }
