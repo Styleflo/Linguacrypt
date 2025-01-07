@@ -2,10 +2,10 @@ package linguacrypt.model;
 
 public class CarteImage {
     private final String url;
-    private final CarteType carteType;  // 0: bleu ; 1: rouge ; 2: noir ; 3: blanc
+    private final int carteType;  // 0: bleu ; 1: rouge ; 2: noir ; 3: blanc
     private boolean covered;
 
-    public Carte(String url, int carteType) {
+    public CarteImage(String url, int carteType) {
         this.url = url;
         this.carteType = carteType;
         covered = false;
@@ -16,7 +16,7 @@ public class CarteImage {
     }
 
     public String getWord() {
-        return carteType;
+        return url;
     }
 
     public void setCovered() {
