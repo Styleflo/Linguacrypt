@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import linguacrypt.model.Jeu;
 
 import java.io.IOException;
@@ -18,6 +19,8 @@ public class PlateauController implements Observer {
 
     @FXML
     private GridPane gridPane;
+
+    private StackPane popupRoot;
 
     @FXML
     private Label labelEquipe;
@@ -70,39 +73,74 @@ public class PlateauController implements Observer {
 
         // Appliquer le style CSS correspondant et change les points.
         switch (couleur) {
-            case 1:
+            case 1: //couleur de la carte est rouge
                 carte.setStyle("-fx-background-color: #ff6b6b;");
                 jeu.getPartie().getPlateau().updatePoint(1);
                 jeu.getPartie().getPlateau().updateTurn(1);
                 jeu.getPartie().updateWin();
 
                 break;
-            case 0:
+            case 0: //couleur de la carte est bleue
                 carte.setStyle("-fx-background-color: #4dabf7;");
                 jeu.getPartie().getPlateau().updatePoint(0);
                 jeu.getPartie().getPlateau().updateTurn(0);
                 jeu.getPartie().updateWin();
                 break;
-            case 2:
+            case 2: //couleur de la carte est noire (celui qui l'a retourné a perdu)
                 carte.setStyle("-fx-background-color: #343a40;");
                 jeu.getPartie().getPlateau().updateTurn(2);
                 jeu.getPartie().updateWin(2);
                 break;
-            case 3:
+            case 3: //couleur de la carte est neutre
                 carte.setStyle("-fx-background-color: #f8f9fa;");
                 jeu.getPartie().getPlateau().updateTurn(3);
                 break;
         }
         if(jeu.getPartie().BlueWon()){
             System.out.println("Blue Won");
+            showWinnerPopup("blue");
+            //setWinnerPopup("Blue");
         }
         if(jeu.getPartie().RedWon()){
             System.out.println("Red Won");
+            showWinnerPopup("red");
+            //setWinnerPopup("Red");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
         this.updateLabel();
     }
+
+    private void showWinnerPopup(String winningTeam) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Partie terminée");
+        alert.setHeaderText("Victoire !");
+        alert.setContentText("L'équipe " + winningTeam + " a gagné !");
+        alert.showAndWait();
+    }
+
+    public void setWinnerPopup(String winningTeam) {
+        try {
+            // Charger le fichier FXML du WinnerPopup
+            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("/view/WinnerPopup.fxml"));
+            popupRoot = popupLoader.load();
+
+            // Obtenir le contrôleur du pop-up
+            WinnerPopupController winnerPopupController = popupLoader.getController();
+            winnerPopupController.show(winningTeam);
+
+            // Afficher le pop-up (tu peux remplacer AnchorPane si nécessaire)
+            AnchorPane.setTopAnchor(popupRoot, 0.0);
+            AnchorPane.setBottomAnchor(popupRoot, 0.0);
+            AnchorPane.setLeftAnchor(popupRoot, 0.0);
+            AnchorPane.setRightAnchor(popupRoot, 0.0);
+
+            //content.getChildren().add(popupRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private AnchorPane creerCarte(String mot) {
         try {
