@@ -67,19 +67,34 @@ public class WordsFileHandler {
         return themes;
     }
 
-    public void addCategory(String category) {
+    public boolean addCategory(String category) {
         category = category.trim().toLowerCase();
+
+        for (WordsCategory cat : wordsCategories.getCategories()) {
+            if (cat.getName().equals(category)) {
+                return false;
+            }
+        }
+
         wordsCategories.getCategories().add(new WordsCategory(category, new ArrayList<>()));
+
+        return true;
     }
 
-    public void addWordToCategory(String category, String word) {
+    public Object[] addWordToCategory(String category, String word) {
         List<WordsCategory> categories = wordsCategories.getCategories();
 
         for (WordsCategory cat : categories) {
             if (cat.getName().equals(category)) {
+                if (cat.getWords().contains(word)) {
+                    return new Object[]{false, "Le mot existe déjà dans la catégorie " + cat.getName()};
+                }
+
                 cat.getWords().add(word);
-                return;
+                return new Object[]{true, ""};
             }
         }
+
+        return new Object[]{false, "La catégorie " + category + " n'existe pas"};
     }
 }

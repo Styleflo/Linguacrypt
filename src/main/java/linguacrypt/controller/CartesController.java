@@ -4,20 +4,20 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CartesController implements Observer {
     private Jeu jeu;
@@ -44,7 +44,13 @@ public class CartesController implements Observer {
 
         themes = wordsFileHandler.getAllThemes();
         currentThemeIndex = 0;
+        updateCurrentThemeLabel();
         currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
+    }
+
+    private void updateCurrentThemeLabel() {
+        String name = themes.get(currentThemeIndex);
+        themeLabel.setText(StringUtils.capitalizeFirstLetter(name));
     }
 
     private void afficherCartes() {
@@ -53,17 +59,21 @@ public class CartesController implements Observer {
         gridPane.getChildren().clear();
         gridPane.setHgap(15);
         gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(7));
+        gridPane.setPadding(new Insets(33));
 
         int row = 0;
         int col = 0;
-        int maxCols = 7;
+        int maxCols = 5;
 
 
         for (int i = 0; i < currentMots.size(); i++) {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
             create_transition(carte);
+            int finalI = i;
+            carte.setOnMouseClicked(event -> {
+                handleCardClick(currentMots.get(finalI));
+            });
 
             gridPane.add(carte, col, row);
 
@@ -73,6 +83,10 @@ public class CartesController implements Observer {
                 row++;
             }
         }
+
+    }
+
+    private void handleCardClick(String word) {
 
     }
 
@@ -112,13 +126,6 @@ public class CartesController implements Observer {
         jeu.notifyObservers();
     }
 
-    @Override
-    public void reagir() {
-        if (jeu.getView().equals("Cartes")) {
-            afficherCartes();
-        }
-    }
-
     @FXML
     public void nextCategory() {
         currentThemeIndex++;
@@ -126,7 +133,7 @@ public class CartesController implements Observer {
             currentThemeIndex = 0;
         }
         currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
-        themeLabel.setText(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
         afficherCartes();
     }
 
@@ -137,7 +144,7 @@ public class CartesController implements Observer {
             currentThemeIndex = themes.size() - 1;
         }
         currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
-        themeLabel.setText(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
         afficherCartes();
     }
 
@@ -146,25 +153,65 @@ public class CartesController implements Observer {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Ajouter un mot");
         dialog.setHeaderText("Ajouter un mot à la collection");
-        dialog.setContentText("Veuillez entrer un mot:");
+        dialog.setContentText("Veuillez entrer un mot :");
+
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setDisable(true);
+
+        dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            okButton.setDisable(newValue.trim().isEmpty());
+        });
 
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(mot -> {
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+
+        AtomicBoolean motRefuse = new AtomicBoolean(false);
+
+        if (result.isPresent()) {
+            String mot = result.get().toLowerCase().trim();
+
             if (mot.length() > 13) {
                 // Afficher une boîte de dialogue d'erreur
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Erreur");
-                alert.setHeaderText("Mot trop long");
+                alert.setHeaderText("Mot trop long >:(");
                 alert.setContentText("Le mot doit contenir moins de 13 lettres.");
                 alert.showAndWait();
+                motRefuse.set(true);
             } else {
-                // Code pour ajouter le mot à la catégorie actuelle
-                jeu.getWordsFileHandler().addWordToCategory(themes.get(currentThemeIndex), mot.toLowerCase().trim());
-                currentMots.add(mot);
-                System.out.println("Mot ajouté: " + mot);
-
+                Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
+                boolean success = (boolean) res[0];
+                String message = (String) res[1];
+                if (success) {
+                    // Ajoute le mot à la catégorie actuelle
+                    currentMots.add(mot);
+                    reagir();
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Mot existant");
+                    alert.setContentText(message);
+                    alert.showAndWait();
+                    motRefuse.set(true);
+                }
             }
-        });
-        this.reagir();
+        }
+
+        if (motRefuse.get()) {
+            handleAjouterMotAction();
+        } else {
+            try {
+                wordsFileHandler.writeJsonFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void reagir() {
+        if (jeu.getView().equals("Cartes")) {
+            afficherCartes();
+        }
     }
 }
