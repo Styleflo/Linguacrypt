@@ -111,7 +111,8 @@ public class PartieBuilder {
      *
      * @return Partie
      */
-    public Partie getResult() {
+    public Partie getResult() throws IOException {
+        this.createPlateau();
         return this.partie;
     }
 }
