@@ -1,16 +1,40 @@
-.button{
-    -fx-background-color: #04AA6D; /* Green */
+.button1{
+
     -fx-border: none;
     -fx-text-fill: white;
     -fx-text-align: center;
     -fx-text-decoration: none;
     -fx-display: inline-block;
-    -fx-font-size: 20px;
     -fx-background-radius: 20px;    /* Arrondi du fond du bouton */
     -fx-border-radius: 20px;
+    -fx-font: bold 27px "Helvetica";
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 10, 10);
+    -fx-wrap-text: true;
+    -fx-line-spacing: 10px;
 }
 
-.button:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 60, 0, 10, 10);
+.orange_button{
+    -fx-background-color: orange; /* Green */
 
+}
+
+.red_button{
+    -fx-background-color: red; /* Green */
+}
+
+
+
+.main_panneau {
+    -fx-background-color: #515151;      /* Fond gris */
+    -fx-border-width: 0 8px 0 8px;   /* Bordure uniquement à gauche et à droite */
+
+}
+
+.blue_main_panneau {
+    -fx-border-color: transparent #2658af transparent #2658af;  /* Bordure bleue sur les côtés verticaux */
+
+}
+
+.red_main_panneau{
+    -fx-border-color: transparent #f70d1a transparent #f70d1a;  /* Bordure bleue sur les côtés verticaux */
 }
