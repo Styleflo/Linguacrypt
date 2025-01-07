@@ -9,3 +9,8 @@
     -fx-background-radius: 20px;    /* Arrondi du fond du bouton */
     -fx-border-radius: 20px;
 }
+
+.button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 60, 0, 10, 10);
+
+}
