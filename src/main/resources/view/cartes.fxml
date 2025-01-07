@@ -39,7 +39,7 @@
                             onAction="#nextCategory"/>
                     <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" fx:id="themeLabel"/>
                     <Button layoutX="575.0" layoutY="104.0" mnemonicParsing="false"
-                            text="Ajouter un mot à la collection"/>
+                            text="Ajouter un mot à la collection" onAction="#handleAjouterMotAction"/>
                 </children>
             </AnchorPane>
         </items>
