@@ -1,28 +1,32 @@
 package linguacrypt.model;
 
+import linguacrypt.controller.Observer;
+import linguacrypt.utils.WordsFileHandler;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
-import linguacrypt.controller.*;
-
 /**
- * Contient une liste d'observer qui peuvent etre notifiés lors d'un quelconque changement.
+ * Contient une liste d'observers qui peuvent être notifiés lors d'un quelconque changement.
  * Contient une partie
- * Contient une string du nom de la vue courante à afficher.
- * Contient une liste de l'ensemble des mots de la base de donnée (les cartes dispos)
+ * Contient une string du nom de la vue courante à afficher
+ * Contient une liste de l'ensemble des mots de la base de données (les cartes dispos)
  */
 public class Jeu {
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private final ArrayList<Observer> observers = new ArrayList<>();
+    private final WordsFileHandler wordsFileHandler;
     private Partie partie;
     private String currentView;
-    private ArrayList<String> wordList;
 
-    public Jeu() {
+    public Jeu() throws IOException {
         //Peut etre des trucs à faire mais pour l'instant ça va !
-        currentView = "menuInitial";
+        currentView = "MenuInitial";
+        wordsFileHandler = new WordsFileHandler("./cards.json");
     }
 
     /**
      * Permet de recuperer la liste des observers.
+     *
      * @return ArrayList<Observer>
      */
     public ArrayList<Observer> getObservers() {
@@ -31,6 +35,7 @@ public class Jeu {
 
     /**
      * Ajoute un observer à la liste des observeur du model Jeu.
+     *
      * @param observer
      */
     public void addObserver(Observer observer) {
@@ -39,10 +44,23 @@ public class Jeu {
 
     /**
      * Supprime un observer à la liste des observeur du model Jeu.
+     *
      * @param observer
      */
     public void removeObserver(Observer observer) {
         this.observers.remove(observer);
+    }
+
+    /**
+     * Permet de recuperer la partie en cours
+     *
+     * @return Partie
+     */
+    public Partie getPartie() {
+        if (this.partie == null) {
+            System.out.println("Il n'y a pas de partie pour le moment");
+        }
+        return this.partie;
     }
 
     /**
@@ -54,18 +72,8 @@ public class Jeu {
     }
 
     /**
-     *Permet de recuperer la partie en cours
-     * @return Partie
-     */
-    public Partie getPartie() {
-        if (this.partie == null) {
-            System.out.println("Il n'y a pas de partie pour le moment");
-        }
-        return this.partie;
-    }
-
-    /**
      * Permet de recuperer la vue courrante.
+     *
      * @return String
      */
     public String getView() {
@@ -74,6 +82,7 @@ public class Jeu {
 
     /**
      * Permet de set une nouvelle vue courrante pour changer l'affichage.
+     *
      * @param currentView
      */
     public void setView(String currentView) {
@@ -101,4 +110,7 @@ public class Jeu {
         this.currentView = "";
     }
 
+    public WordsFileHandler getWordsFileHandler() {
+        return wordsFileHandler;
+    }
 }

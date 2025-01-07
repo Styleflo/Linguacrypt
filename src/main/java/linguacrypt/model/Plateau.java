@@ -8,14 +8,17 @@ import static java.lang.Math.max;
 public class Plateau {
     private final Carte[][] cards;
     private final Clef key;
-    private final boolean isBlueTurn;
     private final int[] coveredCardsCounts;
+    private boolean isBlueTurn;
+    private int pointBlue;
+    private int pointRed;
 
     public Plateau(int width, int height, ArrayList<String> words_list) {
         cards = new Carte[height][width];
         key = new Clef(width, height);
         Collections.shuffle(words_list);
-
+        pointBlue = 0;
+        pointRed = 0;
         int index = 0;
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -43,6 +46,7 @@ public class Plateau {
     }
 
     public Carte getCard(int i, int j) {
+        // Coordonnées matricielles
         return cards[i][j];
     }
 
@@ -51,6 +55,7 @@ public class Plateau {
     }
 
     public int coverCard(int i, int j) {
+        // Coordonnées matrcielles
         Carte card = cards[i][j];
         card.setCovered();
         return card.getType();
@@ -58,6 +63,46 @@ public class Plateau {
 
     public Clef getKey() {
         return key;
+    }
+
+    public void addBluePoint() {
+        this.pointBlue++;
+    }
+
+    public void addRedPoint() {
+        this.pointRed++;
+    }
+
+    public void updatePoint(int color) {
+        if (color == 1) {
+            this.addRedPoint();
+        } else {
+            this.addBluePoint();
+        }
+    }
+
+    public void changeTurn() {
+        this.isBlueTurn = !this.isBlueTurn;
+    }
+
+    public void updateTurn(int color) {
+        switch (color) {
+            case 0:
+                if (this.isRedTurn()) {
+                    this.changeTurn();
+                }
+                break;
+            case 1:
+                if (this.isBlueTurn()) {
+                    this.changeTurn();
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                this.changeTurn();
+                break;
+        }
     }
 
     public void prettyPrint() {

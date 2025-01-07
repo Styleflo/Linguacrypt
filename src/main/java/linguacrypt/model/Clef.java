@@ -1,7 +1,5 @@
 package linguacrypt.model;
 
-import java.util.*;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -11,6 +9,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.*;
 
 public class Clef {
     private final boolean blueStarts;
@@ -60,6 +59,11 @@ public class Clef {
             for (int i = 0; i < width; i++) {
                 grid[i][j] = types.get(index++);
             }
+        }
+        try {
+            this.to_qrcode();
+        } catch (Exception e) {
+            System.out.println("helloworld");
         }
     }
 
@@ -140,6 +144,7 @@ public class Clef {
 
         return res;
     }
+
     public void to_qrcode() throws WriterException, IOException {
         String text = this.toString();
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

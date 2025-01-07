@@ -1,7 +1,5 @@
 package linguacrypt.model;
 
-import linguacrypt.utils.WordsFileHandler;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,7 +15,7 @@ public class Partie {
     private Plateau plateau;
     private boolean won = false;
     private int timer;
-    private ArrayList<String> thematicListsSelected;
+    private ArrayList<String> words;
     private int heightParameter;
     private int widthParameter;
 
@@ -50,8 +48,7 @@ public class Partie {
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void newPlateau() throws IOException {
-        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
-        this.plateau = new Plateau(this.widthParameter, this.heightParameter, fileHandler.getWordsByThemes(this.thematicListsSelected));
+        this.plateau = new Plateau(this.widthParameter, this.heightParameter, words);
         this.won = false;
     }
 
@@ -60,24 +57,6 @@ public class Partie {
      */
     public void setWon() {
         this.won = true;
-    }
-
-    /**
-     * Permet de recuperer les thematiques selectionnées
-     *
-     * @return ArrayList<String>
-     */
-    public ArrayList<String> getThematicListsSelected() {
-        return this.thematicListsSelected;
-    }
-
-    /**
-     * Permet de set les thematiques selectionnées
-     *
-     * @param thematicListsSelected
-     */
-    public void setThematicListsSelected(ArrayList<String> thematicListsSelected) {
-        this.thematicListsSelected = thematicListsSelected;
     }
 
     /**
@@ -120,5 +99,13 @@ public class Partie {
      */
     public void setWidthParameter(int widthParameter) {
         this.widthParameter = widthParameter;
+    }
+
+    public ArrayList<String> getWords() {
+        return words;
+    }
+
+    public void setWords(ArrayList<String> words) {
+        this.words = words;
     }
 }
