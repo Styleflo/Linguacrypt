@@ -70,6 +70,10 @@ public class CartesController implements Observer {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
             create_transition(carte);
+            int finalI = i;
+            carte.setOnMouseClicked(event -> {
+                handleCardClick(currentMots.get(finalI));
+            });
 
             gridPane.add(carte, col, row);
 
@@ -79,6 +83,10 @@ public class CartesController implements Observer {
                 row++;
             }
         }
+
+    }
+
+    private void handleCardClick(String word) {
 
     }
 
