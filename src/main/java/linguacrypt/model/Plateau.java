@@ -12,7 +12,6 @@ public class Plateau {
     private final int[] coveredCardsCounts;
     private int pointBlue;
     private int pointRed;
-
     public Plateau(int width, int height, ArrayList<String> words_list) {
         cards = new Carte[height][width];
         key = new Clef(width, height);
@@ -101,6 +100,10 @@ public class Plateau {
                 break;
         }
     }
+    public int getPointBlue(){return this.pointBlue;}
+
+    public int getPointRed(){return this.pointRed;}
+
     public void prettyPrint() {
         for (Carte[] card : cards) {
             for (Carte carte : card) {
