@@ -104,11 +104,6 @@ public class Jeu {
      * Permet de changer l'etat du jeu en gagné.
      * Une equipe a alors gagné.
      */
-    public void win() {
-        this.partie.setWon();
-        // A completer avec le nom de la vue de win
-        this.currentView = "";
-    }
 
     public WordsFileHandler getWordsFileHandler() {
         return wordsFileHandler;
