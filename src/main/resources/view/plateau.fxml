@@ -92,7 +92,11 @@
                 </styleClass>
             </AnchorPane>
             <VBox alignment="CENTER" prefHeight="1130.0" prefWidth="262.0">
-                <Label fx:id="labelEquipe" text="Équipe 1 joue" />
+            <ImageView fitHeight="1238.0" fitWidth="1410.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../assets/s200_gerald.oster.jpg" />
+               </image>
+            </ImageView>
                 <GridPane fx:id="gridPane" alignment="CENTER" hgap="10" vgap="10">
                     <!-- Ajoutez ici les lignes et colonnes du GridPane si nécessaire -->
                 </GridPane>
