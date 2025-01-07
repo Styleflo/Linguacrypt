@@ -114,12 +114,15 @@ public class Partie {
     public void setWords(ArrayList<String> words) {
         this.words = words;
     }
+
     public boolean RedWon() {
         return (this.won == 1);
     }
+
     public boolean BlueWon() {
         return (this.won == 0);
     }
+
     public void updateWin() {
         int nbpoint = this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() / 3;
         if (this.getPlateau().getKey().isBlueStarting()) {
@@ -136,11 +139,12 @@ public class Partie {
             }
         }
     }
-    public void updateWin(int color){
-        if (color==2){
-            if (this.getPlateau().isBlueTurn()){
+
+    public void updateWin(int color) {
+        if (color == 2) {
+            if (this.getPlateau().isBlueTurn()) {
                 setRedWon();
-            }else {
+            } else {
                 setBlueWon();
             }
         }

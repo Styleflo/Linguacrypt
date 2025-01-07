@@ -1,11 +1,8 @@
 package linguacrypt.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -93,10 +90,10 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(3);
                 break;
         }
-        if(jeu.getPartie().BlueWon()){
+        if (jeu.getPartie().BlueWon()) {
             System.out.println("Blue Won");
         }
-        if(jeu.getPartie().RedWon()){
+        if (jeu.getPartie().RedWon()) {
             System.out.println("Red Won");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
@@ -125,20 +122,20 @@ public class PlateauController implements Observer {
         }
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
-            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1)  );
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1));
             lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + nbpoint);
-        }else{
-            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + nbpoint );
+        } else {
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + nbpoint);
             lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + (nbpoint + 1));
         }
     }
 
     @FXML
     private void handleNouvellePartie() {
-        jeu.getPartie().newPlateau(); 
+        jeu.getPartie().newPlateau();
         jeu.notifyObservers();
     }
-    
+
     @FXML
     private void handleMenuPrincipal() {
         jeu.setView("MenuInitial");
@@ -146,7 +143,7 @@ public class PlateauController implements Observer {
     }
 
     @FXML
-    private void handleTourSuivant(){
+    private void handleTourSuivant() {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
     }
