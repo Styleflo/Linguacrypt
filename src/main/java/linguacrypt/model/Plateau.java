@@ -12,8 +12,6 @@ public class Plateau {
     private final int[] coveredCardsCounts;
     private int pointBlue;
     private int pointRed;
-    private int NbCarteADevinerPourIndice;
-    private int CurrentNBCarteDevineePourIndice ;
 
     public Plateau(int width, int height, ArrayList<String> words_list) {
         cards = new Carte[height][width];
@@ -72,12 +70,6 @@ public class Plateau {
     public void addRedPoint(){
         this.pointRed ++ ;
     }
-    public int NbCarteADevinerPourIndice(){
-        return NbCarteADevinerPourIndice;
-    }
-    public int CurrentNBCarteDevineePourIndice(){
-        return CurrentNBCarteDevineePourIndice;
-    }
     public void updatePoint(int color){
         if (color == 1){
             this.addRedPoint();
@@ -85,23 +77,14 @@ public class Plateau {
             this.addBluePoint();
         }
     }
-    public void updateIndice(int color){
-        if ((color == 1 && this.isRedTurn()) || (color == 0 && this.isBlueTurn())){
-            this.CurrentNBCarteDevineePourIndice ++;
-        }else{
-            if (color == 2) {
-                this.CurrentNBCarteDevineePourIndice = 0 ;
-            }
-        }
-        }
     public void updateTurn(int color){
         switch (color){
             case 0:
-                if((this.isBlueTurn() && (this.NbCarteADevinerPourIndice - this.CurrentNBCarteDevineePourIndice == 0))||this.isRedTurn()){
+                if(this.isRedTurn()){
                     this.isBlueTurn = !this.isBlueTurn;
                 }
             case 1:
-                if((this.isRedTurn() && (this.NbCarteADevinerPourIndice - this.CurrentNBCarteDevineePourIndice == 0))||this.isBlueTurn()){
+                if(this.isBlueTurn()){
                     this.isBlueTurn = !this.isBlueTurn;
                 };
             case 2:
