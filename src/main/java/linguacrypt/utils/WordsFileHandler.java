@@ -81,20 +81,20 @@ public class WordsFileHandler {
         return true;
     }
 
-    public boolean addWordToCategory(String category, String word) {
+    public Object[] addWordToCategory(String category, String word) {
         List<WordsCategory> categories = wordsCategories.getCategories();
 
         for (WordsCategory cat : categories) {
             if (cat.getName().equals(category)) {
                 if (cat.getWords().contains(word)) {
-                    return false;
+                    return new Object[]{false, "Le mot existe déjà dans la catégorie " + cat.getName()};
                 }
 
                 cat.getWords().add(word);
-                return true;
+                return new Object[]{true, ""};
             }
         }
 
-        return false;
+        return new Object[]{false, "La catégorie " + category + " n'existe pas"};
     }
 }

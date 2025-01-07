@@ -18,7 +18,7 @@ public class PartieBuilder {
      * Le constructeur à appeler pour creer une Partie et la build.
      * C'est un objet PartieBuilder, il faut donc finir par .getResult pour obtenir la partie construite
      */
-    public PartieBuilder(Jeu jeu) throws IOException {
+    public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
         partie.setWords(wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));

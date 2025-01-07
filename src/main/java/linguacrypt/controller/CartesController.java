@@ -4,10 +4,8 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
@@ -154,9 +152,18 @@ public class CartesController implements Observer {
         dialog.setTitle("Ajouter un mot");
         dialog.setHeaderText("Ajouter un mot à la collection");
         dialog.setContentText("Veuillez entrer un mot :");
-        Optional<String> result = dialog.showAndWait();
 
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setDisable(true);
+
+        dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            okButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        Optional<String> result = dialog.showAndWait();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+
+        AtomicBoolean motRefuse = new AtomicBoolean(false);
 
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
@@ -168,16 +175,33 @@ public class CartesController implements Observer {
                 alert.setHeaderText("Mot trop long >:(");
                 alert.setContentText("Le mot doit contenir moins de 13 lettres.");
                 alert.showAndWait();
-            } else if (wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot)) {
-                // Ajoute le mot à la catégorie actuelle
-                currentMots.add(mot);
-                reagir();
+                motRefuse.set(true);
             } else {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Mot existant");
-                alert.setContentText("Ce mot est déjà dans une catégorie");
-                alert.showAndWait();
+                Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
+                boolean success = (boolean) res[0];
+                String message = (String) res[1];
+                if (success) {
+                    // Ajoute le mot à la catégorie actuelle
+                    currentMots.add(mot);
+                    reagir();
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Mot existant");
+                    alert.setContentText(message);
+                    alert.showAndWait();
+                    motRefuse.set(true);
+                }
+            }
+        }
+
+        if (motRefuse.get()) {
+            handleAjouterMotAction();
+        } else {
+            try {
+                wordsFileHandler.writeJsonFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

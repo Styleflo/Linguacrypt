@@ -47,7 +47,7 @@ public class Partie {
     /**
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
-    public void newPlateau() throws IOException {
+    public void newPlateau() {
         this.plateau = new Plateau(this.widthParameter, this.heightParameter, words);
         this.won = false;
     }
