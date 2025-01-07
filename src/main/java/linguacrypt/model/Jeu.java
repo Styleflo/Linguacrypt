@@ -8,9 +8,8 @@ import java.util.ArrayList;
 
 /**
  * Contient une liste d'observers qui peuvent être notifiés lors d'un quelconque changement.
- * Contient une partie
+ * Contient une wordfilHandler
  * Contient une string du nom de la vue courante à afficher
- * Contient une liste de l'ensemble des mots de la base de données (les cartes dispos)
  */
 public class Jeu {
     private final ArrayList<Observer> observers = new ArrayList<>();

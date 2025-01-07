@@ -2,6 +2,7 @@ package linguacrypt.model;
 
 import linguacrypt.utils.WordsFileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -21,11 +22,12 @@ public class PartieBuilder {
     public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
         this.wordsFileHandler = jeu.getWordsFileHandler();
-        partie.setWords(wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
         partie.setTimer(-1);
         partie.setWidthParameter(5);
         partie.setHeightParameter(5);
-        partie.newPlateau();
+        partie.setTypePartie(TypePartie.WORDS);
     }
 
     /**
@@ -65,27 +67,52 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir les mots utilisées sans la partie
+     * Permet de choisir la largeur les themes du jeu
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
-     * @param words
+     * @param themes
      * @return PartieBuilder
      */
-    public PartieBuilder setWordsUsed(ArrayList<String> words) {
-        this.partie.setWords(words);
-        return this;
-    }
-
     public PartieBuilder setUsedThemes(ArrayList<String> themes) {
         this.partie.setWords(wordsFileHandler.getWordsByThemes(themes));
         return this;
     }
 
+        /**
+         * Permet de choisir les mots utilisées sans la partie
+         *
+         * @param words
+         * @return PartieBuilder
+         */
+    public PartieBuilder setWordsUsed(ArrayList<String> words) {
+        this.partie.setWords(words);
+        return this;
+    }
+
+    public PartieBuilder createPlateau() throws IOException {
+        this.partie.newPlateau();
+        return this;
+    }
+
     /**
-     * Permet de construire la partie avec les parametres choisis
+     * Permet de choisir le type de partie entre image ou mot.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @param typePartie
+     * @return PartieBuilder
+     */
+    public PartieBuilder setTypePartie(TypePartie typePartie) {
+        this.partie.setTypePartie(typePartie);
+        return this;
+    }
+
+    /**
+     * Construit une instance de Partie.
      *
      * @return Partie
      */
-    public Partie getResult() {
+    public Partie getResult() throws IOException {
+        this.createPlateau();
         return this.partie;
     }
 }
