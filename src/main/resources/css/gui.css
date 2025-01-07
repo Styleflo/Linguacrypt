@@ -49,13 +49,15 @@
     -fx-background-radius: 20px;
 }
 
-.text_white{
+.text{
     -fx-font-size: 25px;
     -fx-alignement: center;
-    -fx-font-family: "Helvetica";
     -fx-font-weight: bold;
 }
 
+.text_font{
+    -fx-font-family: "Helvetica";
+}
 
 .blue_petit_panneau{
     -fx-background-color: #3399FF;
