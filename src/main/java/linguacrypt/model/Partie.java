@@ -19,6 +19,7 @@ public class Partie {
     private ArrayList<String> thematicListsSelected;
     private int heightParameter;
     private int widthParameter;
+    private TypePartie typePartie;
 
     /**
      * Explicite.
@@ -46,10 +47,31 @@ public class Partie {
     }
 
     /**
+     * Permet de set le type de jeu.
+     * Attention il faut passer un TypeJeu.
+     * Soit TypeJeu.WORDS ou soit TypeJeu.IMAGES
+     * @param typeJeu
+     */
+    public void setTypePartie(TypePartie typeJeu) {
+        this.typePartie = typeJeu;
+    }
+
+    /**
+     *
+     * @return TypeJeu
+     */
+    public TypePartie getTypePartie() {
+        return this.typePartie;
+    }
+
+    /**
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void newPlateau() {
-        WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+        if (this.typePartie == TypePartie.WORDS) {
+            WordsFileHandler fileHandler = new WordsFileHandler("./cards.json");
+        }
+        WordsFileHandler fileHandler = new WordsFileHandler("./cardsImages.json");
         this.plateau = new Plateau(this.widthParameter, this.heightParameter, fileHandler.getWordsByThemes(this.thematicListsSelected));
         this.won = false;
     }

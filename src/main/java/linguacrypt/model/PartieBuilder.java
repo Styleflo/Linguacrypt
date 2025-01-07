@@ -16,6 +16,7 @@ public class PartieBuilder {
     private final int widthParameter = 5;
     private final Partie partie;
     private final ArrayList<String> thematicListsSelected;
+    private final TypePartie TYPE_JEU = TypePartie.WORDS;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
@@ -30,6 +31,7 @@ public class PartieBuilder {
         partie.setWidthParameter(widthParameter);
         partie.setTimer(TIMER);
         partie.setThematicListsSelected(thematicListsSelected);
+        partie.setTypePartie(TypePartie.WORDS);
     }
 
     /**
@@ -77,6 +79,18 @@ public class PartieBuilder {
      */
     public PartieBuilder setThematicListsSelected(ArrayList<String> thematicListsSelected) {
         this.partie.setThematicListsSelected(thematicListsSelected);
+        return this;
+    }
+
+    /**
+     * Permet de choisir le type de partie entre image ou mot.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @param typePartie
+     * @return PartieBuilder
+     */
+    public PartieBuilder setTypePartie(TypePartie typePartie) {
+        this.partie.setTypePartie(typePartie);
         return this;
     }
 
