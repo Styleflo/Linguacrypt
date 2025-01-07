@@ -85,11 +85,13 @@ public class WordsFileHandler {
         List<WordsCategory> categories = wordsCategories.getCategories();
 
         for (WordsCategory cat : categories) {
-            if (cat.getName().equals(category)) {
-                if (cat.getWords().contains(word)) {
-                    return new Object[]{false, "Le mot existe déjà dans la catégorie " + cat.getName()};
-                }
+            if (cat.getWords().contains(word)) {
+                return new Object[]{false, "Le mot existe déjà dans la catégorie \"" + cat.getName() + "\""};
+            }
+        }
 
+        for (WordsCategory cat : categories) {
+            if (cat.getName().equals(category)) {
                 cat.getWords().add(word);
                 return new Object[]{true, ""};
             }
