@@ -62,6 +62,18 @@ public class PlateauController implements Observer {
         }
     }
 
+    @FXML
+    private void handleNouvellePartie() throws IOException {
+        jeu.getPartie().newPlateau();
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void handleMenuPrincipal(){
+        this.jeu.setView("MenuInitial");
+        this.jeu.notifyObservers();
+    }
+
     @Override
     public void reagir() {
         afficherCartes();
