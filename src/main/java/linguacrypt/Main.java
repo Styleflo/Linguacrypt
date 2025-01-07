@@ -35,7 +35,7 @@ public class Main extends Application {
         mainControlleur.setPlateau();
 
         // Créer la scène et l'afficher
-        Scene scene = new Scene(root, 900, 700);
+        Scene scene = new Scene(root, 1920, 1080);
         primaryStage.setScene(scene);
         primaryStage.setTitle("LinguaCrypt");
         primaryStage.setFullScreen(true);

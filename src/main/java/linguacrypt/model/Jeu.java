@@ -20,7 +20,7 @@ public class Jeu {
 
     public Jeu() throws IOException {
         //Peut etre des trucs à faire mais pour l'instant ça va !
-        currentView = "menuInitial";
+        currentView = "MenuInitial";
         wordsFileHandler = new WordsFileHandler("./cards.json");
     }
 
