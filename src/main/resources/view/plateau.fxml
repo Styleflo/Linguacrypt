@@ -7,17 +7,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.PlateauController">
+<StackPane prefHeight="1257.0" prefWidth="1529.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.PlateauController">
 
     <SplitPane fx:id="splitpane" dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="1082.0" prefWidth="736.0">
         <items>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1238.0" prefWidth="442.0" stylesheets="@../css/gui.css">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1255.0" prefWidth="442.0" stylesheets="@../css/gui.css">
                 <children>
                     <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="19.0" layoutY="945.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE" onAction="#handleNouvellePartie">
                         <styleClass>
@@ -92,14 +94,33 @@
                 </styleClass>
             </AnchorPane>
             <VBox alignment="CENTER" prefHeight="1130.0" prefWidth="262.0">
-                <ImageView fitHeight="1238.0" fitWidth="1410.0" pickOnBounds="true">
+                <children>
+               <StackPane prefHeight="1255.0" prefWidth="1143.0">
+                  <children>
+                     <ImageView fitHeight="1256.0" fitWidth="1513.0" pickOnBounds="true">
                     <image>
                         <Image url="@../assets/s200_gerald.oster.jpg" />
                     </image>
                 </ImageView>
-                <GridPane fx:id="gridPane" alignment="CENTER" hgap="10" vgap="10">
-                    <!-- Ajoutez ici les lignes et colonnes du GridPane si nécessaire -->
-                </GridPane>
+                <GridPane fx:id="gridPane" >
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                     </GridPane>
+                  </children>
+               </StackPane>
+            </children>
             </VBox>
 
         </items>
