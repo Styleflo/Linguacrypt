@@ -72,7 +72,7 @@ public class CartesController implements Observer {
             create_transition(carte);
             int finalI = i;
             carte.setOnMouseClicked(event -> {
-                handleCardClick(currentMots.get(finalI));
+                handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY());
             });
 
             gridPane.add(carte, col, row);
@@ -86,8 +86,20 @@ public class CartesController implements Observer {
 
     }
 
-    private void handleCardClick(String word) {
+    private void handleCardClick(String word, double x, double y) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem infoItem = new MenuItem("Supprimer" + word);
 
+        infoItem.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Suppression d'un mot");
+            alert.setHeaderText(null);
+            alert.setContentText("Voulez vous supprimer le mot " + word + " ?");
+            alert.showAndWait();
+        });
+
+        contextMenu.getItems().add(infoItem);
+        contextMenu.show(gridPane.getScene().getWindow(), x, y);
     }
 
     private AnchorPane creerCarte(String mot) {
