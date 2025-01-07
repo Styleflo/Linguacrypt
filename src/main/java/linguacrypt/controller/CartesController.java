@@ -47,18 +47,14 @@ public class CartesController implements Observer {
         if (jeu == null) return;
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(50);
-        gridPane.setVgap(50);
+        gridPane.setHgap(15);
+        gridPane.setVgap(15);
         gridPane.setPadding(new Insets(25));
 
         int row = 0;
         int col = 0;
-        int maxCols = 4;
+        int maxCols = 7;
 
-
-
-
-        // Calculer la taille des cartes
 
         for (int i = 0; i < mots.size(); i++) {
             AnchorPane carte = creerCarte(mots.get(i));

@@ -19,6 +19,8 @@
                         text="Jouer"/>
                 <Button mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="43.0" prefWidth="94.0"
                         text="Cartes"/>
+                <Button mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="43.0" prefWidth="94.0"
+                        text="Quitter"/>
             </children>
         </VBox>
     </children>

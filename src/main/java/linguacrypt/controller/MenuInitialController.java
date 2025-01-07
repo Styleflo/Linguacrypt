@@ -1,6 +1,9 @@
 package linguacrypt.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
@@ -33,6 +36,12 @@ public class MenuInitialController implements Observer {
     private void handleCartesButtonAction() {
         jeu.setView("Cartes");
         jeu.notifyObservers();
+    }
+
+    @FXML
+    private void handleQuitterButtonAction(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
 

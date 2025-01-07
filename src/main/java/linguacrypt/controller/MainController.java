@@ -26,7 +26,7 @@ public class MainController implements Observer {
     private StackPane plateauRoot;
 
 
-    private ScrollPane cartesRoot;
+    private StackPane cartesRoot;
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
