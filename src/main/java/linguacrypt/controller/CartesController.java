@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,8 @@ public class CartesController implements Observer {
 
     @FXML
     private GridPane gridPane;
+    @FXML
+    private Label themeLabel;
 
     private List<String> currentMots;
     private int currentThemeIndex;
@@ -108,8 +111,30 @@ public class CartesController implements Observer {
 
     @Override
     public void reagir() {
-        if (jeu.getView() == "Cartes"){
+        if (jeu.getView().equals("Cartes")) {
             afficherCartes();
         }
+    }
+
+    @FXML
+    public void nextCategory() {
+        currentThemeIndex++;
+        if (currentThemeIndex >= themes.size()) {
+            currentThemeIndex = 0;
+        }
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        themeLabel.setText(themes.get(currentThemeIndex));
+        afficherCartes();
+    }
+
+    @FXML
+    public void previousCategory() {
+        currentThemeIndex--;
+        if (currentThemeIndex < 0) {
+            currentThemeIndex = themes.size() - 1;
+        }
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        themeLabel.setText(themes.get(currentThemeIndex));
+        afficherCartes();
     }
 }

@@ -13,10 +13,10 @@ import linguacrypt.utils.WordsFileHandler;
  * Contient une liste de l'ensemble des mots de la base de données (les cartes dispos)
  */
 public class Jeu {
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private final ArrayList<Observer> observers = new ArrayList<>();
     private Partie partie;
     private String currentView;
-    private WordsFileHandler wordsFileHandler;
+    private final WordsFileHandler wordsFileHandler;
 
     public Jeu() throws IOException {
         //Peut etre des trucs à faire mais pour l'instant ça va !
