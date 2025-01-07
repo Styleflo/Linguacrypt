@@ -8,11 +8,21 @@
            fx:controller="linguacrypt.controller.PlateauController"
            prefHeight="400.0" prefWidth="600.0">
 
-    <VBox alignment="CENTER">
-        <Label fx:id="labelEquipe" text="Équipe 1 joue" />
-        <GridPane fx:id="gridPane" alignment="CENTER" hgap="10" vgap="10">
-            <!-- Ajoutez ici les lignes et colonnes du GridPane si nécessaire -->
-        </GridPane>
-    </VBox>
+    <SplitPane fx:id="splitpane" orientation="HORIZONTAL">
+        <items>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="894.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+                <children>
+                    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="518.0" mnemonicParsing="false" prefHeight="139.0" prefWidth="158.0" stylesheets="@../css/gui.css" text="coucou !" textAlignment="CENTER" textFill="WHITE" />
+                </children>
+            </AnchorPane>
+            <VBox alignment="CENTER">
+                <Label fx:id="labelEquipe" text="Équipe 1 joue" />
+                <GridPane fx:id="gridPane" alignment="CENTER" hgap="10" vgap="10">
+                    <!-- Ajoutez ici les lignes et colonnes du GridPane si nécessaire -->
+                </GridPane>
+            </VBox>
+
+        </items>
+    </SplitPane>
 
 </StackPane>

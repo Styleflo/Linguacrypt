@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.33" prefWidth="167.33" styleClass="card" stylesheets="@../css/Neutral_card.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.NeutralCardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="190.0" styleClass="card" stylesheets="@../css/Neutral_card.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.NeutralCardController">
    <children>
       <AnchorPane layoutX="8.0" layoutY="14.0" prefHeight="113.33" prefWidth="173.33" styleClass="small_rectangle" AnchorPane.bottomAnchor="13.33" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0">
          <children>
@@ -23,15 +23,15 @@
                   </ImageView>
                   <Pane prefHeight="16.67" prefWidth="173.33">
                      <children>
-                        <Line endX="-66.67" layoutX="63.33" layoutY="4.67" startX="0" styleClass="ligne" />
+                        <Line endX="-66.67" layoutX="63.33" layoutY="4.67" startX="34.66999816894531" startY="-1.7089843822759576E-5" styleClass="ligne" />
                      </children>
                   </Pane>
                   <Pane prefHeight="4.0" prefWidth="194.0" />
                   <VBox prefHeight="25" prefWidth="173.33" styleClass="text_rectangle">
                      <children>
-                        <Label fx:id="labelMot" alignment="CENTER" prefHeight="30" prefWidth="155" text="Label">
+                        <Label fx:id="labelMot" alignment="CENTER" prefHeight="15.0" prefWidth="155.0" text="Label">
                            <font>
-                              <Font size="5" />
+                              <Font size="5.0" />
                            </font>
                         </Label>
                         <Pane prefHeight="160.67" prefWidth="168.67" />
