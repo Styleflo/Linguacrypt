@@ -1,0 +1,11 @@
+.button{
+    -fx-background-color: #04AA6D; /* Green */
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-display: inline-block;
+    -fx-font-size: 20px;
+    -fx-background-radius: 20px;    /* Arrondi du fond du bouton */
+    -fx-border-radius: 20px;
+}
