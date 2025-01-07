@@ -153,25 +153,37 @@ public class CartesController implements Observer {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Ajouter un mot");
         dialog.setHeaderText("Ajouter un mot à la collection");
-        dialog.setContentText("Veuillez entrer un mot:");
-
+        dialog.setContentText("Veuillez entrer un mot :");
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(mot -> {
+
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        AtomicBoolean wordAdded = new AtomicBoolean(false);
+
+        if (result.isPresent()) {
+            String mot = result.get().toLowerCase().trim();
+
             if (mot.length() > 13) {
                 // Afficher une boîte de dialogue d'erreur
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Erreur");
-                alert.setHeaderText("Mot trop long");
+                alert.setHeaderText("Mot trop long >:(");
                 alert.setContentText("Le mot doit contenir moins de 13 lettres.");
                 alert.showAndWait();
-            } else {
-                // Code pour ajouter le mot à la catégorie actuelle
-                jeu.getWordsFileHandler().addWordToCategory(themes.get(currentThemeIndex), mot.toLowerCase().trim());
+            } else if (wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot)) {
+                // Ajoute le mot à la catégorie actuelle
                 currentMots.add(mot);
-                System.out.println("Mot ajouté: " + mot);
-
+                wordAdded.set(true);
+            } else {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Mot existant");
+                alert.setContentText("Ce mot est déjà dans une catégorie");
+                alert.showAndWait();
             }
-        });
-        this.reagir();
+        }
+
+        if (wordAdded.get()) {
+            this.reagir();
+        }
     }
 }
