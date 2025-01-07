@@ -33,6 +33,7 @@ public class Main extends Application {
         mainControlleur.setMenuInitial();
         mainControlleur.setCartes();
         mainControlleur.setPlateau();
+        mainControlleur.setParametre();
 
         // Créer la scène et l'afficher
         Scene scene = new Scene(root, 1920, 1080);

@@ -24,8 +24,9 @@ public class MainController implements Observer {
 
     private StackPane plateauRoot;
 
-
     private StackPane cartesRoot;
+
+    private StackPane parametresRoot;
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -96,6 +97,27 @@ public class MainController implements Observer {
             e.printStackTrace();
         }
     }
+
+    public void setParametre() {
+        // Charger le fichier FXML du menu et obtenir le contrôleur Plateau
+        try {
+            FXMLLoader parametresLoader = new FXMLLoader(getClass().getResource("/view/parametres.fxml"));
+            parametresRoot = parametresLoader.load();
+            ParametreController parametres = parametresLoader.getController();
+            parametres.setJeu(jeu);
+            jeu.addObserver(parametres);
+
+            AnchorPane.setTopAnchor(parametresRoot, 0.0);
+            AnchorPane.setBottomAnchor(parametresRoot, 0.0);
+            AnchorPane.setLeftAnchor(parametresRoot, 0.0);
+            AnchorPane.setRightAnchor(parametresRoot, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public void update() {
         content.getChildren().clear();

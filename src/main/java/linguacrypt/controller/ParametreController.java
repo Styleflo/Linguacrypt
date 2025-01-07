@@ -2,15 +2,18 @@ package linguacrypt.controller;
 
 import linguacrypt.model.Jeu;
 
-public class ParametreController {
+public class ParametreController implements Observer {
 
     private Jeu jeu;
 
-    public ParametreController(Jeu jeu) {
+    public ParametreController(){}
+
+    public void setJeu(Jeu jeu) {
         this.jeu = jeu;
     }
 
-    public ParametreController(){}
+    @Override
+    public void reagir() {
 
-
+    }
 }
