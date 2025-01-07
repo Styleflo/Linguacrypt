@@ -12,6 +12,7 @@ public class Plateau {
     private final int[] coveredCardsCounts;
     private int pointBlue;
     private int pointRed;
+
     public Plateau(int width, int height, ArrayList<String> words_list) {
         cards = new Carte[height][width];
         key = new Clef(width, height);
@@ -64,36 +65,39 @@ public class Plateau {
         return key;
     }
 
-    public void addBluePoint(){
-        this.pointBlue ++ ;
+    public void addBluePoint() {
+        this.pointBlue++;
     }
 
-    public void addRedPoint(){
-        this.pointRed ++ ;
+    public void addRedPoint() {
+        this.pointRed++;
     }
-    public void updatePoint(int color){
-        if (color == 1){
+
+    public void updatePoint(int color) {
+        if (color == 1) {
             this.addRedPoint();
-        }else {
+        } else {
             this.addBluePoint();
         }
     }
-    public void changeTurn(){
+
+    public void changeTurn() {
         this.isBlueTurn = !this.isBlueTurn;
     }
-    public void updateTurn(int color){
-        switch (color){
+
+    public void updateTurn(int color) {
+        switch (color) {
             case 0:
-                if(this.isRedTurn()){
+                if (this.isRedTurn()) {
                     this.changeTurn();
                 }
                 break;
             case 1:
-                if(this.isBlueTurn()){
+                if (this.isBlueTurn()) {
                     this.changeTurn();
                 }
                 break;
-            case 2:;
+            case 2:
                 break;
             case 3:
                 this.changeTurn();

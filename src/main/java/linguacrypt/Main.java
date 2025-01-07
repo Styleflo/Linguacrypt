@@ -38,7 +38,6 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1450, 850);
         primaryStage.setScene(scene);
         primaryStage.setTitle("LinguaCrypt");
-        primaryStage.setFullScreen(true);
 
         primaryStage.show();
     }
