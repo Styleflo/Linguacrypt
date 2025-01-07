@@ -116,21 +116,29 @@ public class Partie {
         this.words = words;
     }
 
-    public void updateWin(){
+    public void updateWin() {
         int nbpoint = this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() / 3;
-        if (this.getPlateau().getKey().isBlueStarting()){
-            if (this.getPlateau().getPointBlue() == nbpoint + 1){
+        if (this.getPlateau().getKey().isBlueStarting()) {
+            if (this.getPlateau().getPointBlue() == nbpoint + 1) {
                 setBlueWon();
             } else if (this.getPlateau().getPointRed() == nbpoint) {
                 setRedWon();
             }
-        }else{
-            if (this.getPlateau().getPointRed() == nbpoint + 1){
+        } else {
+            if (this.getPlateau().getPointRed() == nbpoint + 1) {
                 setRedWon();
             } else if (this.getPlateau().getPointBlue() == nbpoint) {
                 setBlueWon();
             }
         }
-
+    }
+    public void updateWin(int color){
+        if (color==2){
+            if (this.getPlateau().isBlueTurn()){
+                setRedWon();
+            }else {
+                setBlueWon();
+            }
+        }
     }
 }

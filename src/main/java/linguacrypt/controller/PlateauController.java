@@ -69,17 +69,19 @@ public class PlateauController implements Observer {
                 carte.setStyle("-fx-background-color: #ff6b6b;");
                 jeu.getPartie().getPlateau().updatePoint(1);
                 jeu.getPartie().getPlateau().updateTurn(1);
+                jeu.getPartie().updateWin();
 
                 break;
             case 0:
                 carte.setStyle("-fx-background-color: #4dabf7;");
                 jeu.getPartie().getPlateau().updatePoint(0);
                 jeu.getPartie().getPlateau().updateTurn(0);
-
+                jeu.getPartie().updateWin();
                 break;
             case 2:
                 carte.setStyle("-fx-background-color: #343a40;");
                 jeu.getPartie().getPlateau().updateTurn(2);
+                jeu.getPartie().updateWin(2);
                 break;
             case 3:
                 carte.setStyle("-fx-background-color: #f8f9fa;");
