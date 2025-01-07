@@ -28,7 +28,6 @@ public class CartesController implements Observer {
     private Label themeLabel;
 
 
-
     private List<String> currentMots;
     private int currentThemeIndex;
     private ArrayList<String> themes;
@@ -163,7 +162,7 @@ public class CartesController implements Observer {
                 jeu.getWordsFileHandler().addWordToCategory(themes.get(currentThemeIndex), mot.toLowerCase().trim());
                 currentMots.add(mot);
                 System.out.println("Mot ajouté: " + mot);
-                
+
             }
         });
         this.reagir();

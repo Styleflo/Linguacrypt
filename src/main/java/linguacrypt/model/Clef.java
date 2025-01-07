@@ -60,8 +60,9 @@ public class Clef {
                 grid[i][j] = types.get(index++);
             }
         }
-        try {this.to_qrcode();}
-        catch (Exception e) {
+        try {
+            this.to_qrcode();
+        } catch (Exception e) {
             System.out.println("helloworld");
         }
     }
