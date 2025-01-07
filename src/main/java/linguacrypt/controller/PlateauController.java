@@ -25,7 +25,7 @@ public class PlateauController implements Observer {
         this.jeu = jeu;
     }
 
-    public void updateTeam(){
+    public void updateTeam() {
 
     }
 
@@ -43,9 +43,9 @@ public class PlateauController implements Observer {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
 
-            AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i,j).getWord());
-            gridPane.add(carte, i, j);
-        }
+                AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+                gridPane.add(carte, i, j);
+            }
         }
     }
 
@@ -64,7 +64,8 @@ public class PlateauController implements Observer {
 
     @Override
     public void reagir() {
-        afficherCartes();
+        if (jeu.getView() == "Plateau"){
+            afficherCartes();
+         }
     }
-
 }

@@ -1,6 +1,7 @@
 package linguacrypt.controller;
 
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -99,8 +100,16 @@ public class CartesController implements Observer {
         });
     }
 
+    @FXML
+    private void handleRevenirMenuAction() {
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
+    }
+
     @Override
     public void reagir() {
-        afficherCartes();
+        if (jeu.getView() == "Cartes"){
+            afficherCartes();
+        }
     }
 }
