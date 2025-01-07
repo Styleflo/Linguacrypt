@@ -13,15 +13,17 @@ import java.util.ArrayList;
  */
 public class PartieBuilder {
     private final Partie partie;
+    private final WordsFileHandler wordsFileHandler;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
      * C'est un objet PartieBuilder, il faut donc finir par .getResult pour obtenir la partie construite
      */
-    public PartieBuilder(Jeu jeu) throws IOException {
+    public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
+        this.wordsFileHandler = jeu.getWordsFileHandler();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-        partie.setWords(wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
         partie.setTimer(-1);
         partie.setWidthParameter(5);
         partie.setHeightParameter(5);
@@ -65,11 +67,23 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir les mots utilisées sans la partie
+     * Permet de choisir la largeur les themes du jeu
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
-     * @param words
+     * @param themes
      * @return PartieBuilder
      */
+    public PartieBuilder setUsedThemes(ArrayList<String> themes) {
+        this.partie.setWords(wordsFileHandler.getWordsByThemes(themes));
+        return this;
+    }
+
+        /**
+         * Permet de choisir les mots utilisées sans la partie
+         *
+         * @param words
+         * @return PartieBuilder
+         */
     public PartieBuilder setWordsUsed(ArrayList<String> words) {
         this.partie.setWords(words);
         return this;
@@ -97,7 +111,7 @@ public class PartieBuilder {
      *
      * @return Partie
      */
-    public Partie getResult() throws IOException {
+    public Partie getResult() {
         return this.partie;
     }
 }
