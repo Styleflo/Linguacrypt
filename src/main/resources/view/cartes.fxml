@@ -8,22 +8,26 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.ScrollPane?>
 <StackPane fx:id="StackPane" prefHeight="939.0" prefWidth="1361.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
     <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="608.0" prefWidth="828.0">
         <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="556.0">
                 <children>
-                    <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0" prefWidth="943.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="50.0">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS" />
-                            <ColumnConstraints hgrow="ALWAYS" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints vgrow="ALWAYS" />
-                            <RowConstraints vgrow="ALWAYS" />
-                            <RowConstraints vgrow="ALWAYS" />
-                        </rowConstraints>
-                    </GridPane>
+                    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="50.0">
+                       <content>
+                           <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0" prefWidth="943.0">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="ALWAYS" />
+                                 <ColumnConstraints hgrow="ALWAYS" />
+                              </columnConstraints>
+                               <rowConstraints>
+                                   <RowConstraints vgrow="ALWAYS" />
+                                   <RowConstraints vgrow="ALWAYS" />
+                               </rowConstraints>
+                            </GridPane>
+                        </content>
+                    </ScrollPane>
                 </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
