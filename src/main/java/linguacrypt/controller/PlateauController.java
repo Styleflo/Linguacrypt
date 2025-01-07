@@ -1,8 +1,11 @@
 package linguacrypt.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -108,6 +111,24 @@ public class PlateauController implements Observer {
             labelEquipe.setText("C'est le tour de Rouge");
 
         }
+    }
+
+    @FXML
+    private void handleNouvellePartie() {
+        jeu.getPartie().newPlateau(); 
+        jeu.notifyObservers();
+    }
+    
+    @FXML
+    private void handleMenuPrincipal() {
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void handleTourSuivant(){
+        jeu.getPartie().getPlateau().changeTurn();
+        updateLabel();
     }
 
     @Override

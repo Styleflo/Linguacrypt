@@ -126,13 +126,6 @@ public class CartesController implements Observer {
         jeu.notifyObservers();
     }
 
-    @Override
-    public void reagir() {
-        if (jeu.getView().equals("Cartes")) {
-            afficherCartes();
-        }
-    }
-
     @FXML
     public void nextCategory() {
         currentThemeIndex++;
@@ -212,6 +205,13 @@ public class CartesController implements Observer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void reagir() {
+        if (jeu.getView().equals("Cartes")) {
+            afficherCartes();
         }
     }
 }
