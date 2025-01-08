@@ -9,6 +9,17 @@ public class NeutralCardController {
     @FXML
     private Label labelMot;
 
+    @FXML
+    private ImageView coveredBlue;
+
+    @FXML
+    private ImageView coveredRed;
+
+    @FXML
+    private ImageView coveredWhite;
+
+    @FXML
+    private ImageView coveredBlack;
 
     public void setMot(String mot) {
         labelMot.setText(mot);
@@ -16,6 +27,22 @@ public class NeutralCardController {
 
     public Label getLabelMot() {
         return labelMot;
+    }
+    public void setRecouvert(int color, boolean recouvert) {
+        switch (color) {
+            case 0:
+                coveredBlue.setVisible(recouvert);
+                break;
+            case 1:
+                coveredRed.setVisible(recouvert);
+                break;
+            case 2:
+                coveredWhite.setVisible(recouvert);
+                break;
+            case 3:
+                coveredBlack.setVisible(recouvert);
+                break;
+        }
     }
 
     private void adjustFontSize(String mot) {
