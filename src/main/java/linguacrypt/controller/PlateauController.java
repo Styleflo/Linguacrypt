@@ -3,16 +3,14 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
-import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -27,46 +25,38 @@ public class PlateauController implements Observer {
 
     @FXML
     private GridPane gridPane;
-
-    private StackPane popupRoot;
-
     @FXML
     private Label labelEquipe;
-
     @FXML
     private Label lbbleu;
-
     @FXML
     private Label lbred;
-
     @FXML
     private Pane panneau_changer2;
     @FXML
     private AnchorPane panneau_changer;
-
     @FXML
     private ImageView imageview1;
     @FXML
     private ImageView imageview2;
-
-
     @FXML
     private ImageView filtre;
     @FXML
     private ImageView filtre2;
-
-    private WinnerPopupController winnerPopupController;
-
-    private StackPane popupContainer;
-
     @FXML
     private Pane confirmationOverlay;
-
     @FXML
     private Pane confirmationOverlayMenu;
-
     @FXML
     private Pane confirmationOverlayMenuSave;
+    @FXML
+    private Pane popupWin;
+    @FXML
+    private Label whoWon;
+    @FXML
+    private Button colorButton;
+    @FXML
+    private VBox borderWin;
 
     @FXML
     private void confirmNouvellePartie() {
@@ -85,6 +75,7 @@ public class PlateauController implements Observer {
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
+        confirmationOverlayMenuSave.setVisible(false);
     }
 
     @FXML
@@ -92,6 +83,22 @@ public class PlateauController implements Observer {
         confirmationOverlayMenu.setVisible(false);
     }
 
+    @FXML
+    private void returnMenu() {
+        confirmationOverlayMenu.setVisible(false);
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void closeConfirmationMenu() {
+        confirmationOverlayMenu.setVisible(false);
+    }
+
+    @FXML
+    private void okWin() {
+        popupWin.setVisible(false);
+    }
 
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -116,8 +123,7 @@ public class PlateauController implements Observer {
     private AnchorPane findAnchorCard(String mot) {
         List<AnchorPane> cartes = recupererCartes();
         for (AnchorPane carte : cartes) {
-            NeutralCardController controller = (NeutralCardController) carte.getUserData();// Récupérer le contrôleur associé à la carte
-            //System.out.println(controller);
+            NeutralCardController controller = (NeutralCardController) carte.getUserData(); // Récupérer le contrôleur associé à la carte
             if (controller.getLabelMot() != null && controller.getLabelMot().getText().equals(mot)) {
                 return carte;
             }
@@ -262,14 +268,14 @@ public class PlateauController implements Observer {
         if (jeu.getPartie().BlueWon()) {
             revealCard();
             showWinnerPopup("Bleue");
-        } else if (jeu.getPartie().RedWon()) {
+        }
+        if (jeu.getPartie().RedWon()) {
             revealCard();
             showWinnerPopup("Rouge");
         }
-
+        // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
-
-        updateLabel();
+        this.updateLabel();
     }
 
     private void revealCard() {
@@ -291,26 +297,24 @@ public class PlateauController implements Observer {
         }
     }
 
-
     private void showWinnerPopup(String winningTeam) {
-        try {
-            if (popupContainer == null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
-                popupContainer = loader.load();
-                winnerPopupController = loader.getController();
-
-                StackPane parent = (StackPane) gridPane.getParent();
-
-                // On ajoute le popup au StackPane
-                parent.getChildren().add(popupContainer);
-                popupContainer.toFront(); // Met le popup au premier plan
-
-            }
-
-            winnerPopupController.show(winningTeam);
-        } catch (IOException e) {
-            DataUtils.logException(e, "Erreur lors de l'affichage du popup de fin de partie");
+        if (winningTeam.equals("Rouge")) {
+            whoWon.setText("L'équipe Rouge a gagné !");
+            whoWon.setStyle("-fx-text-fill: #f70d1a;");
+            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
+            colorButton.getStyleClass().add("red_button");
+            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+            borderWin.getStyleClass().add("win-box-red");
         }
+        else {
+            whoWon.setText("L'équipe Bleue a gagné !");
+            whoWon.setStyle("-fx-text-fill: #3399FF;");
+            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
+            colorButton.getStyleClass().add("blue_button");
+            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+            borderWin.getStyleClass().add("win-box-blue");
+        }
+        popupWin.setVisible(true);
     }
 
     private AnchorPane creerCarte(String mot) {
@@ -352,6 +356,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
+            labelEquipe.setText("C'est le tour de Bleu");
         } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
@@ -362,7 +367,9 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.RED_TURN_TEXT);
+            labelEquipe.setText("C'est le tour de Rouge");
         }
+
 
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
@@ -385,23 +392,30 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        jeu.setView("MenuInitial");
-        jeu.notifyObservers();
+        if (jeu.getPartie().getwon() != -1) {
+            confirmationOverlayMenu.setVisible(true);
+        }
+        else {
+            jeu.setView("MenuInitial");
+            jeu.notifyObservers();
+        }
     }
 
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
-
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
                 jeu.getPartie().savePartie(fichier.getAbsolutePath());
                 System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
+                System.out.println(fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }
+            jeu.setView("MenuInitial");
+            jeu.notifyObservers();
         }
     }
 
@@ -431,7 +445,6 @@ public class PlateauController implements Observer {
         }
 
     }
-
 
     @Override
     public void reagir() {
