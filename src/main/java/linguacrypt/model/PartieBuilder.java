@@ -78,12 +78,12 @@ public class PartieBuilder {
         return this;
     }
 
-        /**
-         * Permet de choisir les mots utilisées sans la partie
-         *
-         * @param words
-         * @return PartieBuilder
-         */
+    /**
+     * Permet de choisir les mots utilisées sans la partie
+     *
+     * @param words
+     * @return PartieBuilder
+     */
     public PartieBuilder setWordsUsed(ArrayList<String> words) {
         this.partie.setWords(words);
         return this;

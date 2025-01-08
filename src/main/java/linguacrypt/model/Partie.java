@@ -35,23 +35,22 @@ public class Partie {
         this.plateau = plateau;
     }
 
+    /**
+     * @return TypeJeu
+     */
+    public TypePartie getTypePartie() {
+        return this.typePartie;
+    }
 
     /**
      * Permet de set le type de jeu.
      * Attention il faut passer un TypeJeu.
      * Soit TypeJeu.WORDS ou soit TypeJeu.IMAGES
+     *
      * @param typeJeu
      */
     public void setTypePartie(TypePartie typeJeu) {
         this.typePartie = typeJeu;
-    }
-
-    /**
-     *
-     * @return TypeJeu
-     */
-    public TypePartie getTypePartie() {
-        return this.typePartie;
     }
 
     /**
@@ -78,9 +77,9 @@ public class Partie {
         this.won = 1;
     }
 
-        /**
-         * Explicite.
-         */
+    /**
+     * Explicite.
+     */
     public int getTimer() {
         return timer;
     }
