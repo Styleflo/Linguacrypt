@@ -204,9 +204,9 @@ public class PlateauController implements Observer {
 
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
-            labelEquipe.setText("C'est le tour de Bleu");
+            labelEquipe.setText("C'est le tour de l'équipe bleue");
         } else {
-            labelEquipe.setText("C'est le tour de Rouge");
+            labelEquipe.setText("C'est le tour de l'équipe rouge");
         }
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {

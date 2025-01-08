@@ -33,7 +33,7 @@ public class Jeu {
     }
 
     /**
-     * Ajoute un observer à la liste des observeur du model Jeu.
+     * Ajoute un observer à la liste des observers.
      *
      * @param observer
      */
@@ -42,7 +42,7 @@ public class Jeu {
     }
 
     /**
-     * Supprime un observer à la liste des observeur du model Jeu.
+     * Supprime un observer de la liste des observers.
      *
      * @param observer
      */
