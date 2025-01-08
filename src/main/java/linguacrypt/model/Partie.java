@@ -149,7 +149,7 @@ public class Partie implements Serializable {
     }
 
     public void updateWin() {
-        int nbpoint = this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() / 3;
+        int nbpoint = this.getWidthParameter() * this.getHeightParameter() / 3;
         if (this.getPlateau().getKey().isBlueStarting()) {
             if (this.getPlateau().getPointBlue() == nbpoint + 1) {
                 setBlueWon();
