@@ -107,7 +107,7 @@ public class CartesController implements Observer {
 
         MenuItem deleteButton = new MenuItem(deleteButtonLabel);
 
-        deleteButton.setOnAction(_ -> {
+        deleteButton.setOnAction(event -> {
             Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
 
             if (alert.showAndWait().isPresent()) {
