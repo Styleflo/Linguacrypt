@@ -1,13 +1,19 @@
 package linguacrypt.controller;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
+import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ParametreController implements Observer {
 
@@ -20,9 +26,14 @@ public class ParametreController implements Observer {
     @FXML
     private Pane lesthemes;
 
+    @FXML
+    private VBox themeBox;
+
     private Jeu jeu;
 
     private PartieBuilder partieBuilder;
+
+    private ArrayList<String> themes;
 
     public ParametreController(){}
 
@@ -80,7 +91,64 @@ public class ParametreController implements Observer {
     @FXML
     public void handleThemes(){
         lesthemes.setVisible(true);
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        themes = wordsFileHandler.getAllThemes();
+        themeBox.getChildren().clear();
 
+        for (String theme : themes) {
+            Label label = new Label(theme);
+            label.setStyle("-fx-text-fill: white;"); 
+            CheckBox checkBox = new CheckBox();
+            HBox themeItem = new HBox(checkBox, label);
+            themeItem.setSpacing(10);
+            themeBox.getChildren().add(themeItem);
+        }
+    
+        Button validerButton = new Button("Valider");
+        validerButton.setOnAction(event -> {
+            try {
+                handleValider();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Button annulerButton = new Button("Annuler");
+        annulerButton.setOnAction(event -> handleAnnuler());
+
+        HBox buttonBox = new HBox(10, validerButton, annulerButton);
+        buttonBox.setSpacing(10);
+        themeBox.getChildren().add(buttonBox);
+    }
+
+    @FXML
+    private void handleValider() throws IOException {
+        ArrayList<String> selectedThemes = new ArrayList<>();
+        for (javafx.scene.Node node : themeBox.getChildren()) {
+            if (node instanceof HBox) {
+                HBox hbox = (HBox) node;
+                for (javafx.scene.Node child : hbox.getChildren()) {
+                    if (child instanceof CheckBox) {
+                        CheckBox checkBox = (CheckBox) child;
+                        if (checkBox.isSelected()) {
+                            Label label = (Label) hbox.getChildren().get(1);
+                            selectedThemes.add(label.getText());
+                        }
+                    }
+                }
+            }
+        }
+        partieBuilder.setUsedThemes(selectedThemes);
+        lesthemes.setVisible(false);
+        jeu.setView("Plateau");
+        Partie partie = partieBuilder.getResult();
+        jeu.setPartie(partie);
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void handleAnnuler() {
+        lesthemes.setVisible(false);
     }
 
     @Override
