@@ -1,7 +1,8 @@
 package linguacrypt.model;
 
-import java.io.*;
 import linguacrypt.config.GameConfig;
+
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,22 @@ public class Partie implements Serializable {
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;
+
+    /**
+     * Charge une partie à partir d'un fichier.
+     *
+     * @param filePath Le chemin du fichier à charger.
+     * @return La partie chargée.
+     * @throws IOException            Si une erreur survient lors de la lecture du fichier.
+     * @throws ClassNotFoundException Si la classe de l'objet n'est pas trouvée.
+     */
+    public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            Partie partie = (Partie) ois.readObject();
+            System.out.println("Partie chargée avec succès depuis " + filePath);
+            return partie;
+        }
+    }
 
     /**
      * Explicite.
@@ -45,18 +62,6 @@ public class Partie implements Serializable {
     }
 
     /**
-     * Explicite.
-     */
-    public int getwon() {
-        return this.won;
-    }
-
-    public void setPartieBegin() {
-        this.won = 2;
-    }
-
-
-    /**
      * Permet de set le type de jeu.
      * Attention il faut passer un TypeJeu.
      * Soit TypeJeu.WORDS ou soit TypeJeu.IMAGES
@@ -65,6 +70,17 @@ public class Partie implements Serializable {
      */
     public void setTypePartie(TypePartie typeJeu) {
         this.typePartie = typeJeu;
+    }
+
+    /**
+     * Explicite.
+     */
+    public int getwon() {
+        return this.won;
+    }
+
+    public void setPartieBegin() {
+        this.won = 2;
     }
 
     /**
@@ -187,22 +203,6 @@ public class Partie implements Serializable {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(this);
             System.out.println("Partie sauvegardée avec succès dans " + filePath);
-        }
-    }
-
-    /**
-     * Charge une partie à partir d'un fichier.
-     *
-     * @param filePath Le chemin du fichier à charger.
-     * @return La partie chargée.
-     * @throws IOException Si une erreur survient lors de la lecture du fichier.
-     * @throws ClassNotFoundException Si la classe de l'objet n'est pas trouvée.
-     */
-    public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            Partie partie = (Partie) ois.readObject();
-            System.out.println("Partie chargée avec succès depuis " + filePath);
-            return partie;
         }
     }
 }

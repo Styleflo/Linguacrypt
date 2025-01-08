@@ -6,12 +6,12 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import linguacrypt.config.GameConfig;
-import linguacrypt.model.CarteBase;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import linguacrypt.config.GameConfig;
+import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -73,7 +73,6 @@ public class PlateauController implements Observer {
     private void cancelSavePartie() {
         confirmationOverlayMenu.setVisible(false);
     }
-
 
 
     public void PlateauControlleur() {
@@ -264,8 +263,7 @@ public class PlateauController implements Observer {
     private void handleNouvellePartie() {
         if (jeu.getPartie().getwon() == 2) {
             confirmationOverlay.setVisible(true);
-        }
-        else {
+        } else {
             confirmNouvellePartie();
         }
     }
@@ -274,8 +272,7 @@ public class PlateauController implements Observer {
     private void handleMenuPrincipal() {
         if (jeu.getPartie().getwon() == 2) {
             confirmationOverlayMenu.setVisible(true);
-        }
-        else {
+        } else {
             confirmNouvellePartie();
         }
     }

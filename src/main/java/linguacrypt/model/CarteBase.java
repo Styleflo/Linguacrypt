@@ -1,7 +1,6 @@
 package linguacrypt.model;
 
 import linguacrypt.utils.CardType;
-import java.io.Serializable;
 
 public abstract class CarteBase {
     protected final CardType type;  // 0: bleu ; 1: rouge ; 2: noir ; 3: blanc

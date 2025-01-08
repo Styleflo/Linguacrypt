@@ -11,8 +11,8 @@ public class GameConfig {
     public static double BLACK_CARDS_PROPORTION = 0.04;  // = 1/25
     public static double BLUE_AND_RED_CARDS_PROPORTION = 0.33;  // =~ 1/3
 
-    public static String BLUE_TEXT_QRCODE =  "Bleu    ";
-    public static String RED_TEXT_QRCODE =   "Rouge   ";
+    public static String BLUE_TEXT_QRCODE = "Bleu    ";
+    public static String RED_TEXT_QRCODE = "Rouge   ";
     public static String BLACK_TEXT_QRCODE = "Noir    ";
     public static String WHITE_TEXT_QRCODE = "Blanc   ";
     public static String BLUE_STARTS_TEXT_QRCODE = "Bleu commence";
