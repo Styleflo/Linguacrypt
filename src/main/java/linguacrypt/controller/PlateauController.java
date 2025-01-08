@@ -75,7 +75,7 @@ public class PlateauController implements Observer {
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
-        jeu.notifyObservers();
+        confirmationOverlayMenuSave.setVisible(false);
     }
 
     @FXML
@@ -406,15 +406,17 @@ public class PlateauController implements Observer {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
-
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
                 jeu.getPartie().savePartie(fichier.getAbsolutePath());
                 System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
+                System.out.println(fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }
+            jeu.setView("MenuInitial");
+            jeu.notifyObservers();
         }
     }
 
