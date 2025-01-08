@@ -214,59 +214,47 @@ public class PlateauController implements Observer {
         if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
         }
+
         if (jeu.getPartie().getwon() == -1) {
             jeu.getPartie().setPartieBegin();
         }
         // Récupérer la couleur de la carte depuis le modèle
         CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
         NeutralCardController controller = (NeutralCardController) carte.getUserData();
-        String style = "";
-        int points = -1;
-        CardType nextTurn = couleur;
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setRecouvert(couleur, true);
+        String style;
 
         switch (couleur) {
             case CardType.RED:
                 style = "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
-                points = 1;
-                carte.setStyle("-fx-background-color: #ff6b6b;");
-                jeu.getPartie().getPlateau().updatePoint(1);
+                carte.setStyle(style);
+                jeu.getPartie().getPlateau().updatePoint(CardType.RED);
                 jeu.getPartie().getPlateau().updateTurn(CardType.RED);
-                jeu.getPartie().updateWin();
-// Recouvrir la carte
-                if (controller != null) {
-                    controller.setRecouvert(couleur,true);
-                }
+                // Recouvrir la carte
                 break;
             case CardType.BLUE:
                 style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
-                points = 0;
-                if (controller != null) {
-                    controller.setRecouvert(couleur,true);
-                }
+                carte.setStyle(style);
+                jeu.getPartie().getPlateau().updatePoint(CardType.BLUE);
+                jeu.getPartie().getPlateau().updateTurn(CardType.BLUE);
                 break;
             case CardType.BLACK:
                 style = "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
-                nextTurn = CardType.BLACK;
-                if (controller != null) {
-                    controller.setRecouvert(couleur,true);
+                carte.setStyle(style);
+                if (jeu.getPartie().getPlateau().isBlueTurn()) {
+                    jeu.getPartie().setRedWon();
+                } else {
+                    jeu.getPartie().setBlueWon();
                 }
                 break;
             case CardType.WHITE:
                 style = "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
-                nextTurn = CardType.RED;
-                if (controller != null) {
-                    controller.setRecouvert(couleur,true);
-                }
+                carte.setStyle(style);
+                jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
 
-        carte.setStyle(style);
-
-        if (points != -1) {
-            jeu.getPartie().getPlateau().updatePoint(points);
-        }
-
-        jeu.getPartie().getPlateau().updateTurn(nextTurn);
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
@@ -278,7 +266,8 @@ public class PlateauController implements Observer {
         }
 
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
-        this.updateLabel();
+
+        updateLabel();
     }
 
     private void revealCard() {

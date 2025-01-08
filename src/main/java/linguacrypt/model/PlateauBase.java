@@ -89,8 +89,8 @@ public abstract class PlateauBase implements Serializable {
     /**
      * Donne un point à l'équipe qui joue
      */
-    public void updatePoint(int color) {
-        if (color == 1) {
+    public void updatePoint(CardType color) {
+        if (color == CardType.RED) {
             this.addRedPoint();
         } else {
             this.addBluePoint();
