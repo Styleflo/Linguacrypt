@@ -87,7 +87,7 @@ public class CartesController implements Observer {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem deleteButton = new MenuItem("Supprimer \"" + word + "\" ?");
 
-        deleteButton.setOnAction(_ -> {
+        deleteButton.setOnAction(ex -> {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Suppression d'un mot");
             alert.setHeaderText(null);
@@ -214,7 +214,7 @@ public class CartesController implements Observer {
         }
 
         if (motRefuse.get()) {
-            handleAjouterMotAction();
+handleAjouterMotAction();
         } else {
             wordsFileHandler.writeJsonFile();
         }

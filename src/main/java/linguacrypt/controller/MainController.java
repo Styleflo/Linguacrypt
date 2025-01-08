@@ -107,6 +107,9 @@ public class MainController implements Observer {
             parametres.setJeu(jeu);
             jeu.addObserver(parametres);
 
+            // faire le builder pour la partie
+            parametres.setPartieBuilder();
+
             AnchorPane.setTopAnchor(parametresRoot, 0.0);
             AnchorPane.setBottomAnchor(parametresRoot, 0.0);
             AnchorPane.setLeftAnchor(parametresRoot, 0.0);
@@ -125,6 +128,7 @@ public class MainController implements Observer {
             case "MenuInitial" -> content.getChildren().add(menuInitialRoot);
             case "Cartes" -> content.getChildren().add(cartesRoot);
             case "Plateau" -> content.getChildren().add(plateauRoot);
+            case "Parametres" -> content.getChildren().add(parametresRoot);
             case null, default -> System.out.println(jeu.getView());
         }
     }

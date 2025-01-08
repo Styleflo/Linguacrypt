@@ -24,10 +24,7 @@ public class MenuInitialController implements Observer {
 
     @FXML
     private void handleJouerButtonAction() throws IOException {
-        jeu.setView("Plateau");
-        PartieBuilder partieBuilder = new PartieBuilder(jeu);
-        Partie partie = partieBuilder.getResult();
-        jeu.setPartie(partie);
+        jeu.setView("Parametres");
         jeu.notifyObservers();
     }
 

@@ -1,24 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/parametre.css" fx:controller="linguacrypt.controller.ParametreController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.ParametreController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="anchor-pane">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/parametre.css">
          <children>
-            <Label alignment="CENTER" layoutX="241.0" layoutY="36.0" prefHeight="41.0" prefWidth="119.0" text="Paramètres" styleClass="label"/>
-            <TextField layoutX="230.0" layoutY="117.0" styleClass="text-field"/>
-            <Label alignment="CENTER" layoutX="43.0" layoutY="109.0" prefHeight="41.0" prefWidth="161.0" text="Nombre de colonnes :" styleClass="label"/>
-            <Label alignment="CENTER" layoutX="43.0" layoutY="172.0" prefHeight="41.0" prefWidth="161.0" text="Nombre de lignes :" styleClass="label"/>
-            <TextField layoutX="230.0" layoutY="181.0" styleClass="text-field"/>
-            <Button layoutX="108.0" layoutY="334.0" mnemonicParsing="false" text="Choisir ses cartes" styleClass="button"/>
-            <Button layoutX="309.0" layoutY="334.0" mnemonicParsing="false" text="Mettre les cartes en aléatoire" styleClass="button"/>
-            <Label alignment="CENTER" layoutX="43.0" layoutY="238.0" prefHeight="41.0" prefWidth="161.0" text="Choisir un temps :" styleClass="label"/>
-            <TextField layoutX="230.0" layoutY="247.0" styleClass="text-field"/>
+            <Pane layoutX="300.0" layoutY="81.0" prefHeight="673.0" prefWidth="728.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+               <children>
+                  <Slider layoutX="209.0" layoutY="178.0" prefHeight="15.0" prefWidth="468.0" styleClass="thumb" stylesheets="@../css/parametre.css" />
+                  <Label layoutX="398.0" layoutY="127.0" styleClass="text" stylesheets="@../css/parametre.css" text="Temps" textFill="#fcf6f6" />
+                  <Label layoutX="390.0" layoutY="229.0" styleClass="text" stylesheets="@../css/parametre.css" text="Largeur" textFill="#fcf6f6" />
+                  <Label layoutX="385.0" layoutY="393.0" styleClass="text" stylesheets="@../css/parametre.css" text="Hauteur" textFill="#fcf6f6" />
+                  <AnchorPane layoutX="388.0" layoutY="283.0" prefHeight="71.0" prefWidth="109.0" stylesheets="@../css/parametre.css">
+                     <children>
+                        <Label fx:id="label1" layoutX="46.0" layoutY="21.0" styleClass="text" stylesheets="@../css/parametre.css" text="5" textFill="#fcf6f6" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="red_petit_panneau" />
+                        <String fx:value="dark_petit_panneau" />
+                     </styleClass>
+                  </AnchorPane>
+                  <AnchorPane layoutX="390.0" layoutY="440.0" prefHeight="71.0" prefWidth="109.0" stylesheets="@../css/parametre.css">
+                     <children>
+                        <Label fx:id="label2" layoutX="47.0" layoutY="18.0" styleClass="text" stylesheets="@../css/parametre.css" text="5" textFill="#fcf6f6" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="red_petit_panneau" />
+                        <String fx:value="dark_petit_panneau" />
+                     </styleClass>
+                  </AnchorPane>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleFlecheGauchelb1" prefHeight="64.0" prefWidth="43.0" text="&lt;" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button2" />
+                        <String fx:value="red_button" />
+                     </styleClass>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="508.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleFlecheDroitelb1" prefHeight="64.0" prefWidth="43.0" stylesheets="@../css/parametre.css" text="&gt;" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="red_button" />
+                        <String fx:value="button2" />
+                     </styleClass>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="334.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleFlecheGauchelb2" prefHeight="64.0" prefWidth="43.0" text="&lt;" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button2" />
+                        <String fx:value="red_button" />
+                     </styleClass>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="508.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleFlecheDroitelb2" prefHeight="64.0" prefWidth="43.0" text="&gt;" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button2" />
+                        <String fx:value="red_button" />
+                     </styleClass>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="80.0" layoutY="550.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" text="Choisir ses cartes" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button1" />
+                        <String fx:value="orange_button" />
+                     </styleClass>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="583.0" layoutY="550.0" mnemonicParsing="false" onAction="#handleCartesAleatoire" prefHeight="71.0" prefWidth="188.0" text="Cartes Aléatoires" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button1" />
+                        <String fx:value="orange_button" />
+                     </styleClass>
+                  </Button>
+                  <AnchorPane layoutX="279.0" layoutY="31.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
+                     <children>
+                        <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
+                        <Label layoutX="87.0" layoutY="21.0" styleClass="text" stylesheets="@../css/parametre.css" text="Paramètres" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="blue_petit_panneau" />
+                        <String fx:value="dark_petit_panneau" />
+                     </styleClass>
+                  </AnchorPane>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>
