@@ -14,8 +14,8 @@
 }
 
 .button1:hover {
-    -fx-translate-x: 8px; 
-    -fx-translate-y: 8px; 
+    -fx-translate-x: 8px;
+    -fx-translate-y: 8px;
 }
 
 .button2 {
@@ -34,8 +34,8 @@
 }
 
 .button2:hover {
-    -fx-translate-x: 2px; 
-    -fx-translate-y: 2px; 
+    -fx-translate-x: 2px;
+    -fx-translate-y: 2px;
 }
 
 
@@ -126,6 +126,20 @@
     -fx-background-repeat: no-repeat; /* Ne répète pas l'image */
 }
 
+.bordure_speciale{
+    -fx-border-width: 10px; /* Bordure uniquement à gauche et à droite */
+    -fx-border-color: #2658af #2658af #2658af #2658af; /* Bordure bleue sur les côtés verticaux */
+}
+
+.bordure_blanche{
+    -fx-border-width: 4px; /* Bordure uniquement à gauche et à droite */
+    -fx-border-color: white white white white; /* Bordure bleue sur les côtés verticaux */
+    -fx-border-radius: 10px;
+}
+
+.big_button{
+    -fx-font: bold 40px "Helvetica";
+}
 .popup-overlay {
     -fx-background-color: transparent;
 }

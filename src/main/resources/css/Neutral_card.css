@@ -6,11 +6,12 @@
 
 .card:hover {
     -fx-background-color: linear-gradient(to top right, #85e3ff, #ff6233);
-    -fx-background-size: 200% 200%; /* Pour permettre à l'animation d'être visible */
-    -fx-background-position: 0% 50%;
-    -fx-transition: background-position 10s infinite ease-in-out;
-    -fx-animation: gradientAnimation 10s ease infinite;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 60, 0, 10, 10);
+    /*-fx-background-image: url("../assets/card_hover.gif");*/
+    -fx-background-size: cover;
+    -fx-background-radius: 20px;  /* Coins arrondis */
+    -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
 
 }
 
@@ -61,3 +62,6 @@
     -fx-stroke-width: 1; /* Épaisseur de la ligne */
 }
 
+.image-view:hover {
+
+}
