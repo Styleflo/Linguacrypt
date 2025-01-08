@@ -8,20 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordsFileHandler {
-    //private final File file;
     private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
-        InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
+        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
-        if (resource == null) {
+        if (resourceStream == null) {
             throw new IllegalArgumentException("File not found : " + filePath);
         }
 
-        //file = new File(resource.getFile());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
+        wordsCategories = objectMapper.readValue(resourceStream, WordsCategories.class);
     }
 
     public void writeJsonFile() {

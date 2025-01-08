@@ -3,12 +3,18 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class PlateauController implements Observer {
     private Jeu jeu;
@@ -61,6 +67,9 @@ public class PlateauController implements Observer {
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
+        if (jeu.getPartie().getwon() == -1) {
+            jeu.getPartie().setPartieBegin();
+        }
         // Récupérer la couleur de la carte depuis le modèle
         int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
 
@@ -131,14 +140,58 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleNouvellePartie() {
+        close();
         jeu.getPartie().newPlateau();
         jeu.notifyObservers();
     }
 
     @FXML
     private void handleMenuPrincipal() {
+        close();
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
+    }
+
+    private void close() {
+        if (jeu.getPartie().getwon() == 2) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("La partie en cours n'est pas finie.");
+            alert.setContentText("Voulez-vous sauvegarder la partie en cours avant de revenir au menu principal ?");
+
+            // Ajouter des boutons pour "Oui", "Non" et "Annuler"
+            ButtonType boutonOui = new ButtonType("Oui");
+            ButtonType boutonNon = new ButtonType("Non");
+            ButtonType boutonAnnuler = new ButtonType("Annuler");
+
+            alert.getButtonTypes().setAll(boutonOui, boutonNon, boutonAnnuler);
+
+            // Afficher la boîte de dialogue et récupérer la réponse
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == boutonOui) {
+                    savePartie();
+                } else if (result.get() == boutonAnnuler) {
+                    return;  // Annuler l'opération de création
+                }
+            }
+        }
+    }
+
+    private void savePartie() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sauvegarder la partie en cours");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+
+        File fichier = fileChooser.showSaveDialog(new Stage());
+        if (fichier != null) {
+            try {
+                jeu.getPartie().savePartie(fichier.getAbsolutePath());
+                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
+            } catch (IOException e) {
+                System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+            }
+        }
     }
 
     @FXML
@@ -146,6 +199,7 @@ public class PlateauController implements Observer {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
     }
+
 
     @Override
     public void reagir() {

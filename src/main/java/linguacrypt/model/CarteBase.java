@@ -1,6 +1,8 @@
 package linguacrypt.model;
 
-public abstract class CarteBase {
+import java.io.Serializable;
+
+public abstract class CarteBase implements Serializable {
     protected final int type;  // 0: bleu ; 1: rouge ; 2: noir ; 3: blanc
     protected boolean covered;
 
