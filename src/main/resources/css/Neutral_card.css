@@ -9,7 +9,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 60, 0, 10, 10);
     /*-fx-background-image: url("../assets/card_hover.gif");*/
     -fx-background-size: cover;
-    -fx-background-radius: 20px;  /* Coins arrondis */
+    -fx-background-radius: 20px; /* Coins arrondis */
     -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
     -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
 
