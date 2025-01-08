@@ -11,12 +11,13 @@ public class WordsFileHandler {
     private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
-        InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
+        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
-        DataUtils.assertNotNull(resource, "Le fichier " + filePath + " n'existe pas.");
+        DataUtils.assertNotNull(resourceStream, "Le fichier " + filePath + " n'existe pas.");
+
 
         ObjectMapper objectMapper = new ObjectMapper();
-        wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
+        wordsCategories = objectMapper.readValue(resourceStream, WordsCategories.class);
     }
 
     public void writeJsonFile() {
@@ -119,5 +120,6 @@ public class WordsFileHandler {
                 }
             }
         }
+
     }
 }

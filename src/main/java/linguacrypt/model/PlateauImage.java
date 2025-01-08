@@ -2,6 +2,7 @@ package linguacrypt.model;
 
 import linguacrypt.utils.CardType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
@@ -10,7 +11,7 @@ import static java.lang.Math.max;
  * herite de la classe PlateauBase
  * Contient les carteImages sous le type CarteBase
  */
-public class PlateauImage extends PlateauBase {
+public class PlateauImage extends PlateauBase implements Serializable {
     private final CarteBase[][] cardsImages;
 
     public PlateauImage(int width, int height, ArrayList<String> words_list) {

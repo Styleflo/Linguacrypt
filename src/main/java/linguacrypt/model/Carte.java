@@ -1,8 +1,9 @@
 package linguacrypt.model;
 
 import linguacrypt.utils.CardType;
+import java.io.Serializable;
 
-public class Carte extends CarteBase {
+public class Carte extends CarteBase implements Serializable {
     private final String word;
 
     public Carte(String word, CardType type) {

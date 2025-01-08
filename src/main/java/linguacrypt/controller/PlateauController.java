@@ -9,10 +9,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.CarteBase;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,41 @@ public class PlateauController implements Observer {
 
     private WinnerPopupController winnerPopupController;
     private StackPane popupContainer;
+
+    @FXML
+    private Pane confirmationOverlay;
+
+    @FXML
+    private Pane confirmationOverlayMenu;
+
+    @FXML
+    private Pane confirmationOverlayMenuSave;
+
+    @FXML
+    private void confirmNouvellePartie() {
+        confirmationOverlay.setVisible(false);
+        jeu.getPartie().newPlateau();
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void cancelNouvellePartie() {
+        confirmationOverlay.setVisible(false);
+    }
+
+    @FXML
+    private void confirmSavePartie() {
+        confirmationOverlayMenu.setVisible(false);
+        confirmationOverlayMenuSave.setVisible(true);
+        savePartie();
+    }
+
+    @FXML
+    private void cancelSavePartie() {
+        confirmationOverlayMenu.setVisible(false);
+    }
+
+
 
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -100,7 +139,10 @@ public class PlateauController implements Observer {
         if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
         }
-
+        if (jeu.getPartie().getwon() == -1) {
+            jeu.getPartie().setPartieBegin();
+        }
+        // Récupérer la couleur de la carte depuis le modèle
         CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
         String style = "";
         int points = -1;
@@ -220,14 +262,38 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleNouvellePartie() {
-        jeu.getPartie().newPlateau();
-        jeu.notifyObservers();
+        if (jeu.getPartie().getwon() == 2) {
+            confirmationOverlay.setVisible(true);
+        }
+        else {
+            confirmNouvellePartie();
+        }
     }
 
     @FXML
     private void handleMenuPrincipal() {
-        jeu.setView("MenuInitial");
-        jeu.notifyObservers();
+        if (jeu.getPartie().getwon() == 2) {
+            confirmationOverlayMenu.setVisible(true);
+        }
+        else {
+            confirmNouvellePartie();
+        }
+    }
+
+    private void savePartie() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sauvegarder la partie en cours");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+
+        File fichier = fileChooser.showSaveDialog(new Stage());
+        if (fichier != null) {
+            try {
+                jeu.getPartie().savePartie(fichier.getAbsolutePath());
+                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
+            } catch (IOException e) {
+                System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+            }
+        }
     }
 
     @FXML
@@ -235,6 +301,7 @@ public class PlateauController implements Observer {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
     }
+
 
     @Override
     public void reagir() {

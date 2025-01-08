@@ -1,7 +1,7 @@
 package linguacrypt.model;
 
+import java.io.*;
 import linguacrypt.config.GameConfig;
-
 import java.util.ArrayList;
 
 /**
@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * Contient la largeur du plateau
  * Contient la hauteur du plateau
  */
-public class Partie {
+public class Partie implements Serializable {
     private PlateauBase plateau;
-    private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné
+    private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné mais la partie est commencé; -1 la partie n'est pas encore commencé
     private int timer;
     private ArrayList<String> words;
     private int heightParameter;
@@ -45,6 +45,18 @@ public class Partie {
     }
 
     /**
+     * Explicite.
+     */
+    public int getwon() {
+        return this.won;
+    }
+
+    public void setPartieBegin() {
+        this.won = 2;
+    }
+
+
+    /**
      * Permet de set le type de jeu.
      * Attention il faut passer un TypeJeu.
      * Soit TypeJeu.WORDS ou soit TypeJeu.IMAGES
@@ -60,7 +72,7 @@ public class Partie {
      */
     public void newPlateau() {
         this.plateau = new Plateau(this.widthParameter, this.heightParameter, words);
-        this.won = 2;
+        this.won = -1;
     }
 
     /**
@@ -165,4 +177,32 @@ public class Partie {
         }
     }
 
+    /**
+     * Sauvegarde la partie actuelle dans un fichier.
+     *
+     * @param filePath Le chemin du fichier dans lequel sauvegarder la partie.
+     * @throws IOException Si une erreur survient lors de l'écriture dans le fichier.
+     */
+    public void savePartie(String filePath) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(this);
+            System.out.println("Partie sauvegardée avec succès dans " + filePath);
+        }
+    }
+
+    /**
+     * Charge une partie à partir d'un fichier.
+     *
+     * @param filePath Le chemin du fichier à charger.
+     * @return La partie chargée.
+     * @throws IOException Si une erreur survient lors de la lecture du fichier.
+     * @throws ClassNotFoundException Si la classe de l'objet n'est pas trouvée.
+     */
+    public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            Partie partie = (Partie) ois.readObject();
+            System.out.println("Partie chargée avec succès depuis " + filePath);
+            return partie;
+        }
+    }
 }

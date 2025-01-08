@@ -2,14 +2,16 @@ package linguacrypt.model;
 
 import linguacrypt.utils.CardType;
 
+import java.io.Serializable;
+
 /**
- * Contient un une Clef (la feuille qui dit les mots à faire deviner
+ * Contient une Clef (la feuille qui dit les mots à faire deviner
  * Contient un boolean si c'est le tour des bleu
  * Contient une liste des cartes couvertes
  * Contient le nombre de poitn bleu
  * Contient le nombre de poitn bleu
  */
-public abstract class PlateauBase {
+public abstract class PlateauBase implements Serializable {
     protected final Clef key;
     protected final int[] coveredCardsCounts;
     protected boolean isBlueTurn;
