@@ -177,3 +177,8 @@
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
+
+.close_button {
+    -fx-background-color: #7a31c2;
+    -fx-text-fill: white;
+}

@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import linguacrypt.model.CarteBase;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
@@ -21,26 +20,21 @@ import java.util.List;
 
 public class PlateauController implements Observer {
     private Jeu jeu;
+    private WinnerPopupController winnerPopupController;
+    private StackPane popupContainer;
 
     @FXML
     private GridPane gridPane;
-
-    private StackPane popupRoot;
-
     @FXML
     private Label labelEquipe;
-
     @FXML
     private Label lbbleu;
-
     @FXML
     private Label lbred;
-
     @FXML
     private Pane panneau_changer2;
     @FXML
     private AnchorPane panneau_changer;
-
     @FXML
     private ImageView imageview1;
     @FXML
@@ -49,16 +43,10 @@ public class PlateauController implements Observer {
     private ImageView filtre;
     @FXML
     private ImageView filtre2;
-
-    private WinnerPopupController winnerPopupController;
-    private StackPane popupContainer;
-
     @FXML
     private Pane confirmationOverlay;
-
     @FXML
     private Pane confirmationOverlayMenu;
-
     @FXML
     private Pane confirmationOverlayMenuSave;
 
@@ -79,6 +67,7 @@ public class PlateauController implements Observer {
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
+        jeu.notifyObservers();
     }
 
     @FXML
@@ -86,7 +75,10 @@ public class PlateauController implements Observer {
         confirmationOverlayMenu.setVisible(false);
     }
 
-
+    @FXML
+    private void closeConfirmationMenu() {
+        confirmationOverlayMenu.setVisible(false);
+    }
 
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -117,8 +109,6 @@ public class PlateauController implements Observer {
         }
         return null; // Si aucune carte ne correspond au mot, on retourne null
     }
-
-
 
     private void afficherCartes() {
 
@@ -300,7 +290,7 @@ public class PlateauController implements Observer {
                 popupContainer = loader.load();
                 winnerPopupController = loader.getController();
 
-                StackPane parent = (StackPane) gridPane.getParent();
+                StackPane parent = (StackPane) gridPane.getParent().getParent().getParent().getParent();
 
                 // On ajoute le popup au StackPane
                 parent.getChildren().add(popupContainer);
@@ -370,8 +360,13 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        jeu.setView("MenuInitial");
-        jeu.notifyObservers();
+        if (jeu.getPartie().getwon() != -1) {
+            confirmationOverlayMenu.setVisible(true);
+        }
+        else {
+            jeu.setView("MenuInitial");
+            jeu.notifyObservers();
+        }
     }
 
     private void savePartie() {
