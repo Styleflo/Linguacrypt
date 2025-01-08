@@ -69,7 +69,7 @@ public class CartesController implements Observer {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
             assert carte != null;
-            create_transition(carte);
+            //create_transition(carte);
             int finalI = i;
             carte.setOnMouseClicked(event -> handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY()));
 
