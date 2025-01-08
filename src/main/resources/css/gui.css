@@ -131,11 +131,6 @@
     -fx-text-fill: white;
 }
 
-.red_button {
-    -fx-background-color: #ff6b6b;
-    -fx-text-fill: white;
-}
-
 .confirmationOverlay {
     -fx-background-color: rgba(0, 0, 0, 0.5);
 }
