@@ -329,12 +329,8 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        if (jeu.getPartie().getwon() == 2) {
-            confirmationOverlayMenu.setVisible(true);
-        }
-        else {
-            confirmNouvellePartie();
-        }
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
     }
 
     private void savePartie() {
