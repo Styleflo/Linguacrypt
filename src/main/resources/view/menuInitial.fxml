@@ -26,7 +26,7 @@
                   <Image url="@../assets/lingua.png" />
                </image>
             </ImageView>
-                <Button layoutX="166.0" layoutY="640.0" mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="152.0" prefWidth="468.0" stylesheets="@../css/gui.css" text="Jouer">
+                <Button layoutX="700.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="102.0" prefWidth="343.0" stylesheets="@../css/gui.css" text="Jouer">
                <styleClass>
                   <String fx:value="button1" />
                   <String fx:value="red_button" />
@@ -36,7 +36,7 @@
                   <Font size="36.0" />
                </font>
             </Button>
-                <Button layoutX="791.0" layoutY="640.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="152.0" prefWidth="468.0" text="Cartes">
+                <Button layoutX="337.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="102.0" prefWidth="343.0" text="Cartes">
                <styleClass>
                   <String fx:value="button1" />
                   <String fx:value="big_button" />
