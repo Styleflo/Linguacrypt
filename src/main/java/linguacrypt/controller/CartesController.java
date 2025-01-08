@@ -9,7 +9,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
@@ -31,7 +30,6 @@ public class CartesController implements Observer {
     private Label themeLabel;
     @FXML
     private ImageView filtre;
-
 
 
     private List<String> currentMots;

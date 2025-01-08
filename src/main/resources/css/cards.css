@@ -1,35 +1,36 @@
-.button1{
+.button1 {
 
     -fx-border: none;
 
     -fx-text-align: center;
     -fx-text-decoration: none;
     -fx-display: inline-block;
-    -fx-background-radius: 20px;    /* Arrondi du fond du bouton */
+    -fx-background-radius: 20px; /* Arrondi du fond du bouton */
     -fx-border-radius: 20px;
     -fx-font: bold 20px "Helvetica";
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 10, 10);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 10, 10);
     -fx-wrap-text: true;
     -fx-line-spacing: 7px;
 }
-.button1:hover{
-    -fx-translate-x: 8px;  /* Déplacer de 10px vers la droite */
-    -fx-translate-y: 8px;  /* Déplacer de 10px vers le bas */
+
+.button1:hover {
+    -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
 }
 
 
-.orange_button{
+.orange_button {
     -fx-background-color: orange; /* Green */
     -fx-text-fill: white;
 
 }
 
-.red_button{
+.red_button {
     -fx-background-color: red; /* Green */
     -fx-text-fill: white;
 }
 
-.purple_button{
+.purple_button {
     -fx-background-color: green;
     -fx-text-fill: white;
 }

@@ -11,7 +11,6 @@
     <center>
         <AnchorPane prefHeight="900.0" prefWidth="700.0" fx:id="content">
             <children>
-                <!-- les pages seront à afficher ici ! -->
             </children>
         </AnchorPane>
     </center>
