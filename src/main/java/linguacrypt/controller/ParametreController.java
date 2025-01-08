@@ -1,6 +1,5 @@
 package linguacrypt.controller;
 
-import javafx.scene.image.ImageView;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
@@ -16,8 +15,6 @@ public class ParametreController implements Observer {
 
     @FXML
     private Label label2;
-    @FXML
-    private ImageView filtre;
 
     private Jeu jeu;
 
@@ -30,7 +27,6 @@ public class ParametreController implements Observer {
     }
 
     public void setPartieBuilder() throws IOException {
-        filtre.setMouseTransparent(true);
         this.partieBuilder = new PartieBuilder(jeu);
     }
 
