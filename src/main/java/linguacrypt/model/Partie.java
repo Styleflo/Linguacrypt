@@ -166,8 +166,7 @@ public class Partie implements Serializable {
     }
 
     public void updateWin() {
-        int nbpoint = (int) (this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() * GameConfig.BLUE_AND_RED_CARDS_PROPORTION);
-
+        int nbpoint = (int) (this.getWidthParameter() * this.getHeightParameter() * GameConfig.BLUE_AND_RED_CARDS_PROPORTION);
         if (this.getPlateau().getKey().isBlueStarting()) {
             if (this.getPlateau().getPointBlue() == nbpoint + 1) {
                 setBlueWon();

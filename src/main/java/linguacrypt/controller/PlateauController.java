@@ -113,7 +113,8 @@ public class PlateauController implements Observer {
     private AnchorPane findAnchorCard(String mot) {
         List<AnchorPane> cartes = recupererCartes();
         for (AnchorPane carte : cartes) {
-            NeutralCardController controller = (NeutralCardController) carte.getUserData(); // Récupérer le contrôleur associé à la carte
+            NeutralCardController controller = (NeutralCardController) carte.getUserData();// Récupérer le contrôleur associé à la carte
+            //System.out.println(controller);
             if (controller.getLabelMot() != null && controller.getLabelMot().getText().equals(mot)) {
                 return carte;
             }
@@ -320,6 +321,7 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card_vp.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            card.setUserData(controller);
             controller.setMot(mot);
             return card;
         } catch (IOException e) {

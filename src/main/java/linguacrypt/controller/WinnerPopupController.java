@@ -1,12 +1,14 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import linguacrypt.config.GameConfig;
 
-public class WinnerPopupController {
+public class WinnerPopupController implements Observer {
     @FXML
     private Label winnerLabel;
 
@@ -43,4 +45,6 @@ public class WinnerPopupController {
     public StackPane getRoot() {
         return root;
     }
+
+    public void reagir () {}
 }
