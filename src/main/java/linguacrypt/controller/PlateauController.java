@@ -255,6 +255,9 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
+
+        jeu.getPartie().updateWin();
+
         if (jeu.getPartie().BlueWon()) {
             revealCard();
             showWinnerPopup("Bleue");
