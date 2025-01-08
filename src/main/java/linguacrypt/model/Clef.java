@@ -55,15 +55,15 @@ public class Clef {
         Collections.shuffle(types);
 
         int index = 0;
-        for (int j = 0; j < height; j++) {
-            for (int i = 0; i < width; i++) {
+        for (int j = 0; j < width; j++) {
+            for (int i = 0; i < height; i++) {
                 grid[i][j] = types.get(index++);
             }
         }
         try {
             this.to_qrcode();
         } catch (Exception e) {
-            System.out.println("helloworld");
+            e.printStackTrace();
         }
     }
 
@@ -134,8 +134,8 @@ public class Clef {
         } else {
             res = "rouge commence \n";
         }
-        for (int j = 0; j < height; j++) {
-            for (int i = 0; i < width; i++) {
+        for (int j = 0; j < width; j++) {
+            for (int i = 0; i < height; i++) {
                 res = res.concat(int_to_square.get(grid[i][j]));
 
             }

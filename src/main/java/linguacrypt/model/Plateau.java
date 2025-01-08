@@ -14,8 +14,8 @@ public class Plateau extends PlateauBase {
         cards = new Carte[height][width];
         Collections.shuffle(words_list);
         int index = 0;
-        for (int j = 0; j < height; j++) {
-            for (int i = 0; i < width; i++) {
+        for (int j = 0; j < width; j++) {
+            for (int i = 0; i < height; i++) {
                 String word = words_list.get(index++);
                 int type = key.getCardType(i, j);
                 Carte card = new Carte(word, type);

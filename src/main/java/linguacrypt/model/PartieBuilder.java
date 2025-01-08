@@ -25,8 +25,8 @@ public class PartieBuilder {
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
         partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
         partie.setTimer(-1);
-        partie.setWidthParameter(5);
-        partie.setHeightParameter(5);
+        partie.setWidthParameter(6);
+        partie.setHeightParameter(7);
         partie.setTypePartie(TypePartie.WORDS);
     }
 
