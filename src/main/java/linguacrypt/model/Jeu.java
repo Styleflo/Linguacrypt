@@ -18,7 +18,7 @@ public class Jeu {
     private String currentView;
 
     public Jeu() throws IOException {
-        //Peut etre des trucs à faire mais pour l'instant ça va !
+        // Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "MenuInitial";
         wordsFileHandler = new WordsFileHandler("cards.json");
     }
@@ -59,6 +59,7 @@ public class Jeu {
         if (this.partie == null) {
             System.out.println("Il n'y a pas de partie pour le moment");
         }
+
         return this.partie;
     }
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordsFileHandler {
-    //private final File file;
     private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
@@ -18,14 +17,12 @@ public class WordsFileHandler {
             throw new IllegalArgumentException("File not found : " + filePath);
         }
 
-        //file = new File(resource.getFile());
-
         ObjectMapper objectMapper = new ObjectMapper();
         wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
     }
 
     public void writeJsonFile() {
-        //objectMapper.writeValue(file, wordsCategories);
+        //objectMapper.writeValue(file, wordsCategories);  // todo
     }
 
     public ArrayList<String> getWordsByTheme(String theme) {
@@ -66,37 +63,46 @@ public class WordsFileHandler {
         return themes;
     }
 
-    public boolean addCategory(String category) {
-        category = category.trim().toLowerCase();
+    public boolean addCategory(String categoryName) {
+        if (themeExists(categoryName)) return false;
 
-        for (WordsCategory cat : wordsCategories.getCategories()) {
-            if (cat.getName().equals(category)) {
-                return false;
-            }
-        }
-
-        wordsCategories.getCategories().add(new WordsCategory(category, new ArrayList<>()));
+        wordsCategories.getCategories().add(new WordsCategory(categoryName, new ArrayList<>()));
 
         return true;
     }
 
-    public Object[] addWordToCategory(String category, String word) {
-        List<WordsCategory> categories = wordsCategories.getCategories();
-
-        for (WordsCategory cat : categories) {
-            if (cat.getWords().contains(word)) {
-                return new Object[]{false, "Le mot existe déjà dans la catégorie \"" + cat.getName() + "\""};
+    public boolean themeExists(String category) {
+        for (WordsCategory cat : wordsCategories.getCategories()) {
+            if (cat.getName().equals(category)) {
+                return true;
             }
         }
+        return false;
+    }
 
-        for (WordsCategory cat : categories) {
+    public Object[] addWordToCategory(String category, String word) {
+        WordsCategory previousCategory = getCategoryByWord(word);
+        if (previousCategory != null) {
+            return new Object[]{false, "Le mot " + word + " existe déjà dans le thème " + previousCategory.getName() + "."};
+        }
+
+        for (WordsCategory cat : wordsCategories.getCategories()) {
             if (cat.getName().equals(category)) {
                 cat.getWords().add(word);
                 return new Object[]{true, ""};
             }
         }
 
-        return new Object[]{false, "La catégorie " + category + " n'existe pas"};
+        return new Object[]{false, "La catégorie " + category + " n'existe pas."};
+    }
+
+    public WordsCategory getCategoryByWord(String word) {
+        for (WordsCategory cat : wordsCategories.getCategories()) {
+            if (cat.getWords().contains(word)) {
+                return cat;
+            }
+        }
+        return null;
     }
 
     public void removeWordFromCategory(String category, String word) {
@@ -106,10 +112,14 @@ public class WordsFileHandler {
             if (cat.getName().equals(category)) {
                 if (cat.getWords().contains(word)) {
                     cat.getWords().remove(word);
+
+                    if (cat.getWords().isEmpty()) {
+                        categories.remove(cat);
+                    }
+
                     return;
                 }
             }
         }
-
     }
 }
