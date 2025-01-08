@@ -1,5 +1,6 @@
 package linguacrypt.model;
 
+import linguacrypt.config.GameConfig;
 import linguacrypt.controller.Observer;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.WordsFileHandler;
@@ -21,7 +22,7 @@ public class Jeu {
     public Jeu() throws IOException {
         // Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "MenuInitial";
-        wordsFileHandler = new WordsFileHandler("cards.json");
+        wordsFileHandler = new WordsFileHandler(GameConfig.CARDS_FILE);
     }
 
     /**

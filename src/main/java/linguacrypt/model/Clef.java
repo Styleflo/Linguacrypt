@@ -5,6 +5,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import linguacrypt.config.GameConfig;
+import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
 
 import java.io.File;
@@ -14,7 +16,7 @@ import java.util.*;
 
 public class Clef {
     private final boolean blueStarts;
-    private final int[][] grid;
+    private final CardType[][] grid;
     private final int[] cardsCounts;
     private final int width;
     private final int height;
@@ -22,14 +24,15 @@ public class Clef {
     public Clef(int width, int height) {
         this.width = width;
         this.height = height;
-        grid = new int[height][width];
+        int total = width * height;
+        grid = new CardType[height][width];
         int blue_and_red_count, red_count, blue_count, white_count, black_count;
 
         Random random = new Random();
         blueStarts = random.nextBoolean();
 
-        black_count = 1;
-        blue_and_red_count = width * height / 3;
+        black_count = (int) (GameConfig.BLACK_CARDS_PROPORTION * total);
+        blue_and_red_count = (int) (GameConfig.BLUE_AND_RED_CARDS_PROPORTION * total);
 
         if (blueStarts) {
             red_count = blue_and_red_count;
@@ -42,16 +45,16 @@ public class Clef {
         white_count = width * height - (blue_and_red_count * 2 + 1) - black_count;
 
         cardsCounts = new int[4];
-        cardsCounts[0] = blue_count;
-        cardsCounts[1] = red_count;
-        cardsCounts[2] = black_count;
-        cardsCounts[3] = white_count;
+        cardsCounts[CardType.BLUE.ordinal()] = blue_count;
+        cardsCounts[CardType.RED.ordinal()] = red_count;
+        cardsCounts[CardType.BLACK.ordinal()] = black_count;
+        cardsCounts[CardType.WHITE.ordinal()] = white_count;
 
-        List<Integer> types = new ArrayList<>();
-        for (int i = 0; i < blue_count; i++) types.add(0);
-        for (int i = 0; i < red_count; i++) types.add(1);
-        for (int i = 0; i < black_count; i++) types.add(2);
-        for (int i = 0; i < white_count; i++) types.add(3);
+        List<CardType> types = new ArrayList<>();
+        for (int i = 0; i < blue_count; i++) types.add(CardType.BLUE);
+        for (int i = 0; i < red_count; i++) types.add(CardType.RED);
+        for (int i = 0; i < black_count; i++) types.add(CardType.BLACK);
+        for (int i = 0; i < white_count; i++) types.add(CardType.WHITE);
 
         Collections.shuffle(types);
 
@@ -75,7 +78,7 @@ public class Clef {
     }
 
     public Clef() {
-        this(5, 5);
+        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT);
     }
 
     public int getHeight() {
@@ -94,11 +97,11 @@ public class Clef {
         return !blueStarts;
     }
 
-    public int[][] getGrid() {
+    public CardType[][] getGrid() {
         return grid;
     }
 
-    public int getCardType(int i, int j) {
+    public CardType getCardType(int i, int j) {
         /* Utilise les coordonnées matricielles */
         return grid[i][j];
     }
@@ -109,11 +112,11 @@ public class Clef {
     }
 
     public void prettyPrint() {
-        Map<Integer, String> int_to_square = new HashMap<>();
-        int_to_square.put(0, "Blue  ");
-        int_to_square.put(1, "Red   ");
-        int_to_square.put(2, "Black ");
-        int_to_square.put(3, "White ");
+        Map<CardType, String> int_to_square = new HashMap<>();
+        int_to_square.put(CardType.BLUE, GameConfig.BLUE_TEXT_QRCODE);
+        int_to_square.put(CardType.RED, GameConfig.RED_TEXT_QRCODE);
+        int_to_square.put(CardType.BLACK, GameConfig.BLACK_TEXT_QRCODE);
+        int_to_square.put(CardType.WHITE, GameConfig.WHITE_TEXT_QRCODE);
 
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -124,28 +127,26 @@ public class Clef {
         }
     }
 
+    @Override
     public String toString() {
-        Map<Integer, String> int_to_square = new HashMap<>();
-        int_to_square.put(0, "Blue  ");
-        int_to_square.put(1, "Red   ");
-        int_to_square.put(2, "Black ");
-        int_to_square.put(3, "White ");
-        String res;
+        Map<CardType, String> intToSquare = Map.of(
+                CardType.BLUE, GameConfig.BLUE_TEXT_QRCODE,
+                CardType.RED, GameConfig.RED_TEXT_QRCODE,
+                CardType.BLACK, GameConfig.BLACK_TEXT_QRCODE,
+                CardType.WHITE, GameConfig.WHITE_TEXT_QRCODE
+        );
 
-        if (blueStarts) {
-            res = "bleu commence \n";
-        } else {
-            res = "rouge commence \n";
-        }
+        StringBuilder res = new StringBuilder(blueStarts ? GameConfig.BLUE_STARTS_TEXT_QRCODE : GameConfig.RED_STARTS_TEXT_QRCODE);
+        res.append("\n");
+
         for (int j = 0; j < width; j++) {
             for (int i = 0; i < height; i++) {
-                res = res.concat(int_to_square.get(grid[i][j]));
-
+                res.append(intToSquare.get(grid[i][j]));
             }
-            res = res.concat("\n");
+            res.append("\n");
         }
 
-        return res;
+        return res.toString();
     }
 
     public void to_qrcode() throws WriterException, IOException {
@@ -153,7 +154,7 @@ public class Clef {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 300, 300);
 
-        Path path = new File("src/main/resources/assets/clef.png").toPath();
+        Path path = new File(GameConfig.QRCODE_PATH).toPath();
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
 }

@@ -1,10 +1,12 @@
 package linguacrypt.model;
 
+import linguacrypt.utils.CardType;
+
 public class CarteImage extends CarteBase {
     private final String url;
 
 
-    public CarteImage(String url, int carteType) {
+    public CarteImage(String url, CardType carteType) {
         super(carteType);
         this.url = url;
     }

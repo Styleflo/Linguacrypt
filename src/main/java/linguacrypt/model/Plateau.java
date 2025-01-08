@@ -1,5 +1,8 @@
 package linguacrypt.model;
 
+import linguacrypt.config.GameConfig;
+import linguacrypt.utils.CardType;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,16 +19,15 @@ public class Plateau extends PlateauBase {
         for (int j = 0; j < width; j++) {
             for (int i = 0; i < height; i++) {
                 String word = words_list.get(index++);
-                int type = key.getCardType(i, j);
+                CardType type = key.getCardType(i, j);
                 Carte card = new Carte(word, type);
                 cards[i][j] = card;
             }
         }
-
     }
 
     public Plateau(ArrayList<String> words_list) {
-        this(5, 5, words_list);
+        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT, words_list);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Plateau extends PlateauBase {
         return this.cards[i][j];
     }
 
-    public int coverCard(int i, int j) {
+    public CardType coverCard(int i, int j) {
         // Coordonnées matrcielles
         CarteBase card = cards[i][j];
         card.setCovered();

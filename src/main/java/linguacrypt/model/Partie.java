@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import linguacrypt.config.GameConfig;
+
 import java.util.ArrayList;
 
 /**
@@ -136,7 +138,7 @@ public class Partie {
     }
 
     public void updateWin() {
-        int nbpoint = this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() / 3;
+        int nbpoint = (int) (this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() * GameConfig.BLUE_AND_RED_CARDS_PROPORTION);
 
         if (this.getPlateau().getKey().isBlueStarting()) {
             if (this.getPlateau().getPointBlue() == nbpoint + 1) {

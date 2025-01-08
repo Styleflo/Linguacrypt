@@ -1,12 +1,13 @@
 package linguacrypt.model;
 
+import linguacrypt.utils.CardType;
+
 public class Carte extends CarteBase {
     private final String word;
 
-    public Carte(String word, int type) {
+    public Carte(String word, CardType type) {
         super(type);
         this.word = word;
-
     }
 
     @Override
@@ -16,7 +17,7 @@ public class Carte extends CarteBase {
 
     @Override
     public String getUrl() {
-        return "Attention la carte est une carte image, elle a un url de phot et non un mot";
+        return "Attention la carte est une carte image, elle a un url de photo et non un mot";
     }
 
 }

@@ -7,8 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import linguacrypt.config.GameConfig;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
 
 import java.io.IOException;
@@ -97,43 +99,46 @@ public class PlateauController implements Observer {
         if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
         }
-        // Récupérer la couleur de la carte depuis le modèle
-        int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
 
-        // Appliquer le style CSS correspondant et change les points.
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        String style = "";
+        int points = -1;
+        CardType nextTurn = couleur;
+
         switch (couleur) {
-            case 1: //couleur de la carte est rouge
-                carte.setStyle("-fx-background-color: #ff6b6b;");
-                jeu.getPartie().getPlateau().updatePoint(1);
-                jeu.getPartie().getPlateau().updateTurn(1);
-                jeu.getPartie().updateWin();
-
+            case CardType.RED:
+                style = "-fx-background-color: #ff6b6b;";
+                points = 1;
                 break;
-            case 0: //couleur de la carte est bleue
-                carte.setStyle("-fx-background-color: #4dabf7;");
-                jeu.getPartie().getPlateau().updatePoint(0);
-                jeu.getPartie().getPlateau().updateTurn(0);
-                jeu.getPartie().updateWin();
+            case CardType.BLUE:
+                style = "-fx-background-color: #4dabf7;";
+                points = 0;
                 break;
-            case 2: //couleur de la carte est noire (celui qui l'a retourné a perdu)
-                carte.setStyle("-fx-background-color: #343a40;");
-                jeu.getPartie().getPlateau().updateTurn(2);
-                jeu.getPartie().updateWin(2);
+            case CardType.BLACK:
+                style = "-fx-background-color: #343a40;";
+                nextTurn = CardType.BLACK;
                 break;
-            case 3: //couleur de la carte est neutre
-                carte.setStyle("-fx-background-color: #f8f9fa;");
-                jeu.getPartie().getPlateau().updateTurn(3);
+            case CardType.WHITE:
+                style = "-fx-background-color: #f8f9fa;";
+                nextTurn = CardType.RED;
                 break;
         }
+
+        carte.setStyle(style);
+        if (points != -1) {
+            jeu.getPartie().getPlateau().updatePoint(points);
+        }
+        jeu.getPartie().getPlateau().updateTurn(nextTurn);
+        jeu.getPartie().updateWin();
+
         if (jeu.getPartie().BlueWon()) {
             revealCard();
             showWinnerPopup("Bleue");
-        }
-        if (jeu.getPartie().RedWon()) {
+        } else if (jeu.getPartie().RedWon()) {
             revealCard();
             showWinnerPopup("Rouge");
         }
-        // Marquer la carte comme révélée dans le modèle si nécessaire
+
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
         this.updateLabel();
     }
@@ -143,24 +148,15 @@ public class PlateauController implements Observer {
         for (CarteBase[] row : listCard) {
             for (CarteBase card : row) {
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
-                if (carteVisu != null) {  //vérification
+                if (carteVisu != null) {
                     card.setCovered();
-                    int color = card.getType();
-
-                    switch (color) {
-                        case 1: //couleur de la carte est rouge
-                            carteVisu.setStyle("-fx-background-color: #ff6b6b;");
-                            break;
-                        case 0: //couleur de la carte est bleue
-                            carteVisu.setStyle("-fx-background-color: #4dabf7;");
-                            break;
-                        case 2: //couleur de la carte est noire
-                            carteVisu.setStyle("-fx-background-color: #343a40;");
-                            break;
-                        case 3: //couleur de la carte est neutre
-                            carteVisu.setStyle("-fx-background-color: #f8f9fa;");
-                            break;
-                    }
+                    String style = switch (card.getType()) {
+                        case CardType.RED -> "-fx-background-color: #ff6b6b;";
+                        case CardType.BLUE -> "-fx-background-color: #4dabf7;";
+                        case CardType.BLACK -> "-fx-background-color: #343a40;";
+                        case CardType.WHITE -> "-fx-background-color: #f8f9fa;";
+                    };
+                    carteVisu.setStyle(style);
                 }
             }
         }
@@ -184,8 +180,7 @@ public class PlateauController implements Observer {
 
             winnerPopupController.show(winningTeam);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Erreur lors du chargement du popup: " + e.getMessage());
+            DataUtils.logException(e, "Erreur lors de l'affichage du popup de fin de partie");
         }
     }
 
@@ -198,17 +193,18 @@ public class PlateauController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-            e.printStackTrace();
+            DataUtils.logException(e, "Erreur lors de la création d'une carte");
             return null;
         }
     }
 
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
-            labelEquipe.setText("C'est le tour de l'équipe bleue");
+            labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
         } else {
-            labelEquipe.setText("C'est le tour de l'équipe rouge");
+            labelEquipe.setText(GameConfig.RED_TURN_TEXT);
         }
+
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
             lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1));

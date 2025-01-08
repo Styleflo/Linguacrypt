@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import linguacrypt.utils.CardType;
+
 /**
  * Contient un une Clef (la feuille qui dit les mots à faire deviner
  * Contient un boolean si c'est le tour des bleu
@@ -112,23 +114,11 @@ public abstract class PlateauBase {
     /**
      * Une grosse fonction qui change le tour de la personne si c'est une mauvaise carte ou game over
      */
-    public void updateTurn(int color) {
-        switch (color) {
-            case 0:
-                if (this.isRedTurn()) {
-                    this.changeTurn();
-                }
-                break;
-            case 1:
-                if (this.isBlueTurn()) {
-                    this.changeTurn();
-                }
-                break;
-            case 2:
-                break;
-            case 3:
-                this.changeTurn();
-                break;
+    public void updateTurn(CardType color) {
+        if ((color == CardType.BLUE && isRedTurn()) ||
+                (color == CardType.RED && isBlueTurn()) ||
+                color == CardType.WHITE) {
+            changeTurn();
         }
     }
 
