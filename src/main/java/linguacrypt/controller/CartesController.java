@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,8 @@ public class CartesController implements Observer {
     private GridPane gridPane;
     @FXML
     private Label themeLabel;
+    @FXML
+    private ImageView filtre;
 
 
 
@@ -38,6 +41,7 @@ public class CartesController implements Observer {
         currentMots = new ArrayList<>();
         themes = new ArrayList<>();
         currentThemeIndex = 0;
+
     }
 
     public void setJeu(Jeu jeu) {
@@ -57,7 +61,7 @@ public class CartesController implements Observer {
 
     private void afficherCartes() {
         if (jeu == null) return;
-
+        filtre.setMouseTransparent(true);
         gridPane.getChildren().clear();
         gridPane.setHgap(15);
         gridPane.setVgap(15);
