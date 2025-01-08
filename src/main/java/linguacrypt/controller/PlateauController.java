@@ -3,12 +3,10 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,8 +18,6 @@ import java.util.List;
 
 public class PlateauController implements Observer {
     private Jeu jeu;
-    private WinnerPopupController winnerPopupController;
-    private StackPane popupContainer;
 
     @FXML
     private GridPane gridPane;
@@ -49,6 +45,14 @@ public class PlateauController implements Observer {
     private Pane confirmationOverlayMenu;
     @FXML
     private Pane confirmationOverlayMenuSave;
+    @FXML
+    private Pane popupWin;
+    @FXML
+    private Label whoWon;
+    @FXML
+    private Button colorButton;
+    @FXML
+    private VBox borderWin;
 
     @FXML
     private void confirmNouvellePartie() {
@@ -78,6 +82,11 @@ public class PlateauController implements Observer {
     @FXML
     private void closeConfirmationMenu() {
         confirmationOverlayMenu.setVisible(false);
+    }
+
+    @FXML
+    private void okWin() {
+        popupWin.setVisible(false);
     }
 
     public void PlateauControlleur() {
@@ -282,27 +291,24 @@ public class PlateauController implements Observer {
         }
     }
 
-
     private void showWinnerPopup(String winningTeam) {
-        try {
-            if (popupContainer == null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
-                popupContainer = loader.load();
-                winnerPopupController = loader.getController();
-
-                StackPane parent = (StackPane) gridPane.getParent().getParent().getParent().getParent();
-
-                // On ajoute le popup au StackPane
-                parent.getChildren().add(popupContainer);
-                popupContainer.toFront(); // Met le popup au premier plan
-
-            }
-
-            winnerPopupController.show(winningTeam);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Erreur lors du chargement du popup: " + e.getMessage());
+        if (winningTeam.equals("Rouge")) {
+            whoWon.setText("L'équipe Rouge a gagné !");
+            whoWon.setStyle("-fx-text-fill: #f70d1a;");
+            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
+            colorButton.getStyleClass().add("red_button");
+            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+            borderWin.getStyleClass().add("win-box-red");
         }
+        else {
+            whoWon.setText("L'équipe Bleue a gagné !");
+            whoWon.setStyle("-fx-text-fill: #3399FF;");
+            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
+            colorButton.getStyleClass().add("blue_button");
+            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+            borderWin.getStyleClass().add("win-box-blue");
+        }
+        popupWin.setVisible(true);
     }
 
     private AnchorPane creerCarte(String mot) {
@@ -412,7 +418,6 @@ public class PlateauController implements Observer {
         }
 
     }
-
 
     @Override
     public void reagir() {
