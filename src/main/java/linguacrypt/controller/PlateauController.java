@@ -94,6 +94,9 @@ public class PlateauController implements Observer {
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
+        if (jeu.getPartie().getPlateau().getCard(x,y).isCovered()) {
+            return;
+        }
         // Récupérer la couleur de la carte depuis le modèle
         int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
 
@@ -145,6 +148,7 @@ public class PlateauController implements Observer {
         for (Carte[] row : listCard) { // Parcours des lignes
             for (Carte card : row) { // Parcours des cartes dans une ligne
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
+                card.setCovered();
                 int color = card.getType();
 
                 switch (color) {
@@ -177,27 +181,27 @@ public class PlateauController implements Observer {
         alert.showAndWait();
     }
 
-    public void setWinnerPopup(String winningTeam) {
-        try {
-            // Charger le fichier FXML du WinnerPopup
-            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
-            popupRoot = popupLoader.load();
-
-            // Obtenir le contrôleur du pop-up
-            WinnerPopupController winnerPopupController = popupLoader.getController();
-            winnerPopupController.show(winningTeam);
-
-            // Afficher le pop-up (tu peux remplacer AnchorPane si nécessaire)
-            AnchorPane.setTopAnchor(popupRoot, 0.0);
-            AnchorPane.setBottomAnchor(popupRoot, 0.0);
-            AnchorPane.setLeftAnchor(popupRoot, 0.0);
-            AnchorPane.setRightAnchor(popupRoot, 0.0);
-
-            //content.getChildren().add(popupRoot);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void setWinnerPopup(String winningTeam) {
+//        try {
+//            // Charger le fichier FXML du WinnerPopup
+//            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
+//            popupRoot = popupLoader.load();
+//
+//            // Obtenir le contrôleur du pop-up
+//            WinnerPopupController winnerPopupController = popupLoader.getController();
+//            winnerPopupController.show(winningTeam);
+//
+//            // Afficher le pop-up (tu peux remplacer AnchorPane si nécessaire)
+//            AnchorPane.setTopAnchor(popupRoot, 0.0);
+//            AnchorPane.setBottomAnchor(popupRoot, 0.0);
+//            AnchorPane.setLeftAnchor(popupRoot, 0.0);
+//            AnchorPane.setRightAnchor(popupRoot, 0.0);
+//
+//            //content.getChildren().add(popupRoot);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private AnchorPane creerCarte(String mot) {
