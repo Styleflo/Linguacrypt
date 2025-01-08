@@ -38,6 +38,8 @@ public class PlateauController implements Observer {
     private ImageView imageview2;
     @FXML
     private ImageView filtre;
+    @FXML
+    private ImageView filtre2;
 
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -51,6 +53,7 @@ public class PlateauController implements Observer {
     private void afficherCartes() {
 
         filtre.setMouseTransparent(true);
+        filtre2.setMouseTransparent(true);
         if(jeu.getPartie().getPlateau().isBlueTurn()){
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv

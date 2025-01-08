@@ -80,7 +80,7 @@
                             <String fx:value="purple_button" />
                         </styleClass>
                     </Button>
-               <ImageView fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.1" pickOnBounds="true">
+               <ImageView fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.07" pickOnBounds="true" fx:id="filtre2">
                   <image>
                      <Image url="@../assets/filtre.png" />
                   </image>
