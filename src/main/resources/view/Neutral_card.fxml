@@ -41,7 +41,11 @@
                 </VBox>
             </children>
         </AnchorPane>
+<<<<<<< Updated upstream
       <ImageView fx:id="image" fitHeight="128.0" fitWidth="184.0" layoutX="-9.0" layoutY="-11.0" pickOnBounds="true" visible="false">
+=======
+      <ImageView fitHeight="128.0" fitWidth="184.0" layoutX="-9.0" layoutY="-11.0" pickOnBounds="true" visible="false" fx:id="covered">
+>>>>>>> Stashed changes
          <image>
             <Image url="@../assets/aled.png" />
          </image>

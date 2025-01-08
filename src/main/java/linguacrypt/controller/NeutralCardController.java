@@ -10,13 +10,17 @@ public class NeutralCardController {
     @FXML
     private Label labelMot;
 
-
+    @FXML
+    private ImageView covered;
     public void setMot(String mot) {
         labelMot.setText(mot);
     }
 
     public Label getLabelMot() {
         return labelMot;
+    }
+    public void setRecouvert(boolean recouvert) {
+        covered.setVisible(recouvert);
     }
 
     private void adjustFontSize(String mot) {
