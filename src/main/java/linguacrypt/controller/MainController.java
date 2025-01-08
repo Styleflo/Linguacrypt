@@ -98,7 +98,6 @@ public class MainController implements Observer {
     }
 
 
-
     public void update() {
         content.getChildren().clear();
         switch (this.jeu.getView()) {

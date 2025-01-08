@@ -114,7 +114,7 @@
     -fx-background-color: #414141;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 10, 10);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 10, 10);
 }
 
 .popup-container .label {

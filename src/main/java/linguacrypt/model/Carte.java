@@ -1,7 +1,5 @@
 package linguacrypt.model;
 
-import javafx.scene.layout.AnchorPane;
-
 public class Carte extends CarteBase {
     private final String word;
 

@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 
@@ -54,6 +53,7 @@ public class PlateauController implements Observer {
 
         return cartes;
     }
+
     private AnchorPane findAnchorCard(String mot) {
         List<AnchorPane> cartes = recupererCartes();
         for (AnchorPane carte : cartes) {
@@ -64,7 +64,6 @@ public class PlateauController implements Observer {
         }
         return null; // Si aucune carte ne correspond au mot, on retourne null
     }
-
 
 
     private void afficherCartes() {
@@ -94,7 +93,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
-        if (jeu.getPartie().getPlateau().getCard(x,y).isCovered()) {
+        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
