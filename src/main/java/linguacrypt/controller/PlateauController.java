@@ -45,6 +45,8 @@ public class PlateauController implements Observer {
     private ImageView imageview1;
     @FXML
     private ImageView imageview2;
+
+
     @FXML
     private ImageView filtre;
     @FXML
@@ -226,6 +228,8 @@ public class PlateauController implements Observer {
         }
         // Récupérer la couleur de la carte depuis le modèle
         int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+
 
         // Appliquer le style CSS correspondant et change les points.
         switch (couleur) {
@@ -234,22 +238,34 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updatePoint(1);
                 jeu.getPartie().getPlateau().updateTurn(1);
                 jeu.getPartie().updateWin();
-
+// Recouvrir la carte
+                if (controller != null) {
+                    controller.setRecouvert(couleur,true);
+                }
                 break;
             case 0: //couleur de la carte est bleue
                 carte.setStyle("-fx-background-color: #4dabf7;");
                 jeu.getPartie().getPlateau().updatePoint(0);
                 jeu.getPartie().getPlateau().updateTurn(0);
                 jeu.getPartie().updateWin();
+                if (controller != null) {
+                    controller.setRecouvert(couleur,true);
+                }
                 break;
             case 2: //couleur de la carte est noire (celui qui l'a retourné a perdu)
                 carte.setStyle("-fx-background-color: #343a40;");
                 jeu.getPartie().getPlateau().updateTurn(2);
                 jeu.getPartie().updateWin(2);
+                if (controller != null) {
+                    controller.setRecouvert(couleur,true);
+                }
                 break;
             case 3: //couleur de la carte est neutre
                 carte.setStyle("-fx-background-color: #f8f9fa;");
                 jeu.getPartie().getPlateau().updateTurn(3);
+                if (controller != null) {
+                    controller.setRecouvert(couleur,true);
+                }
                 break;
         }
         if (jeu.getPartie().BlueWon()) {
@@ -337,6 +353,8 @@ public class PlateauController implements Observer {
             NeutralCardController controller = loader.getController();
             card.setUserData(controller);
             controller.setMot(mot);
+            // Associe le contrôleur à l'AnchorPane via UserData
+            card.setUserData(controller);
             return card;
         } catch (IOException e) {
             e.printStackTrace();
