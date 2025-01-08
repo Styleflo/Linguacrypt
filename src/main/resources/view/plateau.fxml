@@ -159,39 +159,39 @@
                     </children>
                 </StackPane>
 
-            </items>
-        </SplitPane>
-        <Pane fx:id="confirmationOverlay" visible="false" styleClass="confirmationOverlay">
-            <children>
-                <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
-                      layoutY="325.0"
-                      styleClass="confirmation-box">
-                    <children>
-                        <Label text="Voulez-vous commencer une nouvelle partie ?" textFill="WHITE" styleClass="text"/>
-                        <HBox alignment="CENTER" spacing="10.0">
-                            <Button text="Oui" onAction="#confirmNouvellePartie" styleClass="purple_button"/>
-                            <Button text="Non" onAction="#cancelNouvellePartie" styleClass="red_button"/>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </Pane>
-        <Pane fx:id="confirmationOverlayMenu" visible="false" styleClass="confirmationOverlay">
-            <children>
-                <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
-                      layoutY="325.0"
-                      styleClass="confirmation-box">
-                    <children>
-                        <Label text="Voulez-vous sauvegarder la partie en cours ?" textFill="WHITE" styleClass="text"/>
-                        <HBox alignment="CENTER" spacing="10.0">
-                            <Button text="Oui" onAction="#confirmSavePartie" styleClass="purple_button"/>
-                            <Button text="Non" onAction="#cancelSavePartie" styleClass="red_button"/>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </Pane>
-        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
-        </Pane>
-    </children>
+        </items>
+    </SplitPane>
+    <Pane fx:id="confirmationOverlay" visible="false" styleClass="confirmationOverlay">
+        <children>
+            <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0" layoutY="325.0"
+                  styleClass="confirmation-box">
+                <children>
+                    <Label text="Voulez-vous commencer une nouvelle partie ?" textFill="WHITE" styleClass="text"/>
+                    <HBox alignment="CENTER" spacing="10.0">
+                        <Button text="Oui" onAction="#confirmNouvellePartie" styleClass="purple_button"/>
+                        <Button text="Non" onAction="#cancelNouvellePartie" styleClass="red_button"/>
+                    </HBox>
+                </children>
+            </VBox>
+        </children>
+    </Pane>
+    <Pane fx:id="confirmationOverlayMenu" visible="false" styleClass="confirmationOverlay">
+        <children>
+            <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0" layoutY="325.0"
+                  styleClass="confirmation-box">
+                <children>
+                    <Label text="Voulez-vous sauvegarder la partie en cours ?" textFill="WHITE" styleClass="text"/>
+                    <HBox alignment="CENTER" spacing="10.0">
+                        <Button text="Oui" onAction="#confirmSavePartie" styleClass="purple_button"/>
+                        <Button text="Non" onAction="#cancelSavePartie" styleClass="red_button"/>
+                    </HBox>
+                </children>
+            </VBox>
+        </children>
+    </Pane>
+
+    <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
+    </Pane>
+
+</children>
 </StackPane>

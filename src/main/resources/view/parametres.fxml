@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.ParametreController">
    <children>
       <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
@@ -79,7 +81,7 @@
                         <String fx:value="red_button" />
                      </styleClass>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="80.0" layoutY="550.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" text="Choisir ses cartes" textAlignment="CENTER" textFill="WHITE">
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="80.0" layoutY="550.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="188.0" text="Choisir ses themes" textAlignment="CENTER" textFill="WHITE" onAction="#handleThemes">
                      <styleClass>
                         <String fx:value="button1" />
                         <String fx:value="orange_button" />
@@ -114,4 +116,17 @@
          </children>
       </AnchorPane>
    </children>
+   <Pane fx:id="lesthemes" visible="false" styleClass="confirmationOverlay" stylesheets="@../css/parametre.css">
+      <children>
+         <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0" layoutY="175.0"
+               styleClass="confirmation-box" stylesheets="@../css/parametre.css">
+            <children>
+               <Label text="Selectionez vos thèmes" textFill="WHITE" styleClass="text"/>
+                     <VBox fx:id="themeBox" alignment="CENTER" spacing="10.0">
+
+                     </VBox>
+            </children>
+         </VBox>
+      </children>
+   </Pane>
 </StackPane>

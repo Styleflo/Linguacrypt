@@ -13,7 +13,6 @@ import java.io.IOException;
 
 
 public class MenuInitialController implements Observer {
-
     private Jeu jeu;
 
     public MenuInitialController() {
