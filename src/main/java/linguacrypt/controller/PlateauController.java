@@ -85,6 +85,13 @@ public class PlateauController implements Observer {
     }
 
     @FXML
+    private void returnMenu() {
+        confirmationOverlayMenu.setVisible(false);
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
+    }
+
+    @FXML
     private void closeConfirmationMenu() {
         confirmationOverlayMenu.setVisible(false);
     }

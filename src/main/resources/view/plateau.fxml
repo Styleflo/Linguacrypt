@@ -202,7 +202,7 @@
                                     <String fx:value="red_button"/>
                                 </styleClass>
                             </Button>
-                            <Button text="Non" onAction="#cancelSavePartie">
+                            <Button text="Non" onAction="#returnMenu">
                                 <styleClass>
                                     <String fx:value="button1"/>
                                     <String fx:value="purple_button"/>
