@@ -43,7 +43,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle > 2) {
             label1.setText(String.valueOf(valeurActuelle - 1));
         }
-        partieBuilder.setWidthParameter(valeurActuelle - 1);
+        partieBuilder.setHeightParameter(valeurActuelle - 1);
     }
 
     @FXML
@@ -52,7 +52,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle < 8) {
             label1.setText(String.valueOf(valeurActuelle + 1));
         }
-        partieBuilder.setWidthParameter(valeurActuelle +1);
+        partieBuilder.setHeightParameter(valeurActuelle +1);
     }
 
     @FXML

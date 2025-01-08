@@ -214,7 +214,7 @@ public class CartesController implements Observer {
         }
 
         if (motRefuse.get()) {
-handleAjouterMotAction();
+            handleAjouterMotAction();
         } else {
             wordsFileHandler.writeJsonFile();
         }
