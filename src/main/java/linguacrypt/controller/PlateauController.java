@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.DataVerification;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class PlateauController implements Observer {
 
 
     private void afficherCartes() {
-        if (jeu == null) return;
+        DataVerification.assertNotNull(jeu, "Jeu non initialisé dans PlateauController.afficherCartes()");
 
         gridPane.getChildren().clear();
         gridPane.setHgap(25);

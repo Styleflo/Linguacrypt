@@ -5,6 +5,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import linguacrypt.utils.DataVerification;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,15 +56,17 @@ public class Clef {
         Collections.shuffle(types);
 
         int index = 0;
+
         for (int j = 0; j < width; j++) {
             for (int i = 0; i < height; i++) {
                 grid[i][j] = types.get(index++);
             }
         }
+
         try {
             this.to_qrcode();
         } catch (Exception e) {
-            e.printStackTrace();
+            DataVerification.logException(e, "Erreur lors de la génération du QR code");
         }
     }
 

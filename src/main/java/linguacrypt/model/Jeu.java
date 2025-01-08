@@ -1,6 +1,7 @@
 package linguacrypt.model;
 
 import linguacrypt.controller.Observer;
+import linguacrypt.utils.DataVerification;
 import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
@@ -56,9 +57,7 @@ public class Jeu {
      * @return Partie
      */
     public Partie getPartie() {
-        if (this.partie == null) {
-            System.out.println("Il n'y a pas de partie pour le moment");
-        }
+        DataVerification.assertNotNull(this.partie, "La partie n'a pas été initialisée dans Jeu.getPartie()");
 
         return this.partie;
     }

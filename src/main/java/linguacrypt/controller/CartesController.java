@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.DataVerification;
 import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.WordsFileHandler;
 
@@ -50,7 +51,7 @@ public class CartesController implements Observer {
     }
 
     private void afficherCartes() {
-        if (jeu == null) return;
+        DataVerification.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
 
         gridPane.getChildren().clear();
         gridPane.setHgap(15);
@@ -138,7 +139,7 @@ public class CartesController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-            e.printStackTrace();
+            DataVerification.logException(e, "Erreur lors de la création d'une carte");
             return null;
         }
     }

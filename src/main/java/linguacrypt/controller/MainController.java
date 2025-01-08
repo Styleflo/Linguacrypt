@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.DataVerification;
 
 import java.io.IOException;
 
@@ -53,7 +54,7 @@ public class MainController implements Observer {
             content.getChildren().clear();
             content.getChildren().add(menuInitialRoot);
         } catch (IOException e) {
-            e.printStackTrace();
+            DataVerification.logException(e, "Erreur lors du chargement du menu initial");
         }
     }
 
@@ -74,7 +75,7 @@ public class MainController implements Observer {
             content.getChildren().clear();
             content.getChildren().add(menuInitialRoot);
         } catch (IOException e) {
-            e.printStackTrace();
+            DataVerification.logException(e, "Erreur lors du chargement des cartes");
         }
     }
 
@@ -91,9 +92,8 @@ public class MainController implements Observer {
             AnchorPane.setBottomAnchor(plateauRoot, 0.0);
             AnchorPane.setLeftAnchor(plateauRoot, 0.0);
             AnchorPane.setRightAnchor(plateauRoot, 0.0);
-
         } catch (IOException e) {
-            e.printStackTrace();
+            DataVerification.logException(e, "Erreur lors du chargement du plateau");
         }
     }
 

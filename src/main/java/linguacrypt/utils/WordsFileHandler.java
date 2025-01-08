@@ -13,9 +13,7 @@ public class WordsFileHandler {
     public WordsFileHandler(String filePath) throws IOException {
         InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
 
-        if (resource == null) {
-            throw new IllegalArgumentException("File not found : " + filePath);
-        }
+        DataVerification.assertNotNull(resource, "Le fichier " + filePath + " n'existe pas.");
 
         ObjectMapper objectMapper = new ObjectMapper();
         wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
