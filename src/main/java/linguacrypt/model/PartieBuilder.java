@@ -32,7 +32,7 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir le temps de chaque tour.
+     * Permet de reset le temps de chaque tour.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
      * @param timer
@@ -44,7 +44,18 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir la hauteur de la grille de jeu.
+     * Permet de reset le temps de chaque tour.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetTimer() {
+        this.partie.setTimer(GameConfig.DEFAULT_TIMER);
+        return this;
+    }
+
+    /**
+     * Permet de reset la hauteur de la grille de jeu.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
      * @param heightParameter
@@ -56,7 +67,18 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir la largeur de la grille de jeu.
+     * Permet de reset la hauteur de la grille de jeu.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetHeightParameter() {
+        this.partie.setHeightParameter(GameConfig.DEFAULT_HEIGHT);
+        return this;
+    }
+
+    /**
+     * Permet de reset la largeur de la grille de jeu.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
      * @param widthParameter
@@ -68,7 +90,18 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir la largeur les themes du jeu
+     * Permet de reset la largeur de la grille de jeu.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetWidthParameter() {
+        this.partie.setWidthParameter(GameConfig.DEFAULT_WIDTH);
+        return this;
+    }
+
+    /**
+     * Permet de reset la largeur les themes du jeu
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
      * @param themes
@@ -80,13 +113,34 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir les mots utilisées sans la partie
+     * Permet de reset la largeur les themes du jeu
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetUsedThemes() {
+        this.partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        return this;
+    }
+
+    /**
+     * Permet de reset les mots utilisées sans la partie
      *
      * @param words
      * @return PartieBuilder
      */
     public PartieBuilder setWordsUsed(ArrayList<String> words) {
         this.partie.setWords(words);
+        return this;
+    }
+
+    /**
+     * Permet de reset les mots utilisées sans la partie
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetWordsUsed() {
+        this.partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
         return this;
     }
 
@@ -97,7 +151,7 @@ public class PartieBuilder {
     }
 
     /**
-     * Permet de choisir le type de partie entre image ou mot.
+     * Permet de reset le type de partie entre image ou mot.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
      *
      * @param typePartie
@@ -105,6 +159,32 @@ public class PartieBuilder {
      */
     public PartieBuilder setTypePartie(TypePartie typePartie) {
         this.partie.setTypePartie(typePartie);
+        return this;
+    }
+
+    /**
+     * Permet de reset le type de partie entre image ou mot.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetTypePartie() {
+        this.partie.setTypePartie(TypePartie.WORDS);
+        return this;
+    }
+
+    /**
+     * Permet de reset l'ensemble des parametres
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @return PartieBuilder
+     */
+    public PartieBuilder resetall() {
+        PartieBuilder partieBuilder = this.resetTypePartie().
+                resetWordsUsed().
+                resetHeightParameter().
+                resetWidthParameter().
+                resetTimer();
         return this;
     }
 
