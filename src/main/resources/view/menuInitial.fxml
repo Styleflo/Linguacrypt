@@ -51,7 +51,7 @@
             </Button>
          </children>
       </Pane>
-      <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.15" pickOnBounds="true" fx:id="filtre">
+      <ImageView fx:id="filtre" fitHeight="850.0" fitWidth="1450.0" opacity="0.15" pickOnBounds="true">
          <image>
             <Image url="@../assets/filtre.png" />
          </image>
