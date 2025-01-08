@@ -6,9 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
             prefHeight="185.0" prefWidth="251.0" styleClass="card"
-            stylesheets="@../css/Red_card.css" xmlns="http://javafx.com/javafx/23.0.1">
+            stylesheets="@../css/Red_card.css" xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="linguacrypt.controller.NeutralCardController">
     <children>
         <AnchorPane layoutX="12.0" layoutY="21.0" prefHeight="170.0" prefWidth="260.0" styleClass="small_rectangle"
                     AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0"
@@ -32,7 +34,8 @@
                         <Pane prefHeight="6.0" prefWidth="291.0"/>
                         <VBox prefHeight="46.0" prefWidth="260.0" styleClass="text_rectangle">
                             <children>
-                                <Label alignment="CENTER" prefHeight="52.0" prefWidth="246.0" text="Label">
+                                <Label fx:id="labelMot" alignment="CENTER" prefHeight="52.0" prefWidth="246.0"
+                                       text="Label">
                                     <font>
                                         <Font size="35.0"/>
                                     </font>

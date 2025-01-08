@@ -7,12 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import linguacrypt.model.Jeu;
-import linguacrypt.model.Plateau;
 
 import java.io.IOException;
 
 public class PlateauController implements Observer {
-
     private Jeu jeu;
 
     @FXML
@@ -20,6 +18,12 @@ public class PlateauController implements Observer {
 
     @FXML
     private Label labelEquipe;
+
+    @FXML
+    private Label lbbleu;
+
+    @FXML
+    private Label lbred;
 
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -30,15 +34,13 @@ public class PlateauController implements Observer {
     }
 
 
-
-
     private void afficherCartes() {
         if (jeu == null) return;
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(50);
-        gridPane.setVgap(50);
-        gridPane.setPadding(new Insets(25));
+        gridPane.setHgap(25);
+        gridPane.setVgap(25);
+        gridPane.setPadding(new Insets(80));
 
         int row = jeu.getPartie().getHeightParameter();
         int col = jeu.getPartie().getWidthParameter();
@@ -49,9 +51,8 @@ public class PlateauController implements Observer {
                 final int currentJ = j;
                 AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
 
-            carte.setOnMouseClicked(event -> {
-            handleCardClick(currentI, currentJ, carte);
-            });
+                assert carte != null;
+                carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
 
                 gridPane.add(carte, i, j);
             }
@@ -69,24 +70,31 @@ public class PlateauController implements Observer {
                 carte.setStyle("-fx-background-color: #ff6b6b;");
                 jeu.getPartie().getPlateau().updatePoint(1);
                 jeu.getPartie().getPlateau().updateTurn(1);
+                jeu.getPartie().updateWin();
 
                 break;
             case 0:
                 carte.setStyle("-fx-background-color: #4dabf7;");
                 jeu.getPartie().getPlateau().updatePoint(0);
                 jeu.getPartie().getPlateau().updateTurn(0);
-
+                jeu.getPartie().updateWin();
                 break;
             case 2:
                 carte.setStyle("-fx-background-color: #343a40;");
                 jeu.getPartie().getPlateau().updateTurn(2);
+                jeu.getPartie().updateWin(2);
                 break;
             case 3:
                 carte.setStyle("-fx-background-color: #f8f9fa;");
                 jeu.getPartie().getPlateau().updateTurn(3);
                 break;
         }
-
+        if (jeu.getPartie().BlueWon()) {
+            System.out.println("Blue Won");
+        }
+        if (jeu.getPartie().RedWon()) {
+            System.out.println("Red Won");
+        }
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
         this.updateLabel();
@@ -100,7 +108,7 @@ public class PlateauController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-               e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
     }
@@ -108,15 +116,40 @@ public class PlateauController implements Observer {
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
             labelEquipe.setText("C'est le tour de Bleu");
-        }else{
+        } else {
             labelEquipe.setText("C'est le tour de Rouge");
-
         }
+        int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
+        if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1));
+            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + nbpoint);
+        } else {
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + nbpoint);
+            lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + (nbpoint + 1));
+        }
+    }
+
+    @FXML
+    private void handleNouvellePartie() {
+        jeu.getPartie().newPlateau();
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void handleMenuPrincipal() {
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void handleTourSuivant() {
+        jeu.getPartie().getPlateau().changeTurn();
+        updateLabel();
     }
 
     @Override
     public void reagir() {
-        if (jeu.getView() == "Plateau") {
+        if (jeu.getView().equals("Plateau")) {
             afficherCartes();
         }
     }
