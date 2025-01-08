@@ -2,51 +2,53 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.MenuInitialController">
     <children>
       <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
          <image>
-            <Image url="@../assets/s200_gerald.oster.jpg" />
+            <Image url="@../assets/fond_test_1.gif" />
          </image>
+         <effect>
+            <GaussianBlur radius="31.75" />
+         </effect>
       </ImageView>
       <Pane>
          <children>
-            <Pane layoutX="320.0" layoutY="644.0" prefHeight="178.0" prefWidth="766.0" styleClass="dark_petit_panneau">
-               <children>
-                  <Pane layoutX="7.0" layoutY="18.0" prefHeight="142.0" prefWidth="743.0" styleClass="light_petit_panneau">
-                     <children>
-                            <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="97.0" prefWidth="223.0" stylesheets="@../css/gui.css" text="Jouer">
-                           <styleClass>
-                              <String fx:value="button1" />
-                              <String fx:value="red_button" />
-                           </styleClass>
-                        </Button>
-                            <Button layoutX="505.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="97.0" prefWidth="223.0" text="Cartes">
-                           <styleClass>
-                              <String fx:value="button1" />
-                              <String fx:value="orange_button" />
-                           </styleClass>
-                        </Button>
-                            <Button layoutX="256.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="97.0" prefWidth="223.0" text="Quitter">
-                           <styleClass>
-                              <String fx:value="purple_button" />
-                              <String fx:value="button1" />
-                           </styleClass>
-                        </Button>
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
             <ImageView fitHeight="539.0" fitWidth="716.0" layoutX="420.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/lingua.png" />
                </image>
             </ImageView>
+                <Button layoutX="166.0" layoutY="640.0" mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="152.0" prefWidth="468.0" stylesheets="@../css/gui.css" text="Jouer">
+               <styleClass>
+                  <String fx:value="button1" />
+                  <String fx:value="red_button" />
+                  <String fx:value="big_button" />
+               </styleClass>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+                <Button layoutX="791.0" layoutY="640.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="152.0" prefWidth="468.0" text="Cartes">
+               <styleClass>
+                  <String fx:value="button1" />
+                  <String fx:value="big_button" />
+                  <String fx:value="orange_button" />
+               </styleClass>
+            </Button>
+                <Button layoutX="1251.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="70.0" prefWidth="169.0" text="Quitter">
+               <styleClass>
+                  <String fx:value="purple_button" />
+                  <String fx:value="button1" />
+               </styleClass>
+            </Button>
          </children>
       </Pane>
     </children>
