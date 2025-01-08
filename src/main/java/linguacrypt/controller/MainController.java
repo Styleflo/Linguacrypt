@@ -133,6 +133,7 @@ public class MainController implements Observer {
         }
     }
 
+
     public void reagir() {
         update();
     }

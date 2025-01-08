@@ -11,14 +11,15 @@ public class WordsFileHandler {
     private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
-        InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
+        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
-        if (resource == null) {
+        if (resourceStream == null) {
             throw new IllegalArgumentException("File not found : " + filePath);
         }
 
+
         ObjectMapper objectMapper = new ObjectMapper();
-        wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
+        wordsCategories = objectMapper.readValue(resourceStream, WordsCategories.class);
     }
 
     public void writeJsonFile() {
@@ -121,5 +122,6 @@ public class WordsFileHandler {
                 }
             }
         }
+
     }
 }

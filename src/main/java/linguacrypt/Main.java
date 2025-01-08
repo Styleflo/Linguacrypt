@@ -37,7 +37,7 @@ public class Main extends Application {
 
         // Créer la scène et l'afficher
         Scene scene = new Scene(root, 1450, 850);
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.setTitle("LinguaCrypt");
 
