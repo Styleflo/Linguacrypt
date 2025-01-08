@@ -38,8 +38,8 @@
                <children>
                   <Slider layoutX="209.0" layoutY="178.0" prefHeight="15.0" prefWidth="468.0" styleClass="thumb" stylesheets="@../css/parametre.css" />
                   <Label layoutX="398.0" layoutY="127.0" styleClass="text" stylesheets="@../css/parametre.css" text="Temps" textFill="#fcf6f6" />
-                  <Label layoutX="226.0" layoutY="243.0" styleClass="text" stylesheets="@../css/parametre.css" text="Largeur" textFill="#fcf6f6" />
-                  <Label layoutX="556.0" layoutY="248.0" styleClass="text" stylesheets="@../css/parametre.css" text="Hauteur" textFill="#fcf6f6" />
+                  <Label layoutX="226.0" layoutY="243.0" styleClass="text" stylesheets="@../css/parametre.css" text="Colonnes" textFill="#fcf6f6" />
+                  <Label layoutX="556.0" layoutY="248.0" styleClass="text" stylesheets="@../css/parametre.css" text="Lignes" textFill="#fcf6f6" />
                   <AnchorPane layoutX="224.0" layoutY="306.0" prefHeight="71.0" prefWidth="109.0" stylesheets="@../css/parametre.css">
                      <children>
                         <Label fx:id="label1" layoutX="46.0" layoutY="21.0" styleClass="text" stylesheets="@../css/parametre.css" text="5" textFill="#fcf6f6" />

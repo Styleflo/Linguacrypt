@@ -26,6 +26,7 @@ public class ParametreController implements Observer {
 
     @FXML
     private Label label2;
+
     @FXML
     private ImageView filtre;
 
@@ -54,7 +55,7 @@ public class ParametreController implements Observer {
     }
 
     public void handleCartesAleatoire() {
-        partieBuilder.resetUsedThemes();
+
     }
 
     @FXML
@@ -94,7 +95,7 @@ public class ParametreController implements Observer {
     }
 
     @FXML
-    public void handleThemes() {
+    public void handleThemes(){
         lesthemes.setVisible(true);
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
         themes = wordsFileHandler.getAllThemes();

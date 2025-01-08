@@ -56,6 +56,7 @@ public class PlateauController implements Observer {
     private ImageView filtre2;
 
     private WinnerPopupController winnerPopupController;
+
     private StackPane popupContainer;
 
     @FXML
