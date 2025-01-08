@@ -116,16 +116,15 @@
          </children>
       </AnchorPane>
    </children>
-   <Pane fx:id="lesthemes" visible="false" styleClass="confirmationOverlay">
+   <Pane fx:id="lesthemes" visible="false" styleClass="confirmationOverlay" stylesheets="@../css/parametre.css">
       <children>
-         <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0" layoutY="325.0"
-               styleClass="confirmation-box">
+         <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0" layoutY="175.0"
+               styleClass="confirmation-box" stylesheets="@../css/parametre.css">
             <children>
-               <Label text="Voulez-vous sauvegarder la partie en cours ?" textFill="WHITE" styleClass="text"/>
-               <HBox alignment="CENTER" spacing="10.0">
-                  <Button text="Oui" styleClass="purple_button"/>
-                  <Button text="Non" styleClass="red_button"/>
-               </HBox>
+               <Label text="Selectionez vos thèmes" textFill="WHITE" styleClass="text"/>
+                     <VBox fx:id="themeBox" alignment="CENTER" spacing="10.0">
+
+                     </VBox>
             </children>
          </VBox>
       </children>
