@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.StringUtils;
@@ -26,6 +27,7 @@ public class CartesController implements Observer {
     private GridPane gridPane;
     @FXML
     private Label themeLabel;
+
 
 
     private List<String> currentMots;

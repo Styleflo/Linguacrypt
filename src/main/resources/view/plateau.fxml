@@ -19,7 +19,7 @@
 
     <SplitPane fx:id="splitpane" dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="1082.0" prefWidth="1761.0">
         <items>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css" fx:id="panneau_changer">
                 <children>
                     <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0" layoutY="653.0" mnemonicParsing="false" onAction="#handleNouvellePartie" prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie" textAlignment="CENTER" textFill="WHITE">
                         <styleClass>
@@ -34,7 +34,7 @@
                         </styleClass>
                     </Button>
                     <FlowPane prefHeight="200.0" prefWidth="200.0" />
-                    <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0" styleClass="dark_petit_panneau">
+                    <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0" styleClass="dark_petit_panneau" >
                         <children>
                             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="30.0" prefWidth="321.0" styleClass="text" text="Tour" textFill="WHITE" />
                             <AnchorPane layoutX="23.0" layoutY="66.0" prefHeight="51.0" prefWidth="246.0" styleClass="light_petit_panneau">
@@ -59,7 +59,7 @@
                             </AnchorPane>
                         </children>
                     </AnchorPane>
-                    <Pane layoutX="29.0" layoutY="26.0" prefHeight="317.0" prefWidth="342.0">
+                    <Pane layoutX="29.0" layoutY="26.0" prefHeight="317.0" prefWidth="342.0"  fx:id="panneau_changer2">
                         <styleClass>
                             <String fx:value="logo_panneau" />
                             <String fx:value="logo_panneau_rouge" />
