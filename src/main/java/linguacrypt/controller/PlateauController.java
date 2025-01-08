@@ -34,6 +34,9 @@ public class PlateauController implements Observer {
     @FXML
     private Label lbred;
 
+    private WinnerPopupController winnerPopupController;
+    private StackPane popupContainer;
+
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
     }
@@ -126,16 +129,12 @@ public class PlateauController implements Observer {
                 break;
         }
         if(jeu.getPartie().BlueWon()){
-            System.out.println("Blue Won");
             revealCard();
-            showWinnerPopup("blue");
-            //setWinnerPopup("Blue");
+            showWinnerPopup("Bleue");
         }
         if(jeu.getPartie().RedWon()){
-            System.out.println("Red Won");
             revealCard();
-            showWinnerPopup("red");
-            //setWinnerPopup("Red");
+            showWinnerPopup("Rouge");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
@@ -144,65 +143,54 @@ public class PlateauController implements Observer {
 
     private void revealCard() {
         Carte[][] listCard = jeu.getPartie().getPlateau().getCards();
-        //List<AnchorPane> listAnchorCarte = recupererCartes();
-        for (Carte[] row : listCard) { // Parcours des lignes
-            for (Carte card : row) { // Parcours des cartes dans une ligne
+        for (Carte[] row : listCard) {
+            for (Carte card : row) {
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
-                card.setCovered();
-                int color = card.getType();
+                if (carteVisu != null) {  //vérification
+                    card.setCovered();
+                    int color = card.getType();
 
-                switch (color) {
-                    case 1: //couleur de la carte est rouge
-                        carteVisu.setStyle("-fx-background-color: #ff6b6b;");
-
-                        break;
-                    case 0: //couleur de la carte est bleue
-                        carteVisu.setStyle("-fx-background-color: #4dabf7;");
-
-                        break;
-                    case 2: //couleur de la carte est noire (celui qui l'a retourné a perdu)
-                        carteVisu.setStyle("-fx-background-color: #343a40;");
-
-                        break;
-                    case 3: //couleur de la carte est neutre
-                        carteVisu.setStyle("-fx-background-color: #f8f9fa;");
-                        break;
+                    switch (color) {
+                        case 1: //couleur de la carte est rouge
+                            carteVisu.setStyle("-fx-background-color: #ff6b6b;");
+                            break;
+                        case 0: //couleur de la carte est bleue
+                            carteVisu.setStyle("-fx-background-color: #4dabf7;");
+                            break;
+                        case 2: //couleur de la carte est noire
+                            carteVisu.setStyle("-fx-background-color: #343a40;");
+                            break;
+                        case 3: //couleur de la carte est neutre
+                            carteVisu.setStyle("-fx-background-color: #f8f9fa;");
+                            break;
+                    }
                 }
             }
         }
-
     }
+
 
     private void showWinnerPopup(String winningTeam) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Partie terminée");
-        alert.setHeaderText("Victoire !");
-        alert.setContentText("L'équipe " + winningTeam + " a gagné !");
-        alert.showAndWait();
+        try {
+            if (popupContainer == null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
+                popupContainer = loader.load();
+                winnerPopupController = loader.getController();
+
+                StackPane parent = (StackPane) gridPane.getParent();
+
+                // On ajoute le popup au StackPane
+                parent.getChildren().add(popupContainer);
+                popupContainer.toFront(); // Met le popup au premier plan
+
+            }
+
+            winnerPopupController.show(winningTeam);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement du popup: " + e.getMessage());
+        }
     }
-
-//    public void setWinnerPopup(String winningTeam) {
-//        try {
-//            // Charger le fichier FXML du WinnerPopup
-//            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("/view/winner-popup.fxml"));
-//            popupRoot = popupLoader.load();
-//
-//            // Obtenir le contrôleur du pop-up
-//            WinnerPopupController winnerPopupController = popupLoader.getController();
-//            winnerPopupController.show(winningTeam);
-//
-//            // Afficher le pop-up (tu peux remplacer AnchorPane si nécessaire)
-//            AnchorPane.setTopAnchor(popupRoot, 0.0);
-//            AnchorPane.setBottomAnchor(popupRoot, 0.0);
-//            AnchorPane.setLeftAnchor(popupRoot, 0.0);
-//            AnchorPane.setRightAnchor(popupRoot, 0.0);
-//
-//            //content.getChildren().add(popupRoot);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
     private AnchorPane creerCarte(String mot) {
         try {
