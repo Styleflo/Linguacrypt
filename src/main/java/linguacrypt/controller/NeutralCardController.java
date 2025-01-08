@@ -11,21 +11,6 @@ public class NeutralCardController {
 
     public void setMot(String mot) {
         labelMot.setText(mot);
-        labelMot.setFont(new Font(5));
     }
 
-    private void adjustFontSize(String mot) {
-        int length = mot.length();
-        double fontSize;
-
-        if (length <= 5) {
-            fontSize = 20.0;
-        } else if (length <= 10) {
-            fontSize = 15.0;
-        } else {
-            fontSize = 10.0;
-        }
-        labelMot.setFont(new Font(fontSize));
-
-    }
 }

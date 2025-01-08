@@ -27,7 +27,7 @@
 }
 
 .text {
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-alignement: center;
     -fx-font-family: "Helvetica";
     -fx-font-weight: bold;

@@ -38,25 +38,70 @@ public class PlateauController implements Observer {
         if (jeu == null) return;
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(25);
-        gridPane.setVgap(25);
-        gridPane.setPadding(new Insets(80));
 
         int row = jeu.getPartie().getWidthParameter();
         int col = jeu.getPartie().getHeightParameter();
 
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
-                final int currentI = i;
-                final int currentJ = j;
-                AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+        if (row < 7 && col < 6) {
 
-                assert carte != null;
-                carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+            gridPane.setHgap(20);
+            gridPane.setVgap(20);
 
-                gridPane.add(carte, i, j);
+            int adapth = 5-col;
+            int adaptl = 6-row;
+            int right = 60 + adapth * 30;
+            int left = 20 + adapth * 30;
+            int top = 70 + adaptl * 20;
+            int bottom = 70 + adaptl * 20;
+
+            System.out.println("adapth: " + adapth);
+            System.out.println("adaptl: " + adaptl);
+            System.out.println("right: " + right);
+            System.out.println("left: " + left);
+            System.out.println("top: " + top);
+            System.out.println("bottom: " + bottom);
+
+            gridPane.setPadding(new Insets(top,right,bottom,left));
+
+            for (int i = 0; i < col; i++) {
+                for (int j = 0; j < row; j++) {
+                    final int currentI = i;
+                    final int currentJ = j;
+                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+
+                    assert carte != null;
+                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+
+                    gridPane.add(carte, i, j);
+                }
             }
+        } else {
+            gridPane.setHgap(4);
+            gridPane.setVgap(8);
+            int adapth = 9-col;
+            int adaptl = 9-row;
+            int right = 61 + adapth * 61;
+            int left = 0 + adapth * 61;
+            int top = 74 + adaptl * 34;
+            int bottom = 74 + adaptl * 34;
+
+            gridPane.setPadding(new Insets(top,right,bottom,left));
+            for (int i = 0; i < col; i++) {
+                for (int j = 0; j < row; j++) {
+                    final int currentI = i;
+                    final int currentJ = j;
+                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+
+                    assert carte != null;
+                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+
+                    gridPane.add(carte, i, j);
+                }
+            }
+
         }
+
+
         this.updateLabel();
     }
 
@@ -103,6 +148,19 @@ public class PlateauController implements Observer {
     private AnchorPane creerCarte(String mot) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
+            AnchorPane card = loader.load();
+            NeutralCardController controller = loader.getController();
+            controller.setMot(mot);
+            return card;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private AnchorPane creerPetiteCarte(String mot) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card_vp.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
             controller.setMot(mot);

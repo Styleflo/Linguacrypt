@@ -42,8 +42,8 @@ public class ParametreController implements Observer {
         int valeurActuelle = Integer.parseInt(label1.getText());
         if (valeurActuelle > 2) {
             label1.setText(String.valueOf(valeurActuelle - 1));
+            partieBuilder.setHeightParameter(valeurActuelle - 1);
         }
-        partieBuilder.setHeightParameter(valeurActuelle - 1);
     }
 
     @FXML
@@ -51,8 +51,8 @@ public class ParametreController implements Observer {
         int valeurActuelle = Integer.parseInt(label1.getText());
         if (valeurActuelle < 8) {
             label1.setText(String.valueOf(valeurActuelle + 1));
+            partieBuilder.setHeightParameter(valeurActuelle +1);
         }
-        partieBuilder.setHeightParameter(valeurActuelle +1);
     }
 
     @FXML
@@ -60,6 +60,7 @@ public class ParametreController implements Observer {
         int valeurActuelle = Integer.parseInt(label2.getText());
         if (valeurActuelle > 2) {
             label2.setText(String.valueOf(valeurActuelle - 1));
+            partieBuilder.setWidthParameter(valeurActuelle - 1);
         }
     }
 
@@ -68,6 +69,7 @@ public class ParametreController implements Observer {
         int valeurActuelle = Integer.parseInt(label2.getText());
         if (valeurActuelle < 8) {
             label2.setText(String.valueOf(valeurActuelle + 1));
+            partieBuilder.setWidthParameter(valeurActuelle + 1);
         }
     }
 
