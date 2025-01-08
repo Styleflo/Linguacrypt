@@ -11,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.WordsFileHandler;
 
@@ -19,7 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CartesController implements Observer {
     private Jeu jeu;
@@ -60,12 +61,12 @@ public class CartesController implements Observer {
     }
 
     private void afficherCartes() {
-        if (jeu == null) return;
+        DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
         filtre.setMouseTransparent(true);
         gridPane.getChildren().clear();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(33));
+        gridPane.setHgap(GameConfig.CARTES_THEMES_HGAP);
+        gridPane.setVgap(GameConfig.CARTES_THEMES_VGAP);
+        gridPane.setPadding(new Insets(GameConfig.CARTES_THEMES_PADDING));
 
         int row = 0;
         int col = 0;
@@ -148,7 +149,7 @@ public class CartesController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-            e.printStackTrace();
+            DataUtils.logException(e, "Erreur lors de la création d'une carte");
             return null;
         }
     }
@@ -228,19 +229,16 @@ public class CartesController implements Observer {
         Optional<String> result = dialog.showAndWait();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
 
-        AtomicBoolean motRefuse = new AtomicBoolean(false);
-
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
 
-            if (mot.length() > 13) {
+            if (mot.length() > GameConfig.MAX_WORD_SIZE) {
                 // Afficher une boîte de dialogue d'erreur
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setHeaderText("Mot trop long >:(");
-                alert.setContentText("Le mot doit contenir moins de 13 lettres.");
+                alert.setContentText("Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 alert.showAndWait();
-                motRefuse.set(true);
             } else {
                 Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
                 boolean success = (boolean) res[0];
@@ -250,20 +248,68 @@ public class CartesController implements Observer {
                     currentMots.add(mot);
                     reagir();
                 } else {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Erreur");
-                    alert.setHeaderText("Mot existant");
-                    alert.setContentText(message);
-                    alert.showAndWait();
-                    motRefuse.set(true);
+                    showAlert(AlertType.ERROR, "Erreur", "Mot existant", message);
+                    handleAjouterMotAction();
                 }
             }
         }
+    }
 
-        if (motRefuse.get()) {
-            handleAjouterMotAction();
-        } else {
-            wordsFileHandler.writeJsonFile();
+    @FXML
+    private void addNewTheme() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Ajouter un thème");
+        dialog.setHeaderText("Ajouter un thème de cartes");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        TextField themeNameInput = new TextField();
+        TextField firstCardInput = new TextField();
+
+        grid.add(new Label("Nom du thème :"), 0, 0);
+        grid.add(themeNameInput, 1, 0);
+        grid.add(new Label("Première carte du thème :"), 0, 1);
+        grid.add(firstCardInput, 1, 1);
+
+        dialog.getDialogPane().setContent(grid);
+        themeNameInput.requestFocus();
+
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setDisable(true);
+
+        themeNameInput.textProperty().addListener((obs, oldVal, newVal) ->
+                okButton.setDisable(newVal.trim().isEmpty() || firstCardInput.getText().trim().isEmpty()));
+        firstCardInput.textProperty().addListener((obs, oldVal, newVal) ->
+                okButton.setDisable(newVal.trim().isEmpty() || themeNameInput.getText().trim().isEmpty()));
+
+        Optional<String> result = dialog.showAndWait();
+        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+
+        if (result.isPresent()) {
+            String themeName = themeNameInput.getText().toLowerCase().trim();
+            String firstCard = firstCardInput.getText().toLowerCase().trim();
+
+            if (wordsFileHandler.themeExists(themeName)) {
+                showAlert(AlertType.ERROR, "Erreur", "Thème existant", "Le thème \n" + themeName + "\n existe déjà.");
+                addNewTheme();
+            } else if (wordsFileHandler.getCategoryByWord(firstCard) != null) {
+                showAlert(AlertType.ERROR, "Erreur", "Mot existant", "Le mot \"" + firstCard + "\"\n existe déjà.");
+                addNewTheme();
+            } else if (themeName.length() > GameConfig.MAX_WORD_SIZE) {
+                showAlert(AlertType.ERROR, "Erreur", "Nom de thème trop long", "Le theme doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
+                addNewTheme();
+            } else if (firstCard.length() > GameConfig.MAX_WORD_SIZE) {
+                showAlert(AlertType.ERROR, "Erreur", "Mot trop long", "Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
+                addNewTheme();
+            } else if (wordsFileHandler.addCategory(themeName)) {
+                themes.add(themeName);
+                wordsFileHandler.addWordToCategory(themeName, firstCard);
+                setCurrentThemeIndex(themes.size() - 1);
+                reagir();
+                wordsFileHandler.writeJsonFile();
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import linguacrypt.utils.CardType;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public class PlateauImage extends PlateauBase implements Serializable {
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
                 String word = words_list.get(index++);
-                int type = key.getCardType(i, j);
+                CardType type = key.getCardType(i, j);
                 CarteImage card = new CarteImage(word, type);
                 cardsImages[i][j] = card;
             }
@@ -36,7 +38,7 @@ public class PlateauImage extends PlateauBase implements Serializable {
         return this.cardsImages[i][j];
     }
 
-    public int coverCard(int i, int j) {
+    public CardType coverCard(int i, int j) {
         // Coordonnées matrcielles
         CarteBase card = cardsImages[i][j];
         card.setCovered();
