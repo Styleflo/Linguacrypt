@@ -6,6 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
+
 <StackPane prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau" stylesheets="@../css/gui.css"
            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="linguacrypt.controller.PlateauController">
