@@ -1,5 +1,6 @@
 package linguacrypt.controller;
 
+import javafx.scene.layout.Pane;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
@@ -15,6 +16,9 @@ public class ParametreController implements Observer {
 
     @FXML
     private Label label2;
+
+    @FXML
+    private Pane lesthemes;
 
     private Jeu jeu;
 
@@ -71,6 +75,12 @@ public class ParametreController implements Observer {
             label2.setText(String.valueOf(valeurActuelle + 1));
             partieBuilder.setWidthParameter(valeurActuelle + 1);
         }
+    }
+
+    @FXML
+    public void handleThemes(){
+        lesthemes.setVisible(true);
+
     }
 
     @Override
