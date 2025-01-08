@@ -111,10 +111,14 @@ public class WordsFileHandler {
             if (cat.getName().equals(category)) {
                 if (cat.getWords().contains(word)) {
                     cat.getWords().remove(word);
+
+                    if (cat.getWords().isEmpty()) {
+                        categories.remove(cat);
+                    }
+
                     return;
                 }
             }
         }
-
     }
 }

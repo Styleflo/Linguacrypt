@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CartesController implements Observer {
     private Jeu jeu;
@@ -26,7 +25,6 @@ public class CartesController implements Observer {
     private GridPane gridPane;
     @FXML
     private Label themeLabel;
-
 
     private List<String> currentMots;
     private int currentThemeIndex;
@@ -43,9 +41,7 @@ public class CartesController implements Observer {
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
 
         themes = wordsFileHandler.getAllThemes();
-        currentThemeIndex = 0;
-        updateCurrentThemeLabel();
-        currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
+        setCurrentThemeIndex(0);
     }
 
     private void updateCurrentThemeLabel() {
@@ -69,7 +65,7 @@ public class CartesController implements Observer {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
             assert carte != null;
-            create_transition(carte);
+            // createTransition(carte);
             int finalI = i;
             carte.setOnMouseClicked(event -> handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY()));
 
@@ -83,22 +79,48 @@ public class CartesController implements Observer {
         }
     }
 
+    private Alert showAlert(AlertType alertType, String title, String header, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+        return alert;
+    }
+
     private void handleCardClick(String word, double x, double y) {
+        String theme = themes.get(currentThemeIndex);
+        boolean lastWord = jeu.getWordsFileHandler().getWordsByTheme(theme).size() == 1;
+
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem deleteButton = new MenuItem("Supprimer \"" + word + "\" ?");
+        String deleteButtonLabel, alertTitle, alertContent;
+
+        if (lastWord) {
+            deleteButtonLabel = "Supprimer \"" + word + "\" et le thème \"" + theme + "\" ?";
+            alertTitle = "Suppression d'un mot et d'un thème";
+            alertContent = "Voulez vous supprimer le mot \"" + word + "\" et le thème \"" + theme + "\" ?";
+        } else {
+            deleteButtonLabel = "Supprimer \"" + word + "\" ?";
+            alertTitle = "Suppression d'un mot";
+            alertContent = "Voulez vous supprimer le mot \"" + word + "\" ?";
+        }
+
+        MenuItem deleteButton = new MenuItem(deleteButtonLabel);
 
         deleteButton.setOnAction(_ -> {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Suppression d'un mot");
-            alert.setHeaderText(null);
-            alert.setContentText("Voulez vous supprimer le mot \"" + word + "\" ?");
+            Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
+
             if (alert.showAndWait().isPresent()) {
                 WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-                wordsFileHandler.removeWordFromCategory(themes.get(currentThemeIndex), word);
+                wordsFileHandler.removeWordFromCategory(theme, word);
                 currentMots.remove(word);
 
-                wordsFileHandler.writeJsonFile();
+                if (lastWord) {
+                    themes.remove(theme);
+                    setCurrentThemeIndex(currentThemeIndex - 1);
+                }
 
+                wordsFileHandler.writeJsonFile();
                 reagir();
             }
         });
@@ -121,7 +143,7 @@ public class CartesController implements Observer {
         }
     }
 
-    public void create_transition(AnchorPane carte) {
+    public void createTransition(AnchorPane carte) {
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(0.5));
         transition.setToX(10);
@@ -144,25 +166,30 @@ public class CartesController implements Observer {
         jeu.notifyObservers();
     }
 
-    @FXML
-    public void nextCategory() {
-        currentThemeIndex++;
+    private void setCurrentThemeIndex(int index) {
+        currentThemeIndex = index;
+
         if (currentThemeIndex >= themes.size()) {
             currentThemeIndex = 0;
         }
+
+        if (currentThemeIndex < 0) {
+            currentThemeIndex = themes.size() - 1;
+        }
+
         currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
         updateCurrentThemeLabel();
+    }
+
+    @FXML
+    public void nextCategory() {
+        setCurrentThemeIndex(currentThemeIndex + 1);
         afficherCartes();
     }
 
     @FXML
     public void previousCategory() {
-        currentThemeIndex--;
-        if (currentThemeIndex < 0) {
-            currentThemeIndex = themes.size() - 1;
-        }
-        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
-        updateCurrentThemeLabel();
+        setCurrentThemeIndex(currentThemeIndex - 1);
         afficherCartes();
     }
 
@@ -181,40 +208,25 @@ public class CartesController implements Observer {
         Optional<String> result = dialog.showAndWait();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
 
-        AtomicBoolean motRefuse = new AtomicBoolean(false);
-
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
 
             if (mot.length() > 13) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Mot trop long >:(");
-                alert.setContentText("Le mot doit contenir moins de 13 lettres.");
-                alert.showAndWait();
-                motRefuse.set(true);
+                showAlert(AlertType.ERROR, "Erreur", "Mot trop long >:(", "Le mot doit contenir moins de 13 lettres.");
+                handleAjouterMotAction();
             } else {
                 Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
                 boolean success = (boolean) res[0];
                 String message = (String) res[1];
                 if (success) {
                     currentMots.add(mot);
+                    wordsFileHandler.writeJsonFile();
                     reagir();
                 } else {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Erreur");
-                    alert.setHeaderText("Mot existant");
-                    alert.setContentText(message);
-                    alert.showAndWait();
-                    motRefuse.set(true);
+                    showAlert(AlertType.ERROR, "Erreur", "Mot existant", message);
+                    handleAjouterMotAction();
                 }
             }
-        }
-
-        if (motRefuse.get()) {
-            handleAjouterMotAction();
-        } else {
-            wordsFileHandler.writeJsonFile();
         }
     }
 
@@ -237,68 +249,42 @@ public class CartesController implements Observer {
         grid.add(firstCardInput, 1, 1);
 
         dialog.getDialogPane().setContent(grid);
-
         themeNameInput.requestFocus();
 
         Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
 
-        themeNameInput.textProperty().addListener((observable, oldValue, newValue) ->
-                okButton.setDisable(newValue.trim().isEmpty() || firstCardInput.getText().trim().isEmpty()));
-        firstCardInput.textProperty().addListener((observable, oldValue, newValue) ->
-                okButton.setDisable(newValue.trim().isEmpty() || themeNameInput.getText().trim().isEmpty()));
+        themeNameInput.textProperty().addListener((obs, oldVal, newVal) ->
+                okButton.setDisable(newVal.trim().isEmpty() || firstCardInput.getText().trim().isEmpty()));
+        firstCardInput.textProperty().addListener((obs, oldVal, newVal) ->
+                okButton.setDisable(newVal.trim().isEmpty() || themeNameInput.getText().trim().isEmpty()));
+
         Optional<String> result = dialog.showAndWait();
-
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-
-        boolean shouldAskAgain = false;
 
         if (result.isPresent()) {
             String themeName = themeNameInput.getText().toLowerCase().trim();
-            String firstCardInputText = firstCardInput.getText().toLowerCase().trim();
+            String firstCard = firstCardInput.getText().toLowerCase().trim();
 
             if (wordsFileHandler.themeExists(themeName)) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Thème existant");
-                alert.setContentText("Le thème \n" + themeName + "\n existe déjà.");
-                alert.showAndWait();
-                shouldAskAgain = true;
-            } else if (wordsFileHandler.wordExists(firstCardInputText)) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Mot existant");
-                alert.setContentText("Le mot \"" + firstCardInputText + "\n existe déjà.");
-                alert.showAndWait();
-                shouldAskAgain = true;
+                showAlert(AlertType.ERROR, "Erreur", "Thème existant", "Le thème \n" + themeName + "\n existe déjà.");
+                addNewTheme();
+            } else if (wordsFileHandler.wordExists(firstCard)) {
+                showAlert(AlertType.ERROR, "Erreur", "Mot existant", "Le mot \"" + firstCard + "\"\n existe déjà.");
+                addNewTheme();
             } else if (themeName.length() > 13) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Nom de thème trop long");
-                alert.setContentText("Le theme doit contenir moins de 13 lettres.");
-                alert.showAndWait();
-                shouldAskAgain = true;
-            } else if (firstCardInputText.length() > 13) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Mot trop long");
-                alert.setContentText("Le mot doit contenir moins de 13 lettres.");
-                alert.showAndWait();
-                shouldAskAgain = true;
+                showAlert(AlertType.ERROR, "Erreur", "Nom de thème trop long", "Le theme doit contenir moins de 13 lettres.");
+                addNewTheme();
+            } else if (firstCard.length() > 13) {
+                showAlert(AlertType.ERROR, "Erreur", "Mot trop long", "Le mot doit contenir moins de 13 lettres.");
+                addNewTheme();
             } else if (wordsFileHandler.addCategory(themeName)) {
                 themes.add(themeName);
-                currentThemeIndex = themes.size() - 1;
-                updateCurrentThemeLabel();
-                wordsFileHandler.addWordToCategory(themeName, firstCardInputText);
-                currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
+                wordsFileHandler.addWordToCategory(themeName, firstCard);
+                setCurrentThemeIndex(themes.size() - 1);
                 reagir();
+                wordsFileHandler.writeJsonFile();
             }
-        }
-
-        if (shouldAskAgain) {
-            addNewTheme();
-        } else {
-            wordsFileHandler.writeJsonFile();
         }
     }
 
