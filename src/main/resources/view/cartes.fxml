@@ -7,27 +7,28 @@
     <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="608.0" prefWidth="828.0">
         <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="556.0">
-                <children>
-                    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0"
-                                AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0"
-                                AnchorPane.topAnchor="50.0">
-                        <content>
-                            <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0"
-                                      prefWidth="943.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints vgrow="ALWAYS"/>
-                                    <RowConstraints vgrow="ALWAYS"/>
-                                </rowConstraints>
-                            </GridPane>
-                        </content>
-                    </ScrollPane>
-                    <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            text="Revenir au menu"/>
-                </children>
+                <HBox>
+                    <children>
+                        <Button onAction="#handleRevenirMenuAction" text="Revenir au menu"/>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0"
+                                    AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0"
+                                    AnchorPane.topAnchor="50.0">
+                            <content>
+                                <GridPane fx:id="gridPane">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="ALWAYS"/>
+                                        <RowConstraints vgrow="ALWAYS"/>
+                                    </rowConstraints>
+                                </GridPane>
+                            </content>
+                        </ScrollPane>
+                        <Button onAction="#addNewTheme" text="Ajouter une catégorie"/>
+                    </children>
+                </HBox>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
                 <children>

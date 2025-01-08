@@ -107,10 +107,10 @@ public class Clef {
 
     public void prettyPrint() {
         Map<Integer, String> int_to_square = new HashMap<>();
-        int_to_square.put(0, "Blue ");
-        int_to_square.put(1, "Red  ");
-        int_to_square.put(2, "Black");
-        int_to_square.put(3, "White");
+        int_to_square.put(0, "Blue  ");
+        int_to_square.put(1, "Red   ");
+        int_to_square.put(2, "Black ");
+        int_to_square.put(3, "White ");
 
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -123,10 +123,10 @@ public class Clef {
 
     public String toString() {
         Map<Integer, String> int_to_square = new HashMap<>();
-        int_to_square.put(0, "Blue ");
-        int_to_square.put(1, "Red  ");
-        int_to_square.put(2, "Black");
-        int_to_square.put(3, "White");
+        int_to_square.put(0, "Blue  ");
+        int_to_square.put(1, "Red   ");
+        int_to_square.put(2, "Black ");
+        int_to_square.put(3, "White ");
         String res;
 
         if (blueStarts) {
