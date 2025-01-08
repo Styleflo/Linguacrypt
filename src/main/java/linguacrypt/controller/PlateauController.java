@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
@@ -30,6 +31,23 @@ public class PlateauController implements Observer {
 
     @FXML
     private Label lbred;
+
+    @FXML
+    private Pane confirmationOverlay;
+
+    @FXML
+    private void confirmNouvellePartie() {
+        confirmationOverlay.setVisible(false);
+        close(); // Logique pour terminer la partie existante
+        jeu.getPartie().newPlateau();
+        jeu.notifyObservers();
+    }
+
+    @FXML
+    private void cancelNouvellePartie() {
+        confirmationOverlay.setVisible(false);
+    }
+
 
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -140,6 +158,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleNouvellePartie() {
+        confirmationOverlay.setVisible(true);
         close();
         jeu.getPartie().newPlateau();
         jeu.notifyObservers();
@@ -147,6 +166,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
+        confirmationOverlay.setVisible(true);
         close();
         jeu.setView("MenuInitial");
         jeu.notifyObservers();

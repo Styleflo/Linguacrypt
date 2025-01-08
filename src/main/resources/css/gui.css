@@ -105,3 +105,16 @@
     -fx-background-position: center center; /* Centre l'image */
     -fx-background-repeat: no-repeat; /* Ne répète pas l'image */
 }
+
+.confirmationOverlay {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.confirmation-box {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-padding: 20;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
