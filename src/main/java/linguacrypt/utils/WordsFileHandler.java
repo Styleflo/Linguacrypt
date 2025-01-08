@@ -2,31 +2,27 @@ package linguacrypt.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordsFileHandler {
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File file;
     private final WordsCategories wordsCategories;
 
     public WordsFileHandler(String filePath) throws IOException {
-        URL resource = getClass().getClassLoader().getResource(filePath);
+        InputStream resource = getClass().getClassLoader().getResourceAsStream(filePath);
 
         if (resource == null) {
-            throw new IllegalArgumentException("File not found: " + filePath);
+            throw new IllegalArgumentException("File not found : " + filePath);
         }
 
-        file = new File(resource.getFile());
-
-        wordsCategories = objectMapper.readValue(file, WordsCategories.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        wordsCategories = objectMapper.readValue(resource, WordsCategories.class);
     }
 
-    public void writeJsonFile() throws IOException {
-        objectMapper.writeValue(file, wordsCategories);
+    public void writeJsonFile() {
+        //objectMapper.writeValue(file, wordsCategories);  // todo
     }
 
     public ArrayList<String> getWordsByTheme(String theme) {
@@ -67,34 +63,63 @@ public class WordsFileHandler {
         return themes;
     }
 
-    public boolean addCategory(String category) {
-        category = category.trim().toLowerCase();
+    public boolean addCategory(String categoryName) {
+        if (themeExists(categoryName)) return false;
 
-        for (WordsCategory cat : wordsCategories.getCategories()) {
-            if (cat.getName().equals(category)) {
-                return false;
-            }
-        }
-
-        wordsCategories.getCategories().add(new WordsCategory(category, new ArrayList<>()));
+        wordsCategories.getCategories().add(new WordsCategory(categoryName, new ArrayList<>()));
 
         return true;
     }
 
-    public Object[] addWordToCategory(String category, String word) {
-        List<WordsCategory> categories = wordsCategories.getCategories();
-
-        for (WordsCategory cat : categories) {
+    public boolean themeExists(String category) {
+        for (WordsCategory cat : wordsCategories.getCategories()) {
             if (cat.getName().equals(category)) {
-                if (cat.getWords().contains(word)) {
-                    return new Object[]{false, "Le mot existe déjà dans la catégorie " + cat.getName()};
-                }
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public Object[] addWordToCategory(String category, String word) {
+        WordsCategory previousCategory = getCategoryByWord(word);
+        if (previousCategory != null) {
+            return new Object[]{false, "Le mot " + word + " existe déjà dans le thème " + previousCategory.getName() + "."};
+        }
+
+        for (WordsCategory cat : wordsCategories.getCategories()) {
+            if (cat.getName().equals(category)) {
                 cat.getWords().add(word);
                 return new Object[]{true, ""};
             }
         }
 
-        return new Object[]{false, "La catégorie " + category + " n'existe pas"};
+        return new Object[]{false, "La catégorie " + category + " n'existe pas."};
+    }
+
+    public WordsCategory getCategoryByWord(String word) {
+        for (WordsCategory cat : wordsCategories.getCategories()) {
+            if (cat.getWords().contains(word)) {
+                return cat;
+            }
+        }
+        return null;
+    }
+
+    public void removeWordFromCategory(String category, String word) {
+        List<WordsCategory> categories = wordsCategories.getCategories();
+
+        for (WordsCategory cat : categories) {
+            if (cat.getName().equals(category)) {
+                if (cat.getWords().contains(word)) {
+                    cat.getWords().remove(word);
+
+                    if (cat.getWords().isEmpty()) {
+                        categories.remove(cat);
+                    }
+
+                    return;
+                }
+            }
+        }
     }
 }

@@ -1,11 +1,8 @@
 package linguacrypt.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -77,8 +74,8 @@ public class PlateauController implements Observer {
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(80));
 
-        int row = jeu.getPartie().getHeightParameter();
-        int col = jeu.getPartie().getWidthParameter();
+        int row = jeu.getPartie().getWidthParameter();
+        int col = jeu.getPartie().getHeightParameter();
 
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -86,9 +83,8 @@ public class PlateauController implements Observer {
                 final int currentJ = j;
                 AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
 
-                carte.setOnMouseClicked(event -> {
-                    handleCardClick(currentI, currentJ, carte);
-                });
+                assert carte != null;
+                carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
 
                 gridPane.add(carte, i, j);
             }
@@ -128,11 +124,11 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(3);
                 break;
         }
-        if(jeu.getPartie().BlueWon()){
+        if (jeu.getPartie().BlueWon()) {
             revealCard();
             showWinnerPopup("Bleue");
         }
-        if(jeu.getPartie().RedWon()){
+        if (jeu.getPartie().RedWon()) {
             revealCard();
             showWinnerPopup("Rouge");
         }
@@ -214,20 +210,20 @@ public class PlateauController implements Observer {
         }
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
-            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1)  );
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1));
             lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + nbpoint);
-        }else{
-            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + nbpoint );
+        } else {
+            lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + nbpoint);
             lbred.setText(jeu.getPartie().getPlateau().getPointRed() + "/" + (nbpoint + 1));
         }
     }
 
     @FXML
     private void handleNouvellePartie() {
-        jeu.getPartie().newPlateau(); 
+        jeu.getPartie().newPlateau();
         jeu.notifyObservers();
     }
-    
+
     @FXML
     private void handleMenuPrincipal() {
         jeu.setView("MenuInitial");
@@ -235,14 +231,14 @@ public class PlateauController implements Observer {
     }
 
     @FXML
-    private void handleTourSuivant(){
+    private void handleTourSuivant() {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
     }
 
     @Override
     public void reagir() {
-        if (jeu.getView() == "Plateau") {
+        if (jeu.getView().equals("Plateau")) {
             afficherCartes();
         }
     }

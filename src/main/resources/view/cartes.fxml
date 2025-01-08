@@ -7,39 +7,41 @@
     <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="608.0" prefWidth="828.0">
         <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="556.0">
-                <children>
-                    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0"
-                                AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0"
-                                AnchorPane.topAnchor="50.0">
-                        <content>
-                            <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0"
-                                      prefWidth="943.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints vgrow="ALWAYS"/>
-                                    <RowConstraints vgrow="ALWAYS"/>
-                                </rowConstraints>
-                            </GridPane>
-                        </content>
-                    </ScrollPane>
-                    <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            text="Revenir au menu"/>
-                </children>
+                <HBox>
+                    <children>
+                        <Button onAction="#handleRevenirMenuAction" text="Revenir au menu"/>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0"
+                                    AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0"
+                                    AnchorPane.topAnchor="50.0">
+                            <content>
+                                <GridPane fx:id="gridPane">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="ALWAYS"/>
+                                        <RowConstraints vgrow="ALWAYS"/>
+                                    </rowConstraints>
+                                </GridPane>
+                            </content>
+                        </ScrollPane>
+                        <Button onAction="#addNewTheme" text="Ajouter une catégorie"/>
+                    </children>
+                </HBox>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
                 <children>
-                    <Button layoutX="87.0" layoutY="80.0" mnemonicParsing="false" text="Thème précédent"
-                            AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="87.0"
-                            onAction="#previousCategory"/>
-                    <Button layoutX="1164.0" layoutY="68.0" mnemonicParsing="false" text="Thème suivant"
-                            AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="138.0"
-                            onAction="#nextCategory"/>
-                    <Label layoutX="609.0" layoutY="36.0" text="Collection Actuelle" fx:id="themeLabel"/>
-                    <Button layoutX="575.0" layoutY="104.0" mnemonicParsing="false"
-                            text="Ajouter un mot à la collection" onAction="#handleAjouterMotAction"/>
+                    <VBox spacing="40.0" alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0"
+                          AnchorPane.bottomAnchor="0.0">
+                        <HBox spacing="80.0" alignment="CENTER">
+                            <Button text="Thème précédent" onAction="#previousCategory"/>
+                            <Label text="Collection Actuelle" fx:id="themeLabel"/>
+                            <Button text="Thème suivant" onAction="#nextCategory"/>
+                        </HBox>
+                        <Button text="Ajouter une carte" onAction="#handleAjouterMotAction"/>
+                    </VBox>
                 </children>
             </AnchorPane>
         </items>

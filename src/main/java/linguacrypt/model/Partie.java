@@ -11,17 +11,18 @@ import java.util.ArrayList;
  * Contient la hauteur du plateau
  */
 public class Partie {
-    private Plateau plateau;
+    private PlateauBase plateau;
     private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné
     private int timer;
     private ArrayList<String> words;
     private int heightParameter;
     private int widthParameter;
+    private TypePartie typePartie;
 
     /**
      * Explicite.
      */
-    public Plateau getPlateau() {
+    public PlateauBase getPlateau() {
         return this.plateau;
     }
 
@@ -35,12 +36,21 @@ public class Partie {
     }
 
     /**
-     * Permet de savoir si une équipe a déjà gagné.
-     *
-     * @return boolean
+     * @return TypeJeu
      */
-    public boolean isWon() {
-        return this.won != 2;
+    public TypePartie getTypePartie() {
+        return this.typePartie;
+    }
+
+    /**
+     * Permet de set le type de jeu.
+     * Attention il faut passer un TypeJeu.
+     * Soit TypeJeu.WORDS ou soit TypeJeu.IMAGES
+     *
+     * @param typeJeu
+     */
+    public void setTypePartie(TypePartie typeJeu) {
+        this.typePartie = typeJeu;
     }
 
     /**
@@ -53,13 +63,15 @@ public class Partie {
 
     /**
      * Permet de changer l'etat du jeu en gagné pour bleu
+     *
+     * @return TypeJeu
      */
     public void setBlueWon() {
         this.won = 0;
     }
 
     /**
-     * Permet de changer l'etat du jeu en gagné pour bleu
+     * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void setRedWon() {
         this.won = 1;
@@ -114,12 +126,15 @@ public class Partie {
     public void setWords(ArrayList<String> words) {
         this.words = words;
     }
+
     public boolean RedWon() {
         return (this.won == 1);
     }
+
     public boolean BlueWon() {
         return (this.won == 0);
     }
+
     public void updateWin() {
         int nbpoint = this.getPlateau().getKey().getWidth() * this.getPlateau().getKey().getHeight() / 3;
         if (this.getPlateau().getKey().isBlueStarting()) {
@@ -136,13 +151,15 @@ public class Partie {
             }
         }
     }
-    public void updateWin(int color){
-        if (color==2){
-            if (this.getPlateau().isBlueTurn()){
+
+    public void updateWin(int color) {
+        if (color == 2) {
+            if (this.getPlateau().isBlueTurn()) {
                 setRedWon();
-            }else {
+            } else {
                 setBlueWon();
             }
         }
     }
+
 }

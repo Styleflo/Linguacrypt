@@ -1,89 +1,89 @@
-.button1{
+.button1 {
 
     -fx-border: none;
 
     -fx-text-align: center;
     -fx-text-decoration: none;
     -fx-display: inline-block;
-    -fx-background-radius: 20px;    /* Arrondi du fond du bouton */
+    -fx-background-radius: 20px; /* Arrondi du fond du bouton */
     -fx-border-radius: 20px;
     -fx-font: bold 20px "Helvetica";
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 10, 10);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 10, 10);
     -fx-wrap-text: true;
     -fx-line-spacing: 7px;
 }
-.button1:hover{
-    -fx-translate-x: 8px;  /* Déplacer de 10px vers la droite */
-    -fx-translate-y: 8px;  /* Déplacer de 10px vers le bas */
+
+.button1:hover {
+    -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
 }
 
 
-.orange_button{
+.orange_button {
     -fx-background-color: orange; /* Green */
     -fx-text-fill: white;
 
 }
 
-.red_button{
+.red_button {
     -fx-background-color: red; /* Green */
     -fx-text-fill: white;
 }
 
-.purple_button{
+.purple_button {
     -fx-background-color: green;
     -fx-text-fill: white;
 }
 
 
-
 .main_panneau {
-    -fx-background-color: #515151;      /* Fond gris */
-    -fx-border-width: 0 8px 0 8px;   /* Bordure uniquement à gauche et à droite */
+    -fx-background-color: #515151; /* Fond gris */
+    -fx-border-width: 0 8px 0 8px; /* Bordure uniquement à gauche et à droite */
 
 }
 
 .blue_main_panneau {
-    -fx-border-color: transparent #2658af transparent #2658af;  /* Bordure bleue sur les côtés verticaux */
+    -fx-border-color: transparent #2658af transparent #2658af; /* Bordure bleue sur les côtés verticaux */
 
 }
 
-.red_main_panneau{
-    -fx-border-color: transparent #f70d1a transparent #f70d1a;  /* Bordure bleue sur les côtés verticaux */
+.red_main_panneau {
+    -fx-border-color: transparent #f70d1a transparent #f70d1a; /* Bordure bleue sur les côtés verticaux */
 }
 
-.dark_petit_panneau{
+.dark_petit_panneau {
     -fx-background-color: #414141;
     -fx-background-radius: 20px;
 }
 
-.light_petit_panneau{
+.light_petit_panneau {
     -fx-background-color: #515151;
     -fx-background-radius: 20px;
 }
 
-.text{
+.text {
     -fx-font-size: 24px;
     -fx-alignement: center;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
 }
 
-.text_font{
+.text_font {
     -fx-font-family: "Helvetica";
 }
 
-.blue_petit_panneau{
+.blue_petit_panneau {
     -fx-background-color: #3399FF;
     -fx-background-radius: 20px;
 
 }
 
-.red_petit_panneau{
+.red_petit_panneau {
     -fx-background-color: #f70d1a;
     -fx-background-radius: 20px;
 }
 
-.logo_panneau{
+.logo_panneau {
     -fx-border-width: 8px 8px 8px 8px;
     -fx-background-color: #414141;
     -fx-border-radius: 20px;
@@ -91,11 +91,11 @@
 
 }
 
-.logo_panneau_bleu{
+.logo_panneau_bleu {
     -fx-border-color: #2658af #2658af #2658af #2658af;
 }
 
-.logo_panneau_rouge{
+.logo_panneau_rouge {
     -fx-border-color: #f70d1a #f70d1a #f70d1a #f70d1a;
 
 }

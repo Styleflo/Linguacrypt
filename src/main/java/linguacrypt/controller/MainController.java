@@ -101,14 +101,11 @@ public class MainController implements Observer {
 
     public void update() {
         content.getChildren().clear();
-        if (this.jeu.getView() == "MenuInitial") {
-            content.getChildren().add(menuInitialRoot);
-        } else if (this.jeu.getView() == "Cartes") {
-            content.getChildren().add(cartesRoot);
-        } else if (this.jeu.getView() == "Plateau") {
-            content.getChildren().add(plateauRoot);
-        } else {
-            System.out.println(jeu.getView());
+        switch (this.jeu.getView()) {
+            case "MenuInitial" -> content.getChildren().add(menuInitialRoot);
+            case "Cartes" -> content.getChildren().add(cartesRoot);
+            case "Plateau" -> content.getChildren().add(plateauRoot);
+            case null, default -> System.out.println(jeu.getView());
         }
     }
 
