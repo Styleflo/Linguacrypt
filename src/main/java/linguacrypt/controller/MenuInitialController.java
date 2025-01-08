@@ -6,14 +6,14 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
-import linguacrypt.model.Partie;
-import linguacrypt.model.PartieBuilder;
 
 import java.io.IOException;
 
 
 public class MenuInitialController implements Observer {
     private Jeu jeu;
+    @FXML
+    private ImageView filtre;
 
     public MenuInitialController() {
     }
@@ -22,9 +22,6 @@ public class MenuInitialController implements Observer {
         filtre.setMouseTransparent(true);
         this.jeu = jeu;
     }
-
-    @FXML
-    private ImageView filtre;
 
     @FXML
     private void handleJouerButtonAction() throws IOException {

@@ -1,8 +1,6 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -46,5 +44,6 @@ public class WinnerPopupController implements Observer {
         return root;
     }
 
-    public void reagir () {}
+    public void reagir() {
+    }
 }
