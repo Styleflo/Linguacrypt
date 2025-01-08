@@ -53,4 +53,8 @@ public class PlateauImage extends PlateauBase implements Serializable {
             System.out.println();
         }
     }
+
+    public CarteBase[][] getCards() {
+        return cardsImages;
+    }
 }

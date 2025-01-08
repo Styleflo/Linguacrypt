@@ -9,14 +9,13 @@ import static java.lang.Math.max;
 public class Plateau extends PlateauBase implements Serializable {
     private final CarteBase[][] cards;
 
-
     public Plateau(int width, int height, ArrayList<String> words_list) {
         super(width, height);
         cards = new Carte[height][width];
         Collections.shuffle(words_list);
         int index = 0;
-        for (int j = 0; j < height; j++) {
-            for (int i = 0; i < width; i++) {
+        for (int j = 0; j < width; j++) {
+            for (int i = 0; i < height; i++) {
                 String word = words_list.get(index++);
                 int type = key.getCardType(i, j);
                 Carte card = new Carte(word, type);
@@ -51,5 +50,9 @@ public class Plateau extends PlateauBase implements Serializable {
 
             System.out.println();
         }
+    }
+
+    public CarteBase[][] getCards() {
+        return cards;
     }
 }

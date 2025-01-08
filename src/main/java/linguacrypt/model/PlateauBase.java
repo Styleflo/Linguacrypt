@@ -134,4 +134,5 @@ public abstract class PlateauBase implements Serializable {
         }
     }
 
+    public abstract CarteBase[][] getCards();
 }
