@@ -13,7 +13,10 @@ public class NeutralCardController {
 
     public void setMot(String mot) {
         labelMot.setText(mot);
-        labelMot.setFont(new Font(5));
+    }
+
+    public Label getLabelMot() {
+        return labelMot;
     }
 
     private void adjustFontSize(String mot) {

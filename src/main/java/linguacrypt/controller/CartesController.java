@@ -89,22 +89,48 @@ public class CartesController implements Observer {
         }
     }
 
-    private void handleCardClick(String word, double x, double y) {
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem deleteButton = new MenuItem("Supprimer \"" + word + "\" ?");
+    private Alert showAlert(AlertType alertType, String title, String header, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+        return alert;
+    }
 
-        deleteButton.setOnAction(coucou -> {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Suppression d'un mot");
-            alert.setHeaderText(null);
-            alert.setContentText("Voulez vous supprimer le mot \"" + word + "\" ?");
+    private void handleCardClick(String word, double x, double y) {
+        String theme = themes.get(currentThemeIndex);
+        boolean lastWord = jeu.getWordsFileHandler().getWordsByTheme(theme).size() == 1;
+
+        ContextMenu contextMenu = new ContextMenu();
+        String deleteButtonLabel, alertTitle, alertContent;
+
+        if (lastWord) {
+            deleteButtonLabel = "Supprimer \"" + word + "\" et le thème \"" + theme + "\" ?";
+            alertTitle = "Suppression d'un mot et d'un thème";
+            alertContent = "Voulez vous supprimer le mot \"" + word + "\" et le thème \"" + theme + "\" ?";
+        } else {
+            deleteButtonLabel = "Supprimer \"" + word + "\" ?";
+            alertTitle = "Suppression d'un mot";
+            alertContent = "Voulez vous supprimer le mot \"" + word + "\" ?";
+        }
+
+        MenuItem deleteButton = new MenuItem(deleteButtonLabel);
+
+        deleteButton.setOnAction(event -> {
+            Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
+
             if (alert.showAndWait().isPresent()) {
                 WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-                wordsFileHandler.removeWordFromCategory(themes.get(currentThemeIndex), word);
+                wordsFileHandler.removeWordFromCategory(theme, word);
                 currentMots.remove(word);
 
-                wordsFileHandler.writeJsonFile();
+                if (lastWord) {
+                    themes.remove(theme);
+                    setCurrentThemeIndex(currentThemeIndex - 1);
+                }
 
+                wordsFileHandler.writeJsonFile();
                 reagir();
             }
         });
@@ -148,6 +174,21 @@ public class CartesController implements Observer {
     private void handleRevenirMenuAction() {
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
+    }
+
+    private void setCurrentThemeIndex(int index) {
+        currentThemeIndex = index;
+
+        if (currentThemeIndex >= themes.size()) {
+            currentThemeIndex = 0;
+        }
+
+        if (currentThemeIndex < 0) {
+            currentThemeIndex = themes.size() - 1;
+        }
+
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
     }
 
     @FXML

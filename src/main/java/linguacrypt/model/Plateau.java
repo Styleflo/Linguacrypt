@@ -1,13 +1,13 @@
 package linguacrypt.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import static java.lang.Math.max;
 
-public class Plateau extends PlateauBase {
+public class Plateau extends PlateauBase implements Serializable {
     private final CarteBase[][] cards;
-
 
     public Plateau(int width, int height, ArrayList<String> words_list) {
         super(width, height);
@@ -50,5 +50,9 @@ public class Plateau extends PlateauBase {
 
             System.out.println();
         }
+    }
+
+    public CarteBase[][] getCards() {
+        return cards;
     }
 }

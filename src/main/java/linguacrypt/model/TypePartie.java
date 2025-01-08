@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
-public enum TypePartie {
+import java.io.Serializable;
+
+public enum TypePartie implements Serializable {
     WORDS, IMAGES
 }
