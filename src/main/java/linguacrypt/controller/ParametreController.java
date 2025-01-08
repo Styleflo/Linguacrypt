@@ -53,6 +53,7 @@ public class ParametreController implements Observer {
     }
 
     public void handleCartesAleatoire() {
+        partieBuilder.resetUsedThemes();
     }
 
     @FXML
