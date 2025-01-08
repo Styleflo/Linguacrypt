@@ -25,6 +25,7 @@ public class PlateauController implements Observer {
     @FXML
     private Label lbred;
 
+
     public void PlateauControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
     }

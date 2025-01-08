@@ -55,7 +55,7 @@
                      <String fx:value="red_button" />
                   </styleClass>
                </Button>
-                      <Button layoutX="866.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
+                      <Button layoutX="854.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="red_button" />
