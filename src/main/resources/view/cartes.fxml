@@ -81,7 +81,7 @@
                             <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle" textFill="WHITE" />
                   </children>
                </Pane>
-               <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="253.0" text="Nouveau theme">
+               <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewTheme" prefHeight="66.0" prefWidth="253.0" text="Nouveau thème">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="w" />

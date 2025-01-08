@@ -229,8 +229,6 @@ public class CartesController implements Observer {
         Optional<String> result = dialog.showAndWait();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
 
-        AtomicBoolean motRefuse = new AtomicBoolean(false);
-
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
 
@@ -239,9 +237,8 @@ public class CartesController implements Observer {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setHeaderText("Mot trop long >:(");
-                alert.setContentText("Le mot doit contenir moins de GameConfig.MAX_WORD_SIZE lettres.");
+                alert.setContentText("Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 alert.showAndWait();
-                motRefuse.set(true);
             } else {
                 Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
                 boolean success = (boolean) res[0];
