@@ -45,6 +45,8 @@ public class PlateauController implements Observer {
     private ImageView imageview1;
     @FXML
     private ImageView imageview2;
+
+
     @FXML
     private ImageView filtre;
     @FXML
@@ -225,7 +227,12 @@ public class PlateauController implements Observer {
         }
         // Récupérer la couleur de la carte depuis le modèle
         int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
 
+        // Recouvrir la carte
+        if (controller != null) {
+            controller.setRecouvert(true);
+        }
         // Appliquer le style CSS correspondant et change les points.
         switch (couleur) {
             case 1: //couleur de la carte est rouge
@@ -335,6 +342,8 @@ public class PlateauController implements Observer {
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
             controller.setMot(mot);
+            // Associe le contrôleur à l'AnchorPane via UserData
+            card.setUserData(controller);
             return card;
         } catch (IOException e) {
             e.printStackTrace();
