@@ -19,4 +19,13 @@ public class GameConfig {
     public static String RED_STARTS_TEXT_QRCODE = "Rouge commence";
     public static String BLUE_TURN_TEXT = "C'est le tour de l'équipe bleue";
     public static String RED_TURN_TEXT = "C'est le tour de l'équipe rouge";
+
+    public static int CARTES_THEMES_HGAP = 15;
+    public static int CARTES_THEMES_VGAP = 15;
+    public static int CARTES_THEMES_PADDING = 33;
+    public static int PLATEAU_HGAP = 25;
+    public static int PLATEAU_VGAP = 25;
+    public static int PLATEAU_PADDING = 80;
+
+    public static int MAX_WORD_SIZE = 14;
 }

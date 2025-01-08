@@ -97,7 +97,6 @@ public class MainController implements Observer {
         }
     }
 
-
     public void update() {
         content.getChildren().clear();
         switch (this.jeu.getView()) {
@@ -107,7 +106,6 @@ public class MainController implements Observer {
             case null, default -> System.out.println(jeu.getView());
         }
     }
-
 
     public void reagir() {
         update();

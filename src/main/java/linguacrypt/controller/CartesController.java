@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.StringUtils;
@@ -54,9 +55,9 @@ public class CartesController implements Observer {
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(15);
-        gridPane.setVgap(15);
-        gridPane.setPadding(new Insets(33));
+        gridPane.setHgap(GameConfig.CARTES_THEMES_HGAP);
+        gridPane.setVgap(GameConfig.CARTES_THEMES_VGAP);
+        gridPane.setPadding(new Insets(GameConfig.CARTES_THEMES_PADDING));
 
         int row = 0;
         int col = 0;
@@ -212,8 +213,8 @@ public class CartesController implements Observer {
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
 
-            if (mot.length() > 13) {
-                showAlert(AlertType.ERROR, "Erreur", "Mot trop long >:(", "Le mot doit contenir moins de 13 lettres.");
+            if (mot.length() > GameConfig.MAX_WORD_SIZE) {
+                showAlert(AlertType.ERROR, "Erreur", "Mot trop long >:(", "Le mot doit contenir moins de GameConfig.MAX_WORD_SIZE lettres.");
                 handleAjouterMotAction();
             } else {
                 Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
@@ -273,11 +274,11 @@ public class CartesController implements Observer {
             } else if (wordsFileHandler.getCategoryByWord(firstCard) != null) {
                 showAlert(AlertType.ERROR, "Erreur", "Mot existant", "Le mot \"" + firstCard + "\"\n existe déjà.");
                 addNewTheme();
-            } else if (themeName.length() > 13) {
-                showAlert(AlertType.ERROR, "Erreur", "Nom de thème trop long", "Le theme doit contenir moins de 13 lettres.");
+            } else if (themeName.length() > GameConfig.MAX_WORD_SIZE) {
+                showAlert(AlertType.ERROR, "Erreur", "Nom de thème trop long", "Le theme doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 addNewTheme();
-            } else if (firstCard.length() > 13) {
-                showAlert(AlertType.ERROR, "Erreur", "Mot trop long", "Le mot doit contenir moins de 13 lettres.");
+            } else if (firstCard.length() > GameConfig.MAX_WORD_SIZE) {
+                showAlert(AlertType.ERROR, "Erreur", "Mot trop long", "Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 addNewTheme();
             } else if (wordsFileHandler.addCategory(themeName)) {
                 themes.add(themeName);

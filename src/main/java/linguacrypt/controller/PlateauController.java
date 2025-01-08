@@ -73,9 +73,9 @@ public class PlateauController implements Observer {
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans PlateauController.afficherCartes()");
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(25);
-        gridPane.setVgap(25);
-        gridPane.setPadding(new Insets(80));
+        gridPane.setHgap(GameConfig.PLATEAU_HGAP);
+        gridPane.setVgap(GameConfig.PLATEAU_VGAP);
+        gridPane.setPadding(new Insets(GameConfig.PLATEAU_PADDING));
 
         int row = jeu.getPartie().getWidthParameter();
         int col = jeu.getPartie().getHeightParameter();
@@ -92,6 +92,7 @@ public class PlateauController implements Observer {
                 gridPane.add(carte, i, j);
             }
         }
+
         this.updateLabel();
     }
 
@@ -125,9 +126,11 @@ public class PlateauController implements Observer {
         }
 
         carte.setStyle(style);
+
         if (points != -1) {
             jeu.getPartie().getPlateau().updatePoint(points);
         }
+
         jeu.getPartie().getPlateau().updateTurn(nextTurn);
         jeu.getPartie().updateWin();
 

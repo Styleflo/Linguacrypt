@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
 public class NeutralCardController {
-
     @FXML
     private Label labelMot;
 
