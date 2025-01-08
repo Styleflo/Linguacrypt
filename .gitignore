@@ -147,7 +147,8 @@ gradle-app.setting
 *.hprof
 
 .idea/
-out/
+out/production
+out/artifacts
 
 ### QR Code Generator ###
 src/main/resources/assets/clef.png
