@@ -33,4 +33,5 @@ public class GameConfig {
     public static String BLUE_CARD_COLOR = "#4dabf7";
     public static String BLACK_CARD_COLOR = "#343a40";
     public static String WHITE_CARD_COLOR = "#f8f9fa";
+    public static String WINNER_POPUP_BG_COLOR = "rgba(81, 81, 81, 0.9)";
 }

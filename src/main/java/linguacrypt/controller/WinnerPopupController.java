@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import linguacrypt.config.GameConfig;
 
 public class WinnerPopupController {
     @FXML
@@ -20,16 +21,16 @@ public class WinnerPopupController {
 
         // Définir les couleurs en fonction de l'équipe gagnante
         if (winningTeam.equalsIgnoreCase("Bleue")) {
-            winnerLabel.setStyle("-fx-text-fill: #4dabf7;");
+            winnerLabel.setStyle("-fx-text-fill: " + GameConfig.BLUE_CARD_COLOR + ";");
             okButton.getStyleClass().remove("red_button");
             okButton.getStyleClass().add("blue_button");
         } else {
-            winnerLabel.setStyle("-fx-text-fill: #ff6b6b;");
+            winnerLabel.setStyle("-fx-text-fill: " + GameConfig.RED_CARD_COLOR + ";");
             okButton.getStyleClass().remove("blue_button");
             okButton.getStyleClass().add("red_button");
         }
 
-        root.setStyle("-fx-background-color: rgba(81, 81, 81, 0.9);"); // Gris semi-transparent
+        root.setStyle("-fx-background-color: " + GameConfig.WINNER_POPUP_BG_COLOR + ";"); // Gris semi-transparent
         root.setVisible(true);
     }
 
