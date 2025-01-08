@@ -1,6 +1,8 @@
 package linguacrypt.model;
 
+import linguacrypt.config.GameConfig;
 import linguacrypt.controller.Observer;
+import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class Jeu {
     public Jeu() throws IOException {
         // Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "MenuInitial";
-        wordsFileHandler = new WordsFileHandler("cards.json");
+        wordsFileHandler = new WordsFileHandler(GameConfig.CARDS_FILE);
     }
 
     /**
@@ -33,7 +35,7 @@ public class Jeu {
     }
 
     /**
-     * Ajoute un observer à la liste des observeur du model Jeu.
+     * Ajoute un observer à la liste des observers.
      *
      * @param observer
      */
@@ -42,7 +44,7 @@ public class Jeu {
     }
 
     /**
-     * Supprime un observer à la liste des observeur du model Jeu.
+     * Supprime un observer de la liste des observers.
      *
      * @param observer
      */
@@ -56,9 +58,7 @@ public class Jeu {
      * @return Partie
      */
     public Partie getPartie() {
-        if (this.partie == null) {
-            System.out.println("Il n'y a pas de partie pour le moment");
-        }
+        DataUtils.assertNotNull(this.partie, "La partie n'a pas été initialisée dans Jeu.getPartie()");
 
         return this.partie;
     }

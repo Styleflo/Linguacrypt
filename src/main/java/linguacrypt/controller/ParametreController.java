@@ -1,5 +1,6 @@
 package linguacrypt.controller;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -22,6 +23,9 @@ public class ParametreController implements Observer {
 
     @FXML
     private Label label2;
+    @FXML
+    private ImageView filtre;
+
 
     @FXML
     private Pane lesthemes;
@@ -43,6 +47,7 @@ public class ParametreController implements Observer {
 
     public void setPartieBuilder() throws IOException {
         this.partieBuilder = new PartieBuilder(jeu);
+        filtre.setMouseTransparent(true);
     }
 
     public void handleCartesAleatoire() throws IOException {
