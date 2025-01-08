@@ -108,19 +108,19 @@ public class PlateauController implements Observer {
 
         switch (couleur) {
             case CardType.RED:
-                style = "-fx-background-color: #ff6b6b;";
+                style = "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
                 points = 1;
                 break;
             case CardType.BLUE:
-                style = "-fx-background-color: #4dabf7;";
+                style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
                 points = 0;
                 break;
             case CardType.BLACK:
-                style = "-fx-background-color: #343a40;";
+                style = "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
                 nextTurn = CardType.BLACK;
                 break;
             case CardType.WHITE:
-                style = "-fx-background-color: #f8f9fa;";
+                style = "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
                 nextTurn = CardType.RED;
                 break;
         }
@@ -154,10 +154,10 @@ public class PlateauController implements Observer {
                 if (carteVisu != null) {
                     card.setCovered();
                     String style = switch (card.getType()) {
-                        case CardType.RED -> "-fx-background-color: #ff6b6b;";
-                        case CardType.BLUE -> "-fx-background-color: #4dabf7;";
-                        case CardType.BLACK -> "-fx-background-color: #343a40;";
-                        case CardType.WHITE -> "-fx-background-color: #f8f9fa;";
+                        case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                        case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                        case CardType.BLACK -> "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                        case CardType.WHITE -> "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
                     };
                     carteVisu.setStyle(style);
                 }
