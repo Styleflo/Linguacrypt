@@ -4,6 +4,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.image.ImageView;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
@@ -102,13 +103,13 @@ public class ParametreController implements Observer {
 
         for (String theme : themes) {
             Label label = new Label(theme);
-            label.setStyle("-fx-text-fill: white;"); 
+            label.setStyle("-fx-text-fill: white;");
             CheckBox checkBox = new CheckBox();
             HBox themeItem = new HBox(checkBox, label);
             themeItem.setSpacing(10);
             themeBox.getChildren().add(themeItem);
         }
-    
+
         Button validerButton = new Button("Valider");
         validerButton.setOnAction(event -> {
             try {
