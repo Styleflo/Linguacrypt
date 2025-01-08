@@ -132,4 +132,5 @@ public abstract class PlateauBase {
         }
     }
 
+    public abstract CarteBase[][] getCards();
 }

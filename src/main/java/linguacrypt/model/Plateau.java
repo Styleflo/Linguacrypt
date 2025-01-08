@@ -8,7 +8,6 @@ import static java.lang.Math.max;
 public class Plateau extends PlateauBase {
     private final CarteBase[][] cards;
 
-
     public Plateau(int width, int height, ArrayList<String> words_list) {
         super(width, height);
         cards = new Carte[height][width];
@@ -50,5 +49,9 @@ public class Plateau extends PlateauBase {
 
             System.out.println();
         }
+    }
+
+    public CarteBase[][] getCards() {
+        return cards;
     }
 }

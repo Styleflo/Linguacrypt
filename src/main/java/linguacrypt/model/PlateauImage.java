@@ -52,4 +52,8 @@ public class PlateauImage extends PlateauBase {
             System.out.println();
         }
     }
+
+    public CarteBase[][] getCards() {
+        return cardsImages;
+    }
 }

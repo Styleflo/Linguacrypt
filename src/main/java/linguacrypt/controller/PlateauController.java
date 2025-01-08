@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import linguacrypt.model.Carte;
+import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 
 import java.io.IOException;
@@ -138,9 +139,9 @@ public class PlateauController implements Observer {
     }
 
     private void revealCard() {
-        Carte[][] listCard = jeu.getPartie().getPlateau().getCards();
-        for (Carte[] row : listCard) {
-            for (Carte card : row) {
+        CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
+        for (CarteBase[] row : listCard) {
+            for (CarteBase card : row) {
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {  //vérification
                     card.setCovered();
