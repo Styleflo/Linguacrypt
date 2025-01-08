@@ -2,8 +2,8 @@ package linguacrypt.utils;
 
 import java.util.logging.Logger;
 
-public class DataVerification {
-    private static final Logger logger = Logger.getLogger(DataVerification.class.getName());
+public class DataUtils {
+    private static final Logger logger = Logger.getLogger(DataUtils.class.getName());
 
     public static void assertNotNull(Object object, String message) {
         if (object == null) {
