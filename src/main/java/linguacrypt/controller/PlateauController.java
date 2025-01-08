@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import linguacrypt.model.CarteBase;
 import javafx.scene.layout.Pane;
@@ -33,6 +35,20 @@ public class PlateauController implements Observer {
 
     @FXML
     private Label lbred;
+
+    @FXML
+    private Pane panneau_changer2;
+    @FXML
+    private AnchorPane panneau_changer;
+
+    @FXML
+    private ImageView imageview1;
+    @FXML
+    private ImageView imageview2;
+    @FXML
+    private ImageView filtre;
+    @FXML
+    private ImageView filtre2;
 
     private WinnerPopupController winnerPopupController;
     private StackPane popupContainer;
@@ -105,6 +121,31 @@ public class PlateauController implements Observer {
 
 
     private void afficherCartes() {
+
+        filtre.setMouseTransparent(true);
+        filtre2.setMouseTransparent(true);
+        if(jeu.getPartie().getPlateau().isBlueTurn()){
+            imageview1.setVisible(true);  // Si visible, devient inv
+            imageview2.setVisible(false);  // Si visible, devient inv
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("blue_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        }
+        else{
+
+            imageview1.setVisible(false);  // Si visible, devient inv
+            imageview2.setVisible(true);  // Si visible, devient inv
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("red_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        }
+
         if (jeu == null) return;
 
         gridPane.getChildren().clear();
@@ -353,6 +394,28 @@ public class PlateauController implements Observer {
     private void handleTourSuivant() {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
+
+        boolean currentVisibility1 = imageview1.isVisible();
+        imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
+        boolean currentVisibility2 = imageview2.isVisible();
+        imageview2.setVisible(!currentVisibility2);  // Si visible, devient inv
+        if(panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("red_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        }
+        else{
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("blue_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        }
+
     }
 
 

@@ -1,27 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-           xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.MenuInitialController">
+
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.MenuInitialController">
     <children>
-        <VBox alignment="CENTER" spacing="20" stylesheets="@../css/menuInitial.css">
-            <children>
-                <Label text="Linguacrypt">
-                    <font>
-                        <Font size="52.0"/>
-                    </font>
-                </Label>
-                <Button mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="43.0" prefWidth="94.0"
-                        text="Jouer"/>
-                <Button mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="43.0" prefWidth="94.0"
-                        text="Cartes"/>
-                <Button mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="43.0" prefWidth="94.0"
-                        text="Quitter"/>
-            </children>
-        </VBox>
+      <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
+         <image>
+            <Image url="@../assets/fond_test_1.gif" />
+         </image>
+         <effect>
+            <GaussianBlur radius="31.75" />
+         </effect>
+      </ImageView>
+      <Pane>
+         <children>
+            <ImageView fitHeight="539.0" fitWidth="716.0" layoutX="420.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/lingua.png" />
+               </image>
+            </ImageView>
+                <Button layoutX="788.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="102.0" prefWidth="343.0" stylesheets="@../css/gui.css" text="Jouer">
+               <styleClass>
+                  <String fx:value="button1" />
+                  <String fx:value="red_button" />
+                  <String fx:value="big_button" />
+               </styleClass>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+                <Button layoutX="302.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="102.0" prefWidth="343.0" text="Cartes">
+               <styleClass>
+                  <String fx:value="button1" />
+                  <String fx:value="big_button" />
+                  <String fx:value="orange_button" />
+               </styleClass>
+            </Button>
+                <Button layoutX="1251.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="70.0" prefWidth="169.0" text="Quitter">
+               <styleClass>
+                  <String fx:value="purple_button" />
+                  <String fx:value="button1" />
+               </styleClass>
+            </Button>
+         </children>
+      </Pane>
+      <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.15" pickOnBounds="true" fx:id="filtre">
+         <image>
+            <Image url="@../assets/filtre.png" />
+         </image>
+         <effect>
+            <GaussianBlur radius="22.0" />
+         </effect>
+      </ImageView>
     </children>
 </StackPane>
