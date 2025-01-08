@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -37,6 +38,20 @@ public class PlateauController implements Observer {
 
     @FXML
     private Label lbred;
+
+    @FXML
+    private Pane panneau_changer2;
+    @FXML
+    private AnchorPane panneau_changer;
+
+    @FXML
+    private ImageView imageview1;
+    @FXML
+    private ImageView imageview2;
+    @FXML
+    private ImageView filtre;
+    @FXML
+    private ImageView filtre2;
 
     private WinnerPopupController winnerPopupController;
     private StackPane popupContainer;
@@ -108,27 +123,85 @@ public class PlateauController implements Observer {
 
 
     private void afficherCartes() {
+        filtre.setMouseTransparent(true);
+        filtre2.setMouseTransparent(true);
+        if (jeu.getPartie().getPlateau().isBlueTurn()) {
+            imageview1.setVisible(true);  // Si visible, devient inv
+            imageview2.setVisible(false);  // Si visible, devient inv
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("blue_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        } else {
+            imageview1.setVisible(false);  // Si visible, devient inv
+            imageview2.setVisible(true);  // Si visible, devient inv
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("red_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        }
+
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans PlateauController.afficherCartes()");
 
         gridPane.getChildren().clear();
-        gridPane.setHgap(GameConfig.PLATEAU_HGAP);
-        gridPane.setVgap(GameConfig.PLATEAU_VGAP);
-        gridPane.setPadding(new Insets(GameConfig.PLATEAU_PADDING));
 
         int row = jeu.getPartie().getWidthParameter();
         int col = jeu.getPartie().getHeightParameter();
 
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
-                final int currentI = i;
-                final int currentJ = j;
-                AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+        if (row < 7 && col < 6) {
 
-                assert carte != null;
-                carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+            gridPane.setHgap(GameConfig.PLATEAU_HGAP);
+            gridPane.setVgap(GameConfig.PLATEAU_VGAP);
 
-                gridPane.add(carte, i, j);
+            int adapth = 5 - col;
+            int adaptl = 6 - row;
+            int right = 60 + adapth * 30;
+            int left = 20 + adapth * 30;
+            int top = 70 + adaptl * 20;
+            int bottom = 70 + adaptl * 20;
+
+            gridPane.setPadding(new Insets(top, right, bottom, left));
+
+            for (int i = 0; i < col; i++) {
+                for (int j = 0; j < row; j++) {
+                    final int currentI = i;
+                    final int currentJ = j;
+                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+
+                    assert carte != null;
+                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+
+                    gridPane.add(carte, i, j);
+                }
             }
+        } else {
+            gridPane.setHgap(4);
+            gridPane.setVgap(8);
+            int adapth = 9 - col;
+            int adaptl = 9 - row;
+            int right = 61 + adapth * (55 - adapth * 3);
+            int left = 0 + adapth * (55 - adapth * 3);
+            int top = 74 + adaptl * (36 - adaptl * 3);
+            int bottom = 74 + adaptl * (36 - adaptl * 3);
+
+            gridPane.setPadding(new Insets(top, right, bottom, left));
+            for (int i = 0; i < col; i++) {
+                for (int j = 0; j < row; j++) {
+                    final int currentI = i;
+                    final int currentJ = j;
+                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+
+                    assert carte != null;
+                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+
+                    gridPane.add(carte, i, j);
+                }
+            }
+
         }
 
         this.updateLabel();
@@ -242,6 +315,19 @@ public class PlateauController implements Observer {
         }
     }
 
+    private AnchorPane creerPetiteCarte(String mot) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card_vp.fxml"));
+            AnchorPane card = loader.load();
+            NeutralCardController controller = loader.getController();
+            controller.setMot(mot);
+            return card;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
@@ -270,11 +356,8 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        if (jeu.getPartie().getwon() == 2) {
-            confirmationOverlayMenu.setVisible(true);
-        } else {
-            confirmNouvellePartie();
-        }
+        jeu.setView("MenuInitial");
+        jeu.notifyObservers();
     }
 
     private void savePartie() {
@@ -297,6 +380,27 @@ public class PlateauController implements Observer {
     private void handleTourSuivant() {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
+
+        boolean currentVisibility1 = imageview1.isVisible();
+        imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
+        boolean currentVisibility2 = imageview2.isVisible();
+        imageview2.setVisible(!currentVisibility2);  // Si visible, devient inv
+        if (panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("red_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        } else {
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("blue_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+        }
+
     }
 
 

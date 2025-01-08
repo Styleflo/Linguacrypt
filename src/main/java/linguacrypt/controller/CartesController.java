@@ -6,8 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
@@ -27,6 +29,10 @@ public class CartesController implements Observer {
     private GridPane gridPane;
     @FXML
     private Label themeLabel;
+    @FXML
+    private ImageView filtre;
+
+
 
     private List<String> currentMots;
     private int currentThemeIndex;
@@ -36,6 +42,7 @@ public class CartesController implements Observer {
         currentMots = new ArrayList<>();
         themes = new ArrayList<>();
         currentThemeIndex = 0;
+
     }
 
     public void setJeu(Jeu jeu) {
@@ -43,7 +50,9 @@ public class CartesController implements Observer {
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
 
         themes = wordsFileHandler.getAllThemes();
-        setCurrentThemeIndex(0);
+        currentThemeIndex = 0;
+        updateCurrentThemeLabel();
+        currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
     }
 
     private void updateCurrentThemeLabel() {
@@ -53,7 +62,7 @@ public class CartesController implements Observer {
 
     private void afficherCartes() {
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
-
+        filtre.setMouseTransparent(true);
         gridPane.getChildren().clear();
         gridPane.setHgap(GameConfig.CARTES_THEMES_HGAP);
         gridPane.setVgap(GameConfig.CARTES_THEMES_VGAP);
@@ -67,7 +76,7 @@ public class CartesController implements Observer {
             AnchorPane carte = creerCarte(currentMots.get(i));
 
             assert carte != null;
-            // createTransition(carte);
+            //create_transition(carte);
             int finalI = i;
             carte.setOnMouseClicked(event -> handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY()));
 
@@ -145,7 +154,7 @@ public class CartesController implements Observer {
         }
     }
 
-    public void createTransition(AnchorPane carte) {
+    public void create_transition(AnchorPane carte) {
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(0.5));
         transition.setToX(10);
@@ -185,13 +194,23 @@ public class CartesController implements Observer {
 
     @FXML
     public void nextCategory() {
-        setCurrentThemeIndex(currentThemeIndex + 1);
+        currentThemeIndex++;
+        if (currentThemeIndex >= themes.size()) {
+            currentThemeIndex = 0;
+        }
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
         afficherCartes();
     }
 
     @FXML
     public void previousCategory() {
-        setCurrentThemeIndex(currentThemeIndex - 1);
+        currentThemeIndex--;
+        if (currentThemeIndex < 0) {
+            currentThemeIndex = themes.size() - 1;
+        }
+        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        updateCurrentThemeLabel();
         afficherCartes();
     }
 
@@ -210,19 +229,26 @@ public class CartesController implements Observer {
         Optional<String> result = dialog.showAndWait();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
 
+        AtomicBoolean motRefuse = new AtomicBoolean(false);
+
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
 
             if (mot.length() > GameConfig.MAX_WORD_SIZE) {
-                showAlert(AlertType.ERROR, "Erreur", "Mot trop long >:(", "Le mot doit contenir moins de GameConfig.MAX_WORD_SIZE lettres.");
-                handleAjouterMotAction();
+                // Afficher une boîte de dialogue d'erreur
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText("Mot trop long >:(");
+                alert.setContentText("Le mot doit contenir moins de GameConfig.MAX_WORD_SIZE lettres.");
+                alert.showAndWait();
+                motRefuse.set(true);
             } else {
                 Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
                 boolean success = (boolean) res[0];
                 String message = (String) res[1];
                 if (success) {
+                    // Ajoute le mot à la catégorie actuelle
                     currentMots.add(mot);
-                    wordsFileHandler.writeJsonFile();
                     reagir();
                 } else {
                     showAlert(AlertType.ERROR, "Erreur", "Mot existant", message);
