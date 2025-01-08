@@ -1,48 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="939.0" prefWidth="1361.0"
-           xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.CartesController">
-    <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="608.0" prefWidth="828.0">
-        <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="556.0">
-                <children>
-                    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0"
-                                AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0"
-                                AnchorPane.topAnchor="50.0">
-                        <content>
-                            <GridPane fx:id="gridPane" layoutX="208.0" layoutY="40.0" prefHeight="622.0"
-                                      prefWidth="943.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints vgrow="ALWAYS"/>
-                                    <RowConstraints vgrow="ALWAYS"/>
-                                </rowConstraints>
-                            </GridPane>
-                        </content>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
+      <children>
+         <AnchorPane layoutX="121.0" layoutY="25.0" prefHeight="787.0" prefWidth="1209.0" styleClass="dark_petit_panneau">
+            <children>
+                     <HBox alignment="CENTER" layoutX="52.0" layoutY="712.0" spacing="80.0" />
+                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="79.0" layoutY="6.0" prefHeight="605.0" prefWidth="1054.0" stylesheets="@../css/scroll.css">
+                  <content>
+                     <GridPane fx:id="gridPane" styleClass="light_petit_panneau">
+                     </GridPane>
+                  </content>
+                  <styleClass>
+                     <String fx:value="dark_petit_panneau" />
+                     <String fx:value="scroll-pane" />
+                     <String fx:value="scroll-bar" />
+                  </styleClass>
                     </ScrollPane>
-                    <Button layoutX="25.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            text="Revenir au menu"/>
-                </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
-                <children>
-                    <VBox spacing="40.0" alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                          AnchorPane.topAnchor="0.0"
-                          AnchorPane.bottomAnchor="0.0">
-                        <HBox spacing="80.0" alignment="CENTER">
-                            <Button text="Thème précédent" onAction="#previousCategory"/>
-                            <Label text="Collection Actuelle" fx:id="themeLabel"/>
-                            <Button text="Thème suivant" onAction="#nextCategory"/>
-                        </HBox>
-                        <Button text="Ajouter une carte" onAction="#handleAjouterMotAction"/>
-                    </VBox>
-                </children>
-            </AnchorPane>
-        </items>
-    </SplitPane>
+                      <Button layoutX="241.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0" prefWidth="67.0" text="&lt;">
+                  <styleClass>
+                     <String fx:value="button1" />
+                     <String fx:value="red_button" />
+                  </styleClass>
+               </Button>
+                      <Button layoutX="899.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
+                  <styleClass>
+                     <String fx:value="button1" />
+                     <String fx:value="red_button" />
+                  </styleClass>
+               </Button>
+                    <Button layoutX="23.0" layoutY="707.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="598.0" text="Menu Principal">
+                  <styleClass>
+                     <String fx:value="button1" />
+                     <String fx:value="w" />
+                     <String fx:value="orange_button" />
+                  </styleClass>
+               </Button>
+               <Pane layoutX="343.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0" styleClass="red_petit_panneau">
+                  <children>
+                            <Label fx:id="themeLabel" layoutX="150.0" layoutY="21.0" text="Collection Actuelle" />
+                  </children>
+               </Pane>
+               <Button layoutX="919.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="253.0" text="Nouveau theme">
+                  <styleClass>
+                     <String fx:value="button1" />
+                     <String fx:value="w" />
+                     <String fx:value="orange_button" />
+                  </styleClass>
+               </Button>
+                     <Button layoutX="646.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
+                  <styleClass>
+                     <String fx:value="button1" />
+                     <String fx:value="purple_button" />
+                  </styleClass>
+               </Button>
+            </children>
+         </AnchorPane>
+      </children>
+      </AnchorPane>
 </StackPane>
