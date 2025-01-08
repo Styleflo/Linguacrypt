@@ -80,6 +80,14 @@
                             <String fx:value="purple_button" />
                         </styleClass>
                     </Button>
+               <ImageView fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.1" pickOnBounds="true">
+                  <image>
+                     <Image url="@../assets/filtre.png" />
+                  </image>
+                  <effect>
+                     <GaussianBlur radius="12.25" />
+                  </effect>
+               </ImageView>
                 </children>
                 <styleClass>
                     <String fx:value="main_panneau" />
@@ -104,6 +112,14 @@
                      <ColorAdjust hue="-0.81" />
                         </effect>
                     </ImageView>
+               <ImageView fx:id="filtre" fitHeight="858.0" fitWidth="1098.0" opacity="0.26" pickOnBounds="true">
+                  <image>
+                     <Image url="@../assets/filtre.png" />
+                  </image>
+                  <effect>
+                     <GaussianBlur radius="15.25" />
+                  </effect>
+               </ImageView>
                     <GridPane fx:id="gridPane" prefHeight="827.0" prefWidth="1102.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
