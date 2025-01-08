@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="855.0" prefWidth="1557.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.MenuInitialController">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.MenuInitialController">
     <children>
-      <ImageView fitHeight="855.0" fitWidth="1567.0" pickOnBounds="true">
+      <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
          <image>
             <Image url="@../assets/s200_gerald.oster.jpg" />
          </image>
       </ImageView>
-      <Pane prefHeight="860.0" prefWidth="1231.0">
+      <Pane>
          <children>
-            <Pane layoutX="320.0" layoutY="647.0" prefHeight="194.0" prefWidth="927.0" styleClass="dark_petit_panneau">
+            <Pane layoutX="320.0" layoutY="644.0" prefHeight="178.0" prefWidth="766.0" styleClass="dark_petit_panneau">
                <children>
-                  <Pane layoutX="36.0" layoutY="26.0" prefHeight="142.0" prefWidth="856.0" styleClass="light_petit_panneau">
+                  <Pane layoutX="7.0" layoutY="18.0" prefHeight="142.0" prefWidth="743.0" styleClass="light_petit_panneau">
                      <children>
                             <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleJouerButtonAction" prefHeight="97.0" prefWidth="223.0" stylesheets="@../css/gui.css" text="Jouer">
                            <styleClass>
@@ -26,13 +26,13 @@
                               <String fx:value="red_button" />
                            </styleClass>
                         </Button>
-                            <Button layoutX="619.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="97.0" prefWidth="223.0" text="Cartes">
+                            <Button layoutX="505.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCartesButtonAction" prefHeight="97.0" prefWidth="223.0" text="Cartes">
                            <styleClass>
                               <String fx:value="button1" />
                               <String fx:value="orange_button" />
                            </styleClass>
                         </Button>
-                            <Button layoutX="317.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="97.0" prefWidth="223.0" text="Quitter">
+                            <Button layoutX="256.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleQuitterButtonAction" prefHeight="97.0" prefWidth="223.0" text="Quitter">
                            <styleClass>
                               <String fx:value="purple_button" />
                               <String fx:value="button1" />
@@ -42,8 +42,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane layoutX="320.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0" />
-            <ImageView fitHeight="539.0" fitWidth="716.0" layoutX="514.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="539.0" fitWidth="716.0" layoutX="420.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/lingua.png" />
                </image>

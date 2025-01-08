@@ -15,13 +15,22 @@
 <StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
       <children>
-         <AnchorPane layoutX="121.0" layoutY="25.0" prefHeight="787.0" prefWidth="1209.0" styleClass="dark_petit_panneau">
+         <AnchorPane layoutX="160.0" layoutY="24.0" prefHeight="801.0" prefWidth="1130.0" styleClass="dark_petit_panneau">
             <children>
                      <HBox alignment="CENTER" layoutX="52.0" layoutY="712.0" spacing="80.0" />
-                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="79.0" layoutY="6.0" prefHeight="605.0" prefWidth="1054.0" stylesheets="@../css/scroll.css">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="41.0" layoutY="14.0" prefHeight="605.0" prefWidth="1054.0" stylesheets="@../css/scroll.css">
                   <content>
-                     <GridPane fx:id="gridPane" styleClass="light_petit_panneau">
-                     </GridPane>
+                     <GridPane fx:id="gridPane" prefHeight="567.0" prefWidth="1052.0">
+                        <columnConstraints>
+                           <ColumnConstraints />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints />
+                        </rowConstraints>
+                        <styleClass>
+                           <String fx:value="light_petit_panneau" />
+                           <String fx:value="bordure_speciale" />
+                        </styleClass></GridPane>
                   </content>
                   <styleClass>
                      <String fx:value="dark_petit_panneau" />
@@ -29,38 +38,38 @@
                      <String fx:value="scroll-bar" />
                   </styleClass>
                     </ScrollPane>
-                      <Button layoutX="241.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0" prefWidth="67.0" text="&lt;">
+                      <Button layoutX="218.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0" prefWidth="67.0" text="&lt;">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="red_button" />
                   </styleClass>
                </Button>
-                      <Button layoutX="899.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
+                      <Button layoutX="866.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="red_button" />
                   </styleClass>
                </Button>
-                    <Button layoutX="23.0" layoutY="707.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="598.0" text="Menu Principal">
+                    <Button layoutX="141.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="282.0" text="Menu Principal">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="w" />
                      <String fx:value="orange_button" />
                   </styleClass>
                </Button>
-               <Pane layoutX="343.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0" styleClass="red_petit_panneau">
+               <Pane layoutX="304.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0" styleClass="red_petit_panneau">
                   <children>
-                            <Label fx:id="themeLabel" layoutX="150.0" layoutY="21.0" text="Collection Actuelle" />
+                            <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle" textFill="WHITE" />
                   </children>
                </Pane>
-               <Button layoutX="919.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="253.0" text="Nouveau theme">
+               <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="253.0" text="Nouveau theme">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="w" />
                      <String fx:value="orange_button" />
                   </styleClass>
                </Button>
-                     <Button layoutX="646.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
+                     <Button layoutX="441.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
                   <styleClass>
                      <String fx:value="button1" />
                      <String fx:value="purple_button" />
