@@ -93,3 +93,16 @@
     -fx-translate-x: 2px; 
     -fx-translate-y: 2px; 
 }
+
+.confirmationOverlay {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.confirmation-box {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-padding: 20;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}

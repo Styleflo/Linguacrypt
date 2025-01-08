@@ -1,5 +1,6 @@
 package linguacrypt.model;
 
+import linguacrypt.config.GameConfig;
 import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
@@ -24,9 +25,9 @@ public class PartieBuilder {
         this.wordsFileHandler = jeu.getWordsFileHandler();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
         partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
-        partie.setTimer(-1);
-        partie.setWidthParameter(5);
-        partie.setHeightParameter(5);
+        partie.setTimer(GameConfig.DEFAULT_TIMER);
+        partie.setWidthParameter(GameConfig.DEFAULT_WIDTH);
+        partie.setHeightParameter(GameConfig.DEFAULT_HEIGHT);
         partie.setTypePartie(TypePartie.WORDS);
     }
 

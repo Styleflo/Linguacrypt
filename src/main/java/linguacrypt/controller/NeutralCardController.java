@@ -4,12 +4,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import linguacrypt.utils.CardType;
 
 public class NeutralCardController {
-
     @FXML
     private Label labelMot;
 
+    @FXML
+    private ImageView coveredBlue;
+
+    @FXML
+    private ImageView coveredRed;
+
+    @FXML
+    private ImageView coveredWhite;
+
+    @FXML
+    private ImageView coveredBlack;
 
     public void setMot(String mot) {
         labelMot.setText(mot);
@@ -17,6 +28,23 @@ public class NeutralCardController {
 
     public Label getLabelMot() {
         return labelMot;
+    }
+
+    public void setRecouvert(CardType color, boolean recouvert) {
+        switch (color) {
+            case CardType.BLUE:
+                coveredBlue.setVisible(recouvert);
+                break;
+            case CardType.RED:
+                coveredRed.setVisible(recouvert);
+                break;
+            case CardType.BLACK:
+                coveredWhite.setVisible(recouvert);
+                break;
+            case CardType.WHITE:
+                coveredBlack.setVisible(recouvert);
+                break;
+        }
     }
 
     private void adjustFontSize(String mot) {

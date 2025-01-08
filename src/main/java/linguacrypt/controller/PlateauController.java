@@ -10,7 +10,12 @@ import javafx.scene.layout.*;
 import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import linguacrypt.config.GameConfig;
+import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
+import linguacrypt.utils.CardType;
+import linguacrypt.utils.DataUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,6 +113,7 @@ public class PlateauController implements Observer {
 
         return cartes;
     }
+
     private AnchorPane findAnchorCard(String mot) {
         List<AnchorPane> cartes = recupererCartes();
         for (AnchorPane carte : cartes) {
@@ -119,11 +125,11 @@ public class PlateauController implements Observer {
         return null; // Si aucune carte ne correspond au mot, on retourne null
     }
 
-    private void afficherCartes() {
 
+    private void afficherCartes() {
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
-        if(jeu.getPartie().getPlateau().isBlueTurn()){
+        if (jeu.getPartie().getPlateau().isBlueTurn()) {
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv
             panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
@@ -132,9 +138,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().clear();
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
-        }
-        else{
-
+        } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
             panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
@@ -145,7 +149,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau");
         }
 
-        if (jeu == null) return;
+        DataUtils.assertNotNull(jeu, "Jeu non initialisé dans PlateauController.afficherCartes()");
 
         gridPane.getChildren().clear();
 
@@ -154,24 +158,17 @@ public class PlateauController implements Observer {
 
         if (row < 7 && col < 6) {
 
-            gridPane.setHgap(20);
-            gridPane.setVgap(20);
+            gridPane.setHgap(GameConfig.PLATEAU_HGAP);
+            gridPane.setVgap(GameConfig.PLATEAU_VGAP);
 
-            int adapth = 5-col;
-            int adaptl = 6-row;
+            int adapth = 5 - col;
+            int adaptl = 6 - row;
             int right = 60 + adapth * 30;
             int left = 20 + adapth * 30;
             int top = 70 + adaptl * 20;
             int bottom = 70 + adaptl * 20;
 
-            System.out.println("adapth: " + adapth);
-            System.out.println("adaptl: " + adaptl);
-            System.out.println("right: " + right);
-            System.out.println("left: " + left);
-            System.out.println("top: " + top);
-            System.out.println("bottom: " + bottom);
-
-            gridPane.setPadding(new Insets(top,right,bottom,left));
+            gridPane.setPadding(new Insets(top, right, bottom, left));
 
             for (int i = 0; i < col; i++) {
                 for (int j = 0; j < row; j++) {
@@ -188,14 +185,14 @@ public class PlateauController implements Observer {
         } else {
             gridPane.setHgap(4);
             gridPane.setVgap(8);
-            int adapth = 9-col;
-            int adaptl = 9-row;
-            int right = 61 + adapth * (55 - adapth*3) ;
-            int left = 0 + adapth * (55 - adapth*3);
-            int top = 74 + adaptl * (36 - adaptl*3) ;
-            int bottom = 74 + adaptl * (36 - adaptl*3);
+            int adapth = 9 - col;
+            int adaptl = 9 - row;
+            int right = 61 + adapth * (55 - adapth * 3);
+            int left = 0 + adapth * (55 - adapth * 3);
+            int top = 74 + adaptl * (36 - adaptl * 3);
+            int bottom = 74 + adaptl * (36 - adaptl * 3);
 
-            gridPane.setPadding(new Insets(top,right,bottom,left));
+            gridPane.setPadding(new Insets(top, right, bottom, left));
             for (int i = 0; i < col; i++) {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
@@ -211,43 +208,51 @@ public class PlateauController implements Observer {
 
         }
 
-
         this.updateLabel();
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
-        if (jeu.getPartie().getPlateau().getCard(x,y).isCovered()) {
+        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
         }
+
         if (jeu.getPartie().getwon() == -1) {
             jeu.getPartie().setPartieBegin();
         }
         // Récupérer la couleur de la carte depuis le modèle
-        int couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setRecouvert(couleur, true);
+        String style;
 
-        // Appliquer le style CSS correspondant et change les points.
         switch (couleur) {
-            case 1: //couleur de la carte est rouge
-                carte.setStyle("-fx-background-color: #ff6b6b;");
-                jeu.getPartie().getPlateau().updatePoint(1);
-                jeu.getPartie().getPlateau().updateTurn(1);
-                jeu.getPartie().updateWin();
-
+            case CardType.RED:
+                style = "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                carte.setStyle(style);
+                jeu.getPartie().getPlateau().updatePoint(CardType.RED);
+                jeu.getPartie().getPlateau().updateTurn(CardType.RED);
+                // Recouvrir la carte
                 break;
-            case 0: //couleur de la carte est bleue
-                carte.setStyle("-fx-background-color: #4dabf7;");
-                jeu.getPartie().getPlateau().updatePoint(0);
-                jeu.getPartie().getPlateau().updateTurn(0);
-                jeu.getPartie().updateWin();
+            case CardType.BLUE:
+                style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                carte.setStyle(style);
+                jeu.getPartie().getPlateau().updatePoint(CardType.BLUE);
+                jeu.getPartie().getPlateau().updateTurn(CardType.BLUE);
                 break;
-            case 2: //couleur de la carte est noire (celui qui l'a retourné a perdu)
-                carte.setStyle("-fx-background-color: #343a40;");
-                jeu.getPartie().getPlateau().updateTurn(2);
-                jeu.getPartie().updateWin(2);
+            case CardType.BLACK:
+                style = "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                carte.setStyle(style);
+                if (jeu.getPartie().getPlateau().isBlueTurn()) {
+                    jeu.getPartie().setRedWon();
+                } else {
+                    jeu.getPartie().setBlueWon();
+                }
                 break;
-            case 3: //couleur de la carte est neutre
-                carte.setStyle("-fx-background-color: #f8f9fa;");
-                jeu.getPartie().getPlateau().updateTurn(3);
+            case CardType.WHITE:
+                style = "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
+                carte.setStyle(style);
+                jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
         if (jeu.getPartie().BlueWon()) {
@@ -268,24 +273,15 @@ public class PlateauController implements Observer {
         for (CarteBase[] row : listCard) {
             for (CarteBase card : row) {
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
-                if (carteVisu != null) {  //vérification
+                if (carteVisu != null) {
                     card.setCovered();
-                    int color = card.getType();
-
-                    switch (color) {
-                        case 1: //couleur de la carte est rouge
-                            carteVisu.setStyle("-fx-background-color: #ff6b6b;");
-                            break;
-                        case 0: //couleur de la carte est bleue
-                            carteVisu.setStyle("-fx-background-color: #4dabf7;");
-                            break;
-                        case 2: //couleur de la carte est noire
-                            carteVisu.setStyle("-fx-background-color: #343a40;");
-                            break;
-                        case 3: //couleur de la carte est neutre
-                            carteVisu.setStyle("-fx-background-color: #f8f9fa;");
-                            break;
-                    }
+                    String style = switch (card.getType()) {
+                        case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                        case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                        case CardType.BLACK -> "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                        case CardType.WHITE -> "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
+                    };
+                    carteVisu.setStyle(style);
                 }
             }
         }
@@ -320,7 +316,7 @@ public class PlateauController implements Observer {
             controller.setMot(mot);
             return card;
         } catch (IOException e) {
-            e.printStackTrace();
+            DataUtils.logException(e, "Erreur lors de la création d'une carte");
             return null;
         }
     }
@@ -330,7 +326,10 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card_vp.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            card.setUserData(controller);
             controller.setMot(mot);
+            // Associe le contrôleur à l'AnchorPane via UserData
+            card.setUserData(controller);
             return card;
         } catch (IOException e) {
             e.printStackTrace();
@@ -344,6 +343,7 @@ public class PlateauController implements Observer {
         } else {
             labelEquipe.setText("C'est le tour de Rouge");
         }
+
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
             lbbleu.setText(jeu.getPartie().getPlateau().getPointBlue() + "/" + (nbpoint + 1));
@@ -358,8 +358,7 @@ public class PlateauController implements Observer {
     private void handleNouvellePartie() {
         if (jeu.getPartie().getwon() == 2) {
             confirmationOverlay.setVisible(true);
-        }
-        else {
+        } else {
             confirmNouvellePartie();
         }
     }
@@ -400,15 +399,14 @@ public class PlateauController implements Observer {
         imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
         boolean currentVisibility2 = imageview2.isVisible();
         imageview2.setVisible(!currentVisibility2);  // Si visible, devient inv
-        if(panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
+        if (panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
             panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
             panneau_changer.getStyleClass().add("main_panneau");
             panneau_changer.getStyleClass().add("red_main_panneau");
             panneau_changer2.getStyleClass().clear();
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
-        }
-        else{
+        } else {
             panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
             panneau_changer.getStyleClass().add("main_panneau");
             panneau_changer.getStyleClass().add("blue_main_panneau");
