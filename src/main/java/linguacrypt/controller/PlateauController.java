@@ -36,9 +36,14 @@ public class PlateauController implements Observer {
     private Pane confirmationOverlay;
 
     @FXML
+    private Pane confirmationOverlayMenu;
+
+    @FXML
+    private Pane confirmationOverlayMenuSave;
+
+    @FXML
     private void confirmNouvellePartie() {
         confirmationOverlay.setVisible(false);
-        close(); // Logique pour terminer la partie existante
         jeu.getPartie().newPlateau();
         jeu.notifyObservers();
     }
@@ -46,6 +51,18 @@ public class PlateauController implements Observer {
     @FXML
     private void cancelNouvellePartie() {
         confirmationOverlay.setVisible(false);
+    }
+
+    @FXML
+    private void confirmSavePartie() {
+        confirmationOverlayMenu.setVisible(false);
+        confirmationOverlayMenuSave.setVisible(true);
+        savePartie();
+    }
+
+    @FXML
+    private void cancelSavePartie() {
+        confirmationOverlayMenu.setVisible(false);
     }
 
 
@@ -158,43 +175,21 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleNouvellePartie() {
-        confirmationOverlay.setVisible(true);
-        close();
-        jeu.getPartie().newPlateau();
-        jeu.notifyObservers();
+        if (jeu.getPartie().getwon() == 2) {
+            confirmationOverlay.setVisible(true);
+        }
+        else {
+            confirmNouvellePartie();
+        }
     }
 
     @FXML
     private void handleMenuPrincipal() {
-        confirmationOverlay.setVisible(true);
-        close();
-        jeu.setView("MenuInitial");
-        jeu.notifyObservers();
-    }
-
-    private void close() {
         if (jeu.getPartie().getwon() == 2) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("La partie en cours n'est pas finie.");
-            alert.setContentText("Voulez-vous sauvegarder la partie en cours avant de revenir au menu principal ?");
-
-            // Ajouter des boutons pour "Oui", "Non" et "Annuler"
-            ButtonType boutonOui = new ButtonType("Oui");
-            ButtonType boutonNon = new ButtonType("Non");
-            ButtonType boutonAnnuler = new ButtonType("Annuler");
-
-            alert.getButtonTypes().setAll(boutonOui, boutonNon, boutonAnnuler);
-
-            // Afficher la boîte de dialogue et récupérer la réponse
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent()) {
-                if (result.get() == boutonOui) {
-                    savePartie();
-                } else if (result.get() == boutonAnnuler) {
-                    return;  // Annuler l'opération de création
-                }
-            }
+            confirmationOverlayMenu.setVisible(true);
+        }
+        else {
+            confirmNouvellePartie();
         }
     }
 
