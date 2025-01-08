@@ -43,8 +43,8 @@ public class PlateauController implements Observer {
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(80));
 
-        int row = jeu.getPartie().getHeightParameter();
-        int col = jeu.getPartie().getWidthParameter();
+        int row = jeu.getPartie().getWidthParameter();
+        int col = jeu.getPartie().getHeightParameter();
 
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
