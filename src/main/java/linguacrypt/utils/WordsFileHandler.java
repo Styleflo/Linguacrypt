@@ -81,8 +81,9 @@ public class WordsFileHandler {
     }
 
     public Object[] addWordToCategory(String category, String word) {
-        if (wordExists(word)) {
-            return new Object[]{false, "Le mot " + word + " existe déjà"};
+        WordsCategory previousCategory = getCategoryByWord(word);
+        if (previousCategory != null) {
+            return new Object[]{false, "Le mot " + word + " existe déjà dans le thème " + previousCategory.getName() + "."};
         }
 
         for (WordsCategory cat : wordsCategories.getCategories()) {
@@ -92,16 +93,16 @@ public class WordsFileHandler {
             }
         }
 
-        return new Object[]{false, "La catégorie " + category + " n'existe pas"};
+        return new Object[]{false, "La catégorie " + category + " n'existe pas."};
     }
 
-    public boolean wordExists(String word) {
+    public WordsCategory getCategoryByWord(String word) {
         for (WordsCategory cat : wordsCategories.getCategories()) {
             if (cat.getWords().contains(word)) {
-                return true;
+                return cat;
             }
         }
-        return false;
+        return null;
     }
 
     public void removeWordFromCategory(String category, String word) {

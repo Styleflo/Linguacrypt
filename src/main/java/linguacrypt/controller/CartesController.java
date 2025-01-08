@@ -269,7 +269,7 @@ public class CartesController implements Observer {
             if (wordsFileHandler.themeExists(themeName)) {
                 showAlert(AlertType.ERROR, "Erreur", "Thème existant", "Le thème \n" + themeName + "\n existe déjà.");
                 addNewTheme();
-            } else if (wordsFileHandler.wordExists(firstCard)) {
+            } else if (wordsFileHandler.getCategoryByWord(firstCard) != null) {
                 showAlert(AlertType.ERROR, "Erreur", "Mot existant", "Le mot \"" + firstCard + "\"\n existe déjà.");
                 addNewTheme();
             } else if (themeName.length() > 13) {
