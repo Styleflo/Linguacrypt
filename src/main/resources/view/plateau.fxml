@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -87,22 +88,22 @@
             </AnchorPane>
             <StackPane prefHeight="1010.0" prefWidth="1275.0">
                 <children>
-                    <ImageView fx:id="imageview1" fitHeight="853.0" fitWidth="1102.0" pickOnBounds="true" visible="false">
-                        <image>
-                            <Image url="@../assets/gradient.gif" />
-                        </image>
-                        <effect>
-                            <GaussianBlur radius="18.25" />
-                        </effect>
-                    </ImageView>
-               <ImageView fx:id="imageview2" fitHeight="853.0" fitWidth="1102.0" pickOnBounds="true">
+               <ImageView fx:id="imageview2" fitHeight="856.0" fitWidth="1102.0" pickOnBounds="true">
                   <image>
-                     <Image url="@../assets/fond_rouge.png" />
+                     <Image url="@../assets/fond_rouge_flou.png" />
                   </image>
                   <effect>
-                     <GaussianBlur radius="18.25" />
+                     <GaussianBlur radius="0.0" />
                   </effect>
                </ImageView>
+                    <ImageView fx:id="imageview1" fitHeight="858.0" fitWidth="1102.0" pickOnBounds="true" visible="false">
+                        <image>
+                            <Image url="@../assets/fond_rouge_flou.png" />
+                        </image>
+                        <effect>
+                     <ColorAdjust hue="-0.81" />
+                        </effect>
+                    </ImageView>
                     <GridPane fx:id="gridPane" prefHeight="827.0" prefWidth="1102.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
