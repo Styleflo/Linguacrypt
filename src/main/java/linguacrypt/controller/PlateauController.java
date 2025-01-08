@@ -80,10 +80,10 @@ public class PlateauController implements Observer {
             gridPane.setVgap(8);
             int adapth = 9-col;
             int adaptl = 9-row;
-            int right = 61 + adapth * 61;
-            int left = 0 + adapth * 61;
-            int top = 74 + adaptl * 34;
-            int bottom = 74 + adaptl * 34;
+            int right = 61 + adapth * (55 - adapth*3) ;
+            int left = 0 + adapth * (55 - adapth*3);
+            int top = 74 + adaptl * (36 - adaptl*3) ;
+            int bottom = 74 + adaptl * (36 - adaptl*3);
 
             gridPane.setPadding(new Insets(top,right,bottom,left));
             for (int i = 0; i < col; i++) {
