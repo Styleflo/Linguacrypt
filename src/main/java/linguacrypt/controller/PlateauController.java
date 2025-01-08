@@ -155,6 +155,7 @@ public class PlateauController implements Observer {
         int row = jeu.getPartie().getWidthParameter();
         int col = jeu.getPartie().getHeightParameter();
 
+        // dépend de la taille des cartes TAILLLE DES CARTES 0 REGARDER ICI !!!!
         if (row < 7 && col < 6) {
 
             gridPane.setHgap(GameConfig.PLATEAU_HGAP);
@@ -332,8 +333,6 @@ public class PlateauController implements Observer {
             NeutralCardController controller = loader.getController();
             card.setUserData(controller);
             controller.setMot(mot);
-            // Associe le contrôleur à l'AnchorPane via UserData
-            card.setUserData(controller);
             return card;
         } catch (IOException e) {
             e.printStackTrace();

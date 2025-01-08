@@ -37,6 +37,23 @@ Compte Rendu Jour 2 :
 - Quelques tests mis en place. 
 
 
+Compte Rendu Jour 3 : 
+
+- Avancés sur les fonction de sauvegarde d'une partie désormais, quand le joueur veux quitter la partie, une pop s'affiche pour demander à l'utilisateur s'il souhaite que sa partie soit enregistrée avant de revenir sur le menu. La partie enregistrement n'est en pratique pas encore tout a fait aboutie. 
+
+- Avancés sur l'obtention de la clef indice : une application android permettant de lire le QR code et de montrer une image de la solution a été implémentée. 
+
+- Les vues utilisateur on été améliorée du point de vue design. 
+
+- Avancée sur les vues utilisateur : 
+        - Ouvrir l'application, il arrive sur un Menu avec le nom du jeu.
+        - Du Menu, il peut choisir de cliquer sur 3 boutons : Cartes, Jouer et Quitter. 
+        - S'il appuie sur Cartes, il arrive sur une page 
+        - S'il appuie sur Jouer, il arrive sur une page de paramètres ou il peut choisir les paramètres de sa partie avant de jouer : choisir le nombre de colones, de lignes, de prendre des themes aléatoire ou de choisir son thème. 
+        - Quand il est sur le plateau de jeu, il peut couvrir les cartes en cliquant dessus (pour l'instant les images sont aléatoires)
+
+        
+
 
 
 

@@ -90,6 +90,7 @@ public class PartieBuilder {
         return this;
     }
 
+
     public PartieBuilder createPlateau() {
         this.partie.newPlateau();
         return this;
