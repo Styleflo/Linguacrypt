@@ -11,7 +11,6 @@ import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
-import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -195,7 +194,7 @@ public class PlateauController implements Observer {
             int adapth = 9 - col;
             int adaptl = 9 - row;
             int right = 61 + adapth * (55 - adapth * 3);
-            int left = 0 + adapth * (55 - adapth * 3);
+            int left = adapth * (55 - adapth * 3);
             int top = 74 + adaptl * (36 - adaptl * 3);
             int bottom = 74 + adaptl * (36 - adaptl * 3);
 
@@ -349,10 +348,29 @@ public class PlateauController implements Observer {
 
     public void updateLabel() {
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
+            imageview1.setVisible(true);  // Si visible, devient inv
+            imageview2.setVisible(false);  // Si visible, devient inv
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("blue_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+            labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
             labelEquipe.setText("C'est le tour de Bleu");
         } else {
+            imageview1.setVisible(false);  // Si visible, devient inv
+            imageview2.setVisible(true);  // Si visible, devient inv
+            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
+            panneau_changer.getStyleClass().add("main_panneau");
+            panneau_changer.getStyleClass().add("red_main_panneau");
+            panneau_changer2.getStyleClass().clear();
+            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
+            panneau_changer2.getStyleClass().add("logo_panneau");
+            labelEquipe.setText(GameConfig.RED_TURN_TEXT);
             labelEquipe.setText("C'est le tour de Rouge");
         }
+
 
         int nbpoint = jeu.getPartie().getPlateau().getKey().getWidth() * jeu.getPartie().getPlateau().getKey().getHeight() / 3;
         if (this.jeu.getPartie().getPlateau().getKey().isBlueStarting()) {
