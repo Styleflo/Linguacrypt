@@ -10,8 +10,7 @@
            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="linguacrypt.controller.PlateauController">
     <children>
-        <SplitPane fx:id="splitpane" dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="1082.0"
-                   prefWidth="1761.0">
+        <SplitPane dividerPositions="0.5" prefHeight="1082.0" prefWidth="1761.0">
             <items>
                 <AnchorPane fx:id="panneau_changer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                             minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css">
