@@ -8,6 +8,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import linguacrypt.config.GameConfig;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -150,9 +152,22 @@ public class Clef {
     }
 
     public void to_qrcode() throws WriterException, IOException {
-        String text = this.toString();
+        JSONObject json = new JSONObject();
+        json.put("width", this.width);
+        json.put("height", this.height);
+
+        JSONArray gridArray = new JSONArray();
+        for (int i = 0; i < height; i++) {
+            JSONArray rowArray = new JSONArray();
+            for (int j = 0; j < width; j++) {
+                rowArray.put(grid[i][j].name());
+            }
+            gridArray.put(rowArray);
+        }
+        json.put("grid", gridArray);
+
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 300, 300);
+        BitMatrix bitMatrix = qrCodeWriter.encode(json.toString(), BarcodeFormat.QR_CODE, 300, 300);
 
         Path path = new File(GameConfig.QRCODE_PATH).toPath();
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
