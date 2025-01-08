@@ -8,9 +8,8 @@ import java.util.ArrayList;
 
 /**
  * Contient une liste d'observers qui peuvent être notifiés lors d'un quelconque changement.
- * Contient une partie
+ * Contient une wordfilHandler
  * Contient une string du nom de la vue courante à afficher
- * Contient une liste de l'ensemble des mots de la base de données (les cartes dispos)
  */
 public class Jeu {
     private final ArrayList<Observer> observers = new ArrayList<>();
@@ -21,7 +20,7 @@ public class Jeu {
     public Jeu() throws IOException {
         //Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "MenuInitial";
-        wordsFileHandler = new WordsFileHandler("./cards.json");
+        wordsFileHandler = new WordsFileHandler("cards.json");
     }
 
     /**
@@ -104,11 +103,6 @@ public class Jeu {
      * Permet de changer l'etat du jeu en gagné.
      * Une equipe a alors gagné.
      */
-    public void win() {
-        this.partie.setWon();
-        // A completer avec le nom de la vue de win
-        this.currentView = "";
-    }
 
     public WordsFileHandler getWordsFileHandler() {
         return wordsFileHandler;

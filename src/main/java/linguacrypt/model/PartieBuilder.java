@@ -13,18 +13,21 @@ import java.util.ArrayList;
  */
 public class PartieBuilder {
     private final Partie partie;
+    private final WordsFileHandler wordsFileHandler;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
      * C'est un objet PartieBuilder, il faut donc finir par .getResult pour obtenir la partie construite
      */
-    public PartieBuilder(Jeu jeu) throws IOException {
+    public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
+        this.wordsFileHandler = jeu.getWordsFileHandler();
         WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-        partie.setWords(wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
         partie.setTimer(-1);
         partie.setWidthParameter(5);
         partie.setHeightParameter(5);
+        partie.setTypePartie(TypePartie.WORDS);
     }
 
     /**
@@ -64,6 +67,18 @@ public class PartieBuilder {
     }
 
     /**
+     * Permet de choisir la largeur les themes du jeu
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @param themes
+     * @return PartieBuilder
+     */
+    public PartieBuilder setUsedThemes(ArrayList<String> themes) {
+        this.partie.setWords(wordsFileHandler.getWordsByThemes(themes));
+        return this;
+    }
+
+    /**
      * Permet de choisir les mots utilisées sans la partie
      *
      * @param words
@@ -74,17 +89,30 @@ public class PartieBuilder {
         return this;
     }
 
-    public PartieBuilder createPlateau() throws IOException {
+    public PartieBuilder createPlateau() {
         this.partie.newPlateau();
         return this;
     }
 
     /**
-     * Construit une instance de `Partie`.
+     * Permet de choisir le type de partie entre image ou mot.
+     * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
+     *
+     * @param typePartie
+     * @return PartieBuilder
+     */
+    public PartieBuilder setTypePartie(TypePartie typePartie) {
+        this.partie.setTypePartie(typePartie);
+        return this;
+    }
+
+    /**
+     * Construit une instance de Partie.
      *
      * @return Partie
      */
     public Partie getResult() throws IOException {
+        this.createPlateau();
         return this.partie;
     }
 }

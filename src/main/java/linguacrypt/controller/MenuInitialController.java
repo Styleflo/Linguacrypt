@@ -26,7 +26,7 @@ public class MenuInitialController implements Observer {
     private void handleJouerButtonAction() throws IOException {
         jeu.setView("Plateau");
         PartieBuilder partieBuilder = new PartieBuilder(jeu);
-        Partie partie = partieBuilder.createPlateau().getResult();
+        Partie partie = partieBuilder.getResult();
         jeu.setPartie(partie);
         jeu.notifyObservers();
     }
