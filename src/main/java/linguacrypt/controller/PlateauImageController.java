@@ -1,5 +1,7 @@
 package linguacrypt.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -12,7 +14,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
+import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.CarteImage;
 import linguacrypt.model.Jeu;
@@ -63,7 +67,84 @@ public class PlateauImageController implements Observer {
     private VBox borderWin;
 
     @FXML
+    private Label blueTimer;
+    @FXML
+    private Label redTimer;
+
+    private Timeline timeline;
+    private int blueTimeLeft;
+    private int redTimeLeft;
+    private boolean isTimerRunning = false;
+
+    private void initializeTimer() {
+        if (jeu.getPartie().getTimer() != -1) {
+            // Si c'est une nouvelle partie, initialise les temps
+            if (jeu.getPartie().getwon() == -1) {
+                blueTimeLeft = jeu.getPartie().getTimer() / 2;
+                redTimeLeft = jeu.getPartie().getTimer() / 2;
+            }
+            updateTimerLabels();
+
+            if (timeline == null) {
+                timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+                    if (jeu.getPartie().getPlateau().isBlueTurn()) {
+                        blueTimeLeft--;
+                    } else {
+                        redTimeLeft--;
+                    }
+                    updateTimerLabels();
+                    checkTimeOut();
+                }));
+                timeline.setCycleCount(Timeline.INDEFINITE);
+            }
+        }
+    }
+
+
+    private void updateTimerLabels() {
+        int blueMinutes = blueTimeLeft / 60;
+        int blueSeconds = blueTimeLeft % 60;
+        int redMinutes = redTimeLeft / 60;
+        int redSeconds = redTimeLeft % 60;
+
+        blueTimer.setText(String.format("%02d:%02d", blueMinutes, blueSeconds));
+        redTimer.setText(String.format("%02d:%02d", redMinutes, redSeconds));
+    }
+
+    private void checkTimeOut() {
+        if (blueTimeLeft <= 0) {
+            stopTimer();
+            jeu.getPartie().setRedWon();
+            revealCard();
+            jeu.victoireRouge();
+            showWinnerPopup("Rouge");
+        } else if (redTimeLeft <= 0) {
+            stopTimer();
+            jeu.getPartie().setBlueWon();
+            revealCard();
+            jeu.victoireBleue();
+            showWinnerPopup("Bleue");
+        }
+    }
+
+    private void startTimer() {
+        if (jeu.getPartie().getTimer() != -1 && !isTimerRunning) {
+            timeline.play();
+            isTimerRunning = true;
+        }
+    }
+
+    private void stopTimer() {
+        if (timeline != null) {
+            timeline.pause();
+            isTimerRunning = false;
+        }
+    }
+
+
+    @FXML
     private void confirmNouvellePartie() {
+        stopTimer();
         confirmationOverlay.setVisible(false);
         jeu.getPartie().newPlateau();
         jeu.notifyObservers();
@@ -71,11 +152,15 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void cancelNouvellePartie() {
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
         confirmationOverlay.setVisible(false);
     }
 
     @FXML
     private void confirmSavePartie() {
+        stopTimer();
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
@@ -84,11 +169,16 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void cancelSavePartie() {
+
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
         confirmationOverlayMenu.setVisible(false);
     }
 
     @FXML
     private void returnMenu() {
+        stopTimer();
         confirmationOverlayMenu.setVisible(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
@@ -96,11 +186,21 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void closeConfirmationMenu() {
+
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
+
         confirmationOverlayMenu.setVisible(false);
     }
 
     @FXML
     private void okWin() {
+
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
+
         popupWin.setVisible(false);
     }
 
@@ -222,11 +322,15 @@ public class PlateauImageController implements Observer {
             }
 
         }
-
+        initializeTimer();
         this.updateLabel();
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
+        if (!isTimerRunning && jeu.getPartie().getTimer() != -1) {
+            startTimer();
+        }
+
         CarteBase currentCard = jeu.getPartie().getPlateau().getCard(x, y);
 
         if (currentCard.isCovered()) {
@@ -278,10 +382,12 @@ public class PlateauImageController implements Observer {
 
         if (jeu.getPartie().BlueWon()) {
             revealCard();
+            jeu.victoireBleue();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
             revealCard();
+            jeu.victoireRouge();
             showWinnerPopup("Rouge");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
@@ -289,6 +395,9 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
+
+
+    //TODO faire comme pour le plateau des mots avec des reveal pas cover
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
@@ -305,6 +414,7 @@ public class PlateauImageController implements Observer {
     }
 
     private void showWinnerPopup(String winningTeam) {
+        stopTimer();
         if (winningTeam.equals("Rouge")) {
             whoWon.setText("L'équipe Rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
@@ -427,6 +537,11 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void handleTourSuivant() {
+        if (isTimerRunning) { //pour avoir un petit temps à tour suivant
+            stopTimer();
+            startTimer();
+        }
+
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
 

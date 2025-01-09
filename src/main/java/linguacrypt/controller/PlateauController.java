@@ -122,11 +122,13 @@ public class PlateauController implements Observer {
             stopTimer();
             jeu.getPartie().setRedWon();
             revealCard();
+            jeu.victoireRouge();
             showWinnerPopup("Rouge");
         } else if (redTimeLeft <= 0) {
             stopTimer();
             jeu.getPartie().setBlueWon();
             revealCard();
+            jeu.victoireBleue();
             showWinnerPopup("Bleue");
         }
     }
@@ -415,13 +417,13 @@ public class PlateauController implements Observer {
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
-            revealCard();
             jeu.victoireBleue();
+            revealCard();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
-            revealCard();
             jeu.victoireRouge();
+            revealCard();
             showWinnerPopup("Rouge");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
