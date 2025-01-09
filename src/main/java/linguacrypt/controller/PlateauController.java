@@ -137,10 +137,6 @@ public class PlateauController implements Observer {
         }
     }
 
-
-
-
-
     @FXML
     private void confirmNouvellePartie() {
         stopTimer();

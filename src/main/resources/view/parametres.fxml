@@ -36,26 +36,26 @@
          <children>
             <Pane layoutX="300.0" layoutY="79.0" prefHeight="673.0" prefWidth="728.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
                <children>
-                  <Label layoutX="398.0" layoutY="127.0" styleClass="text" stylesheets="@../css/parametre.css" text="Temps" textFill="#fcf6f6" />
-                  <AnchorPane layoutX="339.0" layoutY="178.0" prefHeight="71.0" prefWidth="209.0" stylesheets="@../css/parametre.css">
+                  <Label layoutX="334.0" layoutY="90.0" styleClass="text" stylesheets="@../css/parametre.css" text="Temps" textFill="#fcf6f6" />
+                  <AnchorPane layoutX="280.0" layoutY="125.0" prefHeight="60.0" prefWidth="170.0" stylesheets="@../css/parametre.css">
                      <children>
-                        <Label fx:id="labelTimer" layoutX="85.0" layoutY="21.0" styleClass="text" stylesheets="@../css/parametre.css" text="∞" textFill="#fcf6f6" />
+                        <Label fx:id="labelTimer" layoutX="70.0" layoutY="15.0" styleClass="text" stylesheets="@../css/parametre.css" text="∞" textFill="#fcf6f6" />
                      </children>
                      <styleClass>
                         <String fx:value="red_petit_panneau" />
                         <String fx:value="dark_petit_panneau" />
                      </styleClass>
                   </AnchorPane>
-                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="286.0" layoutY="181.0"
-                          mnemonicParsing="false" onAction="#handleFlecheGaucheTimer" prefHeight="64.0" prefWidth="43.0" text="&lt;"
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="240.0" layoutY="128.0"
+                          mnemonicParsing="false" onAction="#handleFlecheGaucheTimer" prefHeight="54.0" prefWidth="35.0" text="&lt;"
                           textAlignment="CENTER" textFill="WHITE">
                      <styleClass>
                         <String fx:value="button2" />
                         <String fx:value="red_button" />
                      </styleClass>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="558.0" layoutY="181.0"
-                          mnemonicParsing="false" onAction="#handleFlecheDroiteTimer" prefHeight="64.0" prefWidth="43.0" text="&gt;"
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="455.0" layoutY="128.0"
+                          mnemonicParsing="false" onAction="#handleFlecheDroiteTimer" prefHeight="54.0" prefWidth="35.0" text="&gt;"
                           textAlignment="CENTER" textFill="WHITE">
                      <styleClass>
                         <String fx:value="button2" />
