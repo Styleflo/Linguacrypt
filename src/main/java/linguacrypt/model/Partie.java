@@ -87,7 +87,7 @@ public class Partie implements Serializable {
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void newPlateau() {
-        this.plateau = new Plateau(this.widthParameter, this.heightParameter, cardsAttribute);
+        this.plateau = new Plateau(this.widthParameter, this.heightParameter, cardsAttribute, this.typePartie);
         this.won = -1;
     }
 

@@ -187,10 +187,9 @@ public class PlateauImageController implements Observer {
                     final int currentI = i;
                     final int currentJ = j;
 
-                    Carte carte1 = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
-                    System.out.println(carte1.getWord());
-
-                    AnchorPane carte = creerCarte(carte1.getWord());
+                    CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
+                    System.out.println(carteImage.getUrl());
+                    AnchorPane carte = creerCarte(carteImage.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));

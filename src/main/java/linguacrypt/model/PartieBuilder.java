@@ -148,9 +148,8 @@ public class PartieBuilder {
     }
 
 
-    public PartieBuilder createPlateau() {
+    public void createPlateau() {
         this.partie.newPlateau();
-        return this;
     }
 
     /**
