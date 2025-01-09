@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.CarteBase;
+import linguacrypt.model.CarteImage;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -184,6 +185,7 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
+
                     CarteImage card = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
                     AnchorPane carte = creerCarte(card.getUrl());
 
@@ -208,8 +210,7 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-
-                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getUrl());
+                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
