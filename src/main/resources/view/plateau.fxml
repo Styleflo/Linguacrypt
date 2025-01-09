@@ -69,7 +69,7 @@
                             </styleClass>
                             <children>
                                 <Label fx:id="labelEquipe" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
-                                <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="lingualogo" fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../assets/lingua.png" />
                                     </image>
@@ -90,17 +90,18 @@
                                 <GaussianBlur radius="12.25" />
                             </effect>
                         </ImageView>
-                  <Button layoutX="311.0" layoutY="40.0" mnemonicParsing="false" onAction="#afficheQRcode" prefHeight="43.0" prefWidth="42.0">
+                  <Button layoutX="41.0" layoutY="41.0" mnemonicParsing="false" onAction="#afficheQRcode" prefHeight="43.0" prefWidth="42.0">
                      <styleClass>
                         <String fx:value="buttonnotmouve" />
                         <String fx:value="purple_button" />
                      </styleClass>
                   </Button>
-                  <ImageView fx:id="turnQR" fitHeight="51.0" fitWidth="42.0" layoutX="311.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" >
+                  <ImageView fx:id="turnQR" fitHeight="51.0" fitWidth="42.0" layoutX="41.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/return.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="qrCode" fitHeight="257.0" fitWidth="257.0" layoutX="83.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" visible="false" />
                     </children>
                     <styleClass>
                         <String fx:value="main_panneau" />

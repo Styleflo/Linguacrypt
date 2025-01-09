@@ -1,11 +1,13 @@
 package linguacrypt.controller;
 
+import com.google.zxing.common.BitMatrix;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
@@ -45,6 +47,10 @@ public class PlateauController implements Observer {
     private ImageView filtre2;
     @FXML
     private ImageView turnQR;
+    @FXML
+    private ImageView qrCode;
+    @FXML
+    private ImageView lingualogo;
     @FXML
     private Pane confirmationOverlay;
     @FXML
@@ -481,9 +487,21 @@ public class PlateauController implements Observer {
 
     @FXML
     public void afficheQRcode() {
-        System.out.println("QR Code affiché !");
-        // Logique pour afficher le QR code
+        try {
+            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode(); // Génération du QR code
+            WritableImage qrImage = jeu.getPartie().getPlateau().getKey().bitMatrixToImage(qrcode); // Convertit le BitMatrix en WritableImage
+            qrCode.setImage(qrImage); // Affiche l'image dans l'ImageView
+            qrCode.setVisible(true); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(false);
+        } catch (Exception e) {
+            DataUtils.logException(e, "Erreur lors de la génération du QR code");
+        }
+        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche()); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
+        jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
     }
+
+
 
     @Override
     public void reagir() {
