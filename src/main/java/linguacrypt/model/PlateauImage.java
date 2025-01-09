@@ -45,17 +45,6 @@ public class PlateauImage extends PlateauBase implements Serializable {
         return card.getType();
     }
 
-    public void prettyPrint() {
-        for (CarteBase[] card : cardsImages) {
-            for (CarteBase carte : card) {
-                System.out.print(carte.getWord());
-                System.out.print(" ".repeat(max(15 - carte.getWord().length(), 0)));
-            }
-
-            System.out.println();
-        }
-    }
-
     public CarteBase[][] getCards() {
         return cardsImages;
     }

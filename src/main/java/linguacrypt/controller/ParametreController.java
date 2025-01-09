@@ -1,6 +1,7 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
+import linguacrypt.model.TypePartie;
 import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
@@ -26,18 +28,17 @@ public class ParametreController implements Observer {
     @FXML
     private ImageView filtre;
 
-
     @FXML
     private Pane lesthemes;
 
     @FXML
     private VBox themeBox;
 
-    private Jeu jeu;
+    @FXML
+    private CheckBox Images;
 
-    private PartieBuilder partieBuilder;
-
-    private ArrayList<String> themes;
+    @FXML
+    private CheckBox Mots;
     @FXML
     private Label labelTimer;
     private final int MIN_TIME = 30; // 30 secondes
@@ -45,6 +46,7 @@ public class ParametreController implements Observer {
     private int currentTime = -1; // -1 signifie infini
 
     @FXML
+    private Button choisirThemeButton;
     public void handleFlecheGaucheTimer() {
         if (currentTime == -1) {
             currentTime = MAX_TIME;
@@ -59,6 +61,7 @@ public class ParametreController implements Observer {
     }
 
     @FXML
+    private Button themesAleatoiresButton;
     public void handleFlecheDroiteTimer() {
         if (currentTime == -1) {
             currentTime = MIN_TIME;
@@ -72,6 +75,7 @@ public class ParametreController implements Observer {
         updateTimerLabel();
     }
 
+    private Jeu jeu;
     private void updateTimerLabel() {
         if (currentTime == -1) {
             labelTimer.setText("∞");
@@ -82,7 +86,9 @@ public class ParametreController implements Observer {
         }
     }
 
+    private PartieBuilder partieBuilder;
 
+    private ArrayList<String> themes;
 
     public ParametreController() {
     }
@@ -97,7 +103,9 @@ public class ParametreController implements Observer {
     }
 
     public void handleCartesAleatoire() {
-
+        themesAleatoiresButton.getStyleClass().add("button-selected");
+        choisirThemeButton.getStyleClass().remove("button-selected");
+        partieBuilder.resetWordsUsed();
     }
 
     @FXML
@@ -166,6 +174,8 @@ public class ParametreController implements Observer {
             themeItem.getChildren().addAll(checkBox, label);
             themeBox.getChildren().add(themeItem);
         }
+        choisirThemeButton.getStyleClass().add("button-selected");
+        themesAleatoiresButton.getStyleClass().remove("button-selected");
     }
 
     @FXML
@@ -188,17 +198,62 @@ public class ParametreController implements Observer {
     }
 
     @FXML
+    private void handleModeImage() {
+        if (Images.isSelected()) {
+            Mots.setSelected(false);
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        } else {
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void handleModeMots() {
+        if (Mots.isSelected()) {
+            Images.setSelected(false);
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        } else {
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        }
+    }
+
+    @FXML
     private void handleValiderTout() throws IOException {
-        partieBuilder.setTimer(currentTime);
-        jeu.setView("Plateau");
-        Partie partie = partieBuilder.getResult();
-        jeu.setPartie(partie);
+
+        if (Images.isSelected() && !Mots.isSelected()) {
+            partieBuilder.setTimer(currentTime);
+            partieBuilder.resetTypePartie();
+            partieBuilder.setTypePartie(TypePartie.IMAGES);
+            jeu.setView("PlateauImage");
+            Partie partie = partieBuilder.getResult();
+            jeu.setPartie(partie);
+            jeu.notifyObservers();
+        } else if(Mots.isSelected() && !Images.isSelected()) {
+            partieBuilder.setTimer(currentTime);
+            partieBuilder.resetTypePartie();
+            jeu.setView("Plateau");
+            Partie partie = partieBuilder.getResult();
+            jeu.setPartie(partie);
+            jeu.notifyObservers();
+        } else {
+            // eventuellement pop up à mettre un jour
+        }
+    }
+
+    @FXML
+    private void handleMenu(){
+        jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }
 
     @FXML
     private void handleAnnuler() {
         lesthemes.setVisible(false);
+        choisirThemeButton.getStyleClass().remove("button-selected");
     }
 
     @Override

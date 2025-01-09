@@ -4,7 +4,7 @@ import linguacrypt.utils.CardType;
 
 import java.io.Serializable;
 
-public class Carte extends CarteBase implements Serializable {
+public class Carte extends CarteBase {
     private final String word;
 
     public Carte(String word, CardType type) {
@@ -12,14 +12,7 @@ public class Carte extends CarteBase implements Serializable {
         this.word = word;
     }
 
-    @Override
     public String getWord() {
         return word;
     }
-
-    @Override
-    public String getUrl() {
-        return "Attention la carte est une carte image, elle a un url de photo et non un mot";
-    }
-
 }

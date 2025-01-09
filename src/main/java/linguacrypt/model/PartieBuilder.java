@@ -1,6 +1,7 @@
 package linguacrypt.model;
 
 import linguacrypt.config.GameConfig;
+import linguacrypt.utils.ImagesFileHandler;
 import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class PartieBuilder {
     private final Partie partie;
     private final CardsDataManager cardsDataManager;
+    private final ImagesFileHandler imagesFileHandler;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
@@ -23,6 +25,7 @@ public class PartieBuilder {
     public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
         this.cardsDataManager = jeu.getWordsFileHandler();
+        this.imagesFileHandler = jeu.getImagesFileHandler();
         CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
         partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         partie.setTimer(GameConfig.DEFAULT_TIMER);
@@ -42,7 +45,6 @@ public class PartieBuilder {
         this.partie.setTimer(timer);
         return this;
     }
-
 
     /**
      * Permet de reset le temps de chaque tour.
@@ -109,7 +111,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder setUsedThemes(ArrayList<String> themes) {
-        this.partie.setWords(cardsDataManager.getWordsByThemes(themes));
+        this.partie.setCardsAttribute(cardsDataManager.getWordsByThemes(themes));
         return this;
     }
 
@@ -120,7 +122,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder resetUsedThemes() {
-        this.partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
+        this.partie.setCardsAttribute(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         return this;
     }
 
@@ -131,7 +133,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder setWordsUsed(ArrayList<String> words) {
-        this.partie.setWords(words);
+        this.partie.setCardsAttribute(words);
         return this;
     }
 
@@ -141,14 +143,13 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder resetWordsUsed() {
-        this.partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
+        this.partie.setCardsAttribute(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         return this;
     }
 
 
-    public PartieBuilder createPlateau() {
+    public void createPlateau() {
         this.partie.newPlateau();
-        return this;
     }
 
     /**
@@ -160,6 +161,8 @@ public class PartieBuilder {
      */
     public PartieBuilder setTypePartie(TypePartie typePartie) {
         this.partie.setTypePartie(typePartie);
+        this.partie.setCardsAttribute(this.imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes()));
+
         return this;
     }
 
@@ -171,6 +174,7 @@ public class PartieBuilder {
      */
     public PartieBuilder resetTypePartie() {
         this.partie.setTypePartie(TypePartie.WORDS);
+        this.partie.setCardsAttribute(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
         return this;
     }
 

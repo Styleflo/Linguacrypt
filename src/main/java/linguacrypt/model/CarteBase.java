@@ -21,9 +21,4 @@ public abstract class CarteBase {
     public void setCovered() {
         covered = true;
     }
-
-    public abstract String getUrl();
-
-    public abstract String getWord();
-
 }
