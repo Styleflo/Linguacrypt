@@ -38,6 +38,21 @@
     -fx-translate-y: 2px;
 }
 
+.buttonnotmouve {
+
+    -fx-border: none;
+
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-display: inline-block;
+    -fx-background-radius: 18px; /* Arrondi du fond du bouton */
+    -fx-border-radius: 20px;
+    -fx-font: bold 20px "Helvetica";
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 10, 10);
+    -fx-wrap-text: true;
+    -fx-line-spacing: 7px;
+}
+
 
 .orange_button {
     -fx-background-color: orange; /* Green */

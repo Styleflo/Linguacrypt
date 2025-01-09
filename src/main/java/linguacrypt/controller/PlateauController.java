@@ -44,6 +44,8 @@ public class PlateauController implements Observer {
     @FXML
     private ImageView filtre2;
     @FXML
+    private ImageView turnQR;
+    @FXML
     private Pane confirmationOverlay;
     @FXML
     private Pane confirmationOverlayMenu;
@@ -133,6 +135,7 @@ public class PlateauController implements Observer {
 
 
     private void afficherCartes() {
+        turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
