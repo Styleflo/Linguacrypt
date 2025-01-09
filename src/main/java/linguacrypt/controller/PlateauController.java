@@ -1,11 +1,13 @@
 package linguacrypt.controller;
 
+import com.google.zxing.common.BitMatrix;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
@@ -46,6 +48,12 @@ public class PlateauController implements Observer {
     private ImageView filtre;
     @FXML
     private ImageView filtre2;
+    @FXML
+    private ImageView turnQR;
+    @FXML
+    private ImageView qrCode;
+    @FXML
+    private ImageView lingualogo;
     @FXML
     private Pane confirmationOverlay;
     @FXML
@@ -143,6 +151,9 @@ public class PlateauController implements Observer {
         confirmationOverlay.setVisible(false);
         jeu.getPartie().newPlateau();
         jeu.notifyObservers();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
     }
 
     @FXML
@@ -155,6 +166,9 @@ public class PlateauController implements Observer {
 
     @FXML
     private void confirmSavePartie() {
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         stopTimer();
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
@@ -174,6 +188,9 @@ public class PlateauController implements Observer {
     private void returnMenu() {
         stopTimer();
         confirmationOverlayMenu.setVisible(false);
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }
@@ -227,6 +244,7 @@ public class PlateauController implements Observer {
 
 
     private void afficherCartes() {
+        turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
@@ -279,7 +297,8 @@ public class PlateauController implements Observer {
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
-
+                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carte));
+                    carte.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carte));
                     gridPane.add(carte, i, j);
                 }
             }
@@ -313,6 +332,36 @@ public class PlateauController implements Observer {
         initializeTimer();
     }
 
+    private void handleMouseEnter(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())||jeu.getPartie().isWon()) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setSemiCovered(couleur, true);
+        String style;
+
+        this.updateLabel();
+    }
+
+    private void handleMouseExit(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())||jeu.getPartie().isWon()) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setSemiCovered(couleur, false);
+        String style;
+
+        this.updateLabel();
+    }
+
+
+
     private void handleCardClick(int x, int y, AnchorPane carte) {
         if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
@@ -335,7 +384,6 @@ public class PlateauController implements Observer {
                 carte.setStyle(style);
                 jeu.getPartie().getPlateau().updatePoint(CardType.RED);
                 jeu.getPartie().getPlateau().updateTurn(CardType.RED);
-                // Recouvrir la carte
                 break;
             case CardType.BLUE:
                 style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
@@ -485,6 +533,9 @@ public class PlateauController implements Observer {
             confirmationOverlay.setVisible(true);
         } else {
             confirmNouvellePartie();
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         }
     }
 
@@ -495,6 +546,9 @@ public class PlateauController implements Observer {
             confirmationOverlayMenu.setVisible(true);
         }
         else {
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
         }
@@ -548,6 +602,24 @@ public class PlateauController implements Observer {
         }
 
     }
+
+    @FXML
+    public void afficheQRcode() {
+        try {
+            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode(); // Génération du QR code
+            WritableImage qrImage = jeu.getPartie().getPlateau().getKey().bitMatrixToImage(qrcode); // Convertit le BitMatrix en WritableImage
+            qrCode.setImage(qrImage); // Affiche l'image dans l'ImageView
+            qrCode.setVisible(true); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(false);
+        } catch (Exception e) {
+            DataUtils.logException(e, "Erreur lors de la génération du QR code");
+        }
+        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche()); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
+        jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
+    }
+
+
 
     @Override
     public void reagir() {

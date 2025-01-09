@@ -46,5 +46,29 @@
                 </VBox>
             </children>
         </AnchorPane>
+        <ImageView fx:id="coveredBlue" fitHeight="128.0" fitWidth="184.0" layoutX="-9.0" layoutY="-11.0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/aled.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredBlack" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/s200_gerald.oster.jpg"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredWhite" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/clef.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredRed" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/lingua.png"/>
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

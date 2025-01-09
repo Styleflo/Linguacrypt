@@ -17,7 +17,7 @@ public abstract class PlateauBase implements Serializable {
     protected boolean isBlueTurn;
     protected int pointBlue;
     protected int pointRed;
-
+    protected boolean qrcodeaffiche;
     /**
      * Constructeur
      *
@@ -123,6 +123,7 @@ public abstract class PlateauBase implements Serializable {
             changeTurn();
         }
     }
-
+    public boolean isqrcodeaffiche(){return qrcodeaffiche;    }
+    public void setqrcodeaffiche(boolean b){qrcodeaffiche =  b;   }
     public abstract CarteBase[][] getCards();
 }
