@@ -97,6 +97,9 @@ public class PlateauController implements Observer {
     @FXML
     private void returnMenu() {
         confirmationOverlayMenu.setVisible(false);
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }
