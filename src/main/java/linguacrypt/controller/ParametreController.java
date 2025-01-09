@@ -39,6 +39,7 @@ public class ParametreController implements Observer {
 
     @FXML
     private CheckBox Mots;
+    @FXML
     private Label labelTimer;
     private final int MIN_TIME = 30; // 30 secondes
     private final int MAX_TIME = 1800; // 30 minutes
@@ -194,6 +195,30 @@ public class ParametreController implements Observer {
         }
         partieBuilder.setUsedThemes(selectedThemes);
         lesthemes.setVisible(false);
+    }
+
+    @FXML
+    private void handleModeImage() {
+        if (Images.isSelected()) {
+            Mots.setSelected(false);
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        } else {
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void handleModeMots() {
+        if (Mots.isSelected()) {
+            Images.setSelected(false);
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        } else {
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        }
     }
 
     @FXML
