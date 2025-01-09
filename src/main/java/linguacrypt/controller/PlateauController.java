@@ -545,7 +545,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        if (jeu.getPartie().getwon() != -1) {
+        if (jeu.getPartie().getwon() == 2 ) {
             confirmationOverlayMenu.setVisible(true);
         }
         else {
@@ -557,6 +557,10 @@ public class PlateauController implements Observer {
         }
     }
 
+    /**
+     * La fonction permet de sauvegarder une partie non fini q
+     * Elle lit l'etat de la partie actuelle et sauvegarde le tout en format Json
+     */
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
@@ -574,22 +578,19 @@ public class PlateauController implements Observer {
         }
     }
 
+    /**
+     * La fonction permet de load une partie non fini qui fut sauvegardé dans le passé
+     * Elle lit un fichier Json et remet à jour l'état des classes
+     */
     private void loadPartie() {
-        // Créez une instance de FileChooser pour ouvrir le fichier de sauvegarde
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Charger une partie déjà existante");
-        // Ajoutez un filtre pour ne montrer que les fichiers JSON
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers JSON", "*.json"));
-        // Ouvrir la fenêtre de sélection du fichier
         File fichier = fileChooser.showOpenDialog(new Stage());
-        // Vérifier si un fichier a été sélectionné
         if (fichier != null) {
             try {
-                // Créer un gestionnaire de fichiers pour charger la partie
                 FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
-                // Charger la partie depuis le fichier JSON
                 Partie partieload = filesavehandler.loadPartie(fichier.getAbsolutePath());
-                // Mettre à jour l'état du jeu avec la partie chargée
                 jeu.setPartie(partieload);
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
@@ -598,7 +599,6 @@ public class PlateauController implements Observer {
                         };
                     }
                 }
-                // Notifier les observateurs du changement
                 jeu.notifyObservers();
             } catch (IOException e) {
                 System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
