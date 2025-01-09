@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
+import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.CarteImage;
 import linguacrypt.model.Jeu;
@@ -186,8 +187,10 @@ public class PlateauImageController implements Observer {
                     final int currentI = i;
                     final int currentJ = j;
 
-                    CarteImage card = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
-                    AnchorPane carte = creerCarte(card.getUrl());
+                    Carte carte1 = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
+                    System.out.println(carte1.getWord());
+
+                    AnchorPane carte = creerCarte(carte1.getWord());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -210,7 +213,9 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getUrl());
+
+                    CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carte = creerCarte(carteImage.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -456,8 +461,8 @@ public class PlateauImageController implements Observer {
     @Override
     public void reagir() {
         if (jeu.getView().equals("PlateauImage")) {
-            afficherCartes();
             System.out.println("on passe là");
+            afficherCartes();
         }
     }
 }

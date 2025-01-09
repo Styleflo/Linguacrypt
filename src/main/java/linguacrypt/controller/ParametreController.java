@@ -157,7 +157,7 @@ public class ParametreController implements Observer {
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.notifyObservers();
-        } else if (Mots.isSelected()){
+        } else if(Mots.isSelected()){
             jeu.setView("Plateau");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
