@@ -25,6 +25,8 @@ public class MainController implements Observer {
 
     private StackPane plateauRoot;
 
+    private StackPane plateauImageRoot;
+
     private StackPane cartesRoot;
 
     private StackPane parametresRoot;
@@ -93,6 +95,25 @@ public class MainController implements Observer {
             AnchorPane.setBottomAnchor(plateauRoot, 0.0);
             AnchorPane.setLeftAnchor(plateauRoot, 0.0);
             AnchorPane.setRightAnchor(plateauRoot, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPlateauImage() {
+        // Charger le fichier FXML du menu et obtenir le contrôleur Plateau
+        try {
+            FXMLLoader plateauImageLoader = new FXMLLoader(getClass().getResource("/view/plateauImage.fxml"));
+            plateauImageRoot = plateauImageLoader.load();
+            PlateauImageController plateauImage = plateauImageLoader.getController();
+            plateauImage.setJeu(jeu);
+            jeu.addObserver(plateauImage);
+
+            AnchorPane.setTopAnchor(plateauImageRoot, 0.0);
+            AnchorPane.setBottomAnchor(plateauImageRoot, 0.0);
+            AnchorPane.setLeftAnchor(plateauImageRoot, 0.0);
+            AnchorPane.setRightAnchor(plateauImageRoot, 0.0);
 
         } catch (IOException e) {
             e.printStackTrace();

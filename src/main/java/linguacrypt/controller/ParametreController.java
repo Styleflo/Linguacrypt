@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
+import linguacrypt.model.TypePartie;
 import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
@@ -26,12 +27,17 @@ public class ParametreController implements Observer {
     @FXML
     private ImageView filtre;
 
-
     @FXML
     private Pane lesthemes;
 
     @FXML
     private VBox themeBox;
+
+    @FXML
+    private CheckBox Images;
+
+    @FXML
+    private CheckBox Mots;
 
     private Jeu jeu;
 
@@ -144,11 +150,28 @@ public class ParametreController implements Observer {
 
     @FXML
     private void handleValiderTout() throws IOException {
-        jeu.setView("Plateau");
-        Partie partie = partieBuilder.getResult();
-        jeu.setPartie(partie);
+
+        if (Images.isSelected()) {
+            partieBuilder.setTypePartie(TypePartie.IMAGES);
+            jeu.setView("PlateauImages");
+            Partie partie = partieBuilder.getResult();
+            jeu.setPartie(partie);
+            jeu.notifyObservers();
+        } else {
+            jeu.setView("Plateau");
+            Partie partie = partieBuilder.getResult();
+            jeu.setPartie(partie);
+            jeu.notifyObservers();
+        }
+    }
+
+    @FXML
+    private void handleMenu(){
+        jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }
+
+
 
     @FXML
     private void handleAnnuler() {

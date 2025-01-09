@@ -14,6 +14,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.control.CheckBox?>
+
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.ParametreController">
    <children>
       <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
@@ -110,6 +112,18 @@
                         <String fx:value="green_button" />
                      </styleClass>
                   </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="29.0" layoutY="609.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="39.0" prefWidth="89.0" text="Menu" textAlignment="CENTER" textFill="WHITE" >
+                     <styleClass>
+                        <String fx:value="button1" />
+                        <String fx:value="close_button" />
+                     </styleClass>
+                  </Button>
+                  <Pane layoutX="33.0" layoutY="18.0" prefHeight="100.0" prefWidth="785.0" styleClass="darkdark_petit_panneau" stylesheets="@../css/parametre.css">
+                     <children>
+                        <CheckBox fx:id="Images" layoutX="119.0" layoutY="35.0" mnemonicParsing="false" text="Mode Image" textFill="WHITE" />
+                        <CheckBox fx:id="Mots" layoutX="527.0" layoutY="35.0" mnemonicParsing="false" text="Mode Mots" textFill="WHITE" />
+                     </children>
+                  </Pane>
                   <ImageView fitHeight="684.0" fitWidth="850.0" layoutX="1.0" layoutY="-4.0" opacity="0.12" pickOnBounds="true" fx:id="filtre">
                      <image>
                         <Image url="@../assets/filtre.png" />
@@ -144,3 +158,4 @@
       </children>
    </Pane>
 </StackPane>
+
