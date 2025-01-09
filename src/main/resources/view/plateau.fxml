@@ -15,35 +15,8 @@
                 <AnchorPane fx:id="panneau_changer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                             minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css">
                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
-                                layoutY="653.0" mnemonicParsing="false" onAction="#handleNouvellePartie"
-                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie"
-                                textAlignment="CENTER" textFill="WHITE">
-                            <styleClass>
-                                <String fx:value="button1"/>
-                                <String fx:value="red_button"/>
-                            </styleClass>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
-                                layoutY="742.0" mnemonicParsing="false" onAction="#handleMenuPrincipal"
-                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal"
-                                textAlignment="CENTER" textFill="WHITE">
-                            <styleClass>
-                                <String fx:value="button1"/>
-                                <String fx:value="orange_button"/>
-                            </styleClass>
-                        </Button>
                         <FlowPane prefHeight="200.0" prefWidth="200.0"/>
-                        <HBox fx:id="timerContainer" styleClass="timer-container">
-                            <VBox styleClass="blue-timer">
-                                <Label fx:id="blueTimer" text="00:00" styleClass="timer-text"/>
-                            </VBox>
-                            <VBox styleClass="red-timer">
-                                <Label fx:id="redTimer" text="00:00" styleClass="timer-text"/>
-                            </VBox>
-                        </HBox>
-
-        <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
+                        <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
                                     styleClass="dark_petit_panneau">
                             <children>
                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="14.0"
@@ -63,6 +36,18 @@
                                 </AnchorPane>
                             </children>
                         </AnchorPane>
+
+                        <!-- Chronometers below found cards -->
+                        <HBox fx:id="timerContainer" layoutX="28.0" layoutY="503.0" spacing="20.0" alignment="CENTER"
+                              styleClass="timer-container">
+                            <VBox styleClass="blue-timer">
+                                <Label fx:id="blueTimer" text="00:00" styleClass="timer-text"/>
+                            </VBox>
+                            <VBox styleClass="red-timer">
+                                <Label fx:id="redTimer" text="00:00" styleClass="timer-text"/>
+                            </VBox>
+                        </HBox>
+
                         <Pane fx:id="panneau_changer2" layoutX="29.0" layoutY="26.0" prefHeight="317.0"
                               prefWidth="342.0">
                             <styleClass>
@@ -81,6 +66,15 @@
                                 </ImageView>
                             </children>
                         </Pane>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
+                                layoutY="653.0" mnemonicParsing="false" onAction="#handleNouvellePartie"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie"
+                                textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1"/>
+                                <String fx:value="red_button"/>
+                            </styleClass>
+                        </Button>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="232.0"
                                 layoutY="653.0" mnemonicParsing="false" onAction="#handleTourSuivant" prefHeight="160.0"
                                 prefWidth="138.0" stylesheets="@../css/gui.css" text="Tour suivant"
@@ -88,6 +82,15 @@
                             <styleClass>
                                 <String fx:value="button1"/>
                                 <String fx:value="purple_button"/>
+                            </styleClass>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
+                                layoutY="742.0" mnemonicParsing="false" onAction="#handleMenuPrincipal"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal"
+                                textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1"/>
+                                <String fx:value="orange_button"/>
                             </styleClass>
                         </Button>
                         <ImageView fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.07"
@@ -152,7 +155,9 @@
                     </children>
                 </StackPane>
 
-            </items>
+
+
+        </items>
         </SplitPane>
 
         <Pane fx:id="confirmationOverlay" visible="false" styleClass="confirmationOverlay">
@@ -215,7 +220,8 @@
 
         <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
         </Pane>
-
+        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
+        </Pane>
 
         <Pane fx:id="popupWin" visible="false" styleClass="confirmationOverlay">
             <children>

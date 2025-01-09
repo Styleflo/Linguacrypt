@@ -52,6 +52,9 @@ public class ParametreController implements Observer {
             // Réduit de 30 secondes
             currentTime = Math.max(MIN_TIME, currentTime - 30);
         }
+        else {
+            currentTime = -1;
+        }
         updateTimerLabel();
     }
 
@@ -62,6 +65,9 @@ public class ParametreController implements Observer {
         } else if (currentTime < MAX_TIME) {
             // Augmente de 30 secondes
             currentTime = Math.min(MAX_TIME, currentTime + 30);
+        }
+        else {
+            currentTime = -1;
         }
         updateTimerLabel();
     }
