@@ -239,7 +239,6 @@ public class PlateauController implements Observer {
                 carte.setStyle(style);
                 jeu.getPartie().getPlateau().updatePoint(CardType.RED);
                 jeu.getPartie().getPlateau().updateTurn(CardType.RED);
-                // Recouvrir la carte
                 break;
             case CardType.BLUE:
                 style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";

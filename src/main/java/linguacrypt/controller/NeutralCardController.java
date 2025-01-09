@@ -22,6 +22,18 @@ public class NeutralCardController {
     @FXML
     private ImageView coveredBlack;
 
+    @FXML
+    private ImageView coveredsemiBlue;
+
+    @FXML
+    private ImageView coveredsemiRed;
+
+    @FXML
+    private ImageView coveredsemiWhite;
+
+    @FXML
+    private ImageView coveredsemiBlack;
+
     public void setMot(String mot) {
         labelMot.setText(mot);
     }
@@ -43,6 +55,27 @@ public class NeutralCardController {
                 break;
             case CardType.WHITE:
                 coveredBlack.setVisible(recouvert);
+                break;
+        }
+    }
+
+    public void setSemiCovered(CardType color, boolean semicovered) {
+        switch (color) {
+            case CardType.BLUE:
+                coveredBlue.setVisible(!semicovered);
+                coveredsemiBlue.setVisible(semicovered);
+                break;
+            case CardType.RED:
+                coveredRed.setVisible(!semicovered);
+                coveredsemiRed.setVisible(semicovered);
+                break;
+            case CardType.WHITE:
+                coveredWhite.setVisible(!semicovered);
+                coveredsemiWhite.setVisible(semicovered);
+                break;
+            case CardType.BLACK:
+                coveredBlack.setVisible(!semicovered);
+                coveredsemiBlack.setVisible(semicovered);
                 break;
         }
     }
