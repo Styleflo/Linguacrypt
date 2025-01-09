@@ -67,7 +67,7 @@
         <ImageView fx:id="coveredRed" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
                    pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/lingua.png"/>
+                <Image url="@../assets/Carte_rouge.png"/>
             </image>
         </ImageView>
         <!-- images semi covered-->
