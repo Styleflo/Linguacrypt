@@ -42,7 +42,7 @@
                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="8.0"
                                        prefHeight="24.0" prefWidth="288.0" styleClass="text" text="Temps de jeu"
                                        textFill="WHITE"/>
-                                <HBox layoutX="21.0" layoutY="55.0" spacing="10.0" alignment="CENTER" prefWidth="300.0">
+                                <HBox fx:id="timerContainer" styleClass="timer-container" layoutX="21.0" layoutY="55.0" spacing="10.0" alignment="CENTER" prefWidth="300.0">
                                     <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="blue_petit_panneau">
                                         <children>
                                             <Label fx:id="blueTimer" layoutX="0.0" layoutY="0.0"

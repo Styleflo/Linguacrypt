@@ -66,7 +66,7 @@ public class PlateauController implements Observer {
     @FXML
     private Label redTimer;
     @FXML
-    private HBox timerContainer; // Remplace le bouton Tour
+    private HBox timerContainer;
 
     private Timeline timeline;
     private int blueTimeLeft;
