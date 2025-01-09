@@ -58,7 +58,7 @@ public class NeutralCardController {
         } else {
             fontSize = 10.0;
         }
-        labelMot.setFont(new Font(fontSize));
 
+        labelMot.setFont(new Font(fontSize));
     }
 }

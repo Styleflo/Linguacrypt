@@ -155,6 +155,7 @@ public class Clef {
         JSONObject json = new JSONObject();
         json.put("width", this.width);
         json.put("height", this.height);
+        json.put("blue_starts", this.blueStarts);
 
         JSONArray gridArray = new JSONArray();
         for (int i = 0; i < height; i++) {
