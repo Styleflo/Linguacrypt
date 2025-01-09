@@ -23,11 +23,7 @@ public class ImageCardController {
             try {
                 Image image = new Image(url, false); // true pour le chargement en arrière-plan
                 cardImage.setImage(image);
-
-                cardImage.setPreserveRatio(true); // Conserve les proportions de l'image
-                cardImage.setFitWidth(cardImage.getBoundsInParent().getWidth()); // Ajuste à la largeur du conteneur
-                cardImage.setFitHeight(cardImage.getBoundsInParent().getHeight()); // Ajuste à la hauteur du conteneur
-                cardImage.setSmooth(true);
+                cardImage.setPreserveRatio(true);
 
                 currentUrl = url;
             } catch (Exception e) {
