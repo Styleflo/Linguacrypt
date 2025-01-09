@@ -123,11 +123,13 @@ public class PlateauController implements Observer {
             stopTimer();
             jeu.getPartie().setRedWon();
             revealCard();
+            labelEquipe.setText("Victoire des rouges !");
             showWinnerPopup("Rouge");
         } else if (redTimeLeft <= 0) {
             stopTimer();
             jeu.getPartie().setBlueWon();
             revealCard();
+            labelEquipe.setText("Victoire des bleus !");
             showWinnerPopup("Bleue");
         }
     }
@@ -363,7 +365,6 @@ public class PlateauController implements Observer {
         NeutralCardController controller = (NeutralCardController) carte.getUserData();
         DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
         controller.setSemiCovered(couleur, false);
-        String style;
 
         this.updateLabel();
     }
@@ -417,16 +418,18 @@ public class PlateauController implements Observer {
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
+            labelEquipe.setText("Victoire des bleus !");
             revealCard();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
+            labelEquipe.setText("Victoire des rouges !");
             revealCard();
             showWinnerPopup("Rouge");
         }
+
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
-        this.updateLabel();
     }
 
     private void revealCard() {
@@ -452,19 +455,20 @@ public class PlateauController implements Observer {
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
         if (winningTeam.equals("Rouge")) {
-            whoWon.setText("L'équipe Rouge a gagné !");
+            whoWon.setText("L'équipe rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
             colorButton.getStyleClass().add("red_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-red");
         } else {
-            whoWon.setText("L'équipe Bleue a gagné !");
+            whoWon.setText("L'équipe bleue a gagné !");
             whoWon.setStyle("-fx-text-fill: #3399FF;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
             colorButton.getStyleClass().add("blue_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-blue");
+
         }
         popupWin.setVisible(true);
     }
@@ -498,7 +502,6 @@ public class PlateauController implements Observer {
     }
 
     public void updateLabel() {
-        // todo : mettre qui gagne en cas de victoire
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv
@@ -509,7 +512,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Bleu");
+            labelEquipe.setText("C'est au tour des bleus");
         } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
@@ -520,7 +523,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.RED_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Rouge");
+            labelEquipe.setText("C'est au tour des rouges");
         }
 
 
