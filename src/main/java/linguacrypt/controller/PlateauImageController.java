@@ -184,7 +184,7 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
