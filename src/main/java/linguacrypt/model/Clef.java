@@ -160,9 +160,9 @@ public class Clef {
         json.put("blue_starts", this.blueStarts);
 
         JSONArray gridArray = new JSONArray();
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < width; i++) {
             JSONArray rowArray = new JSONArray();
-            for (int j = 0; j < width; j++) {
+            for (int j = 0; j < height; j++) {
                 rowArray.put(grid[j][i].name());
             }
             gridArray.put(rowArray);
