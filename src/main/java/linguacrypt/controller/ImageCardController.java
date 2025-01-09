@@ -26,21 +26,11 @@ public class ImageCardController {
                 currentUrl = url;
             } catch (Exception e) {
                 System.err.println("Erreur lors du chargement de l'image: " + e.getMessage());
-                setPlaceholderImage();
             }
         }
     }
 
-    private void setPlaceholderImage() {
-        try {
-            Image placeholder = new Image(getClass().getResourceAsStream("/assets/placeholder.png"));
-            cardImage.setImage(placeholder);
-        } catch (Exception e) {
-            System.err.println("Impossible de charger l'image par défaut: " + e.getMessage());
-        }
-    }
-
-    public void setRecouvert(CardType type, boolean recouvert) {
+   public void setRecouvert(CardType type, boolean recouvert) {
         if (coveredImage != null) {
             String coverImageUrl = switch (type) {
                 case RED -> "/assets/red_cover.png";

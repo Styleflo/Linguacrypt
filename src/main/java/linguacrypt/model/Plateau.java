@@ -45,7 +45,8 @@ public class Plateau extends PlateauBase implements Serializable {
 
     public void prettyPrint() {
         for (CarteBase[] card : cards) {
-            for (CarteBase carte : card) {
+            for (CarteBase c : card) {
+                Carte carte = (Carte) c;
                 System.out.print(carte.getWord());
                 System.out.print(" ".repeat(max(15 - carte.getWord().length(), 0)));
             }

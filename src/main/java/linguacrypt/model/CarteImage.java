@@ -11,14 +11,7 @@ public class CarteImage extends CarteBase {
         this.url = url;
     }
 
-    @Override
     public String getUrl() {
         return url;
     }
-
-    @Override
-    public String getWord() {
-        return "Attention la carte est une carte image, elle a un url de phot et non un mot";
-    }
-
 }
