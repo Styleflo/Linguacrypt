@@ -479,6 +479,12 @@ public class PlateauController implements Observer {
 
     }
 
+    @FXML
+    public void afficheQRcode() {
+        System.out.println("QR Code affiché !");
+        // Logique pour afficher le QR code
+    }
+
     @Override
     public void reagir() {
         if (jeu.getView().equals("Plateau")) {
