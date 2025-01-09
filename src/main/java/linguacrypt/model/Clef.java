@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -76,6 +78,17 @@ public class Clef {
         } catch (Exception e) {
             DataUtils.logException(e, "Erreur lors de la génération du QR code");
         }
+    }
+
+    @JsonCreator
+    public Clef(@JsonProperty ("redStarting") boolean redStarts, @JsonProperty("blueStarting") boolean blueStarts, @JsonProperty ("grid") CardType[][] grid,
+                @JsonProperty ("cardsCounts") int[] cardsCounts, @JsonProperty("width") int width,
+                @JsonProperty ("height") int height) {
+        this.blueStarts = blueStarts;
+        this.grid = grid;
+        this.cardsCounts = cardsCounts;
+        this.width = width;
+        this.height = height;
     }
 
     public Clef(int[] size) {

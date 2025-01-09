@@ -8,12 +8,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
 import linguacrypt.model.TypePartie;
 import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -239,6 +243,36 @@ public class ParametreController implements Observer {
     private void handleMenu() {
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
+    }
+
+    @FXML
+    /**
+     * La fonction permet de load une partie non fini qui fut sauvegardé dans le passé
+     * Elle lit un fichier Json et remet à jour l'état des classes
+     */
+    private void loadPartie() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger une partie déjà existante");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers JSON", "*.json"));
+        File fichier = fileChooser.showOpenDialog(new Stage());
+        if (fichier != null) {
+            try {
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                Partie partieload = filesavehandler.loadPartie(fichier.getAbsolutePath());
+                jeu.setPartie(partieload);
+                if (partieload.getTypePartie() == TypePartie.IMAGES) {
+                    jeu.setView("PlateauImage");
+                }
+                else {
+                    jeu.setView("Plateau");
+                }
+                jeu.notifyObservers();
+            } catch (IOException e) {
+                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
+            }
+        } else {
+            System.out.println("Aucun fichier sélectionné.");
+        }
     }
 
     @FXML
