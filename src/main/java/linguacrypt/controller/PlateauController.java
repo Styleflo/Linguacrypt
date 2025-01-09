@@ -149,11 +149,12 @@ public class PlateauController implements Observer {
     private void confirmNouvellePartie() {
         stopTimer();
         confirmationOverlay.setVisible(false);
-        jeu.getPartie().newPlateau();
-        jeu.notifyObservers();
         qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
         lingualogo.setVisible(true);
         jeu.getPartie().getPlateau().setqrcodeaffiche(false);
+        jeu.getPartie().newPlateau();
+        jeu.notifyObservers();
+
     }
 
     @FXML
@@ -187,10 +188,10 @@ public class PlateauController implements Observer {
     @FXML
     private void returnMenu() {
         stopTimer();
-        confirmationOverlayMenu.setVisible(false);
         qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
         lingualogo.setVisible(true);
         jeu.getPartie().getPlateau().setqrcodeaffiche(false);
+        confirmationOverlayMenu.setVisible(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }
