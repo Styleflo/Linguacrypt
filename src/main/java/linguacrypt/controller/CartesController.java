@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.ImagesFileHandler;
 import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.WordsFileHandler;
 
@@ -36,6 +37,8 @@ public class CartesController implements Observer {
     private int currentThemeIndex;
     private ArrayList<String> themes;
 
+    private List<String> currentImages;
+
     public CartesController() {
         currentMots = new ArrayList<>();
         themes = new ArrayList<>();
@@ -51,6 +54,11 @@ public class CartesController implements Observer {
         currentThemeIndex = 0;
         updateCurrentThemeLabel();
         currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
+
+        ImagesFileHandler imagesFileHandler = jeu.getImagesFileHandler();
+
+        currentImages = imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes());
+
     }
 
     private void updateCurrentThemeLabel() {
@@ -87,6 +95,39 @@ public class CartesController implements Observer {
             }
         }
     }
+
+
+    private void afficherCartesImages() {
+        DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
+        filtre.setMouseTransparent(true);
+        gridPane.getChildren().clear();
+        gridPane.setHgap(GameConfig.CARTES_THEMES_HGAP);
+        gridPane.setVgap(GameConfig.CARTES_THEMES_VGAP);
+        gridPane.setPadding(new Insets(GameConfig.CARTES_THEMES_PADDING));
+
+        int row = 0;
+        int col = 0;
+        int maxCols = 5;
+
+        for (int i = 0; i < currentMots.size(); i++) {
+            AnchorPane carte = creerCarte(currentMots.get(i));
+
+            assert carte != null;
+            //create_transition(carte);
+            int finalI = i;
+            carte.setOnMouseClicked(event -> handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY()));
+
+            gridPane.add(carte, col, row);
+
+            col++;
+            if (col >= maxCols) {
+                col = 0;
+                row++;
+            }
+        }
+    }
+
+
 
     private Alert showAlert(AlertType alertType, String title, String header, String content) {
         Alert alert = new Alert(alertType);
@@ -151,6 +192,24 @@ public class CartesController implements Observer {
             return null;
         }
     }
+
+
+
+    private AnchorPane creerCarteImage(String url) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
+            AnchorPane card = loader.load();
+            ImageCardController controller = loader.getController();
+            card.setUserData(controller);
+            controller.setMyImage(url);
+            return card;
+        } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors de la création d'une carte image");
+            return null;
+        }
+    }
+
+
 
     public void create_transition(AnchorPane carte) {
         TranslateTransition transition = new TranslateTransition();
