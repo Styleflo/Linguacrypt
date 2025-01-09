@@ -13,6 +13,11 @@ public class CarteImage extends CarteBase {
         this.url = url;
     }
 
+    public CarteImage(String url, CardType type, boolean covered) {
+        super(type, covered);
+        this.url = url;
+    }
+
     @JsonCreator
     public CarteImage(@JsonProperty("type") CardType type, @JsonProperty ("covered") boolean covered,
                       @JsonProperty ("url") String url) {

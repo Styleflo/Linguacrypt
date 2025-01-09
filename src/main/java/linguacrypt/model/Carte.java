@@ -14,6 +14,11 @@ public class Carte extends CarteBase {
         this.word = word;
     }
 
+    public Carte(String word, CardType type, boolean covered) {
+        super(type, covered);
+        this.word = word;
+    }
+
     @JsonCreator
     public Carte(@JsonProperty("type") CardType type, @JsonProperty ("covered") boolean covered,
                  @JsonProperty ("word") String word) {

@@ -303,6 +303,7 @@ public class PlateauController implements Observer {
                     carte.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carte));
                     carte.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carte));
                     gridPane.add(carte, i, j);
+                    handleMouseEnter(i, j, carte);
                 }
             }
         } else {
@@ -590,6 +591,13 @@ public class PlateauController implements Observer {
                 Partie partieload = filesavehandler.loadPartie(fichier.getAbsolutePath());
                 // Mettre à jour l'état du jeu avec la partie chargée
                 jeu.setPartie(partieload);
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (jeu.getPartie().getPlateau().getCard(i,j).isCovered()) {
+                            System.out.println("Une carte est couverte !");
+                        };
+                    }
+                }
                 // Notifier les observateurs du changement
                 jeu.notifyObservers();
             } catch (IOException e) {

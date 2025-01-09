@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.CarteImage;
-
 import java.io.IOException;
 
 public class CarteDeserializer extends JsonDeserializer<CarteBase> {
@@ -23,10 +22,10 @@ public class CarteDeserializer extends JsonDeserializer<CarteBase> {
         // Vérifier si c'est une Carte ou une CarteImage en fonction des champs
         if (node.has("word")) {
             String word = node.get("word").asText();
-            return new Carte(word, type); // Carte a un champ "word"
+            return new Carte(word, type, covered); // Carte a un champ "word"
         } else if (node.has("url")) {
             String url = node.get("url").asText();
-            return new CarteImage(url, type); // CarteImage a un champ "url"
+            return new CarteImage(url, type, covered); // CarteImage a un champ "url"
         } else {
             throw new IOException("Invalid JSON: Missing 'word' or 'url' field");
         }
