@@ -15,9 +15,6 @@
             <image>
                 <Image url="@../assets/fond_test_1.gif"/>
             </image>
-            <effect>
-                <GaussianBlur radius="31.75"/>
-            </effect>
         </ImageView>
         <Pane>
             <children>

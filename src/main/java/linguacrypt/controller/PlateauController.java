@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -181,12 +182,13 @@ public class PlateauController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+                    Carte carte = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carteAnchor = creerCarte(carte.getWord());
 
-                    assert carte != null;
-                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
+                    carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
 
-                    gridPane.add(carte, i, j);
+                    gridPane.add(carteAnchor, i, j);
                 }
             }
         } else {
@@ -204,12 +206,13 @@ public class PlateauController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+                    Carte carte = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carteAnchor = creerPetiteCarte(carte.getWord());
 
-                    assert carte != null;
-                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
+                    carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
 
-                    gridPane.add(carte, i, j);
+                    gridPane.add(carteAnchor, i, j);
                 }
             }
 
@@ -281,7 +284,8 @@ public class PlateauController implements Observer {
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
-            for (CarteBase card : row) {
+            for (CarteBase c : row) {
+                Carte card = (Carte) c;
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {
                     card.setCovered();

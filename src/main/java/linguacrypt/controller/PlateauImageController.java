@@ -103,7 +103,7 @@ public class PlateauImageController implements Observer {
         popupWin.setVisible(false);
     }
 
-    public void PlateauControlleur() {
+    public void PlateauImageControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
     }
 
@@ -184,7 +184,8 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getUrl());
+                    CarteImage card = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carte = creerCarte(card.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -288,7 +289,8 @@ public class PlateauImageController implements Observer {
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
-            for (CarteBase card : row) {
+            for (CarteBase c : row) {
+                CarteImage card = (CarteImage) c;
                 AnchorPane carteVisu = findAnchorCard(card.getUrl());  // Modifié pour utiliser getUrl()
                 if (carteVisu != null) {
                     card.setCovered();
@@ -325,6 +327,7 @@ public class PlateauImageController implements Observer {
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
+            System.out.println(url);
             controller.setMyImage(url);
             return card;
         } catch (IOException e) {
