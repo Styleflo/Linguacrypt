@@ -22,6 +22,24 @@ public class Partie implements Serializable {
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;
+    private int blueTimeLeft;
+    private int redTimeLeft;
+
+    public int getBlueTimeLeft() {
+        return blueTimeLeft;
+    }
+
+    public void setBlueTimeLeft(int blueTimeLeft) {
+        this.blueTimeLeft = blueTimeLeft;
+    }
+
+    public int getRedTimeLeft() {
+        return redTimeLeft;
+    }
+
+    public void setRedTimeLeft(int redTimeLeft) {
+        this.redTimeLeft = redTimeLeft;
+    }
 
     /**
      * Charge une partie à partir d'un fichier.
