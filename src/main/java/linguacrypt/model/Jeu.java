@@ -2,8 +2,9 @@ package linguacrypt.model;
 
 import linguacrypt.config.GameConfig;
 import linguacrypt.controller.Observer;
+import linguacrypt.utils.CardsDataManager;
 import linguacrypt.utils.DataUtils;
-import linguacrypt.utils.WordsFileHandler;
+import linguacrypt.utils.ImagesFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
  */
 public class Jeu {
     private final ArrayList<Observer> observers = new ArrayList<>();
-    private final WordsFileHandler wordsFileHandler;
+    private final CardsDataManager cardsDataManager;
+    private final ImagesFileHandler imagesFileHandler;
     private Partie partie;
     private String currentView;
     private int victoireBleue;
@@ -40,7 +42,8 @@ public class Jeu {
     public Jeu() throws IOException {
         // Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "MenuInitial";
-        wordsFileHandler = new WordsFileHandler(GameConfig.CARDS_FILE);
+        cardsDataManager = new CardsDataManager(GameConfig.CARDS_FILE);
+        imagesFileHandler = new ImagesFileHandler(GameConfig.CARDS_IMAGES_FILE);
         victoireBleue = 0;
         victoireRouge = 0;
     }
@@ -52,6 +55,15 @@ public class Jeu {
      */
     public ArrayList<Observer> getObservers() {
         return this.observers;
+    }
+
+    /**
+     * Permet de recuperer le FileHandler pour les images
+     *
+     * @return ImagesFileHandler
+     */
+    public ImagesFileHandler getImagesFileHandler() {
+        return this.imagesFileHandler;
     }
 
     /**
@@ -125,7 +137,7 @@ public class Jeu {
      * Une equipe a alors gagné.
      */
 
-    public WordsFileHandler getWordsFileHandler() {
-        return wordsFileHandler;
+    public CardsDataManager getWordsFileHandler() {
+        return cardsDataManager;
     }
 }

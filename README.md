@@ -2,14 +2,14 @@
 **TELECOM Nancy - 06/01 au 10/01**
 
 
-Les instructions sur l'organisation et les attendus de la semaine se trouve dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
+Les instructions sur l'organisation et les attendus de la semaine se trouvent dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
 
 
 Compte Rendu Jour 1 : 
 
 - Avancés sur la construction des Classes Jeu, Plateau, Cartes qui construisent la logique du jeu. 
 
-- Avancés sur les différentes vue utilisateur, l'utilisateur peut : 
+- Avancés sur les différentes vues utilisateur, l'utilisateur peut : 
 
         - Ouvrir l'application, il arrive sur un Menu avec le nom du jeu.
         - Du Menu, il peut choisir de cliquer sur 2 boutons : Cartes et Jouer. 
@@ -17,6 +17,7 @@ Compte Rendu Jour 1 :
         - S'il appuie sur Jouer, il visualise sur un plateau de 5*5 cartes.
 
 - Avancés sur la carte clef : 
+
         - un QRcode est formé dans Ressources/assets, les espions peuvent, en le scannant, obtenir la répartition des agents
 
 
@@ -43,16 +44,29 @@ Compte Rendu Jour 3 :
 
 - Avancés sur l'obtention de la clef indice : une application Android permettant de lire le QR code et de montrer une image de la solution a été implémentée. 
 
-- Les vus utilisateurs, on été améliorée du point de vue design. 
+- Les vues utilisateur, ont été améliorées du point de vue design. 
 
-- Avancée sur les vues utilisateur : 
+- Avancée sur les vues utilisateur, l'utilisateur peut : 
+
         - Ouvrir l'application, il arrive sur un Menu avec le nom du jeu.
         - Du Menu, il peut choisir de cliquer sur 3 boutons : Cartes, Jouer et Quitter. 
         - S'il appuie sur Cartes, il arrive sur une page. 
         - S'il appuie sur Jouer, il arrive sur une page de paramètres ou il peut choisir les paramètres de sa partie avant de jouer : choisir le nombre de colonnes, de lignes, de prendre des thèmes aléatoires ou de choisir son thème. 
         - Quand il est sur le plateau de jeu, il peut couvrir les cartes en cliquant dessus. (Pour l'instant, les images pout couvrir les cartes sont aléatoires.)
 
+
+Compte Rendu Jour 4 : 
+
+- Amélioration des designs.
+
+- Travail sur l'enregistrement et l'ouverture de parties archivées. 
+
+- Avancée sur les vues utilisateur, l'utilisateur peut : 
+
+        - L'utilisateur peut désormais choisir de jouer avec des images. 
+        - Il peut également voir la collection de toutes les cartes images. 
         
+
 
 
 

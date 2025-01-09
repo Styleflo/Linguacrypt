@@ -222,6 +222,21 @@
     -fx-background-radius: 10;
 }
 
+
+.image-button {
+    -fx-background-image: url("../assets/imagemontagne.png");
+    -fx-background-size: 45 45;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.image-button2 {
+    -fx-background-image: url("../assets/carnet.png");
+    -fx-background-size: 40 40;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 .win-box-white {
     -fx-background-color: #2b2b2b;
     -fx-border-color: white;
