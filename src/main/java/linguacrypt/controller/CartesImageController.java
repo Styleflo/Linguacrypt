@@ -22,21 +22,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Math.min;
+
 public class CartesImageController implements Observer {
     private Jeu jeu;
 
     @FXML
     private GridPane gridPane;
+
     @FXML
     private Label themeLabel;
+
     @FXML
     private ImageView filtre;
+
+    @FXML
+    private int currentpage;
 
 
     private List<String> currentImages;
 
     public CartesImageController() {
         currentImages = new ArrayList<>();
+        currentpage = 1;
     }
 
     public void setJeu(Jeu jeu) {
@@ -66,7 +74,9 @@ public class CartesImageController implements Observer {
         int col = 0;
         int maxCols = 5;
 
-        for (int i = 0; i < 50; i++) {
+        int ind_fin = min(50*(currentpage), currentImages.size());
+
+        for (int i = 50*(currentpage-1); i < ind_fin; i++) {
             AnchorPane carte = creerCarteImage(currentImages.get(i));
 
             assert carte != null;
@@ -149,18 +159,26 @@ public class CartesImageController implements Observer {
         jeu.notifyObservers();
     }
 
-    private void setCurrentThemeIndex() {
-
+    private void setCurrentPage() {
+        themeLabel.setText("Page " + currentpage);
     }
 
     @FXML
     public void nextCategory() {
-
+        if (currentpage <6) {
+            currentpage++;
+            setCurrentPage();
+            afficherCartesImages();
+        }
     }
 
     @FXML
     public void previousCategory() {
-
+        if (currentpage > 1) {
+            currentpage--;
+            setCurrentPage();
+            afficherCartesImages();
+        }
     }
 
     @FXML

@@ -64,13 +64,13 @@
                             <String fx:value="red_button" />
                         </styleClass>
                     </Button>
-                    <Button layoutX="854.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
+                    <Button layoutX="847.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="red_button" />
                         </styleClass>
                     </Button>
-                    <Button layoutX="141.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="282.0" text="Menu Principal">
+                    <Button layoutX="218.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="270.0" text="Menu Principal">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="w" />
@@ -79,16 +79,16 @@
                     </Button>
                     <Pane layoutX="304.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0" styleClass="red_petit_panneau">
                         <children>
-                            <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle" textFill="WHITE" />
+                            <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Page 1" textFill="WHITE" />
                         </children>
                     </Pane>
-                    <Button layoutX="441.0" layoutY="708.0" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
+                    <Button layoutX="644.0" layoutY="708.0" prefHeight="66.0" prefWidth="270.0" text="Ajouter une carte" AnchorPane.rightAnchor="242.0" onAction="#addNewImage">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="purple_button" />
                         </styleClass>
                     </Button>
-                    <ImageView fx:id="filtre" fitHeight="790.0" fitWidth="1142.0" layoutY="3.0" opacity="0.21" pickOnBounds="true">
+                    <ImageView fx:id="filtre" fitHeight="801.0" fitWidth="1156.0" layoutX="-8.0" layoutY="6.0" opacity="0.21" pickOnBounds="true">
                         <image>
                             <Image url="@../assets/filtre.png" />
                         </image>
