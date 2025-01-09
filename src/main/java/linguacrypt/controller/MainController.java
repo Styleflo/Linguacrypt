@@ -116,7 +116,7 @@ public class MainController implements Observer {
             AnchorPane.setRightAnchor(plateauImageRoot, 0.0);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            DataUtils.logException(e, "Erreur lors du chargement du plateau dans setPlateauImage()");
         }
     }
 
