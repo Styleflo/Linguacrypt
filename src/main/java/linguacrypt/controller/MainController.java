@@ -86,7 +86,7 @@ public class MainController implements Observer {
         // Charger le fichier FXML du menu et obtenir le contrôleur Cartes
         try {
             FXMLLoader cartesImageLoader = new FXMLLoader(getClass().getResource("/view/cartesImage.fxml"));
-            cartesImageRoot  = cartesImageLoader.load();
+            cartesImageRoot = cartesImageLoader.load();
             CartesImageController cartesImage = cartesImageLoader.getController();
             cartesImage.setJeu(jeu);
             jeu.addObserver(cartesImage);

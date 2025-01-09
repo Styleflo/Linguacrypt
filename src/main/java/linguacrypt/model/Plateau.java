@@ -1,6 +1,5 @@
 package linguacrypt.model;
 
-import linguacrypt.config.GameConfig;
 import linguacrypt.utils.CardType;
 
 import java.io.Serializable;
@@ -30,13 +29,13 @@ public class Plateau extends PlateauBase implements Serializable {
                 if (typePartie == TypePartie.WORDS) {
                     Carte card = new Carte(word, type);
                     cards[i][j] = card;
-                }
-                else {
+                } else {
                     CarteImage cardImage = new CarteImage(word, type);
                     cards[i][j] = cardImage;
+                }
             }
         }
-    }}
+    }
 
     @Override
     public CarteBase getCard(int i, int j) {

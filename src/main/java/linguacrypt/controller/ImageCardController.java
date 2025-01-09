@@ -32,7 +32,7 @@ public class ImageCardController {
         }
     }
 
-   public void setRecouvert(CardType type, boolean recouvert) {
+    public void setRecouvert(CardType type, boolean recouvert) {
         if (coveredImage != null) {
             String coverImageUrl = switch (type) {
                 case RED -> "/assets/clef.png";

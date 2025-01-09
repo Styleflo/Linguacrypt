@@ -2,9 +2,9 @@ package linguacrypt.model;
 
 import linguacrypt.config.GameConfig;
 import linguacrypt.controller.Observer;
+import linguacrypt.utils.CardsDataManager;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.ImagesFileHandler;
-import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
 import java.util.ArrayList;

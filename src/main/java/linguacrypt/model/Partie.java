@@ -33,10 +33,12 @@ public class Partie implements Serializable {
      */
     public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            Partie partie = (Partie) ois.readObject();
-            System.out.println("Partie chargée avec succès depuis " + filePath);
-            return partie;
+            return (Partie) ois.readObject();
         }
+    }
+
+    public void setWords(ArrayList<String> words) {
+        this.words = words;
     }
 
     /**
@@ -108,7 +110,10 @@ public class Partie implements Serializable {
         this.won = 1;
     }
 
-    public boolean isWon() { return(this.won == 0)||(this.won == 1) ;}
+    public boolean isWon() {
+        return (this.won == 0) || (this.won == 1);
+    }
+
     /**
      * Explicite.
      */

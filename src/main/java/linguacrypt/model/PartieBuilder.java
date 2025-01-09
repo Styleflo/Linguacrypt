@@ -1,8 +1,8 @@
 package linguacrypt.model;
 
 import linguacrypt.config.GameConfig;
-import linguacrypt.utils.ImagesFileHandler;
 import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.ImagesFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -174,7 +174,7 @@ public class PartieBuilder {
      */
     public PartieBuilder resetTypePartie() {
         this.partie.setTypePartie(TypePartie.WORDS);
-        this.partie.setCardsAttribute(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        this.partie.setCardsAttribute(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         return this;
     }
 

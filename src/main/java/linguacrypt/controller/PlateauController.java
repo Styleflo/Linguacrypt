@@ -1,6 +1,8 @@
 package linguacrypt.controller;
 
 import com.google.zxing.common.BitMatrix;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -8,12 +10,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.*;
-import linguacrypt.model.Carte;
-import linguacrypt.model.CarteBase;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
+import linguacrypt.model.Carte;
+import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -22,9 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 public class PlateauController implements Observer {
     private Jeu jeu;
@@ -336,7 +339,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseEnter(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())||jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -350,7 +353,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseExit(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())||jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -362,7 +365,6 @@ public class PlateauController implements Observer {
 
         this.updateLabel();
     }
-
 
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
@@ -454,8 +456,7 @@ public class PlateauController implements Observer {
             colorButton.getStyleClass().add("red_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-red");
-        }
-        else {
+        } else {
             whoWon.setText("L'équipe Bleue a gagné !");
             whoWon.setStyle("-fx-text-fill: #3399FF;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
@@ -549,8 +550,7 @@ public class PlateauController implements Observer {
         stopTimer();
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
-        }
-        else {
+        } else {
             qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
             lingualogo.setVisible(true);
             jeu.getPartie().getPlateau().setqrcodeaffiche(false);
@@ -623,7 +623,6 @@ public class PlateauController implements Observer {
         lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
         jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
     }
-
 
 
     @Override

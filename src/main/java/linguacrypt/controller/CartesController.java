@@ -12,10 +12,9 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
-import linguacrypt.utils.DataUtils;
-import linguacrypt.utils.ImagesFileHandler;
-import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -314,7 +313,7 @@ public class CartesController implements Observer {
     }
 
     @FXML
-    private void CategoryImage(){
+    private void CategoryImage() {
         jeu.setView("CartesImages");
         jeu.notifyObservers();
     }

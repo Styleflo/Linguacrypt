@@ -1,26 +1,24 @@
 package linguacrypt.controller;
 
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.ImagesFileHandler;
-import linguacrypt.utils.StringUtils;
-import linguacrypt.utils.WordsFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.lang.Math.min;
 
@@ -74,9 +72,9 @@ public class CartesImageController implements Observer {
         int col = 0;
         int maxCols = 5;
 
-        int ind_fin = min(50*(currentpage), currentImages.size());
+        int ind_fin = min(50 * (currentpage), currentImages.size());
 
-        for (int i = 50*(currentpage-1); i < ind_fin; i++) {
+        for (int i = 50 * (currentpage - 1); i < ind_fin; i++) {
             AnchorPane carte = creerCarteImage(currentImages.get(i));
 
             assert carte != null;
@@ -93,7 +91,6 @@ public class CartesImageController implements Observer {
             }
         }
     }
-
 
 
     private Alert showAlert(AlertType alertType, String title, String header, String content) {
@@ -165,7 +162,7 @@ public class CartesImageController implements Observer {
 
     @FXML
     public void nextCategory() {
-        if (currentpage <6) {
+        if (currentpage < 6) {
             currentpage++;
             setCurrentPage();
             afficherCartesImages();
@@ -187,7 +184,7 @@ public class CartesImageController implements Observer {
     }
 
     @FXML
-    private void CategoryImage(){
+    private void CategoryImage() {
         jeu.setView("Cartes");
         jeu.notifyObservers();
     }

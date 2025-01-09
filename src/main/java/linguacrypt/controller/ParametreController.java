@@ -4,10 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.image.ImageView;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
@@ -19,63 +19,61 @@ import java.util.ArrayList;
 
 public class ParametreController implements Observer {
 
+    private final int MIN_TIME = 30; // 30 secondes
+    private final int MAX_TIME = 1800; // 30 minutes
     @FXML
     private Label label1;
-
     @FXML
     private Label label2;
-
     @FXML
     private ImageView filtre;
-
     @FXML
     private Pane lesthemes;
-
     @FXML
     private VBox themeBox;
-
     @FXML
     private CheckBox Images;
-
     @FXML
     private CheckBox Mots;
     @FXML
     private Label labelTimer;
-    private final int MIN_TIME = 30; // 30 secondes
-    private final int MAX_TIME = 1800; // 30 minutes
     private int currentTime = -1; // -1 signifie infini
 
     @FXML
     private Button choisirThemeButton;
+    @FXML
+    private Button themesAleatoiresButton;
+    private Jeu jeu;
+    private PartieBuilder partieBuilder;
+    private ArrayList<String> themes;
+
+    public ParametreController() {
+    }
+
     public void handleFlecheGaucheTimer() {
         if (currentTime == -1) {
             currentTime = MAX_TIME;
         } else if (currentTime > MIN_TIME) {
             // Réduit de 30 secondes
             currentTime = Math.max(MIN_TIME, currentTime - 30);
-        }
-        else {
+        } else {
             currentTime = -1;
         }
         updateTimerLabel();
     }
 
-    @FXML
-    private Button themesAleatoiresButton;
     public void handleFlecheDroiteTimer() {
         if (currentTime == -1) {
             currentTime = MIN_TIME;
         } else if (currentTime < MAX_TIME) {
             // Augmente de 30 secondes
             currentTime = Math.min(MAX_TIME, currentTime + 30);
-        }
-        else {
+        } else {
             currentTime = -1;
         }
         updateTimerLabel();
     }
 
-    private Jeu jeu;
     private void updateTimerLabel() {
         if (currentTime == -1) {
             labelTimer.setText("∞");
@@ -84,13 +82,6 @@ public class ParametreController implements Observer {
             int seconds = currentTime % 60;
             labelTimer.setText(String.format("%02d:%02d", minutes, seconds));
         }
-    }
-
-    private PartieBuilder partieBuilder;
-
-    private ArrayList<String> themes;
-
-    public ParametreController() {
     }
 
     public void setJeu(Jeu jeu) {
@@ -232,7 +223,7 @@ public class ParametreController implements Observer {
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.notifyObservers();
-        } else if(Mots.isSelected() && !Images.isSelected()) {
+        } else if (Mots.isSelected() && !Images.isSelected()) {
             partieBuilder.setTimer(currentTime);
             partieBuilder.resetTypePartie();
             jeu.setView("Plateau");
@@ -245,7 +236,7 @@ public class ParametreController implements Observer {
     }
 
     @FXML
-    private void handleMenu(){
+    private void handleMenu() {
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }

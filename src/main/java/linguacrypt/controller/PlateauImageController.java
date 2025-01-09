@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
-import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.CarteImage;
 import linguacrypt.model.Jeu;
@@ -313,8 +312,7 @@ public class PlateauImageController implements Observer {
             colorButton.getStyleClass().add("red_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-red");
-        }
-        else {
+        } else {
             whoWon.setText("L'équipe Bleue a gagné !");
             whoWon.setStyle("-fx-text-fill: #3399FF;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
@@ -403,8 +401,7 @@ public class PlateauImageController implements Observer {
     private void handleMenuPrincipal() {
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
-        }
-        else {
+        } else {
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
         }
