@@ -6,6 +6,7 @@ public class GameConfig {
     public static int DEFAULT_TIMER = -1;
 
     public static String CARDS_FILE = "cards.json";
+    public static String CARDS_IMAGES_FILE = "cards_images.json";
     public static String QRCODE_PATH = "src/main/resources/assets/clef.png";
 
     public static double BLACK_CARDS_PROPORTION = 0.04;  // = 1/25
