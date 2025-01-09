@@ -6,8 +6,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<StackPane prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau" stylesheets="@../css/gui.css"
-           xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau"
+           stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1"
            fx:controller="linguacrypt.controller.PlateauImageController">
     <children>
         <SplitPane dividerPositions="0.5" prefHeight="1082.0" prefWidth="1761.0">
@@ -26,7 +26,7 @@
                         </Button>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
                                 layoutY="742.0" mnemonicParsing="false" onAction="#handleMenuPrincipal"
-                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu principal"
                                 textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
                                 <String fx:value="button1"/>
@@ -221,16 +221,16 @@
 
         <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
         </Pane>
-        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
-        </Pane>
 
         <Pane fx:id="popupWin" visible="false" styleClass="confirmationOverlay">
             <children>
-                <VBox fx:id="borderWin" alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
+                <VBox fx:id="borderWin" alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0"
+                      layoutX="525.0"
                       layoutY="325.0"
                       styleClass="win-box-red">
                     <children>
-                        <Label fx:id="whoWon" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian" textFill="WHITE" styleClass="text"/>
+                        <Label fx:id="whoWon" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian"
+                               textFill="WHITE" styleClass="text"/>
                         <HBox alignment="CENTER" spacing="10.0">
                             <Button fx:id="colorButton" text="Oui" onAction="#okWin" styleClass="button1">
                             </Button>

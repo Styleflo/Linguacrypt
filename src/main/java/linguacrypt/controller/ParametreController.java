@@ -260,8 +260,7 @@ public class ParametreController implements Observer {
                 jeu.setPartie(partieload);
                 if (partieload.getTypePartie() == TypePartie.IMAGES) {
                     jeu.setView("PlateauImage");
-                }
-                else {
+                } else {
                     jeu.setView("Plateau");
                 }
                 jeu.notifyObservers();

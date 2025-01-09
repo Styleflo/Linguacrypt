@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import linguacrypt.utils.CardType;
 
-import java.util.ArrayList;
-
 /**
  * Contient une Clef (la feuille qui dit les mots à faire deviner
  * Contient un boolean si c'est le tour des bleu
@@ -36,10 +34,10 @@ public abstract class PlateauBase {
     }
 
     @JsonCreator
-    public PlateauBase(@JsonProperty ("key") Clef key, @JsonProperty ("coveredCardsCounts") int[] coveredCardsCounts,
-                       @JsonProperty ("isBlueTurn") boolean isBlueTurn, @JsonProperty ("redTurn") boolean isRedTurn,
-                       @JsonProperty ("pointBlue") int pointBlue, @JsonProperty ("pointRed") int pointRed,
-                       @JsonProperty ("qrcodeaffiche") boolean qrcodeaffiche) {
+    public PlateauBase(@JsonProperty("key") Clef key, @JsonProperty("coveredCardsCounts") int[] coveredCardsCounts,
+                       @JsonProperty("isBlueTurn") boolean isBlueTurn, @JsonProperty("redTurn") boolean isRedTurn,
+                       @JsonProperty("pointBlue") int pointBlue, @JsonProperty("pointRed") int pointRed,
+                       @JsonProperty("qrcodeaffiche") boolean qrcodeaffiche) {
         this.key = key;
         this.coveredCardsCounts = coveredCardsCounts;
         this.isBlueTurn = isBlueTurn;

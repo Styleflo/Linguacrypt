@@ -81,9 +81,9 @@ public class Clef {
     }
 
     @JsonCreator
-    public Clef(@JsonProperty ("redStarting") boolean redStarts, @JsonProperty("blueStarting") boolean blueStarts, @JsonProperty ("grid") CardType[][] grid,
-                @JsonProperty ("cardsCounts") int[] cardsCounts, @JsonProperty("width") int width,
-                @JsonProperty ("height") int height) {
+    public Clef(@JsonProperty("redStarting") boolean redStarts, @JsonProperty("blueStarting") boolean blueStarts, @JsonProperty("grid") CardType[][] grid,
+                @JsonProperty("cardsCounts") int[] cardsCounts, @JsonProperty("width") int width,
+                @JsonProperty("height") int height) {
         this.blueStarts = blueStarts;
         this.grid = grid;
         this.cardsCounts = cardsCounts;

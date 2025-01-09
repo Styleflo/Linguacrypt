@@ -1,6 +1,5 @@
 package linguacrypt.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import linguacrypt.config.GameConfig;
 
 import java.io.*;

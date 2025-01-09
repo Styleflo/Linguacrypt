@@ -10,13 +10,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
-import linguacrypt.model.*;
-import linguacrypt.utils.*;
+import linguacrypt.model.Carte;
+import linguacrypt.model.CarteBase;
+import linguacrypt.model.Jeu;
+import linguacrypt.utils.CardType;
+import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -542,7 +549,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        if (jeu.getPartie().getwon() == 2 ) {
+        if (jeu.getPartie().getwon() == 2) {
             confirmationOverlayMenu.setVisible(true);
         } else {
             qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
