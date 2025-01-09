@@ -412,10 +412,12 @@ public class PlateauController implements Observer {
 
         if (jeu.getPartie().BlueWon()) {
             revealCard();
+            jeu.victoireBleue();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
             revealCard();
+            jeu.victoireRouge();
             showWinnerPopup("Rouge");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire

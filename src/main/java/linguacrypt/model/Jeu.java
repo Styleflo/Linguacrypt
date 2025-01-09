@@ -18,11 +18,31 @@ public class Jeu {
     private final WordsFileHandler wordsFileHandler;
     private Partie partie;
     private String currentView;
+    private int victoireBleue;
+    private int victoireRouge;
+
+    public int getVictoireBleue() {
+        return victoireBleue;
+    }
+
+    public void victoireBleue() {
+        this.victoireBleue = victoireBleue +1;
+    }
+
+    public int getVictoireRouge() {
+        return victoireRouge;
+    }
+
+    public void victoireRouge() {
+        this.victoireRouge = victoireRouge +1;
+    }
 
     public Jeu() throws IOException {
         // Peut etre des trucs à faire mais pour l'instant ça va !
         currentView = "MenuInitial";
         wordsFileHandler = new WordsFileHandler(GameConfig.CARDS_FILE);
+        victoireBleue = 0;
+        victoireRouge = 0;
     }
 
     /**
