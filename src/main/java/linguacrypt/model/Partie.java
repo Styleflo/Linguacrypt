@@ -1,5 +1,6 @@
 package linguacrypt.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import linguacrypt.config.GameConfig;
 
 import java.io.*;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Contient la largeur du plateau
  * Contient la hauteur du plateau
  */
-public class Partie implements Serializable {
+public class Partie {
     private PlateauBase plateau;
     private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné mais la partie est commencé; -1 la partie n'est pas encore commencé
     private int timer;
