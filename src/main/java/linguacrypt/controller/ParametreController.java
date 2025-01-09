@@ -1,6 +1,7 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -38,6 +39,12 @@ public class ParametreController implements Observer {
 
     @FXML
     private CheckBox Mots;
+
+    @FXML
+    private Button choisirThemeButton;
+
+    @FXML
+    private Button themesAleatoiresButton;
 
     private Jeu jeu;
 
@@ -149,21 +156,47 @@ public class ParametreController implements Observer {
     }
 
     @FXML
+    private void handleModeImage() {
+        if (Images.isSelected()) {
+            Mots.setSelected(false);
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        } else {
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void handleModeMots() {
+        if (Mots.isSelected()) {
+            Images.setSelected(false);
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        } else {
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        }
+    }
+
+    @FXML
     private void handleValiderTout() throws IOException {
 
-        if (Images.isSelected()) {
+        if (Images.isSelected() && !Mots.isSelected()) {
+            partieBuilder.resetTypePartie();
             partieBuilder.setTypePartie(TypePartie.IMAGES);
             jeu.setView("PlateauImage");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.notifyObservers();
-        } else if(Mots.isSelected()){
+        } else if(Mots.isSelected() && !Images.isSelected()) {
+            partieBuilder.resetTypePartie();
             jeu.setView("Plateau");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.notifyObservers();
         } else {
-            System.out.println("lààààà");
+            // eventuellement pop up à mettre un jour
         }
     }
 

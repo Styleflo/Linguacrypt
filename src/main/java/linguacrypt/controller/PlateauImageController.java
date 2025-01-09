@@ -188,7 +188,6 @@ public class PlateauImageController implements Observer {
                     final int currentJ = j;
 
                     CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
-                    System.out.println(carteImage.getUrl());
                     AnchorPane carte = creerCarte(carteImage.getUrl());
 
                     assert carte != null;
@@ -214,7 +213,7 @@ public class PlateauImageController implements Observer {
                     final int currentJ = j;
 
                     CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
-                    AnchorPane carte = creerCarte(carteImage.getUrl());
+                    AnchorPane carte = creerPetiteCarte(carteImage.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -332,7 +331,6 @@ public class PlateauImageController implements Observer {
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
-            System.out.println(url);
             controller.setMyImage(url);
             return card;
         } catch (IOException e) {
@@ -343,7 +341,7 @@ public class PlateauImageController implements Observer {
 
     private AnchorPane creerPetiteCarte(String url) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card_vp.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
@@ -460,7 +458,6 @@ public class PlateauImageController implements Observer {
     @Override
     public void reagir() {
         if (jeu.getView().equals("PlateauImage")) {
-            System.out.println("on passe là");
             afficherCartes();
         }
     }
