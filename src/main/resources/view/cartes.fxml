@@ -11,9 +11,6 @@
         <image>
             <Image url="@../assets/fond_test_1.gif"/>
         </image>
-        <effect>
-            <GaussianBlur radius="31.75"/>
-        </effect>
     </ImageView>
     <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
         <image>

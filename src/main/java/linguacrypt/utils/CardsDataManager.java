@@ -12,11 +12,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordsFileHandler {
+public class CardsDataManager {
     private final UserConfig userConfig;
     private final Path appDir;
 
-    public WordsFileHandler(String filePath) throws IOException {
+    public CardsDataManager(String filePath) throws IOException {
         InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
         DataUtils.assertNotNull(fileStream, "Le fichier " + filePath + " n'existe pas.");
@@ -155,18 +155,26 @@ public class WordsFileHandler {
             DataUtils.logException(e, "Erreur lors de la copie de l'image.");
         }
 
-        // userConfig.getAddedImages().add(image);
+        userConfig.getAddedImages().add(image.getName());
     }
 
     public void removeImage(String image) {
+        try {
+            Files.delete(appDir.resolve(image));
+        } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors de la suppression de l'image.");
+        }
+
         userConfig.getAddedImages().remove(image);
     }
 
-    public ArrayList<String> getAddedImages() {
-        return new ArrayList<>(userConfig.getAddedImages());
-    }
+    public ArrayList<Path> getAddedImages() {
+        ArrayList<Path> images = new ArrayList<>();
 
-    public void addStatistic(String name, int value) {
-        userConfig.getStatitics().add(new Statistic(name, value));
+        for (String image : userConfig.getAddedImages()) {
+            images.add(appDir.resolve(image));
+        }
+
+        return images;
     }
 }

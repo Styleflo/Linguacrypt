@@ -1,7 +1,7 @@
 package linguacrypt.model;
 
 import linguacrypt.config.GameConfig;
-import linguacrypt.utils.WordsFileHandler;
+import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class PartieBuilder {
     private final Partie partie;
-    private final WordsFileHandler wordsFileHandler;
+    private final CardsDataManager cardsDataManager;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
@@ -22,9 +22,9 @@ public class PartieBuilder {
      */
     public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
-        this.wordsFileHandler = jeu.getWordsFileHandler();
-        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-        partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        this.cardsDataManager = jeu.getWordsFileHandler();
+        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+        partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         partie.setTimer(GameConfig.DEFAULT_TIMER);
         partie.setWidthParameter(GameConfig.DEFAULT_WIDTH);
         partie.setHeightParameter(GameConfig.DEFAULT_HEIGHT);
@@ -109,7 +109,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder setUsedThemes(ArrayList<String> themes) {
-        this.partie.setWords(wordsFileHandler.getWordsByThemes(themes));
+        this.partie.setWords(cardsDataManager.getWordsByThemes(themes));
         return this;
     }
 
@@ -120,7 +120,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder resetUsedThemes() {
-        this.partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        this.partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         return this;
     }
 
@@ -141,7 +141,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder resetWordsUsed() {
-        this.partie.setWords(this.wordsFileHandler.getWordsByThemes(wordsFileHandler.getAllThemes()));
+        this.partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         return this;
     }
 

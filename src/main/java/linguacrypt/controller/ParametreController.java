@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
-import linguacrypt.utils.WordsFileHandler;
+import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,8 +139,8 @@ public class ParametreController implements Observer {
     @FXML
     public void handleThemes() {
         lesthemes.setVisible(true);
-        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-        themes = wordsFileHandler.getAllThemes();
+        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+        themes = cardsDataManager.getAllThemes();
         themeBox.getChildren().clear();
 
         for (String theme : themes) {

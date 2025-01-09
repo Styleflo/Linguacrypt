@@ -14,7 +14,7 @@ import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.StringUtils;
-import linguacrypt.utils.WordsFileHandler;
+import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,12 +45,12 @@ public class CartesController implements Observer {
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
-        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
 
-        themes = wordsFileHandler.getAllThemes();
+        themes = cardsDataManager.getAllThemes();
         currentThemeIndex = 0;
         updateCurrentThemeLabel();
-        currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
+        currentMots = cardsDataManager.getWordsByTheme(themes.get(currentThemeIndex));
     }
 
     private void updateCurrentThemeLabel() {
@@ -120,8 +120,8 @@ public class CartesController implements Observer {
             Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
 
             if (alert.showAndWait().isPresent()) {
-                WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-                wordsFileHandler.removeWordFromCategory(theme, word);
+                CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+                cardsDataManager.removeWordFromCategory(theme, word);
                 currentMots.remove(word);
 
                 if (lastWord) {
@@ -129,7 +129,7 @@ public class CartesController implements Observer {
                     setCurrentThemeIndex(currentThemeIndex - 1);
                 }
 
-                wordsFileHandler.saveUserConfig();
+                cardsDataManager.saveUserConfig();
                 reagir();
             }
         });
@@ -225,7 +225,7 @@ public class CartesController implements Observer {
         dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> okButton.setDisable(newValue.trim().isEmpty()));
 
         Optional<String> result = dialog.showAndWait();
-        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
 
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
@@ -238,7 +238,7 @@ public class CartesController implements Observer {
                 alert.setContentText("Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 alert.showAndWait();
             } else {
-                Object[] res = wordsFileHandler.addWordToCategory(themes.get(currentThemeIndex), mot);
+                Object[] res = cardsDataManager.addWordToCategory(themes.get(currentThemeIndex), mot);
                 boolean success = (boolean) res[0];
                 String message = (String) res[1];
                 if (success) {
@@ -283,16 +283,16 @@ public class CartesController implements Observer {
                 okButton.setDisable(newVal.trim().isEmpty() || themeNameInput.getText().trim().isEmpty()));
 
         Optional<String> result = dialog.showAndWait();
-        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
+        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
 
         if (result.isPresent()) {
             String themeName = themeNameInput.getText().toLowerCase().trim();
             String firstCard = firstCardInput.getText().toLowerCase().trim();
 
-            if (wordsFileHandler.themeExists(themeName)) {
+            if (cardsDataManager.themeExists(themeName)) {
                 showAlert(AlertType.ERROR, "Erreur", "Thème existant", "Le thème \n" + themeName + "\n existe déjà.");
                 addNewTheme();
-            } else if (wordsFileHandler.getCategoryByWord(firstCard) != null) {
+            } else if (cardsDataManager.getCategoryByWord(firstCard) != null) {
                 showAlert(AlertType.ERROR, "Erreur", "Mot existant", "Le mot \"" + firstCard + "\"\n existe déjà.");
                 addNewTheme();
             } else if (themeName.length() > GameConfig.MAX_WORD_SIZE) {
@@ -301,12 +301,12 @@ public class CartesController implements Observer {
             } else if (firstCard.length() > GameConfig.MAX_WORD_SIZE) {
                 showAlert(AlertType.ERROR, "Erreur", "Mot trop long", "Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 addNewTheme();
-            } else if (wordsFileHandler.addCategory(themeName)) {
+            } else if (cardsDataManager.addCategory(themeName)) {
                 themes.add(themeName);
-                wordsFileHandler.addWordToCategory(themeName, firstCard);
+                cardsDataManager.addWordToCategory(themeName, firstCard);
                 setCurrentThemeIndex(themes.size() - 1);
                 reagir();
-                wordsFileHandler.writeJsonFile();
+                cardsDataManager.saveUserConfig();
             }
         }
     }

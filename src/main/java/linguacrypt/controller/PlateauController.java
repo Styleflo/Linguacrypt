@@ -73,8 +73,6 @@ public class PlateauController implements Observer {
     private Label blueTimer;
     @FXML
     private Label redTimer;
-    @FXML
-    private HBox timerContainer;
 
     private Timeline timeline;
     private int blueTimeLeft;
@@ -102,8 +100,6 @@ public class PlateauController implements Observer {
                 }));
                 timeline.setCycleCount(Timeline.INDEFINITE);
             }
-        } else {
-            timerContainer.setVisible(false);
         }
     }
 
