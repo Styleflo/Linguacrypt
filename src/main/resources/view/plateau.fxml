@@ -34,22 +34,16 @@
                             </styleClass>
                         </Button>
                         <FlowPane prefHeight="200.0" prefWidth="200.0"/>
-                        <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0"
-                                    styleClass="dark_petit_panneau">
-                            <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0"
-                                       prefHeight="30.0" prefWidth="321.0" styleClass="text" text="Tour"
-                                       textFill="WHITE"/>
-                                <AnchorPane layoutX="23.0" layoutY="66.0" prefHeight="51.0" prefWidth="246.0"
-                                            styleClass="light_petit_panneau">
-                                    <children>
-                                        <Label alignment="CENTER" layoutX="7.0" layoutY="11.0" prefHeight="30.0"
-                                               prefWidth="288.0" text="0" textAlignment="CENTER" textFill="#f4cf0f"/>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
+                        <HBox fx:id="timerContainer" styleClass="timer-container">
+                            <VBox styleClass="blue-timer">
+                                <Label fx:id="blueTimer" text="00:00" styleClass="timer-text"/>
+                            </VBox>
+                            <VBox styleClass="red-timer">
+                                <Label fx:id="redTimer" text="00:00" styleClass="timer-text"/>
+                            </VBox>
+                        </HBox>
+
+        <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
                                     styleClass="dark_petit_panneau">
                             <children>
                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="14.0"
@@ -221,8 +215,7 @@
 
         <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
         </Pane>
-        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
-        </Pane>
+
 
         <Pane fx:id="popupWin" visible="false" styleClass="confirmationOverlay">
             <children>
