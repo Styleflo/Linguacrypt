@@ -136,8 +136,8 @@
                   </content>
                </ScrollPane>
                <HBox spacing="20" alignment="CENTER">
-                  <Button text="Valider" onAction="#handleValider" styleClass="green_button"/>
-                  <Button text="Annuler" onAction="#handleAnnuler" styleClass="red_button"/>
+                  <Button text="Valider" onAction="#handleValider" styleClass="button2"/>
+                  <Button text="Annuler" onAction="#handleAnnuler" styleClass="button2"/>
                </HBox>
             </children>
          </VBox>
