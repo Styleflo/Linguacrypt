@@ -37,7 +37,6 @@ public class CartesController implements Observer {
     private int currentThemeIndex;
     private ArrayList<String> themes;
 
-    private List<String> currentImages;
 
     public CartesController() {
         currentMots = new ArrayList<>();
@@ -54,7 +53,6 @@ public class CartesController implements Observer {
         currentThemeIndex = 0;
         updateCurrentThemeLabel();
         currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
-
     }
 
     private void updateCurrentThemeLabel() {
@@ -91,8 +89,6 @@ public class CartesController implements Observer {
             }
         }
     }
-
-
 
     private Alert showAlert(AlertType alertType, String title, String header, String content) {
         Alert alert = new Alert(alertType);
@@ -157,8 +153,6 @@ public class CartesController implements Observer {
             return null;
         }
     }
-
-
 
     public void create_transition(AnchorPane carte) {
         TranslateTransition transition = new TranslateTransition();

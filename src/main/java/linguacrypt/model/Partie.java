@@ -18,6 +18,7 @@ public class Partie implements Serializable {
     private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné mais la partie est commencé; -1 la partie n'est pas encore commencé
     private int timer;
     private ArrayList<String> cardsAttribute;
+    private ArrayList<String> words;
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;

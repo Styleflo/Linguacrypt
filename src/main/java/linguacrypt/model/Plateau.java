@@ -11,14 +11,16 @@ import static java.lang.Math.max;
 
 public class Plateau extends PlateauBase implements Serializable {
     private final CarteBase[][] cards;
+
     public Plateau(int width, int height, ArrayList<String> words_list, TypePartie typePartie) {
         super(width, height);
+
         if (typePartie == TypePartie.WORDS) {
             cards = new Carte[height][width];
-        }
-        else {
+        } else {
             cards = new CarteImage[height][width];
         }
+
         Collections.shuffle(words_list);
         int index = 0;
         for (int j = 0; j < width; j++) {
@@ -32,11 +34,9 @@ public class Plateau extends PlateauBase implements Serializable {
                 else {
                     CarteImage cardImage = new CarteImage(word, type);
                     cards[i][j] = cardImage;
-                }
             }
         }
-    }
-
+    }}
 
     @Override
     public CarteBase getCard(int i, int j) {

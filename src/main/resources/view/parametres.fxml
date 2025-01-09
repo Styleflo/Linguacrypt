@@ -37,6 +37,31 @@
                <children>
                   <Slider layoutX="209.0" layoutY="178.0" prefHeight="15.0" prefWidth="468.0" styleClass="thumb" stylesheets="@../css/parametre.css" />
                   <Label layoutX="398.0" layoutY="127.0" styleClass="text" stylesheets="@../css/parametre.css" text="Temps" textFill="#fcf6f6" />
+                  <AnchorPane layoutX="339.0" layoutY="178.0" prefHeight="71.0" prefWidth="209.0" stylesheets="@../css/parametre.css">
+                     <children>
+                        <Label fx:id="labelTimer" layoutX="85.0" layoutY="21.0" styleClass="text" stylesheets="@../css/parametre.css" text="∞" textFill="#fcf6f6" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="red_petit_panneau" />
+                        <String fx:value="dark_petit_panneau" />
+                     </styleClass>
+                  </AnchorPane>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="286.0" layoutY="181.0"
+                          mnemonicParsing="false" onAction="#handleFlecheGaucheTimer" prefHeight="64.0" prefWidth="43.0" text="&lt;"
+                          textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button2" />
+                        <String fx:value="red_button" />
+                     </styleClass>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="558.0" layoutY="181.0"
+                          mnemonicParsing="false" onAction="#handleFlecheDroiteTimer" prefHeight="64.0" prefWidth="43.0" text="&gt;"
+                          textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button2" />
+                        <String fx:value="red_button" />
+                     </styleClass>
+                  </Button>
                   <Label layoutX="226.0" layoutY="243.0" styleClass="text" stylesheets="@../css/parametre.css" text="Colonnes" textFill="#fcf6f6" />
                   <Label layoutX="556.0" layoutY="248.0" styleClass="text" stylesheets="@../css/parametre.css" text="Lignes" textFill="#fcf6f6" />
                   <AnchorPane layoutX="224.0" layoutY="306.0" prefHeight="71.0" prefWidth="109.0" stylesheets="@../css/parametre.css">
@@ -155,4 +180,3 @@
       </children>
    </Pane>
 </StackPane>
-
