@@ -426,6 +426,9 @@ public class PlateauController implements Observer {
             confirmationOverlay.setVisible(true);
         } else {
             confirmNouvellePartie();
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         }
     }
 
