@@ -187,9 +187,9 @@ public class PlateauImageController implements Observer {
                     final int currentI = i;
                     final int currentJ = j;
 
-                    Carte carte1 = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
-
-                    AnchorPane carte = creerCarte(carte1.getWord());
+                    CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
+                    System.out.println(carteImage.getUrl());
+                    AnchorPane carte = creerCarte(carteImage.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -332,6 +332,7 @@ public class PlateauImageController implements Observer {
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
+            System.out.println(url);
             controller.setMyImage(url);
             return card;
         } catch (IOException e) {
@@ -459,6 +460,7 @@ public class PlateauImageController implements Observer {
     @Override
     public void reagir() {
         if (jeu.getView().equals("PlateauImage")) {
+            System.out.println("on passe là");
             afficherCartes();
         }
     }
