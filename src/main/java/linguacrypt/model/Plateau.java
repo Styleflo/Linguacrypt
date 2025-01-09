@@ -1,5 +1,8 @@
 package linguacrypt.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import linguacrypt.config.GameConfig;
 import linguacrypt.utils.CardType;
 
@@ -9,8 +12,10 @@ import java.util.Collections;
 
 import static java.lang.Math.max;
 
-public class Plateau extends PlateauBase implements Serializable {
+public class Plateau extends PlateauBase {
     private final CarteBase[][] cards;
+
+
     public Plateau(int width, int height, ArrayList<String> words_list) {
         super(width, height);
         cards = new Carte[height][width];
@@ -24,6 +29,15 @@ public class Plateau extends PlateauBase implements Serializable {
                 cards[i][j] = card;
             }
         }
+    }
+
+    @JsonCreator
+    public Plateau(@JsonProperty ("key") Clef key, @JsonProperty ("coveredCardsCounts") int[] coveredCardsCounts,
+                   @JsonProperty ("blueTurn") boolean isBlueTurn, @JsonProperty ("redTurn")boolean isRedTurn, @JsonProperty ("pointBlue") int pointBlue,
+                   @JsonProperty ("pointRed") int pointRed, @JsonProperty ("qrcodeaffiche") boolean qrcodeaffiche,
+                   @JsonProperty ("cards") CarteBase[][] cards) {
+        super(key,coveredCardsCounts,isBlueTurn, isRedTurn ,pointBlue,pointRed,qrcodeaffiche);
+        this.cards = cards;
     }
 
     public Plateau(ArrayList<String> words_list) {

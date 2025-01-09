@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
+import linguacrypt.model.Partie;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
 
@@ -24,6 +25,7 @@ import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
 public class PlateauController implements Observer {
     private Jeu jeu;
@@ -529,20 +531,19 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleNouvellePartie() {
-        stopTimer();
-        if (jeu.getPartie().getwon() == 2) {
-            confirmationOverlay.setVisible(true);
-        } else {
-            confirmNouvellePartie();
-            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
-            lingualogo.setVisible(true);
-            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
-        }
+//        if (jeu.getPartie().getwon() == 2) {
+//            confirmationOverlay.setVisible(true);
+//        } else {
+//            confirmNouvellePartie();
+//            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+//            lingualogo.setVisible(true);
+//            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
+//        }
+        loadPartie();
     }
 
     @FXML
     private void handleMenuPrincipal() {
-        stopTimer();
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
         }
@@ -558,18 +559,44 @@ public class PlateauController implements Observer {
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Partie", "*.json"));
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
-                jeu.getPartie().savePartie(fichier.getAbsolutePath());
-                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
-                System.out.println(fichier.getAbsolutePath());
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                filesavehandler.savePartie(jeu.getPartie(), fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
+        }
+    }
+
+    private void loadPartie() {
+        // Créez une instance de FileChooser pour ouvrir le fichier de sauvegarde
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger une partie déjà existante");
+        // Ajoutez un filtre pour ne montrer que les fichiers JSON
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers JSON", "*.json"));
+        // Ouvrir la fenêtre de sélection du fichier
+        File fichier = fileChooser.showOpenDialog(new Stage());
+        // Vérifier si un fichier a été sélectionné
+        if (fichier != null) {
+            try {
+                // Créer un gestionnaire de fichiers pour charger la partie
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                // Charger la partie depuis le fichier JSON
+                Partie partieload = filesavehandler.loadPartie(fichier.getAbsolutePath());
+                // Mettre à jour l'état du jeu avec la partie chargée
+                jeu.setPartie(partieload);
+                // Notifier les observateurs du changement
+                jeu.notifyObservers();
+            } catch (IOException e) {
+                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
+            }
+        } else {
+            System.out.println("Aucun fichier sélectionné.");
         }
     }
 
