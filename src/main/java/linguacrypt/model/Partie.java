@@ -107,6 +107,7 @@ public class Partie implements Serializable {
         this.won = 1;
     }
 
+    public boolean isWon() { return(this.won == 0)||(this.won == 1) ;}
     /**
      * Explicite.
      */

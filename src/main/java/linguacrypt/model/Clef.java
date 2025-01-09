@@ -5,6 +5,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import linguacrypt.config.GameConfig;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -69,10 +72,26 @@ public class Clef {
         }
 
         try {
-            this.to_qrcode();
+            this.write_qrcode();
         } catch (Exception e) {
             DataUtils.logException(e, "Erreur lors de la génération du QR code");
         }
+    }
+
+    public WritableImage bitMatrixToImage(BitMatrix bitMatrix) {
+        int width = bitMatrix.getWidth();
+        int height = bitMatrix.getHeight();
+        WritableImage image = new WritableImage(width, height);
+        PixelWriter pixelWriter = image.getPixelWriter();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                boolean pixel = bitMatrix.get(x, y); // Vérifie si le pixel fait partie du QR code
+                pixelWriter.setColor(x, y, pixel ? Color.BLACK : Color.WHITE); // Noir pour les pixels actifs, blanc pour les autres
+            }
+        }
+
+        return image;
     }
 
     public Clef(int[] size) {
@@ -150,10 +169,8 @@ public class Clef {
 
         return res.toString();
     }
-
-    public void to_qrcode() throws WriterException, IOException {
+    public BitMatrix to_qrcode() throws WriterException, IOException {
         // C'est un peu le foutoir dans les coordonnées, mais ça marche
-
         JSONObject json = new JSONObject();
         json.put("height", this.width);
         json.put("width", this.height);
@@ -171,7 +188,10 @@ public class Clef {
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(json.toString(), BarcodeFormat.QR_CODE, 300, 300);
-
+        return bitMatrix ;
+    }
+    public void write_qrcode() throws WriterException, IOException {
+        BitMatrix bitMatrix = this.to_qrcode();
         Path path = new File(GameConfig.QRCODE_PATH).toPath();
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
