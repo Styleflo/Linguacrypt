@@ -574,36 +574,6 @@ public class PlateauController implements Observer {
         }
     }
 
-    /**
-     * La fonction permet de load une partie non fini qui fut sauvegardé dans le passé
-     * Elle lit un fichier Json et remet à jour l'état des classes
-     */
-    private void loadPartie() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Charger une partie déjà existante");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers JSON", "*.json"));
-        File fichier = fileChooser.showOpenDialog(new Stage());
-        if (fichier != null) {
-            try {
-                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
-                Partie partieload = filesavehandler.loadPartie(fichier.getAbsolutePath());
-                jeu.setPartie(partieload);
-                for (int i = 0; i < 5; i++) {
-                    for (int j = 0; j < 5; j++) {
-                        if (jeu.getPartie().getPlateau().getCard(i,j).isCovered()) {
-                            System.out.println("Une carte est couverte !");
-                        };
-                    }
-                }
-                jeu.notifyObservers();
-            } catch (IOException e) {
-                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
-            }
-        } else {
-            System.out.println("Aucun fichier sélectionné.");
-        }
-    }
-
     @FXML
     private void handleTourSuivant() {
         if (isTimerRunning) {
