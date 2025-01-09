@@ -200,13 +200,14 @@ public class PlateauController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
+
                     Carte carte = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
                     AnchorPane carteAnchor = creerCarte(carte.getWord());
 
                     DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
                     carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
-                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carte));
-                    carte.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carte));
+                    carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
+                    carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
                 }
             }

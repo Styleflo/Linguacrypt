@@ -65,7 +65,9 @@ public class ParametreController implements Observer {
     }
 
     public void handleCartesAleatoire() {
-
+        themesAleatoiresButton.getStyleClass().add("button-selected");
+        choisirThemeButton.getStyleClass().remove("button-selected");
+        partieBuilder.resetWordsUsed();
     }
 
     @FXML
@@ -133,7 +135,10 @@ public class ParametreController implements Observer {
 
             themeItem.getChildren().addAll(checkBox, label);
             themeBox.getChildren().add(themeItem);
+
         }
+        choisirThemeButton.getStyleClass().add("button-selected");
+        themesAleatoiresButton.getStyleClass().remove("button-selected");
     }
 
     @FXML
@@ -210,6 +215,7 @@ public class ParametreController implements Observer {
     @FXML
     private void handleAnnuler() {
         lesthemes.setVisible(false);
+        choisirThemeButton.getStyleClass().remove("button-selected");
     }
 
     @Override
