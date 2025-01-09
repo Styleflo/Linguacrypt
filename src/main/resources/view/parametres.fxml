@@ -99,16 +99,17 @@
                         <String fx:value="red_button" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="choisirThemeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="185.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleThemes" prefHeight="71.0" prefWidth="188.0" text="Choisir ses Thèmes" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="choisirThemeButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="185.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleThemes" prefHeight="71.0" prefWidth="188.0" text="Choisir ses thèmes" textAlignment="CENTER" textFill="WHITE">
                      <styleClass>
                         <String fx:value="button1" />
                         <String fx:value="orange_button" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="themesAleatoiresButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="518.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleCartesAleatoire" prefHeight="71.0" prefWidth="188.0" text="Thèmes Aléatoires" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="themesAleatoiresButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="518.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleCartesAleatoire" prefHeight="71.0" prefWidth="188.0" text="Thèmes aléatoires" textAlignment="CENTER" textFill="WHITE">
                      <styleClass>
                         <String fx:value="button1" />
                         <String fx:value="orange_button" />
+                        <String fx:value="button-selected"/>
                      </styleClass>
                   </Button>
                   <AnchorPane layoutX="279.0" layoutY="31.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
@@ -135,8 +136,9 @@
                   </Button>
                   <Pane layoutX="33.0" layoutY="18.0" prefHeight="100.0" prefWidth="785.0" styleClass="darkdark_petit_panneau" stylesheets="@../css/parametre.css">
                      <children>
-                        <CheckBox fx:id="Images" layoutX="119.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleModeImage" text="Mode Image" textFill="WHITE" />
-                        <CheckBox fx:id="Mots" layoutX="527.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleModeMots" text="Mode Mots" textFill="WHITE" />
+                        <CheckBox fx:id="Mots" layoutX="527.0" layoutY="35.0" mnemonicParsing="false"
+                                  onAction="#handleModeMots" text="Mode mots" textFill="WHITE" selected="true"/>
+                        <CheckBox fx:id="Images" layoutX="119.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleModeImage" text="Mode images" textFill="WHITE" />
                      </children>
                   </Pane>
                   <ImageView fitHeight="684.0" fitWidth="850.0" layoutX="1.0" layoutY="-4.0" opacity="0.12" pickOnBounds="true" fx:id="filtre">
@@ -157,7 +159,7 @@
          <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="500.0" layoutX="525.0" layoutY="175.0"
                styleClass="confirmation-box" stylesheets="@../css/parametre.css">
             <children>
-               <Label text="Selectionez vos thèmes" textFill="WHITE" styleClass="text"/>
+               <Label text="Sélectionnez vos thèmes" textFill="WHITE" styleClass="text"/>
                <ScrollPane prefHeight="400.0" prefWidth="380.0" styleClass="theme-scroll-pane">
                   <content>
                      <VBox fx:id="themeBox" alignment="CENTER" spacing="10.0" styleClass="theme-box">

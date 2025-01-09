@@ -1,5 +1,6 @@
 package linguacrypt.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -45,7 +46,6 @@ public class ParametreController implements Observer {
     private Button themesAleatoiresButton;
     private Jeu jeu;
     private PartieBuilder partieBuilder;
-    private ArrayList<String> themes;
 
     public ParametreController() {
     }
@@ -139,7 +139,7 @@ public class ParametreController implements Observer {
     public void handleThemes() {
         lesthemes.setVisible(true);
         CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
-        themes = cardsDataManager.getAllThemes();
+        ArrayList<String> themes = cardsDataManager.getAllThemes();
         themeBox.getChildren().clear();
 
         for (String theme : themes) {
@@ -158,9 +158,7 @@ public class ParametreController implements Observer {
             });
 
             // Empêcher la propagation du clic de la checkbox à l'élément parent
-            checkBox.setOnMouseClicked(event -> {
-                event.consume();
-            });
+            checkBox.setOnMouseClicked(Event::consume);
 
             themeItem.getChildren().addAll(checkBox, label);
             themeBox.getChildren().add(themeItem);

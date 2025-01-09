@@ -78,14 +78,6 @@ public class Clef {
         }
     }
 
-    public Clef(int[] size) {
-        this(size[0], size[1]);
-    }
-
-    public Clef() {
-        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT);
-    }
-
     public WritableImage bitMatrixToImage(BitMatrix bitMatrix) {
         int width = bitMatrix.getWidth();
         int height = bitMatrix.getHeight();
