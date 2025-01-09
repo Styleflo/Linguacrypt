@@ -91,6 +91,14 @@ public class Clef {
         this.height = height;
     }
 
+    public Clef(int[] size) {
+        this(size[0], size[1]);
+    }
+
+    public Clef() {
+        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT);
+    }
+
     public WritableImage bitMatrixToImage(BitMatrix bitMatrix) {
         int width = bitMatrix.getWidth();
         int height = bitMatrix.getHeight();
@@ -105,14 +113,6 @@ public class Clef {
         }
 
         return image;
-    }
-
-    public Clef(int[] size) {
-        this(size[0], size[1]);
-    }
-
-    public Clef() {
-        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT);
     }
 
     public int getHeight() {
@@ -182,6 +182,7 @@ public class Clef {
 
         return res.toString();
     }
+
     public BitMatrix to_qrcode() throws WriterException, IOException {
         // C'est un peu le foutoir dans les coordonnées, mais ça marche
         JSONObject json = new JSONObject();
@@ -201,8 +202,9 @@ public class Clef {
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(json.toString(), BarcodeFormat.QR_CODE, 300, 300);
-        return bitMatrix ;
+        return bitMatrix;
     }
+
     public void write_qrcode() throws WriterException, IOException {
         BitMatrix bitMatrix = this.to_qrcode();
         Path path = new File(GameConfig.QRCODE_PATH).toPath();

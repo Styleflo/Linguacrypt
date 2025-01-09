@@ -140,7 +140,14 @@ public abstract class PlateauBase {
             changeTurn();
         }
     }
-    public boolean isqrcodeaffiche(){return qrcodeaffiche;    }
-    public void setqrcodeaffiche(boolean b){qrcodeaffiche =  b;   }
+
+    public boolean isqrcodeaffiche() {
+        return qrcodeaffiche;
+    }
+
+    public void setqrcodeaffiche(boolean b) {
+        qrcodeaffiche = b;
+    }
+
     public abstract CarteBase[][] getCards();
 }

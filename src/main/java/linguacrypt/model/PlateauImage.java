@@ -7,8 +7,6 @@ import linguacrypt.utils.CardType;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static java.lang.Math.max;
-
 /**
  * herite de la classe PlateauBase
  * Contient les carteImages sous le type CarteBase
@@ -54,17 +52,6 @@ public class PlateauImage extends PlateauBase implements Serializable {
         CarteBase card = cardImages[i][j];
         card.setCovered();
         return card.getType();
-    }
-
-    public void prettyPrint() {
-        for (CarteBase[] card : cardImages) {
-            for (CarteBase carte : card) {
-                System.out.print(carte.getWord());
-                System.out.print(" ".repeat(max(15 - carte.getWord().length(), 0)));
-            }
-
-            System.out.println();
-        }
     }
 
     public CarteBase[][] getCards() {

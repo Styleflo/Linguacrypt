@@ -7,27 +7,27 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordsFileHandler {
-    private final WordsCategories wordsCategories;
+public class ImagesFileHandler {
+    private final ImagesCategories imagesCategories;
 
-    public WordsFileHandler(String filePath) throws IOException {
+    public ImagesFileHandler(String filePath) throws IOException {
         InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
         DataUtils.assertNotNull(resourceStream, "Le fichier " + filePath + " n'existe pas.");
 
 
         ObjectMapper objectMapper = new ObjectMapper();
-        wordsCategories = objectMapper.readValue(resourceStream, WordsCategories.class);
+        imagesCategories = objectMapper.readValue(resourceStream, ImagesCategories.class);
     }
 
     public void writeJsonFile() {
-        //objectMapper.writeValue(file, wordsCategories);  // todo
+        //objectMapper.writeValue(file, imagesCategories);  // todo
     }
 
-    public ArrayList<String> getWordsByTheme(String theme) {
-        List<WordsCategory> categories = wordsCategories.getCategories();
+    public ArrayList<String> getImagesByTheme(String theme) {
+        List<ImagesCategory> categories = imagesCategories.getCategories();
 
-        for (WordsCategory category : categories) {
+        for (ImagesCategory category : categories) {
             if (category.getName().equals(theme)) {
                 return new ArrayList<>(category.getWords());
             }
@@ -36,12 +36,12 @@ public class WordsFileHandler {
         return null;
     }
 
-    public ArrayList<String> getWordsByThemes(ArrayList<String> themes) {
+    public ArrayList<String> getImagesByThemes(ArrayList<String> themes) {
         ArrayList<String> words = new ArrayList<>();
 
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<ImagesCategory> categories = imagesCategories.getCategories();
 
-        for (WordsCategory category : categories) {
+        for (ImagesCategory category : categories) {
             if (themes.contains(category.getName())) {
                 words.addAll(category.getWords());
             }
@@ -53,9 +53,9 @@ public class WordsFileHandler {
     public ArrayList<String> getAllThemes() {
         ArrayList<String> themes = new ArrayList<>();
 
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<ImagesCategory> categories = imagesCategories.getCategories();
 
-        for (WordsCategory category : categories) {
+        for (ImagesCategory category : categories) {
             themes.add(category.getName());
         }
 
@@ -65,13 +65,13 @@ public class WordsFileHandler {
     public boolean addCategory(String categoryName) {
         if (themeExists(categoryName)) return false;
 
-        wordsCategories.getCategories().add(new WordsCategory(categoryName, new ArrayList<>()));
+        imagesCategories.getCategories().add(new ImagesCategory(categoryName, new ArrayList<>()));
 
         return true;
     }
 
     public boolean themeExists(String category) {
-        for (WordsCategory cat : wordsCategories.getCategories()) {
+        for (ImagesCategory cat : imagesCategories.getCategories()) {
             if (cat.getName().equals(category)) {
                 return true;
             }
@@ -80,12 +80,12 @@ public class WordsFileHandler {
     }
 
     public Object[] addWordToCategory(String category, String word) {
-        WordsCategory previousCategory = getCategoryByWord(word);
+        ImagesCategory previousCategory = getCategoryByWord(word);
         if (previousCategory != null) {
             return new Object[]{false, "Le mot " + word + " existe déjà dans le thème " + previousCategory.getName() + "."};
         }
 
-        for (WordsCategory cat : wordsCategories.getCategories()) {
+        for (ImagesCategory cat : imagesCategories.getCategories()) {
             if (cat.getName().equals(category)) {
                 cat.getWords().add(word);
                 return new Object[]{true, ""};
@@ -95,8 +95,8 @@ public class WordsFileHandler {
         return new Object[]{false, "La catégorie " + category + " n'existe pas."};
     }
 
-    public WordsCategory getCategoryByWord(String word) {
-        for (WordsCategory cat : wordsCategories.getCategories()) {
+    public ImagesCategory getCategoryByWord(String word) {
+        for (ImagesCategory cat : imagesCategories.getCategories()) {
             if (cat.getWords().contains(word)) {
                 return cat;
             }
@@ -105,9 +105,9 @@ public class WordsFileHandler {
     }
 
     public void removeWordFromCategory(String category, String word) {
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<ImagesCategory> categories = imagesCategories.getCategories();
 
-        for (WordsCategory cat : categories) {
+        for (ImagesCategory cat : categories) {
             if (cat.getName().equals(category)) {
                 if (cat.getWords().contains(word)) {
                     cat.getWords().remove(word);

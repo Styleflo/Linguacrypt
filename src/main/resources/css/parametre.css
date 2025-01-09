@@ -7,6 +7,15 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 7); /* Ombre */
 }
 
+.darkdark_petit_panneau {
+    -fx-background-color: #343434;
+    -fx-background-radius: 20px;
+    -fx-border-color: #ffffff; /* Couleur du contour clair */
+    -fx-border-width: 2px; /* Épaisseur du contour */
+    -fx-border-radius: 20px; /* Même rayon que le fond pour suivre les bords arrondis */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 7); /* Ombre */
+}
+
 .grand_rectangle_bleu {
     -fx-background-color: #0000ff; /* Bleu */
     -fx-background-radius: 30px; /* Angles arrondis */
@@ -157,4 +166,13 @@
 
 .theme-item:hover {
     -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.close_button {
+    -fx-background-color: #7a31c2;
+    -fx-text-fill: white;
+}
+
+.button-selected {
+    -fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);
 }

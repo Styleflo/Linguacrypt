@@ -2,14 +2,15 @@ package linguacrypt.utils;
 
 import java.util.List;
 
-public class WordsCategories {
+public class UserConfig {
     private List<WordsCategory> categories;
+    private List<String> addedImages;
 
     public List<WordsCategory> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<WordsCategory> categories) {
-        this.categories = categories;
+    public List<String> getAddedImages() {
+        return addedImages;
     }
 }
