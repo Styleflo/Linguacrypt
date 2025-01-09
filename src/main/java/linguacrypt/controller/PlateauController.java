@@ -83,6 +83,9 @@ public class PlateauController implements Observer {
 
     @FXML
     private void confirmSavePartie() {
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
@@ -444,6 +447,9 @@ public class PlateauController implements Observer {
             confirmationOverlayMenu.setVisible(true);
         }
         else {
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
         }
