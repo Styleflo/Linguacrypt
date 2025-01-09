@@ -69,7 +69,7 @@ public class Clef {
         }
 
         try {
-            this.to_qrcode();
+            this.write_qrcode();
         } catch (Exception e) {
             DataUtils.logException(e, "Erreur lors de la génération du QR code");
         }
@@ -150,8 +150,7 @@ public class Clef {
 
         return res.toString();
     }
-
-    public void to_qrcode() throws WriterException, IOException {
+    public BitMatrix to_qrcode() throws WriterException, IOException {
         JSONObject json = new JSONObject();
         json.put("width", this.width);
         json.put("height", this.height);
@@ -168,7 +167,10 @@ public class Clef {
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(json.toString(), BarcodeFormat.QR_CODE, 300, 300);
-
+        return bitMatrix ;
+    }
+    public void write_qrcode() throws WriterException, IOException {
+        BitMatrix bitMatrix = this.to_qrcode();
         Path path = new File(GameConfig.QRCODE_PATH).toPath();
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
