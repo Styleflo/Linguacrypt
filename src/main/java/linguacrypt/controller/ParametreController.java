@@ -38,6 +38,51 @@ public class ParametreController implements Observer {
     private PartieBuilder partieBuilder;
 
     private ArrayList<String> themes;
+    @FXML
+    private Label labelTimer;
+    private final int MIN_TIME = 30; // 30 secondes
+    private final int MAX_TIME = 1800; // 30 minutes
+    private int currentTime = -1; // -1 signifie infini
+
+    @FXML
+    public void handleFlecheGaucheTimer() {
+        if (currentTime == -1) {
+            currentTime = MAX_TIME;
+        } else if (currentTime > MIN_TIME) {
+            // Réduit de 30 secondes
+            currentTime = Math.max(MIN_TIME, currentTime - 30);
+        }
+        else {
+            currentTime = -1;
+        }
+        updateTimerLabel();
+    }
+
+    @FXML
+    public void handleFlecheDroiteTimer() {
+        if (currentTime == -1) {
+            currentTime = MIN_TIME;
+        } else if (currentTime < MAX_TIME) {
+            // Augmente de 30 secondes
+            currentTime = Math.min(MAX_TIME, currentTime + 30);
+        }
+        else {
+            currentTime = -1;
+        }
+        updateTimerLabel();
+    }
+
+    private void updateTimerLabel() {
+        if (currentTime == -1) {
+            labelTimer.setText("∞");
+        } else {
+            int minutes = currentTime / 60;
+            int seconds = currentTime % 60;
+            labelTimer.setText(String.format("%02d:%02d", minutes, seconds));
+        }
+    }
+
+
 
     public ParametreController() {
     }
@@ -144,6 +189,7 @@ public class ParametreController implements Observer {
 
     @FXML
     private void handleValiderTout() throws IOException {
+        partieBuilder.setTimer(currentTime);
         jeu.setView("Plateau");
         Partie partie = partieBuilder.getResult();
         jeu.setPartie(partie);

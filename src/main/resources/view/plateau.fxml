@@ -37,16 +37,32 @@
                             </styleClass>
                         </Button>
                         <FlowPane prefHeight="200.0" prefWidth="200.0" />
-                        <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0" styleClass="dark_petit_panneau">
+                        <AnchorPane layoutX="28.0" layoutY="503.0" prefHeight="125.0" prefWidth="342.0" styleClass="dark_petit_panneau">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="30.0" prefWidth="321.0" styleClass="text" text="Tour" textFill="WHITE" />
-                                <AnchorPane layoutX="23.0" layoutY="66.0" prefHeight="51.0" prefWidth="246.0" styleClass="light_petit_panneau">
-                                    <children>
-                                        <Label alignment="CENTER" layoutX="7.0" layoutY="11.0" prefHeight="30.0" prefWidth="288.0" text="0" textAlignment="CENTER" textFill="#f4cf0f" />
-                                    </children>
-                                </AnchorPane>
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="8.0"
+                                       prefHeight="24.0" prefWidth="288.0" styleClass="text" text="Temps de jeu"
+                                       textFill="WHITE"/>
+                                <HBox layoutX="21.0" layoutY="55.0" spacing="10.0" alignment="CENTER" prefWidth="300.0">
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="blue_petit_panneau">
+                                        <children>
+                                            <Label fx:id="blueTimer" layoutX="0.0" layoutY="0.0"
+                                                   prefHeight="45.0" prefWidth="145.0"
+                                                   alignment="CENTER" text="00:00"
+                                                   styleClass="timer-text" textFill="WHITE"/>
+                                        </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="red_petit_panneau">
+                                        <children>
+                                            <Label fx:id="redTimer" layoutX="0.0" layoutY="0.0"
+                                                   prefHeight="45.0" prefWidth="145.0"
+                                                   alignment="CENTER" text="00:00"
+                                                   styleClass="timer-text" textFill="WHITE"/>
+                                        </children>
+                                    </AnchorPane>
+                                </HBox>
                             </children>
                         </AnchorPane>
+
                         <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0" styleClass="dark_petit_panneau">
                             <children>
                                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="30.0" prefWidth="288.0" styleClass="text" text="Cartes trouvées" textFill="WHITE" />

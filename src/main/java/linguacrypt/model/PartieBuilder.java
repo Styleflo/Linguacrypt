@@ -43,6 +43,7 @@ public class PartieBuilder {
         return this;
     }
 
+
     /**
      * Permet de reset le temps de chaque tour.
      * Attention Il faut donc finir par .build à la fin de tout les parametres pour construire la Partie.
