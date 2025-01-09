@@ -152,16 +152,18 @@ public class Clef {
     }
 
     public void to_qrcode() throws WriterException, IOException {
+        // C'est un peu le foutoir dans les coordonnées, mais ça marche
+
         JSONObject json = new JSONObject();
-        json.put("width", this.width);
-        json.put("height", this.height);
+        json.put("height", this.width);
+        json.put("width", this.height);
         json.put("blue_starts", this.blueStarts);
 
         JSONArray gridArray = new JSONArray();
         for (int i = 0; i < height; i++) {
             JSONArray rowArray = new JSONArray();
             for (int j = 0; j < width; j++) {
-                rowArray.put(grid[i][j].name());
+                rowArray.put(grid[j][i].name());
             }
             gridArray.put(rowArray);
         }
