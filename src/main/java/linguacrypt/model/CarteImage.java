@@ -25,8 +25,6 @@ public class CarteImage extends CarteBase {
         this.url = url;
     }
 
-
-    @Override
     public String getUrl() {
         return url;
     }

@@ -50,10 +50,6 @@ public class Plateau extends PlateauBase {
         this.cards = cards;
     }
 
-    public Plateau(ArrayList<String> words_list) {
-        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT, words_list);
-    }
-
     @Override
     public CarteBase getCard(int i, int j) {
         return this.cards[i][j];
