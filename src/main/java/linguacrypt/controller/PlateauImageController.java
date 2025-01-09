@@ -207,7 +207,8 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+
+                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -324,7 +325,7 @@ public class PlateauImageController implements Observer {
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
-            controller.setImage(url);
+            controller.setMyImage(url);
             return card;
         } catch (IOException e) {
             DataUtils.logException(e, "Erreur lors de la création d'une carte image");
@@ -334,13 +335,14 @@ public class PlateauImageController implements Observer {
 
     private AnchorPane creerPetiteCarte(String url) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card_vp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
-            controller.setImage(url);
+            controller.setMyImage(url);
             return card;
         } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors de la création d'une carte image");
             e.printStackTrace();
             return null;
         }
@@ -449,8 +451,9 @@ public class PlateauImageController implements Observer {
 
     @Override
     public void reagir() {
-        if (jeu.getView().equals("Plateau")) {
+        if (jeu.getView().equals("PlateauImage")) {
             afficherCartes();
+            System.out.println("on passe là");
         }
     }
 }

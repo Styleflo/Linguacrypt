@@ -149,7 +149,7 @@ public class MainController implements Observer {
             case "Cartes" -> content.getChildren().add(cartesRoot);
             case "Plateau" -> content.getChildren().add(plateauRoot);
             case "Parametres" -> content.getChildren().add(parametresRoot);
-            case "PlateauImages" -> content.getChildren().add(plateauImageRoot);
+            case "PlateauImage" -> content.getChildren().add(plateauImageRoot);
             case null, default -> System.out.println(jeu.getView());
         }
     }

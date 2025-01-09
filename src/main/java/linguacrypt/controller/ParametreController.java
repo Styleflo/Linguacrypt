@@ -153,15 +153,17 @@ public class ParametreController implements Observer {
 
         if (Images.isSelected()) {
             partieBuilder.setTypePartie(TypePartie.IMAGES);
-            jeu.setView("PlateauImages");
+            jeu.setView("PlateauImage");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.notifyObservers();
-        } else {
+        } else if (Mots.isSelected()){
             jeu.setView("Plateau");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.notifyObservers();
+        } else {
+            System.out.println("lààààà");
         }
     }
 
@@ -170,7 +172,6 @@ public class ParametreController implements Observer {
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
     }
-
 
 
     @FXML
