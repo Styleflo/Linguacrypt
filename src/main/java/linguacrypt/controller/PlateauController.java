@@ -229,7 +229,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseEnter(int x, int y, AnchorPane carte) {
-        if (!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())||jeu.getPartie().isWon()) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -243,7 +243,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseExit(int x, int y, AnchorPane carte) {
-        if (!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())||jeu.getPartie().isWon()) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
