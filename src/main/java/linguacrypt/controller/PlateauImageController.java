@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
+import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.CarteImage;
 import linguacrypt.model.Jeu;
@@ -104,7 +105,7 @@ public class PlateauImageController implements Observer {
         popupWin.setVisible(false);
     }
 
-    public void PlateauControlleur() {
+    public void PlateauImageControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
     }
 
@@ -185,8 +186,9 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    CarteImage card = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
-                    AnchorPane carte = creerCarte(card.getUrl());
+
+                    CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carte = creerCarte(carteImage.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -209,8 +211,9 @@ public class PlateauImageController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    CarteImage card = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
-                    AnchorPane carte = creerPetiteCarte(card.getUrl());
+
+                    CarteImage carteImage = (CarteImage) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carte = creerPetiteCarte(carteImage.getUrl());
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
@@ -328,8 +331,7 @@ public class PlateauImageController implements Observer {
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
-            System.out.println(url);
-            controller.setImage(url);
+            controller.setMyImage(url);
             return card;
         } catch (IOException e) {
             DataUtils.logException(e, "Erreur lors de la création d'une carte image");
@@ -343,9 +345,10 @@ public class PlateauImageController implements Observer {
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
             card.setUserData(controller);
-            controller.setImage(url);
+            controller.setMyImage(url);
             return card;
         } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors de la création d'une carte image");
             e.printStackTrace();
             return null;
         }
@@ -454,7 +457,7 @@ public class PlateauImageController implements Observer {
 
     @Override
     public void reagir() {
-        if (jeu.getView().equals("Plateau")) {
+        if (jeu.getView().equals("PlateauImage")) {
             afficherCartes();
         }
     }

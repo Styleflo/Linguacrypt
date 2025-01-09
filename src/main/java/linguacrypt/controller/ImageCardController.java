@@ -18,11 +18,13 @@ public class ImageCardController {
 
     }
 
-    public void setImage(String url) {
+    public void setMyImage(String url) {
         if (url != null && !url.isEmpty()) {
             try {
-                Image image = new Image(url, true); // true pour le chargement en arrière-plan
+                Image image = new Image(url, false); // true pour le chargement en arrière-plan
                 cardImage.setImage(image);
+                cardImage.setPreserveRatio(true);
+
                 currentUrl = url;
             } catch (Exception e) {
                 System.err.println("Erreur lors du chargement de l'image: " + e.getMessage());
@@ -33,10 +35,10 @@ public class ImageCardController {
    public void setRecouvert(CardType type, boolean recouvert) {
         if (coveredImage != null) {
             String coverImageUrl = switch (type) {
-                case RED -> "/assets/red_cover.png";
-                case BLUE -> "/assets/blue_cover.png";
-                case BLACK -> "/assets/black_cover.png";
-                case WHITE -> "/assets/white_cover.png";
+                case RED -> "/assets/clef.png";
+                case BLUE -> "/assets/aled.png";
+                case BLACK -> "/assets/black_head.png";
+                case WHITE -> "/assets/lingua.png";
             };
 
             try {

@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.ImagesFileHandler;
 import linguacrypt.utils.StringUtils;
 import linguacrypt.utils.WordsFileHandler;
 
@@ -35,6 +36,7 @@ public class CartesController implements Observer {
     private List<String> currentMots;
     private int currentThemeIndex;
     private ArrayList<String> themes;
+
 
     public CartesController() {
         currentMots = new ArrayList<>();
@@ -309,6 +311,12 @@ public class CartesController implements Observer {
                 wordsFileHandler.writeJsonFile();
             }
         }
+    }
+
+    @FXML
+    private void CategoryImage(){
+        jeu.setView("CartesImages");
+        jeu.notifyObservers();
     }
 
     @Override

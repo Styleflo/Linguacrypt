@@ -18,6 +18,7 @@ public class Partie implements Serializable {
     private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné mais la partie est commencé; -1 la partie n'est pas encore commencé
     private int timer;
     private ArrayList<String> cardsAttribute;
+    private ArrayList<String> words;
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;
@@ -87,7 +88,7 @@ public class Partie implements Serializable {
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void newPlateau() {
-        this.plateau = new Plateau(this.widthParameter, this.heightParameter, cardsAttribute);
+        this.plateau = new Plateau(this.widthParameter, this.heightParameter, cardsAttribute, this.typePartie);
         this.won = -1;
     }
 
@@ -107,6 +108,7 @@ public class Partie implements Serializable {
         this.won = 1;
     }
 
+    public boolean isWon() { return(this.won == 0)||(this.won == 1) ;}
     /**
      * Explicite.
      */

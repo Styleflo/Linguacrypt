@@ -172,3 +172,7 @@
     -fx-background-color: #7a31c2;
     -fx-text-fill: white;
 }
+
+.button-selected {
+    -fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);
+}
