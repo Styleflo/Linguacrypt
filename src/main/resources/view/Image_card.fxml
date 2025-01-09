@@ -3,7 +3,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
             prefHeight="110.0" prefWidth="167.0" styleClass="card"
             stylesheets="@../css/Neutral_card.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="linguacrypt.controller.ImageCardController">
