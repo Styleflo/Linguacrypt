@@ -55,10 +55,6 @@ public class CartesController implements Observer {
         updateCurrentThemeLabel();
         currentMots = wordsFileHandler.getWordsByTheme(themes.get(currentThemeIndex));
 
-        ImagesFileHandler imagesFileHandler = jeu.getImagesFileHandler();
-
-        currentImages = imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes());
-
     }
 
     private void updateCurrentThemeLabel() {
@@ -67,37 +63,6 @@ public class CartesController implements Observer {
     }
 
     private void afficherCartes() {
-        DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
-        filtre.setMouseTransparent(true);
-        gridPane.getChildren().clear();
-        gridPane.setHgap(GameConfig.CARTES_THEMES_HGAP);
-        gridPane.setVgap(GameConfig.CARTES_THEMES_VGAP);
-        gridPane.setPadding(new Insets(GameConfig.CARTES_THEMES_PADDING));
-
-        int row = 0;
-        int col = 0;
-        int maxCols = 5;
-
-        for (int i = 0; i < currentMots.size(); i++) {
-            AnchorPane carte = creerCarte(currentMots.get(i));
-
-            assert carte != null;
-            //create_transition(carte);
-            int finalI = i;
-            carte.setOnMouseClicked(event -> handleCardClick(currentMots.get(finalI), event.getScreenX(), event.getScreenY()));
-
-            gridPane.add(carte, col, row);
-
-            col++;
-            if (col >= maxCols) {
-                col = 0;
-                row++;
-            }
-        }
-    }
-
-
-    private void afficherCartesImages() {
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
         filtre.setMouseTransparent(true);
         gridPane.getChildren().clear();
@@ -189,22 +154,6 @@ public class CartesController implements Observer {
             return card;
         } catch (IOException e) {
             DataUtils.logException(e, "Erreur lors de la création d'une carte");
-            return null;
-        }
-    }
-
-
-
-    private AnchorPane creerCarteImage(String url) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
-            AnchorPane card = loader.load();
-            ImageCardController controller = loader.getController();
-            card.setUserData(controller);
-            controller.setMyImage(url);
-            return card;
-        } catch (IOException e) {
-            DataUtils.logException(e, "Erreur lors de la création d'une carte image");
             return null;
         }
     }
@@ -368,6 +317,12 @@ public class CartesController implements Observer {
                 wordsFileHandler.writeJsonFile();
             }
         }
+    }
+
+    @FXML
+    private void CategoryImage(){
+        jeu.setView("CartesImages");
+        jeu.notifyObservers();
     }
 
     @Override

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
+<StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesImageController">
     <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
         <image>
             <Image url="@../assets/fond_test_1.gif" />
@@ -82,14 +82,7 @@
                             <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle" textFill="WHITE" />
                         </children>
                     </Pane>
-                    <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewTheme" prefHeight="66.0" prefWidth="253.0" text="Nouveau thème">
-                        <styleClass>
-                            <String fx:value="button1" />
-                            <String fx:value="w" />
-                            <String fx:value="orange_button" />
-                        </styleClass>
-                    </Button>
-                    <Button layoutX="441.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
+                    <Button layoutX="441.0" layoutY="708.0" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="purple_button" />
@@ -107,7 +100,7 @@
                         <styleClass>
                             <String fx:value="button1" />
                             <String fx:value="close_button" />
-                     <String fx:value="image-button" />
+                     <String fx:value="image-button2" />
                         </styleClass>
                     </Button>
                 </children>
