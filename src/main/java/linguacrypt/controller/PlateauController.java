@@ -492,6 +492,7 @@ public class PlateauController implements Observer {
     }
 
     public void updateLabel() {
+        // todo : mettre qui gagne en cas de victoire
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv

@@ -1,31 +1,57 @@
 package linguacrypt.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import linguacrypt.config.GameConfig;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordsFileHandler {
-    private final WordsCategories wordsCategories;
+    private final UserConfig userConfig;
+    private final Path appDir;
 
     public WordsFileHandler(String filePath) throws IOException {
-        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(filePath);
+        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filePath);
 
-        DataUtils.assertNotNull(resourceStream, "Le fichier " + filePath + " n'existe pas.");
+        DataUtils.assertNotNull(fileStream, "Le fichier " + filePath + " n'existe pas.");
 
+        String userHome = System.getProperty("user.home");
+        appDir = Paths.get(userHome, GameConfig.APP_DIR);
+
+        if (!appDir.toFile().exists()) {
+            appDir.toFile().mkdir();
+        }
+
+        Path userConfigPath = appDir.resolve(GameConfig.USER_CONFIG_FILE);
+
+        if (!userConfigPath.toFile().exists()) {
+            Files.copy(fileStream, userConfigPath);
+        }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        wordsCategories = objectMapper.readValue(resourceStream, WordsCategories.class);
+        userConfig = objectMapper.readValue(userConfigPath.toFile(), UserConfig.class);
     }
 
-    public void writeJsonFile() {
-        //objectMapper.writeValue(file, wordsCategories);  // todo
+    public void saveUserConfig() {
+        try {
+            Path userConfigPath = appDir.resolve(GameConfig.USER_CONFIG_FILE);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(userConfigPath.toFile(), userConfig);
+        } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors de la sauvegarde de UserConfig.");
+        }
+
     }
 
     public ArrayList<String> getWordsByTheme(String theme) {
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<WordsCategory> categories = userConfig.getCategories();
 
         for (WordsCategory category : categories) {
             if (category.getName().equals(theme)) {
@@ -39,7 +65,7 @@ public class WordsFileHandler {
     public ArrayList<String> getWordsByThemes(ArrayList<String> themes) {
         ArrayList<String> words = new ArrayList<>();
 
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<WordsCategory> categories = userConfig.getCategories();
 
         for (WordsCategory category : categories) {
             if (themes.contains(category.getName())) {
@@ -53,7 +79,7 @@ public class WordsFileHandler {
     public ArrayList<String> getAllThemes() {
         ArrayList<String> themes = new ArrayList<>();
 
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<WordsCategory> categories = userConfig.getCategories();
 
         for (WordsCategory category : categories) {
             themes.add(category.getName());
@@ -65,13 +91,13 @@ public class WordsFileHandler {
     public boolean addCategory(String categoryName) {
         if (themeExists(categoryName)) return false;
 
-        wordsCategories.getCategories().add(new WordsCategory(categoryName, new ArrayList<>()));
+        userConfig.getCategories().add(new WordsCategory(categoryName, new ArrayList<>()));
 
         return true;
     }
 
     public boolean themeExists(String category) {
-        for (WordsCategory cat : wordsCategories.getCategories()) {
+        for (WordsCategory cat : userConfig.getCategories()) {
             if (cat.getName().equals(category)) {
                 return true;
             }
@@ -85,7 +111,7 @@ public class WordsFileHandler {
             return new Object[]{false, "Le mot " + word + " existe déjà dans le thème " + previousCategory.getName() + "."};
         }
 
-        for (WordsCategory cat : wordsCategories.getCategories()) {
+        for (WordsCategory cat : userConfig.getCategories()) {
             if (cat.getName().equals(category)) {
                 cat.getWords().add(word);
                 return new Object[]{true, ""};
@@ -96,7 +122,7 @@ public class WordsFileHandler {
     }
 
     public WordsCategory getCategoryByWord(String word) {
-        for (WordsCategory cat : wordsCategories.getCategories()) {
+        for (WordsCategory cat : userConfig.getCategories()) {
             if (cat.getWords().contains(word)) {
                 return cat;
             }
@@ -105,7 +131,7 @@ public class WordsFileHandler {
     }
 
     public void removeWordFromCategory(String category, String word) {
-        List<WordsCategory> categories = wordsCategories.getCategories();
+        List<WordsCategory> categories = userConfig.getCategories();
 
         for (WordsCategory cat : categories) {
             if (cat.getName().equals(category)) {
@@ -120,6 +146,27 @@ public class WordsFileHandler {
                 }
             }
         }
+    }
 
+    public void addImage(File image) {
+        try {
+            Files.copy(image.toPath(), appDir.resolve(image.getName()));
+        } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors de la copie de l'image.");
+        }
+
+        // userConfig.getAddedImages().add(image);
+    }
+
+    public void removeImage(String image) {
+        userConfig.getAddedImages().remove(image);
+    }
+
+    public ArrayList<String> getAddedImages() {
+        return new ArrayList<>(userConfig.getAddedImages());
+    }
+
+    public void addStatistic(String name, int value) {
+        userConfig.getStatitics().add(new Statistic(name, value));
     }
 }

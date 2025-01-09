@@ -7,6 +7,8 @@ public class GameConfig {
 
     public static String CARDS_FILE = "cards.json";
     public static String QRCODE_PATH = "src/main/resources/assets/clef.png";
+    public static String APP_DIR = ".linguacryptConfig";
+    public static String USER_CONFIG_FILE = "userConfig.json";
 
     public static double BLACK_CARDS_PROPORTION = 0.04;  // = 1/25
     public static double BLUE_AND_RED_CARDS_PROPORTION = 0.33;  // =~ 1/3

@@ -129,7 +129,7 @@ public class CartesController implements Observer {
                     setCurrentThemeIndex(currentThemeIndex - 1);
                 }
 
-                wordsFileHandler.writeJsonFile();
+                wordsFileHandler.saveUserConfig();
                 reagir();
             }
         });
