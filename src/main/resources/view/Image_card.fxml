@@ -13,12 +13,12 @@
         </AnchorPane>
         <ImageView fx:id="coveredImage" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/aled.png" />
+                <Image url="@../assets/hippo.png" />
             </image>
         </ImageView>
         <ImageView fx:id="semicoveredImage" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/aled.png" />
+                <Image url="@../assets/hippo.png" />
             </image>
         </ImageView>
     </children>
