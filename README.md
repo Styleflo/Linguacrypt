@@ -64,8 +64,19 @@ Compte Rendu Jour 4 :
 - Avancée sur les vues utilisateur, l'utilisateur peut : 
 
         - L'utilisateur peut désormais choisir de jouer avec des images. 
-        - Il peut également voir la collection de toutes les cartes images. 
-        
+        - Il peut également voir la collection de toutes les cartes image en appuyant sur l'icone image en bas à droite de sa page. 
+        - Dans le menu Paramètre, il peut choisir de jouer en mode image en cochant son choix dans la case qu'il souhaite. 
+        - Du menu Paramètre, il peut aussi load une de ses anciennes parties en appuyant sur le bouton en bas à droite. 
+
+
+Compte Rendu Jour 5 : 
+
+- Amélioration des designs.
+
+- Il est désormais possible d'ajouter des images dans le deck image depuis l'ordinateur de l'utilisateur dans le menu image. 
+
+- Le compteur fonctionne correctement, les joueurs peuvent selectionner le temps que va durer leur partie. 
+
 
 
 

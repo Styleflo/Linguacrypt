@@ -23,4 +23,8 @@ Enfin, une clef unique est créer pour chaque partie.
 
 ![img_5.png](images/img_5.png)
 
-L'ensemble du diagramme avec les dependences entre les classes est visible dans l'image package.png.
+L'ensemble du diagramme avec les dépendences entre les classes est visible dans l'image package.png.
+
+
+Les differentes Vue sont implémentées avec fxml et javafx, elles implémentent toute l'interface Observer. 
+Le passage d'une vue à une autre se fait grâce à la classe MainController.
