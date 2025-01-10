@@ -92,6 +92,10 @@ public class PlateauImageController implements Observer {
     private void initializeTimer() {
         if (jeu.getPartie().getTimer() != -1) {
             // Si c'est une nouvelle partie, initialise les temps
+
+            blueTimer.setVisible(true);
+            redTimer.setVisible(true);
+
             if (jeu.getPartie().getwon() == -1) {
                 blueTimeLeft = jeu.getPartie().getTimer() / 2;
                 redTimeLeft = jeu.getPartie().getTimer() / 2;
