@@ -74,20 +74,25 @@
         </ImageView>
     </children>
 
-    <Pane fx:id="statOverlay" styleClass="confirmationOverlay" visible="false">
-        <children>
-            <VBox fx:id="borderWin" alignment="CENTER" layoutX="525.0" layoutY="325.0" prefHeight="200.0" prefWidth="400.0" spacing="20.0" styleClass="win-box-red">
-                <children>
-                    <Label fx:id="whoWon" styleClass="text" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian" textFill="WHITE" />
-                    <Label fx:id="victoiresBleues" text="Victoires bleues : 0" styleClass = "text" textFill="#3399FF" />
-                    <Label fx:id="victoiresRouges" text="Victoires rouges : 0" styleClass = "text" textFill="#f70d1a" />
+    <!--  C'est pour moi et mes stats touchez pas -->
 
-                    <HBox alignment="CENTER" spacing="10.0">
-                        <Button fx:id="colorButton" onAction="#okStat" styleClass="button1" text="OK">
-                        </Button>
-                    </HBox>
-                </children>
-            </VBox>
-        </children>
-    </Pane>
+    <Label fx:id="victoiresBleues" text="Victoires bleues : 0" styleClass = "text" textFill="#3399FF" visible="false" />
+    <Label fx:id="victoiresRouges" text="Victoires rouges : 0" styleClass = "text" textFill="#f70d1a" visible="false" />
+
+<!--    <Pane fx:id="statOverlay" styleClass="confirmationOverlay" visible="false">-->
+<!--        <children>-->
+<!--            <VBox fx:id="borderWin" alignment="CENTER" layoutX="525.0" layoutY="325.0" prefHeight="200.0" prefWidth="400.0" spacing="20.0" styleClass="win-box-red">-->
+<!--                <children>-->
+<!--                    <Label fx:id="whoWon" styleClass="text" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian" textFill="WHITE" />-->
+<!--                    <Label fx:id="victoiresBleues" text="Victoires bleues : 0" styleClass = "text" textFill="#3399FF" />-->
+<!--                    <Label fx:id="victoiresRouges" text="Victoires rouges : 0" styleClass = "text" textFill="#f70d1a" />-->
+
+<!--                    <HBox alignment="CENTER" spacing="10.0">-->
+<!--                        <Button fx:id="colorButton" onAction="#okStat" styleClass="button1" text="OK">-->
+<!--                        </Button>-->
+<!--                    </HBox>-->
+<!--                </children>-->
+<!--            </VBox>-->
+<!--        </children>-->
+<!--    </Pane>-->
 </StackPane>

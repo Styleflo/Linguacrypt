@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0"
+           xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.StatsController">
+    <children>
+        <!-- Background avec filtre -->
+        <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
+            <image>
+                <Image url="@../assets/fond_test_1.gif"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.21" pickOnBounds="true">
+            <image>
+                <Image url="@../assets/filtre.png"/>
+            </image>
+            <effect>
+                <GaussianBlur radius="24.25"/>
+            </effect>
+        </ImageView>
+
+        <AnchorPane stylesheets="@../css/gui.css">
+            <children>
+                <!-- Panneau principal -->
+                <Pane layoutX="300.0" layoutY="79.0" prefHeight="673.0" prefWidth="728.0"
+                      styleClass="main_panneau, blue_main_panneau" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                    <children>
+                        <!-- Section titre -->
+                        <AnchorPane layoutX="199.0" layoutY="31.0" prefHeight="71.0" prefWidth="331.0"
+                                    styleClass="blue_petit_panneau">
+                            <children>
+                                <Label layoutX="87.0" layoutY="21.0" styleClass="text" textFill="WHITE" text="Statistiques"/>
+                            </children>
+                        </AnchorPane>
+
+                        <!-- Section statistiques de victoires -->
+                        <HBox layoutX="64.0" layoutY="150.0" spacing="100" alignment="CENTER">
+                            <AnchorPane prefHeight="134.0" prefWidth="182.0" styleClass="blue_petit_panneau">
+                                <children>
+                                    <VBox alignment="CENTER" spacing="20" layoutX="16.0" layoutY="17.0">
+                                        <Label alignment="CENTER" styleClass="text" textFill="WHITE" text="Victoires Bleues"/>
+                                        <Label fx:id="blueWinsLabel" styleClass="text" textFill="WHITE" text="0"/>
+                                    </VBox>
+                                </children>
+                            </AnchorPane>
+
+                            <AnchorPane prefHeight="134.0" prefWidth="182.0" styleClass="red_petit_panneau">
+                                <children>
+                                    <VBox alignment="CENTER" spacing="20" layoutX="16.0" layoutY="17.0">
+                                        <Label alignment="CENTER" styleClass="text" textFill="WHITE" text="Victoires Rouges"/>
+                                        <Label fx:id="redWinsLabel" styleClass="text" textFill="WHITE" text="0"/>
+                                    </VBox>
+                                </children>
+                            </AnchorPane>
+                        </HBox>
+
+                        <!-- Liste des parties -->
+                        <VBox fx:id="gamesContainer" layoutX="164.0" layoutY="330.0" alignment="CENTER" spacing="20.0"
+                              styleClass="dark_petit_panneau" prefWidth="400.0" prefHeight="250.0">
+                            <children>
+                                <Label text="Historique des parties" textFill="WHITE" styleClass="text"/>
+                                <ScrollPane prefHeight="200.0" prefWidth="380.0" styleClass="dark_petit_panneau">
+                                    <content>
+                                        <VBox fx:id="themeBox" alignment="CENTER" spacing="10.0" styleClass="dark_petit_panneau"/>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </VBox>
+
+                        <!-- Bouton menu -->
+                        <Button layoutX="29.0" layoutY="609.0" mnemonicParsing="false"
+                                onAction="#handleMenuInitial" prefHeight="39.0" prefWidth="89.0"
+                                styleClass="button1, blue_button" text="Menu" textFill="WHITE"/>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+
+        <!-- Popup détails -->
+        <AnchorPane fx:id="detailsPopup" visible="false" styleClass="popup-overlay">
+            <children>
+                <VBox alignment="CENTER" spacing="20.0" layoutX="525.0" layoutY="175.0"
+                      styleClass="popup-container" prefWidth="400.0" prefHeight="500.0">
+                    <children>
+                        <Label fx:id="popupTitle" styleClass="text" textFill="WHITE"/>
+                        <ScrollPane prefHeight="400.0" prefWidth="380.0" styleClass="dark_petit_panneau">
+                            <content>
+                                <VBox fx:id="statsDetails" alignment="CENTER" spacing="10.0" styleClass="dark_petit_panneau"/>
+                            </content>
+                        </ScrollPane>
+                        <Button text="Fermer" onAction="#closePopup" styleClass="button1, red_button"/>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

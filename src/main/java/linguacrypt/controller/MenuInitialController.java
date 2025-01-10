@@ -52,31 +52,32 @@ public class MenuInitialController implements Observer {
 
     @FXML
     private void handleStatButton() {
-        statOverlay.setVisible(true);
-        if (jeu.getVictoireBleue()<jeu.getVictoireRouge()) {
-            whoWon.setText("L'équipe Rouge gagne !");
-            whoWon.setStyle("-fx-text-fill: #f70d1a;");
-            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
-            colorButton.getStyleClass().add("red_button");
-            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
-            borderWin.getStyleClass().add("win-box-red");
-        }
-        else if (jeu.getVictoireBleue()==jeu.getVictoireRouge()) {
-            whoWon.setText("Personne ne gagne !");
-            whoWon.setStyle("-fx-text-fill: white;");
-            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("white"));
-            colorButton.getStyleClass().add("white_button");
-            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
-            borderWin.getStyleClass().add("win-box-white");
-        }
-        else {
-            whoWon.setText("L'équipe Bleue gagne !");
-            whoWon.setStyle("-fx-text-fill: #3399FF;");
-            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
-            colorButton.getStyleClass().add("blue_button");
-            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
-            borderWin.getStyleClass().add("win-box-blue");
-        }
+        //statOverlay.setVisible(true);
+        jeu.setView("Stats");
+//        if (jeu.getVictoireBleue()<jeu.getVictoireRouge()) {
+//            whoWon.setText("L'équipe Rouge gagne !");
+//            whoWon.setStyle("-fx-text-fill: #f70d1a;");
+//            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
+//            colorButton.getStyleClass().add("red_button");
+//            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+//            borderWin.getStyleClass().add("win-box-red");
+//        }
+//        else if (jeu.getVictoireBleue()==jeu.getVictoireRouge()) {
+//            whoWon.setText("Personne ne gagne !");
+//            whoWon.setStyle("-fx-text-fill: white;");
+//            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("white"));
+//            colorButton.getStyleClass().add("white_button");
+//            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+//            borderWin.getStyleClass().add("win-box-white");
+//        }
+//        else {
+//            whoWon.setText("L'équipe Bleue gagne !");
+//            whoWon.setStyle("-fx-text-fill: #3399FF;");
+//            colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
+//            colorButton.getStyleClass().add("blue_button");
+//            borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
+//            borderWin.getStyleClass().add("win-box-blue");
+//        }
         jeu.notifyObservers();
 
     }

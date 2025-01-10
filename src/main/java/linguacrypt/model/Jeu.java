@@ -133,6 +133,10 @@ public class Jeu {
     public void setPartie(Partie partie) {
         this.partie = partie;
         initializeNewGameStatistics();
+        if (!this.getGameStatistics().isEmpty() && this.getGameStatistics().get(0).getGameId() == 0) {
+            this.getGameStatistics().remove(0);
+        }
+
     }
 
 
