@@ -333,9 +333,10 @@ public class PlateauImageController implements Observer {
             startTimer();
         }
 
+
         CarteBase currentCard = jeu.getPartie().getPlateau().getCard(x, y);
 
-        if (currentCard.isCovered()) {
+        if (currentCard.isCovered()||jeu.getPartie().isWon()) {
             return;
         }
 
@@ -431,11 +432,7 @@ public class PlateauImageController implements Observer {
             for (CarteBase c : row) {
                 CarteImage card = (CarteImage) c;
                 AnchorPane carteVisu = findAnchorCard(card.getUrl());  // Modifié pour utiliser getUrl()
-                if (carteVisu != null) {
-                    card.setCovered();
-                    ImageCardController controller = (ImageCardController) carteVisu.getUserData();
-                    controller.setRecouvert(card.getType(), true);
-                }
+
             }
         }
     }
