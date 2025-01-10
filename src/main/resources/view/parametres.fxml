@@ -133,7 +133,6 @@
                             <styleClass>
                                 <String fx:value="button1"/>
                                 <String fx:value="orange_button"/>
-                                <String fx:value="button-selected"/>
                             </styleClass>
                         </Button>
                         <AnchorPane layoutX="279.0" layoutY="31.0" prefHeight="71.0" prefWidth="331.0"
@@ -156,20 +155,16 @@
                                 <String fx:value="green_button"/>
                             </styleClass>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="29.0"
-                                layoutY="609.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="39.0"
-                                prefWidth="89.0" text="Menu" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="33.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="85.0" prefWidth="157.0" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
-                                <String fx:value="button1"/>
-                                <String fx:value="close_button"/>
+                                <String fx:value="button1" />
+                                <String fx:value="close_button" />
                             </styleClass>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="271.0"
-                                layoutY="609.0" mnemonicParsing="false" onAction="#loadPartie" prefHeight="39.0"
-                                prefWidth="89.0" text="Charger une partie" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="666.0" layoutY="567.0" mnemonicParsing="false" onAction="#loadPartie" prefHeight="85.0" prefWidth="157.0" text="Charger une partie" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
-                                <String fx:value="button1"/>
-                                <String fx:value="close_button"/>
+                                <String fx:value="button1" />
+                                <String fx:value="close_button" />
                             </styleClass>
                         </Button>
                         <Pane layoutX="33.0" layoutY="18.0" prefHeight="100.0" prefWidth="785.0"
@@ -225,5 +220,18 @@
             </VBox>
         </children>
     </Pane>
+    <AnchorPane fx:id="popup"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="332.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" visible="false">        <children>
+            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="200" maxWidth="300.0" prefWidth="358.0" styleClass="popup-container">
+                <children>
+                    <VBox alignment="CENTER" spacing="20" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <children>
+                            <Label fx:id="winnerLabel" maxWidth="250" style="-fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-text-alignment: center;" text="Veuillez ajouter plus de thèmes car il manque des images pour construire le plateau." textFill="WHITE" wrapText="true" />
+                            <Button fx:id="okButton" onAction="#handleOKPopup" prefWidth="59.0" styleClass="button1" text="OK" />
+                        </children>
+                    </VBox>
+                </children>
+            </AnchorPane>
+        </children>
+    </AnchorPane>
 </StackPane>
 
