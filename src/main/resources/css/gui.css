@@ -57,13 +57,13 @@
 
 
 .orange_button {
-    -fx-background-color: orange; /* Green */
+    -fx-background-color: #185ad7; /* Green */
     -fx-text-fill: white;
 
 }
 
 .red_button {
-    -fx-background-color: red; /* Green */
+    -fx-background-color: #cc0002; /* Green */
     -fx-text-fill: white;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .red_petit_panneau {
-    -fx-background-color: #f70d1a;
+    -fx-background-color: #cc0002;
     -fx-background-radius: 20px;
 }
 

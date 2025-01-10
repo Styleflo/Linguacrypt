@@ -10,8 +10,8 @@
     /*-fx-background-image: url("../assets/card_hover.gif");*/
     -fx-background-size: cover;
     -fx-background-radius: 20px; /* Coins arrondis */
-    -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
-    -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
+    -fx-translate-x: 2px; /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 2px; /* Déplacer de 10px vers le bas */
 
 }
 
