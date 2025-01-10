@@ -133,7 +133,6 @@
                             <styleClass>
                                 <String fx:value="button1"/>
                                 <String fx:value="orange_button"/>
-                                <String fx:value="button-selected"/>
                             </styleClass>
                         </Button>
                         <AnchorPane layoutX="279.0" layoutY="31.0" prefHeight="71.0" prefWidth="331.0"
@@ -211,5 +210,20 @@
             </VBox>
         </children>
     </Pane>
+    <!-- <AnchorPane fx:id="popup"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="332.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" visible="false">
+        <children>
+            <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="200" maxWidth="300.0" prefWidth="358.0" styleClass="popup-container">
+                <children>
+                    <VBox alignment="CENTER" spacing="20" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <children>
+                            <Label maxWidth="250" style="-fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-text-alignment: center;" text="Veuillez ajouter plus de thèmes car il manque des images pour construire le plateau." textFill="WHITE" wrapText="true" />
+                            <Button onAction="#handleOKPopup" prefWidth="59.0" styleClass="button1" text="OK" />
+                        </children>
+                    </VBox>
+                </children>
+            </AnchorPane>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="168.0" prefWidth="300.0" spacing="20" />
+        </children>
+    </AnchorPane> -->
 </StackPane>
 

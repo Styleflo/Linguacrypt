@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -52,6 +53,11 @@ public class ParametreController implements Observer {
     private Button choisirThemeButton;
     @FXML
     private Button themesAleatoiresButton;
+
+    //pop up
+    @FXML
+    private AnchorPane popup;
+
     private Jeu jeu;
     private PartieBuilder partieBuilder;
 
@@ -110,6 +116,8 @@ public class ParametreController implements Observer {
     public void setPartieBuilder() throws IOException {
         this.partieBuilder = new PartieBuilder(jeu);
         filtre.setMouseTransparent(true);
+        handleCartesAleatoire();
+        handleModeMots();
     }
 
     public void handleCartesAleatoire() {
@@ -189,8 +197,6 @@ public class ParametreController implements Observer {
             themeItem.getChildren().addAll(checkBox, label);
             themeBox.getChildren().add(themeItem);
         }
-        choisirThemeButton.getStyleClass().add("button-selected");
-        themesAleatoiresButton.getStyleClass().remove("button-selected");
     }
 
     @FXML
@@ -218,8 +224,6 @@ private void handleValider() {
             }
         }
     }
-    System.out.println(nbr_carte_selectionne);
-    System.out.println(width*height);
 
     if (nbr_carte_selectionne < width * height) {
         // Afficher une pop-up pour demander à ajouter un thème car il manque des images pour construire le plateau
@@ -231,6 +235,8 @@ private void handleValider() {
     } else {
         partieBuilder.setUsedThemes(selectedThemes);
         lesthemes.setVisible(false);
+        themesAleatoiresButton.getStyleClass().remove("button-selected");
+        choisirThemeButton.getStyleClass().add("button-selected");
     }
     }
 
@@ -270,9 +276,9 @@ private void handleValider() {
             jeu.notifyObservers();
         } else if (Mots.isSelected() && !Images.isSelected()) {
             partieBuilder.setTimer(currentTime);
-            jeu.setView("Plateau");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
+            jeu.setView("Plateau");
             jeu.notifyObservers();
         } else {
             // eventuellement pop up à mettre un jour
@@ -318,6 +324,13 @@ private void handleValider() {
     private void handleAnnuler() {
         lesthemes.setVisible(false);
         choisirThemeButton.getStyleClass().remove("button-selected");
+    }
+
+    // Popup Fonctions
+    @FXML
+    private void handleOKPopup(){
+        popup.setVisible(false);
+        System.out.println("on clique mais ça marche pas");
     }
 
     @Override
