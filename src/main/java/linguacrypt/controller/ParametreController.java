@@ -224,7 +224,7 @@ public class ParametreController implements Observer {
         }
 
         if (nbr_carte_selectionne < width * height) {
-            // Afficher une pop-up pour demander à ajouter un thème car il manque des images pour construire le plateau
+
             popup.setVisible(true);
         } else {
             partieBuilder.setUsedThemes(selectedThemes);
