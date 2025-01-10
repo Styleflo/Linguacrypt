@@ -156,20 +156,16 @@
                                 <String fx:value="green_button"/>
                             </styleClass>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="29.0"
-                                layoutY="609.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="39.0"
-                                prefWidth="89.0" text="Menu" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="33.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="85.0" prefWidth="157.0" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
-                                <String fx:value="button1"/>
-                                <String fx:value="close_button"/>
+                                <String fx:value="button1" />
+                                <String fx:value="close_button" />
                             </styleClass>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="271.0"
-                                layoutY="609.0" mnemonicParsing="false" onAction="#loadPartie" prefHeight="39.0"
-                                prefWidth="89.0" text="Charger une partie" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="666.0" layoutY="567.0" mnemonicParsing="false" onAction="#loadPartie" prefHeight="85.0" prefWidth="157.0" text="Charger une partie" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
-                                <String fx:value="button1"/>
-                                <String fx:value="close_button"/>
+                                <String fx:value="button1" />
+                                <String fx:value="close_button" />
                             </styleClass>
                         </Button>
                         <Pane layoutX="33.0" layoutY="18.0" prefHeight="100.0" prefWidth="785.0"
