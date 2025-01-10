@@ -7,6 +7,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
+import linguacrypt.utils.DataUtils;
+
+import java.io.File;
 
 public class ImageCardController {
     private Jeu jeu;
@@ -33,13 +36,18 @@ public class ImageCardController {
     public void setMyImage(String url) {
         if (url != null && !url.isEmpty()) {
             try {
-                Image image = new Image(url, false); // true pour le chargement en arrière-plan
+                File file = new File(url);
+                Image image;
+                if (file.exists()) {
+                    image = new Image(file.toURI().toString(), true);
+                } else {
+                    image = new Image(url, true);
+                }
                 cardImage.setImage(image);
                 cardImage.setPreserveRatio(true);
-
                 currentUrl = url;
             } catch (Exception e) {
-                System.err.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                DataUtils.logException(e, "Erreur lors du chargement de l'image");
             }
         }
     }
