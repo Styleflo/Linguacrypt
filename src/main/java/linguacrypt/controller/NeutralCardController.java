@@ -50,10 +50,10 @@ public class NeutralCardController {
                 coveredRed.setVisible(recouvert);
                 break;
             case CardType.BLACK:
-                coveredWhite.setVisible(recouvert);
+                coveredBlack.setVisible(recouvert);
                 break;
             case CardType.WHITE:
-                coveredBlack.setVisible(recouvert);
+                coveredWhite.setVisible(recouvert);
                 break;
         }
     }
