@@ -172,7 +172,7 @@
                         <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
                             <children>
                                 <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0" prefHeight="30.0" prefWidth="313.0" styleClass="text" stylesheets="@../css/parametre.css" text="Ajouter une Carte" />
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0" prefHeight="30.0" prefWidth="313.0" styleClass="text" stylesheets="@../css/parametre.css" text="Ajouter une carte" />
                             </children>
                             <styleClass>
                                 <String fx:value="blue_petit_panneau" />
