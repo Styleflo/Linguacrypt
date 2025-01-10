@@ -432,11 +432,18 @@ public class PlateauImageController implements Observer {
             for (CarteBase c : row) {
                 CarteImage card = (CarteImage) c;
                 AnchorPane carteVisu = findAnchorCard(card.getUrl());  // Modifié pour utiliser getUrl()
-
+                if (carteVisu != null) {
+                    String style = switch (card.getType()) {
+                        case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                        case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                        case CardType.BLACK -> "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                        case CardType.WHITE -> "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
+                    };
+                    carteVisu.setStyle(style);
+                }
             }
         }
     }
-
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
         if (winningTeam.equals("Rouge")) {
