@@ -11,19 +11,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import linguacrypt.utils.FileSaveDeleteHandler;
-
-import java.io.File;
 
 import static java.lang.Math.min;
 
@@ -188,13 +185,8 @@ public class CartesImageController implements Observer {
         File fichier = fileChooser.showOpenDialog(new Stage());
 
         if (fichier != null) {
-            try {
-                FileSaveDeleteHandler.copyFile(fichier, new File(GameConfig.IMAGES_PATH + fichier.getName()));
-                currentImages.add(fichier.getName());
-                reagir();
-            } catch (IOException e) {
-                DataUtils.logException(e, "Erreur lors de la copie de l'image");
-            }
+            jeu.getGameDataManager().addImage(fichier);
+            reagir();
         }
     }
 

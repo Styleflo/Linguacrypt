@@ -186,4 +186,8 @@ public class GameDataManager {
 
         return images;
     }
+
+    public Path getAppDir() {
+        return appDir;
+    }
 }
