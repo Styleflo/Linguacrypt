@@ -1,206 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.GaussianBlur?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.TextField?>
-
-<StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css"
+           xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.CartesController">
     <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
-        <image>
-            <Image url="@../assets/fond_flou.gif" />
-        </image>
+        <Image url="@../assets/fond_flou.gif"/>
     </ImageView>
     <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../assets/filtre.png" />
-        </image>
         <effect>
             <GaussianBlur radius="25.0"/>
         </effect>
+        <Image url="@../assets/filtre.png"/>
     </ImageView>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
-        <children>
-            <AnchorPane layoutX="160.0" layoutY="24.0" prefHeight="801.0" prefWidth="1130.0">
-                <children>
-                    <HBox alignment="CENTER" layoutX="52.0" layoutY="712.0" spacing="80.0" />
-                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="41.0" layoutY="14.0" prefHeight="605.0" prefWidth="1054.0" stylesheets="@../css/scroll.css">
-                        <content>
-                            <GridPane fx:id="gridPane" prefHeight="567.0" prefWidth="1052.0">
-                                <columnConstraints>
-                                    <ColumnConstraints />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints />
-                                </rowConstraints>
-                                <styleClass>
-                                    <String fx:value="light_petit_panneau" />
-                                    <String fx:value="bordure_speciale" />
-                                </styleClass>
-                            </GridPane>
-                        </content>
-                        <styleClass>
-                            <String fx:value="dark_petit_panneau" />
-                            <String fx:value="scroll-pane" />
-                            <String fx:value="scroll-bar" />
-                        </styleClass>
-                    </ScrollPane>
-                    <Button layoutX="218.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0" prefWidth="67.0" text="&lt;">
-                        <styleClass>
-                            <String fx:value="button1" />
-                            <String fx:value="red_button" />
-                        </styleClass>
-                    </Button>
-                    <Button layoutX="854.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
-                        <styleClass>
-                            <String fx:value="button1" />
-                            <String fx:value="red_button" />
-                        </styleClass>
-                    </Button>
-                    <Button layoutX="141.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="282.0" text="Menu principal">
-                        <styleClass>
-                            <String fx:value="button1" />
-                            <String fx:value="w" />
-                            <String fx:value="orange_button" />
-                        </styleClass>
-                    </Button>
-                    <Pane layoutX="304.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0" styleClass="red_petit_panneau">
-                        <children>
-                            <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle" textFill="WHITE" />
-                        </children>
-                    </Pane>
-                    <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewTheme" prefHeight="66.0" prefWidth="253.0" text="Nouveau thème">
-                        <styleClass>
-                            <String fx:value="button1" />
-                            <String fx:value="w" />
-                            <String fx:value="orange_button" />
-                        </styleClass>
-                    </Button>
-                    <Button layoutX="441.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
-                        <styleClass>
-                            <String fx:value="button1" />
-                            <String fx:value="purple_button" />
-                        </styleClass>
-                    </Button>
-                    <ImageView fx:id="filtre" fitHeight="790.0" fitWidth="1142.0" layoutY="3.0" opacity="0.21" pickOnBounds="true">
-                        <image>
-                            <Image url="@../assets/filtre.png" />
-                        </image>
-                        <effect>
-                            <GaussianBlur radius="22.75" />
-                        </effect>
-                    </ImageView>
-                    <Button layoutX="1044.0" layoutY="630.0" onAction="#CategoryImage" prefHeight="66.0"
-                            prefWidth="67.0">
-                        <styleClass>
-                            <String fx:value="button1"/>
-                            <String fx:value="close_button"/>
-                            <String fx:value="image-button"/>
-                        </styleClass>
-                    </Button>
-                </children>
+        <AnchorPane layoutX="160.0" layoutY="24.0" prefHeight="801.0" prefWidth="1130.0">
+            <styleClass>
+                <String fx:value="dark_petit_panneau"/>
+                <String fx:value="bordure_blanche"/>
+            </styleClass>
+            <HBox alignment="CENTER" layoutX="52.0" layoutY="712.0" spacing="80.0"/>
+            <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="41.0" layoutY="14.0" prefHeight="605.0"
+                        prefWidth="1054.0" stylesheets="@../css/scroll.css">
                 <styleClass>
-                    <String fx:value="dark_petit_panneau" />
-                    <String fx:value="bordure_blanche" />
+                    <String fx:value="dark_petit_panneau"/>
+                    <String fx:value="scroll-pane"/>
+                    <String fx:value="scroll-bar"/>
                 </styleClass>
-            </AnchorPane>
-        </children>
+                <GridPane fx:id="gridPane" prefHeight="567.0" prefWidth="1052.0">
+                    <columnConstraints>
+                        <ColumnConstraints/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints/>
+                    </rowConstraints>
+                    <styleClass>
+                        <String fx:value="light_petit_panneau"/>
+                        <String fx:value="bordure_speciale"/>
+                    </styleClass>
+                </GridPane>
+            </ScrollPane>
+            <Button layoutX="218.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0"
+                    prefWidth="67.0" text="&lt;">
+                <styleClass>
+                    <String fx:value="button1"/>
+                    <String fx:value="red_button"/>
+                </styleClass>
+            </Button>
+            <Button layoutX="854.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0"
+                    text="&gt;">
+                <styleClass>
+                    <String fx:value="button1"/>
+                    <String fx:value="red_button"/>
+                </styleClass>
+            </Button>
+            <Button layoutX="141.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
+                    prefHeight="66.0" prefWidth="282.0" text="Menu principal">
+                <styleClass>
+                    <String fx:value="button1"/>
+                    <String fx:value="w"/>
+                    <String fx:value="orange_button"/>
+                </styleClass>
+            </Button>
+            <Pane layoutX="304.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0"
+                  styleClass="red_petit_panneau">
+                <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0"
+                       layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle"
+                       textFill="WHITE"/>
+            </Pane>
+            <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewTheme"
+                    prefHeight="66.0" prefWidth="253.0" text="Nouveau thème">
+                <styleClass>
+                    <String fx:value="button1"/>
+                    <String fx:value="w"/>
+                    <String fx:value="orange_button"/>
+                </styleClass>
+            </Button>
+            <Button layoutX="441.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0"
+                    prefWidth="253.0" text="Ajouter une carte">
+                <styleClass>
+                    <String fx:value="button1"/>
+                    <String fx:value="purple_button"/>
+                </styleClass>
+            </Button>
+            <ImageView fx:id="filtre" fitHeight="790.0" fitWidth="1142.0" layoutY="3.0" opacity="0.21"
+                       pickOnBounds="true">
+                <effect>
+                    <GaussianBlur radius="22.75"/>
+                </effect>
+                <Image url="@../assets/filtre.png"/>
+            </ImageView>
+            <Button layoutX="1044.0" layoutY="630.0" onAction="#CategoryImage" prefHeight="66.0"
+                    prefWidth="67.0">
+                <styleClass>
+                    <String fx:value="button1"/>
+                    <String fx:value="close_button"/>
+                    <String fx:value="image-button"/>
+                </styleClass>
+            </Button>
+        </AnchorPane>
     </AnchorPane>
-    <StackPane fx:id="panneauNvCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" visible="false">
-    <children>
+    <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="panneauNvCarte" maxHeight="-Infinity" maxWidth="-Infinity"
+               minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0"
+               xmlns="http://javafx.com/javafx/23.0.1" visible="false">
         <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/parametre.css">
-            <children>
-                <Pane layoutX="300.0" layoutY="79.0" prefHeight="544.0" prefWidth="850.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
-                    <children>
-                        <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
-                            <children>
-                                <Label  layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0" prefHeight="30.0" prefWidth="313.0" styleClass="text" stylesheets="@../css/parametre.css" text="Ajouter un thème" />
-                            </children>
-                            <styleClass>
-                                <String fx:value="blue_petit_panneau" />
-                                <String fx:value="dark_petit_panneau" />
-                            </styleClass>
-                        </AnchorPane>
-                        <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="158.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleValiderPopup" prefHeight="71.0" prefWidth="221.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
-                            <styleClass>
-                                <String fx:value="button1" />
-                                <String fx:value="green_button" />
-                            </styleClass>
-                        </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="489.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleAnnulerpopup" prefHeight="71.0" prefWidth="221.0" text="Annuler" textAlignment="CENTER" textFill="WHITE">
-                     <styleClass>
-                        <String fx:value="button1" />
-                        <String fx:value="orange_button" />
-                     </styleClass>
-                  </Button>
-                  <Pane layoutX="107.0" layoutY="155.0" prefHeight="88.0" prefWidth="654.0" styleClass="blue_petit_panneau">
-                     <children>
-                        <TextField fx:id="themeNameInput"  layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
-                        <Label layoutX="47.0" layoutY="29.0" text="Nom du thème" textFill="WHITE" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="107.0" layoutY="269.0" prefHeight="88.0" prefWidth="654.0" styleClass="red_petit_panneau">
-                     <children>
-                        <TextField fx:id="firstCardInput" layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
-                        <Label layoutX="30.0" layoutY="1.0" prefHeight="88.0" prefWidth="369.0" text="Première carte du thème" textFill="WHITE" />
-                     </children>
-                  </Pane>
-                    </children>
+            <Pane layoutX="300.0" layoutY="79.0" prefHeight="544.0" prefWidth="850.0"
+                  styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css"
+                  AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0"
+                            stylesheets="@../css/parametre.css">
+                    <styleClass>
+                        <String fx:value="blue_petit_panneau"/>
+                        <String fx:value="dark_petit_panneau"/>
+                    </styleClass>
+                    <Label layoutX="25.0" layoutY="21.0" textFill="WHITE"/>
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0"
+                           prefHeight="30.0" prefWidth="313.0" styleClass="text"
+                           stylesheets="@../css/parametre.css" text="Ajouter un thème"/>
+                </AnchorPane>
+                <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0"
+                        layoutX="158.0" layoutY="408.0" mnemonicParsing="false"
+                        onAction="#handleValiderPopup" prefHeight="71.0" prefWidth="221.0" text="Valider"
+                        textAlignment="CENTER" textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="button1"/>
+                        <String fx:value="green_button"/>
+                    </styleClass>
+                </Button>
+                <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="489.0"
+                        layoutY="408.0" mnemonicParsing="false" onAction="#handleAnnulerpopup"
+                        prefHeight="71.0" prefWidth="221.0" text="Annuler" textAlignment="CENTER"
+                        textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="button1"/>
+                        <String fx:value="orange_button"/>
+                    </styleClass>
+                </Button>
+                <Pane layoutX="107.0" layoutY="155.0" prefHeight="88.0" prefWidth="654.0"
+                      styleClass="blue_petit_panneau">
+                    <TextField fx:id="themeNameInput" layoutX="410.0" layoutY="21.0" prefHeight="47.0"
+                               prefWidth="221.0"/>
+                    <Label layoutX="47.0" layoutY="29.0" text="Nom du thème" textFill="WHITE"/>
                 </Pane>
-            </children>
+                <Pane layoutX="107.0" layoutY="269.0" prefHeight="88.0" prefWidth="654.0"
+                      styleClass="red_petit_panneau">
+                    <TextField fx:id="firstCardInput" layoutX="410.0" layoutY="21.0" prefHeight="47.0"
+                               prefWidth="221.0"/>
+                    <Label layoutX="30.0" layoutY="1.0" prefHeight="88.0" prefWidth="369.0"
+                           text="Première carte du thème" textFill="WHITE"/>
+                </Pane>
+            </Pane>
         </AnchorPane>
-    </children>
-</StackPane>
-<StackPane fx:id="panneauNvCarte2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" visible="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
-    <children>
+    </StackPane>
+    <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="panneauNvCarte2" maxHeight="-Infinity" maxWidth="-Infinity"
+               minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0"
+               visible="false" xmlns="http://javafx.com/javafx/23.0.1">
         <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/parametre.css">
-            <children>
-                <Pane layoutX="300.0" layoutY="79.0" prefHeight="437.0" prefWidth="850.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
-                    <children>
-                        <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
-                            <children>
-                                <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0" prefHeight="30.0" prefWidth="313.0" styleClass="text" stylesheets="@../css/parametre.css" text="Ajouter une carte" />
-                            </children>
-                            <styleClass>
-                                <String fx:value="blue_petit_panneau" />
-                                <String fx:value="dark_petit_panneau" />
-                            </styleClass>
-                        </AnchorPane>
-                        <Button fx:id="okButton2" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="140.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleValiderPopupCarte" prefHeight="71.0" prefWidth="221.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
-                            <styleClass>
-                                <String fx:value="button1" />
-                                <String fx:value="green_button" />
-                            </styleClass>
-                        </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="493.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleAnnulerpopup" prefHeight="71.0" prefWidth="221.0" text="Annuler" textAlignment="CENTER" textFill="WHITE">
-                     <styleClass>
-                        <String fx:value="button1" />
-                        <String fx:value="orange_button" />
-                     </styleClass>
-                  </Button>
-                  <Pane layoutX="108.0" layoutY="161.0" prefHeight="84.0" prefWidth="654.0" styleClass="red_petit_panneau">
-                     <children>
-                        <TextField fx:id= "nouvelleCarteInput" layoutX="410.0" layoutY="16.0" prefHeight="47.0" prefWidth="221.0" />
-                        <Label layoutX="27.0" layoutY="1.0" prefHeight="77.0" prefWidth="369.0" text="Mot" textFill="WHITE" />
-                     </children>
-                  </Pane>
-                    </children>
+            <Pane layoutX="300.0" layoutY="79.0" prefHeight="437.0" prefWidth="850.0"
+                  styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css"
+                  AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0"
+                            stylesheets="@../css/parametre.css">
+                    <styleClass>
+                        <String fx:value="blue_petit_panneau"/>
+                        <String fx:value="dark_petit_panneau"/>
+                    </styleClass>
+                    <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" textFill="WHITE"/>
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0"
+                           prefHeight="30.0" prefWidth="313.0" styleClass="text"
+                           stylesheets="@../css/parametre.css" text="Ajouter une carte"/>
+                </AnchorPane>
+                <Button fx:id="okButton2" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0"
+                        layoutX="140.0" layoutY="317.0" mnemonicParsing="false"
+                        onAction="#handleValiderPopupCarte" prefHeight="71.0" prefWidth="221.0"
+                        text="Valider" textAlignment="CENTER" textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="button1"/>
+                        <String fx:value="green_button"/>
+                    </styleClass>
+                </Button>
+                <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="493.0"
+                        layoutY="317.0" mnemonicParsing="false" onAction="#handleAnnulerpopup"
+                        prefHeight="71.0" prefWidth="221.0" text="Annuler" textAlignment="CENTER"
+                        textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="button1"/>
+                        <String fx:value="orange_button"/>
+                    </styleClass>
+                </Button>
+                <Pane layoutX="108.0" layoutY="161.0" prefHeight="84.0" prefWidth="654.0"
+                      styleClass="red_petit_panneau">
+                    <TextField fx:id="nouvelleCarteInput" layoutX="410.0" layoutY="16.0"
+                               prefHeight="47.0" prefWidth="221.0"/>
+                    <Label layoutX="27.0" layoutY="1.0" prefHeight="77.0" prefWidth="369.0" text="Mot"
+                           textFill="WHITE"/>
                 </Pane>
-            </children>
+            </Pane>
         </AnchorPane>
-    </children>
-</StackPane>
+    </StackPane>
 </StackPane>
