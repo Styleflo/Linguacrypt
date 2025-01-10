@@ -174,10 +174,14 @@ public class GameDataManager {
     }
 
     public ArrayList<String> getImages() {
-        ArrayList<String> images = new ArrayList<>(userConfig.getUsedImages());
+        ArrayList<String> images = new ArrayList<>();
 
-        for (String name: userConfig.getAddedImages()) {
+        for (String name : userConfig.getAddedImages()) {
             images.add(appDir.resolve(name).toString());
+        }
+
+        for (String name : userConfig.getUsedImages()) {
+            images.add(Path.of("cardsImages").resolve(name).toString());
         }
 
         return images;

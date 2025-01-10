@@ -15,9 +15,7 @@ public class ImageCardController {
     private String currentUrl;
 
     @FXML
-    public void initialize() {
-
-    }
+    public void initialize() { }
 
     public void setMyImage(String url) {
         if (url != null && !url.isEmpty()) {
