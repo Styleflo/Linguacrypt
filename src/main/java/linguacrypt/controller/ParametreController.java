@@ -16,6 +16,7 @@ import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
 import linguacrypt.model.TypePartie;
+import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.FileSaveDeleteHandler;
 import linguacrypt.utils.GameDataManager;
 
@@ -307,10 +308,8 @@ public class ParametreController implements Observer {
                 }
                 jeu.notifyObservers();
             } catch (IOException e) {
-                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
+                DataUtils.logException(e, "Erreur lors du chargement de la partie");
             }
-        } else {
-            System.out.println("Aucun fichier sélectionné.");
         }
     }
 

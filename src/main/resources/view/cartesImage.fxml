@@ -65,7 +65,6 @@
                             prefHeight="66.0" prefWidth="270.0" text="Menu principal">
                         <styleClass>
                             <String fx:value="button1"/>
-                            <String fx:value="w"/>
                             <String fx:value="orange_button"/>
                         </styleClass>
                     </Button>

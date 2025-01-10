@@ -19,6 +19,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import linguacrypt.utils.FileSaveDeleteHandler;
+
+import java.io.File;
+
 import static java.lang.Math.min;
 
 public class CartesImageController implements Observer {
@@ -174,7 +180,22 @@ public class CartesImageController implements Observer {
 
     @FXML
     private void addNewImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
 
+        File fichier = fileChooser.showOpenDialog(new Stage());
+
+        if (fichier != null) {
+            try {
+                FileSaveDeleteHandler.copyFile(fichier, new File(GameConfig.IMAGES_PATH + fichier.getName()));
+                currentImages.add(fichier.getName());
+                reagir();
+            } catch (IOException e) {
+                DataUtils.logException(e, "Erreur lors de la copie de l'image");
+            }
+        }
     }
 
     @FXML
