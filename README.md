@@ -4,6 +4,86 @@
 
 Les instructions sur l'organisation et les attendus de la semaine se trouvent dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
 
+# Guide de configuration et d'exécution du projet
+
+## Prérequis
+Avant d'exécuter le projet, assurez-vous d'avoir les éléments suivants installés sur votre système :
+
+- **Java JDK** (version 21.0.5 ou supérieure) installé et ajouté à la variable PATH de votre système.
+- Pas besoin d'installer Gradle séparément, car le projet inclut le Gradle Wrapper.
+
+## Étapes pour construire et exécuter le projet
+
+### 1. Placez-vous dans le répertoire racine du projet
+Ouvrez un terminal ou une invite de commande et placez-vous dans le répertoire racine du projet (là où se trouve le fichier `gradlew`) :
+
+```bash
+cd /chemin/vers/le/projet
+```
+
+### 2. Construisez et exécutez le projet avec Gradle Wrapper
+Utilisez les commandes suivantes en fonction de votre système d'exploitation :
+
+#### Sous Windows :
+
+```cmd
+gradlew.bat build
+gradlew.bat run
+```
+
+#### Sous macOS ou Linux :
+
+```bash
+./gradlew build
+./gradlew run
+```
+
+
+### 3. Si vous souhaitez utiliser le JAR
+
+Le fichier JAR est disponible dans le répertoire `out/REALEASE_FINAL.jar`.
+
+Exemple :
+```bash
+/chemin/vers/le/projet/out/REALEASE_FINAL/REALEASE_FINAL.jar
+```
+
+### 4. Exécutez le fichier JAR
+Pour exécuter l'application, utilisez la commande suivante :
+
+
+#### Sous macOS ou Linux :
+
+```bash
+java --module-path $PATH_TO_FX --add-modules javafx.base,javafx.controls,javafx.fxml -jar REALEASE_FINAL.jar
+```
+Généralement, le nom de la variable d'environnement est JAVAFX_HOME, la commande est alors :
+
+```bash
+java --module-path $JAVAFX_HOME --add-modules javafx.base,javafx.controls,javafx.fxml -jar REALEASE_FINAL.jar
+```
+
+## Dépannage
+
+1. **Problèmes de permissions sous macOS/Linux :**
+   Si vous rencontrez une erreur "Permission denied" lors de l'exécution de `./gradlew`, accordez les permissions d'exécution avec :
+   ```bash
+   chmod +x gradlew
+   ```
+
+2. **JAVA_HOME non défini :**
+   Assurez-vous que votre variable d'environnement `JAVA_HOME` pointe vers votre installation JDK.
+
+3. **Dépendances obsolètes :**
+   Si le projet échoue à se construire à cause de dépendances manquantes ou obsolètes, essayez de lancer :
+   ```bash
+   ./gradlew clean build
+   ```
+
+Pour toute assistance supplémentaire, contactez l'équipe de développement :) 
+
+## COMPTES RENDU JOURNALIER DU CODAGE DE L'APPLICATION
+
 
 Compte Rendu Jour 1 : 
 
@@ -64,8 +144,19 @@ Compte Rendu Jour 4 :
 - Avancée sur les vues utilisateur, l'utilisateur peut : 
 
         - L'utilisateur peut désormais choisir de jouer avec des images. 
-        - Il peut également voir la collection de toutes les cartes images. 
-        
+        - Il peut également voir la collection de toutes les cartes image en appuyant sur l'icone image en bas à droite de sa page. 
+        - Dans le menu Paramètre, il peut choisir de jouer en mode image en cochant son choix dans la case qu'il souhaite. 
+        - Du menu Paramètre, il peut aussi load une de ses anciennes parties en appuyant sur le bouton en bas à droite. 
+
+
+Compte Rendu Jour 5 : 
+
+- Amélioration des designs.
+
+- Il est désormais possible d'ajouter des images dans le deck image depuis l'ordinateur de l'utilisateur dans le menu image. 
+
+- Le compteur fonctionne correctement, les joueurs peuvent selectionner le temps que va durer leur partie. 
+
 
 
 
