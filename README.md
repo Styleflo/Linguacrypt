@@ -55,7 +55,7 @@ Pour exécuter l'application, utilisez la commande suivante :
 #### Sous macOS ou Linux :
 
 ```bash
-java --module-path $PATH_TO_FX --add-modules javafx.base,javafx.controls,javafx.fxml -jar REALEASE_FINAL.jar
+java --module-path $PATH_TO_FX --add-modules javafx.base,javafx.controls,javafx.fxml,javafx.media -jar ./build/libs/grp01-all.jar
 ```
 Généralement, le nom de la variable d'environnement est JAVAFX_HOME, la commande est alors :
 
