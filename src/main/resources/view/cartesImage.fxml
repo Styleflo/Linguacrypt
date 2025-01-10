@@ -65,7 +65,7 @@
                         </styleClass>
                     </Button>
                     <Button layoutX="218.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            prefHeight="66.0" prefWidth="270.0" text="Menu Principal">
+                            prefHeight="66.0" prefWidth="270.0" text="Menu principal">
                         <styleClass>
                             <String fx:value="button1"/>
                             <String fx:value="w"/>

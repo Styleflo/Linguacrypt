@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
-import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.GameDataManager;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.StringUtils;
 
@@ -46,12 +46,12 @@ public class CartesController implements Observer {
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
-        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+        GameDataManager gameDataManager = jeu.getGameDataManager();
 
-        themes = cardsDataManager.getAllThemes();
+        themes = gameDataManager.getAllThemes();
         currentThemeIndex = 0;
         updateCurrentThemeLabel();
-        currentMots = cardsDataManager.getWordsByTheme(themes.get(currentThemeIndex));
+        currentMots = gameDataManager.getWordsByTheme(themes.get(currentThemeIndex));
     }
 
     private void updateCurrentThemeLabel() {
@@ -100,7 +100,7 @@ public class CartesController implements Observer {
 
     private void handleCardClick(String word, double x, double y) {
         String theme = themes.get(currentThemeIndex);
-        boolean lastWord = jeu.getWordsFileHandler().getWordsByTheme(theme).size() == 1;
+        boolean lastWord = jeu.getGameDataManager().getWordsByTheme(theme).size() == 1;
 
         ContextMenu contextMenu = new ContextMenu();
         String deleteButtonLabel, alertTitle, alertContent;
@@ -121,8 +121,8 @@ public class CartesController implements Observer {
             Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
 
             if (alert.getResult() == ButtonType.OK) {
-                CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
-                cardsDataManager.removeWordFromCategory(theme, word);
+                GameDataManager gameDataManager = jeu.getGameDataManager();
+                gameDataManager.removeWordFromCategory(theme, word);
                 currentMots.remove(word);
 
                 if (lastWord) {
@@ -130,7 +130,7 @@ public class CartesController implements Observer {
                     setCurrentThemeIndex(currentThemeIndex - 1);
                 }
 
-                cardsDataManager.saveUserConfig();
+                gameDataManager.saveUserConfig();
                 reagir();
             }
         });
@@ -187,7 +187,7 @@ public class CartesController implements Observer {
             currentThemeIndex = themes.size() - 1;
         }
 
-        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        currentMots = jeu.getGameDataManager().getWordsByTheme(themes.get(currentThemeIndex));
         updateCurrentThemeLabel();
     }
 
@@ -197,7 +197,7 @@ public class CartesController implements Observer {
         if (currentThemeIndex >= themes.size()) {
             currentThemeIndex = 0;
         }
-        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        currentMots = jeu.getGameDataManager().getWordsByTheme(themes.get(currentThemeIndex));
         updateCurrentThemeLabel();
         afficherCartes();
     }
@@ -208,7 +208,7 @@ public class CartesController implements Observer {
         if (currentThemeIndex < 0) {
             currentThemeIndex = themes.size() - 1;
         }
-        currentMots = jeu.getWordsFileHandler().getWordsByTheme(themes.get(currentThemeIndex));
+        currentMots = jeu.getGameDataManager().getWordsByTheme(themes.get(currentThemeIndex));
         updateCurrentThemeLabel();
         afficherCartes();
     }
@@ -226,7 +226,7 @@ public class CartesController implements Observer {
         dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> okButton.setDisable(newValue.trim().isEmpty()));
 
         Optional<String> result = dialog.showAndWait();
-        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+        GameDataManager gameDataManager = jeu.getGameDataManager();
 
         if (result.isPresent()) {
             String mot = result.get().toLowerCase().trim();
@@ -239,7 +239,7 @@ public class CartesController implements Observer {
                 alert.setContentText("Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 alert.showAndWait();
             } else {
-                Object[] res = cardsDataManager.addWordToCategory(themes.get(currentThemeIndex), mot);
+                Object[] res = gameDataManager.addWordToCategory(themes.get(currentThemeIndex), mot);
                 boolean success = (boolean) res[0];
                 String message = (String) res[1];
                 if (success) {
@@ -284,16 +284,16 @@ public class CartesController implements Observer {
                 okButton.setDisable(newVal.trim().isEmpty() || themeNameInput.getText().trim().isEmpty()));
 
         Optional<String> result = dialog.showAndWait();
-        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+        GameDataManager gameDataManager = jeu.getGameDataManager();
 
         if (result.isPresent()) {
             String themeName = themeNameInput.getText().toLowerCase().trim();
             String firstCard = firstCardInput.getText().toLowerCase().trim();
 
-            if (cardsDataManager.themeExists(themeName)) {
+            if (gameDataManager.themeExists(themeName)) {
                 showAlert(AlertType.ERROR, "Erreur", "Thème existant", "Le thème \n" + themeName + "\n existe déjà.");
                 addNewTheme();
-            } else if (cardsDataManager.getCategoryByWord(firstCard) != null) {
+            } else if (gameDataManager.getCategoryByWord(firstCard) != null) {
                 showAlert(AlertType.ERROR, "Erreur", "Mot existant", "Le mot \"" + firstCard + "\"\n existe déjà.");
                 addNewTheme();
             } else if (themeName.length() > GameConfig.MAX_WORD_SIZE) {
@@ -302,12 +302,12 @@ public class CartesController implements Observer {
             } else if (firstCard.length() > GameConfig.MAX_WORD_SIZE) {
                 showAlert(AlertType.ERROR, "Erreur", "Mot trop long", "Le mot doit contenir moins de " + GameConfig.MAX_WORD_SIZE + " lettres.");
                 addNewTheme();
-            } else if (cardsDataManager.addCategory(themeName)) {
+            } else if (gameDataManager.addCategory(themeName)) {
                 themes.add(themeName);
-                cardsDataManager.addWordToCategory(themeName, firstCard);
+                gameDataManager.addWordToCategory(themeName, firstCard);
                 setCurrentThemeIndex(themes.size() - 1);
                 reagir();
-                cardsDataManager.saveUserConfig();
+                gameDataManager.saveUserConfig();
             }
         }
     }

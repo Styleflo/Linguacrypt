@@ -18,7 +18,7 @@
         </Button>
         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="234.0" layoutY="631.0"
                 mnemonicParsing="false" prefHeight="214.0" prefWidth="182.0" stylesheets="@../css/gui.css"
-                text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
+                text="Menu principal" textAlignment="CENTER" textFill="WHITE">
             <styleClass>
                 <String fx:value="button1"/>
                 <String fx:value="orange_button"/>

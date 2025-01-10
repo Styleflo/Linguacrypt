@@ -668,10 +668,12 @@ public class PlateauImageController implements Observer {
     public void reagir() {
         if (jeu.getView().equals("PlateauImage")) {
             afficherCartes();
+
             if (jeu.getPartie().getwon() == -1) {
                 initializeTimer();
             }
+
+            startTimer();
         }
-        startTimer();
     }
 }

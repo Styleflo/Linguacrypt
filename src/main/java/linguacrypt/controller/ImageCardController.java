@@ -22,9 +22,7 @@ public class ImageCardController {
     private String currentUrl;
 
     @FXML
-    public void initialize() {
-
-    }
+    public void initialize() { }
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
