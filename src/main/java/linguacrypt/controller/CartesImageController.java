@@ -3,11 +3,8 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -52,10 +49,6 @@ public class CartesImageController implements Observer {
         currentImages = jeu.getGameDataManager().getImages();
     }
 
-    private void updateCurrentThemeLabel() {
-
-    }
-
 
     private void afficherCartesImages() {
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans CartesController.afficherCartes()");
@@ -75,7 +68,6 @@ public class CartesImageController implements Observer {
             AnchorPane carte = creerCarteImage(currentImages.get(i));
 
             assert carte != null;
-            //create_transition(carte);
             int finalI = i;
             carte.setOnMouseClicked(event -> handleCardClick(currentImages.get(finalI), event.getScreenX(), event.getScreenY()));
 
@@ -99,7 +91,7 @@ public class CartesImageController implements Observer {
         return alert;
     }
 
-    private void handleCardClick(String word, double x, double y) {
+    private void handleCardClick(String imageName, double x, double y) {
 
         ContextMenu contextMenu = new ContextMenu();
         String deleteButtonLabel, alertTitle, alertContent;
@@ -115,8 +107,10 @@ public class CartesImageController implements Observer {
         deleteButton.setOnAction(event -> {
             Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
 
-            if (alert.showAndWait().isPresent()) {
-                currentImages.remove(word);
+            if (alert.getResult() == ButtonType.OK) {
+                currentImages.remove(imageName);
+                jeu.getGameDataManager().removeImage(imageName);
+                jeu.getGameDataManager().saveUserConfig();
                 reagir();
             }
         });
@@ -125,11 +119,6 @@ public class CartesImageController implements Observer {
         contextMenu.getItems().add(new MenuItem("Annuler"));
         contextMenu.show(gridPane.getScene().getWindow(), x, y);
     }
-
-    /*private AnchorPane creerCarte(String mot) {
-
-    }
-    */
 
 
     private AnchorPane creerCarteImage(String url) {
@@ -159,20 +148,26 @@ public class CartesImageController implements Observer {
 
     @FXML
     public void nextCategory() {
-        if (currentpage < 6) {
+        if (currentImages.size() > 50 * currentpage) {
             currentpage++;
-            setCurrentPage();
-            afficherCartesImages();
+        } else {
+            currentpage = 1;
         }
+
+        setCurrentPage();
+        afficherCartesImages();
     }
 
     @FXML
     public void previousCategory() {
         if (currentpage > 1) {
             currentpage--;
-            setCurrentPage();
-            afficherCartesImages();
+        } else {
+            currentpage = currentImages.size() / 50 + 1;
         }
+
+        setCurrentPage();
+        afficherCartesImages();
     }
 
     @FXML
@@ -185,8 +180,13 @@ public class CartesImageController implements Observer {
         File fichier = fileChooser.showOpenDialog(new Stage());
 
         if (fichier != null) {
-            jeu.getGameDataManager().addImage(fichier);
-            reagir();
+            String path = jeu.getGameDataManager().addImage(fichier);
+            DataUtils.assertNotNull(path, "Erreur lors de l'ajout de l'image");
+            jeu.getGameDataManager().saveUserConfig();
+            currentImages.add(path);
+            currentpage = currentImages.size() / 50 + 1;
+            setCurrentPage();
+            afficherCartesImages();
         }
     }
 
