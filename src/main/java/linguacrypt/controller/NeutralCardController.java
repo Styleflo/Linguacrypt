@@ -3,6 +3,8 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 
@@ -72,6 +74,7 @@ public class NeutralCardController {
     }
 
     public void setRecouvert(CardType color, boolean recouvert) {
+
         if (jeu.getPartie().getPlateau().getKey().getHeight() < 7 && jeu.getPartie().getPlateau().getKey().getWidth() < 6) {
             switch (color) {
                 case CardType.BLUE:
@@ -106,6 +109,11 @@ public class NeutralCardController {
     }
 
     public void setSemiCovered(CardType color, boolean semicovered) {
+        String audioFile = getClass().getResource("/soundtrack/bouger2.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
         if (jeu.getPartie().getPlateau().getKey().getHeight() < 7 && jeu.getPartie().getPlateau().getKey().getWidth() < 6) {
 
             switch (color) {
