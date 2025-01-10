@@ -73,7 +73,7 @@ public class ImageCardController {
                 semicoveredImage.setImage(semicoverImage);
                 coveredImage.setImage(coverImage);
                 coveredImage.setVisible(!recouvert);
-                semicoveredImage.setVisible(!recouvert);
+                semicoveredImage.setVisible(recouvert);
             } catch (Exception e) {
                 System.err.println("Erreur lors du chargement de l'image de couverture: " + e.getMessage());
             }
