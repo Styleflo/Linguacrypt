@@ -12,14 +12,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardsDataManager {
+public class GameDataManager {
     private final UserConfig userConfig;
     private final Path appDir;
 
-    public CardsDataManager(String filePath) throws IOException {
-        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filePath);
+    public GameDataManager(String gameDataPath) throws IOException {
+        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(gameDataPath);
 
-        DataUtils.assertNotNull(fileStream, "Le fichier " + filePath + " n'existe pas.");
+        DataUtils.assertNotNull(fileStream, "Le fichier " + gameDataPath + " n'existe pas.");
 
         String userHome = System.getProperty("user.home");
         appDir = Paths.get(userHome, GameConfig.APP_DIR);
@@ -127,6 +127,7 @@ public class CardsDataManager {
                 return cat;
             }
         }
+
         return null;
     }
 
@@ -159,20 +160,28 @@ public class CardsDataManager {
     }
 
     public void removeImage(String image) {
-        try {
-            Files.delete(appDir.resolve(image));
-        } catch (IOException e) {
-            DataUtils.logException(e, "Erreur lors de la suppression de l'image.");
-        }
+        if (Files.exists(appDir.resolve(image))) {
+            try {
+                Files.delete(appDir.resolve(image));
+            } catch (IOException e) {
+                DataUtils.logException(e, "Erreur lors de la suppression de l'image.");
+            }
 
-        userConfig.getAddedImages().remove(image);
+            userConfig.getAddedImages().remove(image);
+        } else {
+            userConfig.getUsedImages().remove(image);
+        }
     }
 
-    public ArrayList<Path> getAddedImages() {
-        ArrayList<Path> images = new ArrayList<>();
+    public ArrayList<String> getImages() {
+        ArrayList<String> images = new ArrayList<>();
 
-        for (String image : userConfig.getAddedImages()) {
-            images.add(appDir.resolve(image));
+        for (String name : userConfig.getAddedImages()) {
+            images.add(appDir.resolve(name).toString());
+        }
+
+        for (String name : userConfig.getUsedImages()) {
+            images.add(Path.of("cardsImages").resolve(name).toString());
         }
 
         return images;

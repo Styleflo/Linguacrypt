@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.DataUtils;
-import linguacrypt.utils.ImagesFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,12 +46,7 @@ public class CartesImageController implements Observer {
 
     public void setJeu(Jeu jeu) {
         this.jeu = jeu;
-
-        ImagesFileHandler imagesFileHandler = jeu.getImagesFileHandler();
-
-        currentImages = imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes());
-        //System.out.println(currentImages);
-
+        currentImages = jeu.getGameDataManager().getImages();
     }
 
     private void updateCurrentThemeLabel() {

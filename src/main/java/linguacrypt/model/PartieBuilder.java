@@ -1,10 +1,8 @@
 package linguacrypt.model;
 
 import linguacrypt.config.GameConfig;
-import linguacrypt.utils.CardsDataManager;
-import linguacrypt.utils.ImagesFileHandler;
+import linguacrypt.utils.GameDataManager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,8 +13,7 @@ import java.util.ArrayList;
  */
 public class PartieBuilder {
     private final Partie partie;
-    private final CardsDataManager cardsDataManager;
-    private final ImagesFileHandler imagesFileHandler;
+    private final GameDataManager gameDataManager;
 
     /**
      * Le constructeur à appeler pour creer une Partie et la build.
@@ -24,8 +21,7 @@ public class PartieBuilder {
      */
     public PartieBuilder(Jeu jeu) {
         this.partie = new Partie();
-        this.cardsDataManager = jeu.getWordsFileHandler();
-        this.imagesFileHandler = jeu.getImagesFileHandler();
+        this.gameDataManager = jeu.getGameDataManager();
         partie.setTimer(GameConfig.DEFAULT_TIMER);
         partie.setWidthParameter(GameConfig.DEFAULT_WIDTH);
         partie.setHeightParameter(GameConfig.DEFAULT_HEIGHT);
@@ -109,7 +105,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder setUsedThemes(ArrayList<String> themes) {
-        this.partie.setCardsAttribute(cardsDataManager.getWordsByThemes(themes));
+        this.partie.setCardsAttribute(gameDataManager.getWordsByThemes(themes));
         return this;
     }
 
@@ -120,7 +116,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder resetUsedThemes() {
-        this.partie.setCardsAttribute(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
+        this.partie.setCardsAttribute(this.gameDataManager.getWordsByThemes(gameDataManager.getAllThemes()));
         return this;
     }
 
@@ -141,7 +137,7 @@ public class PartieBuilder {
      * @return PartieBuilder
      */
     public PartieBuilder resetWordsUsed() {
-        this.partie.setCardsAttribute(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
+        this.partie.setCardsAttribute(this.gameDataManager.getWordsByThemes(gameDataManager.getAllThemes()));
         return this;
     }
 
@@ -160,7 +156,7 @@ public class PartieBuilder {
     public PartieBuilder setTypePartie(TypePartie typePartie) {
         this.partie.setTypePartie(typePartie);
         if (typePartie == TypePartie.IMAGES) {
-            this.partie.setCardsAttribute(this.imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes()));
+            this.partie.setCardsAttribute(gameDataManager.getImages());
         }
         return this;
     }
@@ -173,7 +169,7 @@ public class PartieBuilder {
      */
     public PartieBuilder resetTypePartie() {
         this.partie.setTypePartie(TypePartie.WORDS);
-        this.partie.setCardsAttribute(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
+        this.partie.setCardsAttribute(this.gameDataManager.getWordsByThemes(gameDataManager.getAllThemes()));
         return this;
     }
 
@@ -197,7 +193,7 @@ public class PartieBuilder {
      *
      * @return Partie
      */
-    public Partie getResult() throws IOException {
+    public Partie getResult() {
         this.createPlateau();
         return this.partie;
     }

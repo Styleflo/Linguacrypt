@@ -9,11 +9,8 @@
            xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.CartesImageController">
     <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
         <image>
-            <Image url="@../assets/fond_test_1.gif"/>
+            <Image url="@../assets/fond_flou.gif"/>
         </image>
-        <effect>
-            <GaussianBlur radius="31.75"/>
-        </effect>
     </ImageView>
     <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
         <image>
@@ -65,7 +62,7 @@
                         </styleClass>
                     </Button>
                     <Button layoutX="218.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            prefHeight="66.0" prefWidth="270.0" text="Menu Principal">
+                            prefHeight="66.0" prefWidth="270.0" text="Menu principal">
                         <styleClass>
                             <String fx:value="button1"/>
                             <String fx:value="w"/>

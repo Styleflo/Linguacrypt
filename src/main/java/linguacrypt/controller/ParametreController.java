@@ -2,8 +2,6 @@ package linguacrypt.controller;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -21,6 +19,7 @@ import linguacrypt.model.TypePartie;
 import linguacrypt.utils.CardsDataManager;
 import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.FileSaveDeleteHandler;
+import linguacrypt.utils.GameDataManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -137,7 +136,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle > 2) {
             label1.setText(String.valueOf(valeurActuelle - 1));
             partieBuilder.setHeightParameter(valeurActuelle - 1);
-            height = valeurActuelle-1;
+            height = valeurActuelle - 1;
         }
     }
 
@@ -147,7 +146,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle < 8) {
             label1.setText(String.valueOf(valeurActuelle + 1));
             partieBuilder.setHeightParameter(valeurActuelle + 1);
-            height = valeurActuelle+1;
+            height = valeurActuelle + 1;
         }
     }
 
@@ -157,7 +156,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle > 2) {
             label2.setText(String.valueOf(valeurActuelle - 1));
             partieBuilder.setWidthParameter(valeurActuelle - 1);
-            width = valeurActuelle-1;
+            width = valeurActuelle - 1;
         }
     }
 
@@ -167,15 +166,15 @@ public class ParametreController implements Observer {
         if (valeurActuelle < 8) {
             label2.setText(String.valueOf(valeurActuelle + 1));
             partieBuilder.setWidthParameter(valeurActuelle + 1);
-            width = valeurActuelle+1;
+            width = valeurActuelle + 1;
         }
     }
 
     @FXML
     public void handleThemes() {
         lesthemes.setVisible(true);
-        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
-        ArrayList<String> themes = cardsDataManager.getAllThemes();
+        GameDataManager gameDataManager = jeu.getGameDataManager();
+        ArrayList<String> themes = gameDataManager.getAllThemes();
         themeBox.getChildren().clear();
 
         for (String theme : themes) {
@@ -193,7 +192,7 @@ public class ParametreController implements Observer {
                 checkBox.setSelected(!checkBox.isSelected());
             });
 
-            int wordCount = cardsDataManager.getWordsByTheme(theme).size();
+            int wordCount = gameDataManager.getWordsByTheme(theme).size();
             themeWordCounts.put(theme, wordCount);
 
             // Empêcher la propagation du clic de la checkbox à l'élément parent
@@ -205,39 +204,40 @@ public class ParametreController implements Observer {
     }
 
     @FXML
-private void handleValider() {
-    ArrayList<String> selectedThemes = new ArrayList<>();
-    nbr_carte_selectionne = 0; // Réinitialiser le compteur de cartes sélectionnées
+    private void handleValider() {
+        ArrayList<String> selectedThemes = new ArrayList<>();
+        nbr_carte_selectionne = 0; // Réinitialiser le compteur de cartes sélectionnées
 
-    for (javafx.scene.Node node : themeBox.getChildren()) {
-        if (node instanceof HBox hbox) {
-            for (javafx.scene.Node child : hbox.getChildren()) {
-                if (child instanceof CheckBox checkBox) {
-                    if (checkBox.isSelected()) {
-                        // Vérifier que l'index est valide avant d'accéder à l'élément
-                        if (hbox.getChildren().size() > 1 && hbox.getChildren().get(1) instanceof Label label) {
-                            String theme = label.getText();
-                            selectedThemes.add(theme);
-                            
-                            // Ajouter la taille du thème au nombre de cartes sélectionnées
-                            if (themeWordCounts.containsKey(theme)) {
-                                nbr_carte_selectionne += themeWordCounts.get(theme);
+        for (javafx.scene.Node node : themeBox.getChildren()) {
+            if (node instanceof HBox hbox) {
+                for (javafx.scene.Node child : hbox.getChildren()) {
+                    if (child instanceof CheckBox checkBox) {
+                        if (checkBox.isSelected()) {
+                            // Vérifier que l'index est valide avant d'accéder à l'élément
+                            if (hbox.getChildren().size() > 1 && hbox.getChildren().get(1) instanceof Label label) {
+                                String theme = label.getText();
+                                selectedThemes.add(theme);
+
+                                // Ajouter la taille du thème au nombre de cartes sélectionnées
+                                if (themeWordCounts.containsKey(theme)) {
+                                    nbr_carte_selectionne += themeWordCounts.get(theme);
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
 
-    if (nbr_carte_selectionne < width * height) {
-        popup.setVisible(true);
-    } else {
-        partieBuilder.setUsedThemes(selectedThemes);
-        lesthemes.setVisible(false);
-        themesAleatoiresButton.getStyleClass().remove("button-selected");
-        choisirThemeButton.getStyleClass().add("button-selected");
-    }
+        if (nbr_carte_selectionne < width * height) {
+
+            popup.setVisible(true);
+        } else {
+            partieBuilder.setUsedThemes(selectedThemes);
+            lesthemes.setVisible(false);
+            themesAleatoiresButton.getStyleClass().remove("button-selected");
+            choisirThemeButton.getStyleClass().add("button-selected");
+        }
     }
 
     @FXML
@@ -329,7 +329,7 @@ private void handleValider() {
 
     // Popup Fonctions
     @FXML
-    private void handleOKPopup(){
+    private void handleOKPopup() {
         popup.setVisible(false);
         System.out.println("on clique mais ça marche pas");
     }
