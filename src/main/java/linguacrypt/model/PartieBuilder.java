@@ -155,8 +155,9 @@ public class PartieBuilder {
      */
     public PartieBuilder setTypePartie(TypePartie typePartie) {
         this.partie.setTypePartie(typePartie);
-        this.partie.setCardsAttribute(gameDataManager.getImages());
-
+        if (typePartie == TypePartie.IMAGES) {
+            this.partie.setCardsAttribute(gameDataManager.getImages());
+        }
         return this;
     }
 

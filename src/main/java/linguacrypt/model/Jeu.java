@@ -24,6 +24,31 @@ public class Jeu {
     private int victoireBleue;
     private int victoireRouge;
     private MediaPlayer mediaPlayer;
+    private ArrayList<GameStatistics> gameStatistics = new ArrayList<>();
+    private int currentGameId = -1;
+    private GameStatistics currentGameStats;
+
+    public void printGameStatistics() {
+        for (GameStatistics gs : gameStatistics) {
+            gs.printAll();
+        }
+    }
+
+
+
+    public void initializeNewGameStatistics() {
+        currentGameId++;
+        currentGameStats = new GameStatistics(currentGameId);
+        gameStatistics.add(currentGameStats);
+    }
+
+    public GameStatistics getCurrentGameStats() {
+        return currentGameStats;
+    }
+
+    public ArrayList<GameStatistics> getGameStatistics() {
+        return gameStatistics;
+    }
 
     public int getVictoireBleue() {
         return victoireBleue;
@@ -53,6 +78,10 @@ public class Jeu {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+        victoireBleue = 0;
+        victoireRouge = 0;
+        initializeNewGameStatistics();
     }
 
     /**
@@ -97,9 +126,16 @@ public class Jeu {
      * permet de lier une partie à notre jeu
      * cela lance la partie
      */
+
     public void setPartie(Partie partie) {
         this.partie = partie;
+        initializeNewGameStatistics();
+        if (!this.getGameStatistics().isEmpty() && this.getGameStatistics().get(0).getGameId() == 0) {
+            this.getGameStatistics().remove(0);
+        }
+
     }
+
 
     /**
      * Permet de recuperer la vue courrante.

@@ -36,6 +36,7 @@ public class Main extends Application {
         mainControlleur.setParametre();
         mainControlleur.setPlateauImage();
         mainControlleur.setCartesImage();
+        mainControlleur.setStats();
 
         // Créer la scène et l'afficher
         Scene scene = new Scene(root, 1450, 850);
