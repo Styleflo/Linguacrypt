@@ -1,19 +1,26 @@
 package linguacrypt.controller;
 
+import com.google.zxing.common.BitMatrix;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,6 +58,12 @@ public class PlateauImageController implements Observer {
     private ImageView filtre;
     @FXML
     private ImageView filtre2;
+    @FXML
+    private ImageView turnQR;
+    @FXML
+    private ImageView qrCode;
+    @FXML
+    private ImageView lingualogo;
     @FXML
     private Pane confirmationOverlay;
     @FXML
@@ -161,6 +174,9 @@ public class PlateauImageController implements Observer {
     @FXML
     private void confirmNouvellePartie() {
         stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlay.setVisible(false);
         jeu.initializeNewGameStatistics();
         jeu.getPartie().newPlateau();
@@ -178,6 +194,9 @@ public class PlateauImageController implements Observer {
     @FXML
     private void confirmSavePartie() {
         stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
@@ -196,6 +215,9 @@ public class PlateauImageController implements Observer {
     @FXML
     private void returnMenu() {
         stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlayMenu.setVisible(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
@@ -251,6 +273,7 @@ public class PlateauImageController implements Observer {
 
 
     private void afficherCartes() {
+        turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
@@ -346,6 +369,67 @@ public class PlateauImageController implements Observer {
         }
         initializeTimer();
         this.updateLabel();
+    }
+    @FXML
+    public void afficheQRcode() {
+        try {
+            // Génération du QR code de base
+            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode();
+
+            // Marges réduites
+            int padding = 15;
+            int width = qrcode.getWidth() + (2 * padding);
+            int height = qrcode.getHeight() + (2 * padding);
+
+            WritableImage finalImage = new WritableImage(width, height);
+            PixelWriter pixelWriter = finalImage.getPixelWriter();
+
+            // Couleurs simples mais contrastées
+            Color bgColor = Color.WHITE;
+            Color qrColor = Color.rgb(0, 0, 150);  // Bleu foncé pour un bon contraste
+
+            // Remplissage du fond
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    pixelWriter.setColor(x, y, bgColor);
+                }
+            }
+
+            // Dessin du QR code
+            for (int x = 0; x < qrcode.getWidth(); x++) {
+                for (int y = 0; y < qrcode.getHeight(); y++) {
+                    if (qrcode.get(x, y)) {
+                        pixelWriter.setColor(x + padding, y + padding, qrColor);
+                    }
+                }
+            }
+
+            // Application simple des effets
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(0.1);
+            colorAdjust.setContrast(0.1);
+
+            // Application de l'image et de l'effet
+            qrCode.setImage(finalImage);
+            qrCode.setEffect(colorAdjust);
+            qrCode.setCache(true);
+            qrCode.setCacheHint(CacheHint.QUALITY);
+
+            // Animation simple
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(300), qrCode);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+
+            qrCode.setVisible(true);
+            lingualogo.setVisible(false);
+            fadeIn.play();
+
+        } catch (Exception e) {
+            DataUtils.logException(e, "Erreur lors de la génération du QR code");
+        }
+        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche());
+        lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
+        jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
     }
 
     public void afficheCardClicked(int x, int y, AnchorPane carteAnchor, CarteImage carteImage) {
@@ -631,7 +715,7 @@ public class PlateauImageController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Bleu");
+            labelEquipe.setText("C'est au tour des bleus");
         } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
@@ -642,7 +726,7 @@ public class PlateauImageController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.RED_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Rouge");
+            labelEquipe.setText("C'est au tour des rouges");
         }
 
 
@@ -663,6 +747,9 @@ public class PlateauImageController implements Observer {
         } else {
             confirmNouvellePartie();
         }
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
     }
 
     @FXML
@@ -671,6 +758,9 @@ public class PlateauImageController implements Observer {
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
         } else {
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
         }

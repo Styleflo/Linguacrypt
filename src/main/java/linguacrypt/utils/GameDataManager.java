@@ -41,7 +41,6 @@ public class GameDataManager {
     public void saveUserConfig() {
         try {
             Path userConfigPath = appDir.resolve(GameConfig.USER_CONFIG_FILE);
-
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(userConfigPath.toFile(), userConfig);
         } catch (IOException e) {
@@ -149,25 +148,28 @@ public class GameDataManager {
         }
     }
 
-    public void addImage(File image) {
+    public String addImage(File image) {
         try {
-            Files.copy(image.toPath(), appDir.resolve(image.getName()));
+            String randomName = java.util.UUID.randomUUID() + "_" + image.getName();
+            Path newPath = appDir.resolve(randomName);
+            Files.copy(image.toPath(), newPath);
+            userConfig.getAddedImages().add(newPath.toString());
+            return newPath.toString();
         } catch (IOException e) {
             DataUtils.logException(e, "Erreur lors de la copie de l'image.");
         }
 
-        userConfig.getAddedImages().add(image.getName());
+        return null;
     }
 
     public void removeImage(String image) {
         if (Files.exists(appDir.resolve(image))) {
             try {
                 Files.delete(appDir.resolve(image));
+                userConfig.getAddedImages().remove(image);
             } catch (IOException e) {
                 DataUtils.logException(e, "Erreur lors de la suppression de l'image.");
             }
-
-            userConfig.getAddedImages().remove(image);
         } else {
             userConfig.getUsedImages().remove(image);
         }
@@ -176,14 +178,16 @@ public class GameDataManager {
     public ArrayList<String> getImages() {
         ArrayList<String> images = new ArrayList<>();
 
-        for (String name : userConfig.getAddedImages()) {
-            images.add(appDir.resolve(name).toString());
-        }
-
         for (String name : userConfig.getUsedImages()) {
             images.add(Path.of("cardsImages").resolve(name).toString());
         }
 
+        images.addAll(userConfig.getAddedImages());
+
         return images;
+    }
+
+    public Path getAppDir() {
+        return appDir;
     }
 }

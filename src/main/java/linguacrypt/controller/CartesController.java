@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
@@ -35,6 +36,35 @@ public class CartesController implements Observer {
     private List<String> currentMots;
     private int currentThemeIndex;
     private ArrayList<String> themes;
+
+    //popup nv Theme et carte
+    @FXML
+    private StackPane panneauNvCarte;
+
+    @FXML
+    private TextField themeNameInput;
+
+    @FXML
+    private TextField firstCardInput;
+
+    @FXML
+    private Button okButton;
+
+    private String themeName;
+
+    private String firstCard;
+
+    //popup nv carte
+    @FXML
+    private StackPane panneauNvCarte2;
+
+    private String nouvelleCarte;
+
+    @FXML
+    private TextField nouvelleCarteInput;
+
+    @FXML
+    private Button okButton2;
 
 
     public CartesController() {
@@ -215,21 +245,23 @@ public class CartesController implements Observer {
 
     @FXML
     private void handleAjouterMotAction() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Ajouter un mot");
-        dialog.setHeaderText("Ajouter un mot à la collection");
-        dialog.setContentText("Veuillez entrer un mot :");
+        nouvelleCarte = null;
+        if (nouvelleCarteInput != null) {
+            nouvelleCarteInput.clear();
+        }
 
-        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setDisable(true);
+        panneauNvCarte2.setVisible(true);
 
-        dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> okButton.setDisable(newValue.trim().isEmpty()));
+        okButton2.setDisable(true);
+        nouvelleCarteInput.textProperty().addListener((obs, oldVal, newVal) ->okButton2.setDisable(nouvelleCarteInput.getText().trim().isEmpty()));
 
-        Optional<String> result = dialog.showAndWait();
+    }
+
+    private void handleAjouterMotActionSuite(){
         GameDataManager gameDataManager = jeu.getGameDataManager();
 
-        if (result.isPresent()) {
-            String mot = result.get().toLowerCase().trim();
+        if (nouvelleCarte != null) {
+            String mot = nouvelleCarte;
 
             if (mot.length() > GameConfig.MAX_WORD_SIZE) {
                 // Afficher une boîte de dialogue d'erreur
@@ -256,26 +288,18 @@ public class CartesController implements Observer {
 
     @FXML
     private void addNewTheme() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Ajouter un thème");
-        dialog.setHeaderText("Ajouter un thème de cartes");
+        themeName = null;
+        firstCard = null;
+        if (themeNameInput!=null) {
+            themeNameInput.clear();
+        }
+        if (firstCard!=null) {
+            firstCardInput.clear();
+        }
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
+        panneauNvCarte.setVisible(true);
 
-        TextField themeNameInput = new TextField();
-        TextField firstCardInput = new TextField();
-
-        grid.add(new Label("Nom du thème :"), 0, 0);
-        grid.add(themeNameInput, 1, 0);
-        grid.add(new Label("Première carte du thème :"), 0, 1);
-        grid.add(firstCardInput, 1, 1);
-
-        dialog.getDialogPane().setContent(grid);
         themeNameInput.requestFocus();
-
-        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
 
         themeNameInput.textProperty().addListener((obs, oldVal, newVal) ->
@@ -283,12 +307,12 @@ public class CartesController implements Observer {
         firstCardInput.textProperty().addListener((obs, oldVal, newVal) ->
                 okButton.setDisable(newVal.trim().isEmpty() || themeNameInput.getText().trim().isEmpty()));
 
-        Optional<String> result = dialog.showAndWait();
+    }
+
+    private void addNewThemeSuite(){
         GameDataManager gameDataManager = jeu.getGameDataManager();
 
-        if (result.isPresent()) {
-            String themeName = themeNameInput.getText().toLowerCase().trim();
-            String firstCard = firstCardInput.getText().toLowerCase().trim();
+        if (themeName != null && firstCard != null) {
 
             if (gameDataManager.themeExists(themeName)) {
                 showAlert(AlertType.ERROR, "Erreur", "Thème existant", "Le thème \n" + themeName + "\n existe déjà.");
@@ -316,6 +340,33 @@ public class CartesController implements Observer {
     private void CategoryImage() {
         jeu.setView("CartesImages");
         jeu.notifyObservers();
+    }
+
+    //PopUp Nouvelle Carte
+
+    @FXML
+    private void handleAnnulerpopup(){
+        panneauNvCarte.setVisible(false);
+        panneauNvCarte2.setVisible(false);
+    }
+
+    @FXML
+    private void handleValiderPopup(){
+        if (!themeNameInput.getText().trim().isEmpty() && !firstCardInput.getText().trim().isEmpty()) {
+            themeName = themeNameInput.getText().toLowerCase().trim();
+            firstCard = firstCardInput.getText().toLowerCase().trim();
+            panneauNvCarte.setVisible(false);
+            addNewThemeSuite();
+        }
+    }
+
+    @FXML
+    private void handleValiderPopupCarte(){
+        if (!nouvelleCarteInput.getText().trim().isEmpty()){
+            nouvelleCarte = nouvelleCarteInput.getText().toLowerCase().trim();
+            panneauNvCarte2.setVisible(false);
+            handleAjouterMotActionSuite();
+        }
     }
 
     @Override

@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.TextField?>
 
 <StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
     <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
@@ -116,4 +117,90 @@
             </AnchorPane>
         </children>
     </AnchorPane>
+    <StackPane fx:id="panneauNvCarte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" visible="false">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/parametre.css">
+            <children>
+                <Pane layoutX="300.0" layoutY="79.0" prefHeight="544.0" prefWidth="850.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                    <children>
+                        <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
+                            <children>
+                                <Label  layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0" prefHeight="30.0" prefWidth="313.0" styleClass="text" stylesheets="@../css/parametre.css" text="Ajouter un thème" />
+                            </children>
+                            <styleClass>
+                                <String fx:value="blue_petit_panneau" />
+                                <String fx:value="dark_petit_panneau" />
+                            </styleClass>
+                        </AnchorPane>
+                        <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="158.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleValiderPopup" prefHeight="71.0" prefWidth="221.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1" />
+                                <String fx:value="green_button" />
+                            </styleClass>
+                        </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="489.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleAnnulerpopup" prefHeight="71.0" prefWidth="221.0" text="Annuler" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button1" />
+                        <String fx:value="orange_button" />
+                     </styleClass>
+                  </Button>
+                  <Pane layoutX="107.0" layoutY="155.0" prefHeight="88.0" prefWidth="654.0" styleClass="blue_petit_panneau">
+                     <children>
+                        <TextField fx:id="themeNameInput"  layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
+                        <Label layoutX="47.0" layoutY="29.0" text="Nom du thème" textFill="WHITE" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="107.0" layoutY="269.0" prefHeight="88.0" prefWidth="654.0" styleClass="red_petit_panneau">
+                     <children>
+                        <TextField fx:id="firstCardInput" layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
+                        <Label layoutX="30.0" layoutY="1.0" prefHeight="88.0" prefWidth="369.0" text="Première carte du thème" textFill="WHITE" />
+                     </children>
+                  </Pane>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>
+<StackPane fx:id="panneauNvCarte2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" visible="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/parametre.css">
+            <children>
+                <Pane layoutX="300.0" layoutY="79.0" prefHeight="437.0" prefWidth="850.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                    <children>
+                        <AnchorPane layoutX="261.0" layoutY="33.0" prefHeight="71.0" prefWidth="331.0" stylesheets="@../css/parametre.css">
+                            <children>
+                                <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" text="" textFill="WHITE" />
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="21.0" prefHeight="30.0" prefWidth="313.0" styleClass="text" stylesheets="@../css/parametre.css" text="Ajouter une carte" />
+                            </children>
+                            <styleClass>
+                                <String fx:value="blue_petit_panneau" />
+                                <String fx:value="dark_petit_panneau" />
+                            </styleClass>
+                        </AnchorPane>
+                        <Button fx:id="okButton2" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="140.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleValiderPopupCarte" prefHeight="71.0" prefWidth="221.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1" />
+                                <String fx:value="green_button" />
+                            </styleClass>
+                        </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="493.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleAnnulerpopup" prefHeight="71.0" prefWidth="221.0" text="Annuler" textAlignment="CENTER" textFill="WHITE">
+                     <styleClass>
+                        <String fx:value="button1" />
+                        <String fx:value="orange_button" />
+                     </styleClass>
+                  </Button>
+                  <Pane layoutX="108.0" layoutY="161.0" prefHeight="84.0" prefWidth="654.0" styleClass="red_petit_panneau">
+                     <children>
+                        <TextField fx:id= "nouvelleCarteInput" layoutX="410.0" layoutY="16.0" prefHeight="47.0" prefWidth="221.0" />
+                        <Label layoutX="27.0" layoutY="1.0" prefHeight="77.0" prefWidth="369.0" text="Mot" textFill="WHITE" />
+                     </children>
+                  </Pane>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>
 </StackPane>
