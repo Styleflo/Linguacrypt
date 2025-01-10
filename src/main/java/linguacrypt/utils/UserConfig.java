@@ -11,7 +11,9 @@ public class UserConfig {
         return categories;
     }
 
-    public List<String> getUsedImages() { return usedImages; }
+    public List<String> getUsedImages() {
+        return usedImages;
+    }
 
     public List<String> getAddedImages() {
         return addedImages;
