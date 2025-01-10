@@ -57,18 +57,18 @@
 
 
 .orange_button {
-    -fx-background-color: orange; /* Green */
+    -fx-background-color: #185ad7; /* Green */
     -fx-text-fill: white;
 
 }
 
 .red_button {
-    -fx-background-color: red; /* Green */
+    -fx-background-color: #cc0002; /* Green */
     -fx-text-fill: white;
 }
 
 .purple_button {
-    -fx-background-color: green;
+    -fx-background-color: #6b198a;
     -fx-text-fill: white;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .red_main_panneau {
-    -fx-border-color: transparent #f70d1a transparent #f70d1a; /* Bordure bleue sur les côtés verticaux */
+    -fx-border-color: transparent #cc0002 transparent #cc0002; /* Bordure bleue sur les côtés verticaux */
 }
 
 .dark_petit_panneau {
@@ -110,13 +110,13 @@
 }
 
 .blue_petit_panneau {
-    -fx-background-color: #3399FF;
+    -fx-background-color: #185ad7;
     -fx-background-radius: 20px;
 
 }
 
 .red_petit_panneau {
-    -fx-background-color: #f70d1a;
+    -fx-background-color: #cc0002;
     -fx-background-radius: 20px;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .logo_panneau_rouge {
-    -fx-border-color: #f70d1a #f70d1a #f70d1a #f70d1a;
+    -fx-border-color: #cc0002 #cc0002 #cc0002 #cc0002;
 
 }
 
@@ -179,7 +179,7 @@
 
 
 .blue_button {
-    -fx-background-color: #4dabf7;
+    -fx-background-color: #185ad7;
     -fx-text-fill: white;
 }
 
@@ -202,13 +202,13 @@
 }
 
 .close_button {
-    -fx-background-color: #7a31c2;
+    -fx-background-color: #185ad7;
     -fx-text-fill: white;
 }
 
 .win-box-blue {
     -fx-background-color: #2b2b2b;
-    -fx-border-color: #3399FF;
+    -fx-border-color: #185ad7;
     -fx-border-width: 2;
     -fx-padding: 20;
     -fx-border-radius: 10;
@@ -217,7 +217,7 @@
 
 .win-box-red {
     -fx-background-color: #2b2b2b;
-    -fx-border-color: #f70d1a;
+    -fx-border-color: #cc0002;
     -fx-border-width: 2;
     -fx-padding: 20;
     -fx-border-radius: 10;
@@ -246,4 +246,8 @@
     -fx-padding: 20;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+}
+
+.damien{
+    -fx-background-color: #ff4901; /* Green */
 }
