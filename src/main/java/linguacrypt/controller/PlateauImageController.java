@@ -16,10 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
-import linguacrypt.model.Carte;
-import linguacrypt.model.CarteBase;
-import linguacrypt.model.CarteImage;
-import linguacrypt.model.Jeu;
+import linguacrypt.model.*;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
 
@@ -117,12 +114,28 @@ public class PlateauImageController implements Observer {
             jeu.getPartie().setRedWon();
             revealCard();
             jeu.victoireRouge();
+            GameStatistics stats = jeu.getCurrentGameStats();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
             showWinnerPopup("Rouge");
         } else if (redTimeLeft <= 0) {
             stopTimer();
             jeu.getPartie().setBlueWon();
             revealCard();
             jeu.victoireBleue();
+            GameStatistics stats = jeu.getCurrentGameStats();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
             showWinnerPopup("Bleue");
         }
     }
@@ -146,6 +159,7 @@ public class PlateauImageController implements Observer {
     private void confirmNouvellePartie() {
         stopTimer();
         confirmationOverlay.setVisible(false);
+        jeu.initializeNewGameStatistics();
         jeu.getPartie().newPlateau();
         jeu.notifyObservers();
     }
@@ -342,6 +356,24 @@ public class PlateauImageController implements Observer {
         }
 
         CardType couleur = currentCard.getType();
+
+        boolean isBlueTurn = jeu.getPartie().getPlateau().isBlueTurn();
+
+        // Mettre à jour les statistiques
+        GameStatistics stats = jeu.getCurrentGameStats();
+        if (stats != null && !jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
+            if (isBlueTurn) {
+                stats.addBlueGuess(couleur == CardType.BLUE);
+                if (couleur == CardType.RED) {
+                    stats.cardGivenToOpponent(true);
+                }
+            } else {
+                stats.addRedGuess(couleur == CardType.RED);
+                if (couleur == CardType.BLUE) {
+                    stats.cardGivenToOpponent(false);
+                }
+            }
+        }
         ImageCardController controller = (ImageCardController) carte.getUserData();
         DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé");
 
@@ -383,11 +415,25 @@ public class PlateauImageController implements Observer {
         if (jeu.getPartie().BlueWon()) {
             revealCard();
             jeu.victoireBleue();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
             revealCard();
             jeu.victoireRouge();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
             showWinnerPopup("Rouge");
         }
         // Marquer la carte comme révélée dans le modèle si nécessaire
