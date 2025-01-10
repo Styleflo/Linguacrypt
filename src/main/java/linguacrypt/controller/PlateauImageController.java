@@ -663,7 +663,7 @@ public class PlateauImageController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Bleu");
+            labelEquipe.setText("C'est au tour des bleus");
         } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
@@ -674,7 +674,7 @@ public class PlateauImageController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.RED_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Rouge");
+            labelEquipe.setText("C'est au tour des rouges");
         }
 
 

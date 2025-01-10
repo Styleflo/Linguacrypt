@@ -154,7 +154,7 @@
                                 <String fx:value="green_button"/>
                             </styleClass>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="33.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="85.0" prefWidth="157.0" text="Menu Principal" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="33.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleMenu" prefHeight="85.0" prefWidth="157.0" text="Menu principal" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
                                 <String fx:value="button1" />
                                 <String fx:value="close_button" />
