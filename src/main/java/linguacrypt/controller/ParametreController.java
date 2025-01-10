@@ -16,8 +16,6 @@ import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
 import linguacrypt.model.TypePartie;
-import linguacrypt.utils.CardsDataManager;
-import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.FileSaveDeleteHandler;
 import linguacrypt.utils.GameDataManager;
 
