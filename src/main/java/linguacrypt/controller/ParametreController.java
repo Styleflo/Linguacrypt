@@ -226,13 +226,7 @@ private void handleValider() {
     }
 
     if (nbr_carte_selectionne < width * height) {
-        // Afficher une pop-up pour demander à ajouter un thème car il manque des images pour construire le plateau
         popup.setVisible(true);
-        /*Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Nombre de cartes insuffisant");
-        alert.setHeaderText(null);
-        alert.setContentText("Veuillez ajouter plus de thèmes car il manque des images pour construire le plateau.");
-        alert.showAndWait();*/
     } else {
         partieBuilder.setUsedThemes(selectedThemes);
         lesthemes.setVisible(false);
