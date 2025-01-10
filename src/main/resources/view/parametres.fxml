@@ -147,8 +147,8 @@
                             </styleClass>
                         </AnchorPane>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="349.0"
-                                layoutY="547.0" mnemonicParsing="false" onAction="#handleValiderTout" prefHeight="71.0"
-                                prefWidth="188.0" text="Jouer" textAlignment="CENTER" textFill="WHITE">
+                                layoutY="530.0" mnemonicParsing="false" onAction="#handleValiderTout" prefHeight="71.0"
+                                prefWidth="188.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
                                 <String fx:value="button1"/>
                                 <String fx:value="green_button"/>

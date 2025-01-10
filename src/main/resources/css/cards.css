@@ -15,19 +15,19 @@
 }
 
 .button1:hover {
-    -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
-    -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
+    -fx-translate-x: 2px; /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 2px; /* Déplacer de 10px vers le bas */
 }
 
 
 .orange_button {
-    -fx-background-color: orange; /* Green */
+    -fx-background-color: #185ad7; /* Green */
     -fx-text-fill: white;
 
 }
 
 .red_button {
-    -fx-background-color: red; /* Green */
+    -fx-background-color: #cc0002; /* Green */
     -fx-text-fill: white;
 }
 

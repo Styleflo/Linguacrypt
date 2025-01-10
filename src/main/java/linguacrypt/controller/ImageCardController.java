@@ -3,6 +3,8 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 
@@ -83,6 +85,11 @@ public class ImageCardController {
     }
 
     public void setsemiRecouvert(CardType type, boolean recouvert) {
+        String audioFile = getClass().getResource("/soundtrack/bouger2.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
         if (jeu.getPartie().getPlateau().getKey().getHeight() < 7 && jeu.getPartie().getPlateau().getKey().getWidth() < 6) {
 
             if (coveredImage != null) {
