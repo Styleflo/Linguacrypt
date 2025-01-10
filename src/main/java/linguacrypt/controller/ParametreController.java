@@ -74,6 +74,10 @@ public class ParametreController implements Observer {
         height = 5;
     }
 
+    public void resetParametre() {
+        partieBuilder.resetall();
+    }
+
     public void handleFlecheGaucheTimer() {
         if (currentTime == -1) {
             currentTime = MAX_TIME;
@@ -271,6 +275,7 @@ public class ParametreController implements Observer {
             jeu.notifyObservers();
         } else if (Mots.isSelected() && !Images.isSelected()) {
             partieBuilder.setTimer(currentTime);
+            partieBuilder.setTypePartie(TypePartie.WORDS);
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.setView("Plateau");
@@ -328,5 +333,8 @@ public class ParametreController implements Observer {
 
     @Override
     public void reagir() {
+        if (jeu.getView().equals("MenuInitial")) {
+            resetParametre();
+        }
     }
 }
