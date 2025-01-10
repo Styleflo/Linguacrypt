@@ -81,22 +81,14 @@ public class Clef {
     }
 
     @JsonCreator
-    public Clef(@JsonProperty ("redStarting") boolean redStarts, @JsonProperty("blueStarting") boolean blueStarts, @JsonProperty ("grid") CardType[][] grid,
-                @JsonProperty ("cardsCounts") int[] cardsCounts, @JsonProperty("width") int width,
-                @JsonProperty ("height") int height) {
+    public Clef(@JsonProperty("redStarting") boolean redStarts, @JsonProperty("blueStarting") boolean blueStarts, @JsonProperty("grid") CardType[][] grid,
+                @JsonProperty("cardsCounts") int[] cardsCounts, @JsonProperty("width") int width,
+                @JsonProperty("height") int height) {
         this.blueStarts = blueStarts;
         this.grid = grid;
         this.cardsCounts = cardsCounts;
         this.width = width;
         this.height = height;
-    }
-
-    public Clef(int[] size) {
-        this(size[0], size[1]);
-    }
-
-    public Clef() {
-        this(GameConfig.DEFAULT_WIDTH, GameConfig.DEFAULT_HEIGHT);
     }
 
     public WritableImage bitMatrixToImage(BitMatrix bitMatrix) {

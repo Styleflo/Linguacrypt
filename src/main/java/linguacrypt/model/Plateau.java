@@ -1,12 +1,9 @@
 package linguacrypt.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import linguacrypt.config.GameConfig;
 import linguacrypt.utils.CardType;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -42,11 +39,11 @@ public class Plateau extends PlateauBase {
     }
 
     @JsonCreator
-    public Plateau(@JsonProperty ("key") Clef key, @JsonProperty ("coveredCardsCounts") int[] coveredCardsCounts,
-                   @JsonProperty ("blueTurn") boolean isBlueTurn, @JsonProperty ("redTurn")boolean isRedTurn, @JsonProperty ("pointBlue") int pointBlue,
-                   @JsonProperty ("pointRed") int pointRed, @JsonProperty ("qrcodeaffiche") boolean qrcodeaffiche,
-                   @JsonProperty ("cards") CarteBase[][] cards) {
-        super(key,coveredCardsCounts,isBlueTurn, isRedTurn ,pointBlue,pointRed,qrcodeaffiche);
+    public Plateau(@JsonProperty("key") Clef key, @JsonProperty("coveredCardsCounts") int[] coveredCardsCounts,
+                   @JsonProperty("blueTurn") boolean isBlueTurn, @JsonProperty("redTurn") boolean isRedTurn, @JsonProperty("pointBlue") int pointBlue,
+                   @JsonProperty("pointRed") int pointRed, @JsonProperty("qrcodeaffiche") boolean qrcodeaffiche,
+                   @JsonProperty("cards") CarteBase[][] cards) {
+        super(key, coveredCardsCounts, isBlueTurn, isRedTurn, pointBlue, pointRed, qrcodeaffiche);
         this.cards = cards;
     }
 

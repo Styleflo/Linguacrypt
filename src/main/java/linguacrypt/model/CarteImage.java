@@ -19,8 +19,8 @@ public class CarteImage extends CarteBase {
     }
 
     @JsonCreator
-    public CarteImage(@JsonProperty("type") CardType type, @JsonProperty ("covered") boolean covered,
-                      @JsonProperty ("url") String url) {
+    public CarteImage(@JsonProperty("type") CardType type, @JsonProperty("covered") boolean covered,
+                      @JsonProperty("url") String url) {
         super(type, covered);
         this.url = url;
     }

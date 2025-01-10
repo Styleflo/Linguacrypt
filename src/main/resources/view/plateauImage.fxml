@@ -6,8 +6,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<StackPane prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau" stylesheets="@../css/gui.css"
-           xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau"
+           stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1"
            fx:controller="linguacrypt.controller.PlateauImageController">
     <children>
         <SplitPane dividerPositions="0.5" prefHeight="1082.0" prefWidth="1761.0">
@@ -26,7 +26,7 @@
                         </Button>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
                                 layoutY="742.0" mnemonicParsing="false" onAction="#handleMenuPrincipal"
-                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu principal"
                                 textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
                                 <String fx:value="button1"/>
@@ -37,16 +37,19 @@
                         <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0"
                                     styleClass="dark_petit_panneau">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0"
-                                       prefHeight="30.0" prefWidth="321.0" styleClass="text" text="Tour"
-                                       textFill="WHITE"/>
-                                <AnchorPane layoutX="23.0" layoutY="66.0" prefHeight="51.0" prefWidth="246.0"
-                                            styleClass="light_petit_panneau">
-                                    <children>
-                                        <Label alignment="CENTER" layoutX="7.0" layoutY="11.0" prefHeight="30.0"
-                                               prefWidth="288.0" text="0" textAlignment="CENTER" textFill="#f4cf0f"/>
-                                    </children>
-                                </AnchorPane>
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="8.0" prefHeight="24.0" prefWidth="288.0" styleClass="text" text="Temps de jeu" textFill="WHITE" />
+                                <HBox fx:id="timerContainer" styleClass="timer-container" alignment="CENTER" layoutX="21.0" layoutY="55.0" prefWidth="300.0" spacing="10.0">
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="blue_petit_panneau">
+                                        <children>
+                                            <Label fx:id="blueTimer" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="45.0" prefWidth="145.0" styleClass="timer-text" text="00:00" textFill="WHITE" />
+                                        </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="red_petit_panneau">
+                                        <children>
+                                            <Label fx:id="redTimer" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="45.0" prefWidth="145.0" styleClass="timer-text" text="00:00" textFill="WHITE" />
+                                        </children>
+                                    </AnchorPane>
+                                </HBox>
                             </children>
                         </AnchorPane>
                         <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
@@ -221,16 +224,16 @@
 
         <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
         </Pane>
-        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
-        </Pane>
 
         <Pane fx:id="popupWin" visible="false" styleClass="confirmationOverlay">
             <children>
-                <VBox fx:id="borderWin" alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
+                <VBox fx:id="borderWin" alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0"
+                      layoutX="525.0"
                       layoutY="325.0"
                       styleClass="win-box-red">
                     <children>
-                        <Label fx:id="whoWon" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian" textFill="WHITE" styleClass="text"/>
+                        <Label fx:id="whoWon" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian"
+                               textFill="WHITE" styleClass="text"/>
                         <HBox alignment="CENTER" spacing="10.0">
                             <Button fx:id="colorButton" text="Oui" onAction="#okWin" styleClass="button1">
                             </Button>

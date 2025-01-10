@@ -21,6 +21,38 @@ public class Partie {
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;
+    private int blueTimeLeft;
+    private int redTimeLeft;
+
+    public int getBlueTimeLeft() {
+        return blueTimeLeft;
+    }
+
+    public void setBlueTimeLeft(int blueTimeLeft) {
+        this.blueTimeLeft = blueTimeLeft;
+    }
+
+    public int getRedTimeLeft() {
+        return redTimeLeft;
+    }
+
+    public void setRedTimeLeft(int redTimeLeft) {
+        this.redTimeLeft = redTimeLeft;
+    }
+
+    /**
+     * Charge une partie à partir d'un fichier.
+     *
+     * @param filePath Le chemin du fichier à charger.
+     * @return La partie chargée.
+     * @throws IOException            Si une erreur survient lors de la lecture du fichier.
+     * @throws ClassNotFoundException Si la classe de l'objet n'est pas trouvée.
+     */
+    public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            return (Partie) ois.readObject();
+        }
+    }
 
     /**
      * Explicite.
