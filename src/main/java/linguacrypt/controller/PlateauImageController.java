@@ -320,6 +320,8 @@ public class PlateauImageController implements Observer {
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI,currentJ,carte));
+                    carte.setOnMouseExited(event -> handleMouseExit(currentI,currentJ,carte));
 
                     gridPane.add(carte, i, j);
                 }
@@ -431,18 +433,25 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
-    //TODO faire comme pour le plateau des mots avec des reveal pas cover
+
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
             for (CarteBase c : row) {
                 CarteImage card = (CarteImage) c;
                 AnchorPane carteVisu = findAnchorCard(card.getUrl());  // Modifié pour utiliser getUrl()
-
+                if (carteVisu != null) {
+                    String style = switch (card.getType()) {
+                        case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                        case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                        case CardType.BLACK -> "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                        case CardType.WHITE -> "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
+                    };
+                    carteVisu.setStyle(style);
+                }
             }
         }
     }
-
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
         String audioFile = getClass().getResource("/soundtrack/Applaudissements.mp3").toExternalForm();
@@ -473,6 +482,7 @@ public class PlateauImageController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMyImage(url);
             return card;
@@ -487,6 +497,7 @@ public class PlateauImageController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card_vp.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMyImage(url);
             return card;

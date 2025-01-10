@@ -310,7 +310,6 @@ public class PlateauController implements Observer {
                     carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
                     carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
-                    handleMouseEnter(i, j, carteAnchor);
 
                 }
             }
@@ -334,7 +333,8 @@ public class PlateauController implements Observer {
 
                     DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
                     carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
-
+                    carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
+                    carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
                 }
             }
@@ -492,6 +492,7 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMot(mot);
             return card;
@@ -506,6 +507,7 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card_vp.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMot(mot);
             return card;
