@@ -30,11 +30,11 @@ public class PlateauImage extends PlateauBase implements Serializable {
     }
 
     @JsonCreator
-    public PlateauImage(@JsonProperty ("key") Clef key, @JsonProperty ("coveredCardsCounts") int[] coveredCardsCounts,
-                        @JsonProperty ("blueTurn") boolean isBlueTurn, @JsonProperty ("redTurn")boolean isRedTurn, @JsonProperty ("pointBlue") int pointBlue,
-                        @JsonProperty ("pointRed") int pointRed, @JsonProperty ("qrcodeaffiche") boolean qrcodeaffiche,
-                        @JsonProperty ("cardsImages") CarteBase[][] cardImages) {
-        super(key,coveredCardsCounts,isBlueTurn, isRedTurn,pointBlue,pointRed,qrcodeaffiche);
+    public PlateauImage(@JsonProperty("key") Clef key, @JsonProperty("coveredCardsCounts") int[] coveredCardsCounts,
+                        @JsonProperty("blueTurn") boolean isBlueTurn, @JsonProperty("redTurn") boolean isRedTurn, @JsonProperty("pointBlue") int pointBlue,
+                        @JsonProperty("pointRed") int pointRed, @JsonProperty("qrcodeaffiche") boolean qrcodeaffiche,
+                        @JsonProperty("cardsImages") CarteBase[][] cardImages) {
+        super(key, coveredCardsCounts, isBlueTurn, isRedTurn, pointBlue, pointRed, qrcodeaffiche);
         this.cardImages = cardImages;
     }
 

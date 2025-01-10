@@ -10,7 +10,8 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.VBox?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="850.0"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+           prefHeight="850.0"
            prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1"
            fx:controller="linguacrypt.controller.MenuInitialController">
     <children>

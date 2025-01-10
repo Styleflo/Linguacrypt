@@ -120,7 +120,7 @@ public class CartesController implements Observer {
         deleteButton.setOnAction(event -> {
             Alert alert = showAlert(AlertType.WARNING, alertTitle, null, alertContent);
 
-            if (alert.showAndWait().isPresent()) {
+            if (alert.getResult() == ButtonType.OK) {
                 CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
                 cardsDataManager.removeWordFromCategory(theme, word);
                 currentMots.remove(word);

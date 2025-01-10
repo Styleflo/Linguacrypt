@@ -1,6 +1,5 @@
 package linguacrypt.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import linguacrypt.config.GameConfig;
 
 import java.io.*;
@@ -39,6 +38,20 @@ public class Partie {
 
     public void setRedTimeLeft(int redTimeLeft) {
         this.redTimeLeft = redTimeLeft;
+    }
+
+    /**
+     * Charge une partie à partir d'un fichier.
+     *
+     * @param filePath Le chemin du fichier à charger.
+     * @return La partie chargée.
+     * @throws IOException            Si une erreur survient lors de la lecture du fichier.
+     * @throws ClassNotFoundException Si la classe de l'objet n'est pas trouvée.
+     */
+    public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            return (Partie) ois.readObject();
+        }
     }
 
     /**

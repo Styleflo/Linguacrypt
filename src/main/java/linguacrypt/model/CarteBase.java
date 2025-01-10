@@ -4,7 +4,8 @@ package linguacrypt.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import linguacrypt.utils.*;
+import linguacrypt.utils.CardType;
+import linguacrypt.utils.CarteDeserializer;
 
 
 @JsonDeserialize(using = CarteDeserializer.class)
@@ -16,10 +17,11 @@ public abstract class CarteBase {
         this.type = type;
     }
 
-    public CarteBase() {}
+    public CarteBase() {
+    }
 
     @JsonCreator
-    public CarteBase(@JsonProperty("type") CardType type, @JsonProperty ("covered") boolean covered) {
+    public CarteBase(@JsonProperty("type") CardType type, @JsonProperty("covered") boolean covered) {
         this.type = type;
         this.covered = covered;
     }
