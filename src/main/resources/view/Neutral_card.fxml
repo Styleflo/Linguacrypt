@@ -63,6 +63,27 @@
                 <Image url="@../assets/hippo.png"/>
             </image>
         </ImageView>
+
+        <ImageView fx:id="coveredpetitBlue" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/mai_petit.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredpetitBlack" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/garance_petit.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredpetitWhite" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/gael_petit.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredpetitRed" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/ely_petit.png"/>
+            </image>
+        </ImageView>
         <!-- images semi covered-->
         <ImageView fx:id="coveredsemiRed" fitHeight="110.0" fitWidth="167.0" layoutX="0" layoutY="0"
                    pickOnBounds="true" visible="false">
@@ -86,6 +107,32 @@
                    pickOnBounds="true" visible="false">
             <image>
                 <Image url="@../assets/moi_compresse.png" />
+            </image>
+        </ImageView>
+
+        <!-- images semi covered-->
+        <ImageView fx:id="coveredsemipetitRed" fitHeight="110.0" fitWidth="167.0" layoutX="0" layoutY="0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/ely_petit_compresse.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredsemipetitBlue" fitHeight="110.0" fitWidth="167.0" layoutX="0" layoutY="0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/mai_petit_compresse.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredsemipetitBlack" fitHeight="110.0" fitWidth="167.0" layoutX="0" layoutY="0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/garance_petit_compresse.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredsemipetitWhite" fitHeight="110.0" fitWidth="167.0" layoutX="0" layoutY="0"
+                   pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/gael_petit_compresse.png" />
             </image>
         </ImageView>
     </children>
