@@ -318,6 +318,8 @@ public class PlateauImageController implements Observer {
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI,currentJ,carte));
+                    carte.setOnMouseExited(event -> handleMouseExit(currentI,currentJ,carte));
 
                     gridPane.add(carte, i, j);
                 }
@@ -425,7 +427,7 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
-    //TODO faire comme pour le plateau des mots avec des reveal pas cover
+
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
