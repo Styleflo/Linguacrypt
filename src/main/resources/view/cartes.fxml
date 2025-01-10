@@ -133,7 +133,7 @@
                                 <String fx:value="dark_petit_panneau" />
                             </styleClass>
                         </AnchorPane>
-                        <Button fx:id="button1" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="158.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleValiderPopup" prefHeight="71.0" prefWidth="221.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="okButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="158.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleValiderPopup" prefHeight="71.0" prefWidth="221.0" text="Valider" textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
                                 <String fx:value="button1" />
                                 <String fx:value="green_button" />
@@ -147,13 +147,13 @@
                   </Button>
                   <Pane layoutX="107.0" layoutY="155.0" prefHeight="88.0" prefWidth="654.0" styleClass="blue_petit_panneau">
                      <children>
-                        <TextField layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
+                        <TextField fx:id="themeNameInput"  layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
                         <Label layoutX="47.0" layoutY="29.0" text="Nom du thème" textFill="WHITE" />
                      </children>
                   </Pane>
                   <Pane layoutX="107.0" layoutY="269.0" prefHeight="88.0" prefWidth="654.0" styleClass="red_petit_panneau">
                      <children>
-                        <TextField layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
+                        <TextField fx:id="firstCardInput" layoutX="410.0" layoutY="21.0" prefHeight="47.0" prefWidth="221.0" />
                         <Label layoutX="30.0" layoutY="1.0" prefHeight="88.0" prefWidth="369.0" text="Première carte du thème" textFill="WHITE" />
                      </children>
                   </Pane>
