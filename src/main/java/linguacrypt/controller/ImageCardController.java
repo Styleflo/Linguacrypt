@@ -35,10 +35,10 @@ public class ImageCardController {
     public void setRecouvert(CardType type, boolean recouvert) {
         if (coveredImage != null) {
             String coverImageUrl = switch (type) {
-                case RED -> "/assets/clef.png";
-                case BLUE -> "/assets/aled.png";
-                case BLACK -> "/assets/black_head.png";
-                case WHITE -> "/assets/lingua.png";
+                case RED -> "/assets/hippo.png";
+                case BLUE -> "/assets/florian.png";
+                case BLACK -> "/assets/lancelot.png";
+                case WHITE -> "/assets/moi.png";
             };
 
             try {
