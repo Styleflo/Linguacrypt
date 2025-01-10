@@ -308,7 +308,6 @@ public class PlateauController implements Observer {
                     carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
                     carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
-                    handleMouseEnter(i, j, carteAnchor);
 
                 }
             }
@@ -332,7 +331,8 @@ public class PlateauController implements Observer {
 
                     DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
                     carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
-
+                    carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
+                    carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
                 }
             }
