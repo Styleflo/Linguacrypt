@@ -1,5 +1,6 @@
 package linguacrypt.controller;
 
+import com.google.zxing.common.BitMatrix;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -51,6 +53,12 @@ public class PlateauImageController implements Observer {
     private ImageView filtre;
     @FXML
     private ImageView filtre2;
+    @FXML
+    private ImageView turnQR;
+    @FXML
+    private ImageView qrCode;
+    @FXML
+    private ImageView lingualogo;
     @FXML
     private Pane confirmationOverlay;
     @FXML
@@ -251,6 +259,7 @@ public class PlateauImageController implements Observer {
 
 
     private void afficherCartes() {
+        turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
@@ -346,6 +355,20 @@ public class PlateauImageController implements Observer {
         }
         initializeTimer();
         this.updateLabel();
+    }
+    @FXML
+    public void afficheQRcode() {
+        System.out.println("afficheQRcode est bien lancée");
+        try {
+            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode(); // Génération du QR code
+            WritableImage qrImage = jeu.getPartie().getPlateau().getKey().bitMatrixToImage(qrcode); // Convertit le BitMatrix en WritableImage
+            qrCode.setImage(qrImage); // Affiche l'image dans l'ImageView
+        } catch (Exception e) {
+            DataUtils.logException(e, "Erreur lors de la génération du QR code");
+        }
+        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche()); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
+        jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
     }
 
     public void afficheCardClicked(int x, int y, AnchorPane carteAnchor, CarteImage carteImage) {

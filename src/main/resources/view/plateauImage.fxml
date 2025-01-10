@@ -76,7 +76,7 @@
                             </styleClass>
                             <children>
                                 <Label fx:id="labelEquipe" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text" text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE" />
-                                <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="lingualogo" fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../assets/lingua.png" />
                                     </image>
@@ -89,6 +89,7 @@
                                 <String fx:value="purple_button" />
                             </styleClass>
                         </Button>
+                        <ImageView fx:id="qrCode" fitHeight="200.0" fitWidth="638.0" layoutX="92.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" visible="false" />
                         <ImageView fx:id="filtre2" fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.07" pickOnBounds="true">
                             <image>
                                 <Image url="@../assets/filtre.png" />
@@ -105,7 +106,7 @@
                   </Button>
                   <ImageView fx:id="turnQR" fitHeight="51.0" fitWidth="42.0" layoutX="51.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../coding/grp01/src/main/resources/assets/return.png" />
+                        <Image url="@../assets/return.png" />
                      </image>
                   </ImageView>
                     </children>
