@@ -1,45 +1,91 @@
 package linguacrypt.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
-import linguacrypt.utils.WordsFileHandler;
+import linguacrypt.model.TypePartie;
+import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ParametreController implements Observer {
 
+    private final int MIN_TIME = 30; // 30 secondes
+    private final int MAX_TIME = 1800; // 30 minutes
     @FXML
     private Label label1;
-
     @FXML
     private Label label2;
-
     @FXML
     private ImageView filtre;
-
-
     @FXML
     private Pane lesthemes;
-
     @FXML
     private VBox themeBox;
+    @FXML
+    private CheckBox Images;
+    @FXML
+    private CheckBox Mots;
+    @FXML
+    private Label labelTimer;
+    private int currentTime = -1; // -1 signifie infini
 
+    @FXML
+    private Button choisirThemeButton;
+    @FXML
+    private Button themesAleatoiresButton;
     private Jeu jeu;
-
     private PartieBuilder partieBuilder;
 
-    private ArrayList<String> themes;
-
     public ParametreController() {
+    }
+
+    public void handleFlecheGaucheTimer() {
+        if (currentTime == -1) {
+            currentTime = MAX_TIME;
+        } else if (currentTime > MIN_TIME) {
+            // Réduit de 30 secondes
+            currentTime = Math.max(MIN_TIME, currentTime - 30);
+        } else {
+            currentTime = -1;
+        }
+        updateTimerLabel();
+    }
+
+    public void handleFlecheDroiteTimer() {
+        if (currentTime == -1) {
+            currentTime = MIN_TIME;
+        } else if (currentTime < MAX_TIME) {
+            // Augmente de 30 secondes
+            currentTime = Math.min(MAX_TIME, currentTime + 30);
+        } else {
+            currentTime = -1;
+        }
+        updateTimerLabel();
+    }
+
+    private void updateTimerLabel() {
+        if (currentTime == -1) {
+            labelTimer.setText("∞");
+        } else {
+            int minutes = currentTime / 60;
+            int seconds = currentTime % 60;
+            labelTimer.setText(String.format("%02d:%02d", minutes, seconds));
+        }
     }
 
     public void setJeu(Jeu jeu) {
@@ -52,7 +98,9 @@ public class ParametreController implements Observer {
     }
 
     public void handleCartesAleatoire() {
-
+        themesAleatoiresButton.getStyleClass().add("button-selected");
+        choisirThemeButton.getStyleClass().remove("button-selected");
+        partieBuilder.resetWordsUsed();
     }
 
     @FXML
@@ -94,8 +142,8 @@ public class ParametreController implements Observer {
     @FXML
     public void handleThemes() {
         lesthemes.setVisible(true);
-        WordsFileHandler wordsFileHandler = jeu.getWordsFileHandler();
-        themes = wordsFileHandler.getAllThemes();
+        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
+        ArrayList<String> themes = cardsDataManager.getAllThemes();
         themeBox.getChildren().clear();
 
         for (String theme : themes) {
@@ -114,13 +162,13 @@ public class ParametreController implements Observer {
             });
 
             // Empêcher la propagation du clic de la checkbox à l'élément parent
-            checkBox.setOnMouseClicked(event -> {
-                event.consume();
-            });
+            checkBox.setOnMouseClicked(Event::consume);
 
             themeItem.getChildren().addAll(checkBox, label);
             themeBox.getChildren().add(themeItem);
         }
+        choisirThemeButton.getStyleClass().add("button-selected");
+        themesAleatoiresButton.getStyleClass().remove("button-selected");
     }
 
     @FXML
@@ -143,16 +191,91 @@ public class ParametreController implements Observer {
     }
 
     @FXML
+    private void handleModeImage() {
+        if (Images.isSelected()) {
+            Mots.setSelected(false);
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        } else {
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void handleModeMots() {
+        if (Mots.isSelected()) {
+            Images.setSelected(false);
+            choisirThemeButton.setVisible(true);
+            themesAleatoiresButton.setVisible(true);
+        } else {
+            choisirThemeButton.setVisible(false);
+            themesAleatoiresButton.setVisible(false);
+        }
+    }
+
+    @FXML
     private void handleValiderTout() throws IOException {
-        jeu.setView("Plateau");
-        Partie partie = partieBuilder.getResult();
-        jeu.setPartie(partie);
+
+        if (Images.isSelected() && !Mots.isSelected()) {
+            partieBuilder.setTimer(currentTime);
+            partieBuilder.resetTypePartie();
+            partieBuilder.setTypePartie(TypePartie.IMAGES);
+            jeu.setView("PlateauImage");
+            Partie partie = partieBuilder.getResult();
+            jeu.setPartie(partie);
+            jeu.notifyObservers();
+        } else if (Mots.isSelected() && !Images.isSelected()) {
+            partieBuilder.setTimer(currentTime);
+            partieBuilder.resetTypePartie();
+            jeu.setView("Plateau");
+            Partie partie = partieBuilder.getResult();
+            jeu.setPartie(partie);
+            jeu.notifyObservers();
+        } else {
+            // eventuellement pop up à mettre un jour
+        }
+    }
+
+    @FXML
+    private void handleMenu() {
+        jeu.setView("MenuInitial");
         jeu.notifyObservers();
+    }
+
+    @FXML
+    /**
+     * La fonction permet de load une partie non fini qui fut sauvegardé dans le passé
+     * Elle lit un fichier Json et remet à jour l'état des classes
+     */
+    private void loadPartie() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger une partie déjà existante");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers JSON", "*.json"));
+        File fichier = fileChooser.showOpenDialog(new Stage());
+        if (fichier != null) {
+            try {
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                Partie partieload = filesavehandler.loadPartie(fichier.getAbsolutePath());
+                jeu.setPartie(partieload);
+                if (partieload.getTypePartie() == TypePartie.IMAGES) {
+                    jeu.setView("PlateauImage");
+                } else {
+                    jeu.setView("Plateau");
+                }
+                jeu.notifyObservers();
+            } catch (IOException e) {
+                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
+            }
+        } else {
+            System.out.println("Aucun fichier sélectionné.");
+        }
     }
 
     @FXML
     private void handleAnnuler() {
         lesthemes.setVisible(false);
+        choisirThemeButton.getStyleClass().remove("button-selected");
     }
 
     @Override

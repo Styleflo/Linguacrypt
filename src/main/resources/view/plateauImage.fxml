@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau"
+           stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1"
+           fx:controller="linguacrypt.controller.PlateauImageController">
+    <children>
+        <SplitPane dividerPositions="0.5" prefHeight="1082.0" prefWidth="1761.0">
+            <items>
+                <AnchorPane fx:id="panneau_changer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                            minWidth="-Infinity" prefHeight="856.0" prefWidth="395.0" stylesheets="@../css/gui.css">
+                    <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
+                                layoutY="653.0" mnemonicParsing="false" onAction="#handleNouvellePartie"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Nouvelle partie"
+                                textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1"/>
+                                <String fx:value="red_button"/>
+                            </styleClass>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
+                                layoutY="742.0" mnemonicParsing="false" onAction="#handleMenuPrincipal"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu principal"
+                                textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1"/>
+                                <String fx:value="orange_button"/>
+                            </styleClass>
+                        </Button>
+                        <FlowPane prefHeight="200.0" prefWidth="200.0"/>
+                        <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0"
+                                    styleClass="dark_petit_panneau">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="8.0" prefHeight="24.0" prefWidth="288.0" styleClass="text" text="Temps de jeu" textFill="WHITE" />
+                                <HBox fx:id="timerContainer" styleClass="timer-container" alignment="CENTER" layoutX="21.0" layoutY="55.0" prefWidth="300.0" spacing="10.0">
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="blue_petit_panneau">
+                                        <children>
+                                            <Label fx:id="blueTimer" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="45.0" prefWidth="145.0" styleClass="timer-text" text="00:00" textFill="WHITE" />
+                                        </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="red_petit_panneau">
+                                        <children>
+                                            <Label fx:id="redTimer" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="45.0" prefWidth="145.0" styleClass="timer-text" text="00:00" textFill="WHITE" />
+                                        </children>
+                                    </AnchorPane>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
+                                    styleClass="dark_petit_panneau">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="14.0"
+                                       prefHeight="30.0" prefWidth="288.0" styleClass="text" text="Cartes trouvées"
+                                       textFill="WHITE"/>
+                                <AnchorPane layoutX="29.0" layoutY="58.0" prefHeight="71.0" prefWidth="109.0"
+                                            styleClass="blue_petit_panneau">
+                                    <children>
+                                        <Label fx:id="lbbleu" layoutX="25.0" layoutY="21.0" text=" " textFill="WHITE"/>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane layoutX="208.0" layoutY="58.0" prefHeight="71.0" prefWidth="109.0"
+                                            styleClass="red_petit_panneau">
+                                    <children>
+                                        <Label fx:id="lbred" layoutX="25.0" layoutY="21.0" text=" "/>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                        <Pane fx:id="panneau_changer2" layoutX="29.0" layoutY="26.0" prefHeight="317.0"
+                              prefWidth="342.0">
+                            <styleClass>
+                                <String fx:value="logo_panneau"/>
+                                <String fx:value="logo_panneau_rouge"/>
+                            </styleClass>
+                            <children>
+                                <Label fx:id="labelEquipe" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0"
+                                       layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text"
+                                       text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE"/>
+                                <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@../assets/lingua.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="232.0"
+                                layoutY="653.0" mnemonicParsing="false" onAction="#handleTourSuivant" prefHeight="160.0"
+                                prefWidth="138.0" stylesheets="@../css/gui.css" text="Tour suivant"
+                                textAlignment="CENTER" textFill="WHITE">
+                            <styleClass>
+                                <String fx:value="button1"/>
+                                <String fx:value="purple_button"/>
+                            </styleClass>
+                        </Button>
+                        <ImageView fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.07"
+                                   pickOnBounds="true" fx:id="filtre2">
+                            <image>
+                                <Image url="@../assets/filtre.png"/>
+                            </image>
+                            <effect>
+                                <GaussianBlur radius="12.25"/>
+                            </effect>
+                        </ImageView>
+                    </children>
+                    <styleClass>
+                        <String fx:value="main_panneau"/>
+                        <String fx:value="red_main_panneau"/>
+                    </styleClass>
+                </AnchorPane>
+                <StackPane prefHeight="1010.0" prefWidth="1275.0">
+                    <children>
+                        <ImageView fx:id="imageview2" fitHeight="856.0" fitWidth="1102.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../assets/fond_rouge_flou.png"/>
+                            </image>
+                            <effect>
+                                <GaussianBlur radius="0.0"/>
+                            </effect>
+                        </ImageView>
+                        <ImageView fx:id="imageview1" fitHeight="858.0" fitWidth="1102.0" pickOnBounds="true"
+                                   visible="false">
+                            <image>
+                                <Image url="@../assets/fond_rouge_flou.png"/>
+                            </image>
+                            <effect>
+                                <ColorAdjust hue="-0.81"/>
+                            </effect>
+                        </ImageView>
+                        <ImageView fx:id="filtre" fitHeight="858.0" fitWidth="1098.0" opacity="0.26"
+                                   pickOnBounds="true">
+                            <image>
+                                <Image url="@../assets/filtre.png"/>
+                            </image>
+                            <effect>
+                                <GaussianBlur radius="15.25"/>
+                            </effect>
+                        </ImageView>
+                        <GridPane fx:id="gridPane" prefHeight="827.0" prefWidth="1102.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                        </GridPane>
+                    </children>
+                </StackPane>
+
+            </items>
+        </SplitPane>
+
+        <Pane fx:id="confirmationOverlay" visible="false" styleClass="confirmationOverlay">
+            <children>
+                <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
+                      layoutY="325.0"
+                      styleClass="confirmation-box">
+                    <children>
+                        <Label text="Voulez-vous commencer une nouvelle partie ?" textFill="WHITE" styleClass="text"/>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <Button text="Oui" onAction="#confirmNouvellePartie">
+                                <styleClass>
+                                    <String fx:value="button1"/>
+                                    <String fx:value="red_button"/>
+                                </styleClass>
+                            </Button>
+                            <Button text="Non" onAction="#cancelNouvellePartie">
+                                <styleClass>
+                                    <String fx:value="button1"/>
+                                    <String fx:value="purple_button"/>
+                                </styleClass>
+                            </Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+
+        <Pane fx:id="confirmationOverlayMenu" visible="false" styleClass="confirmationOverlay">
+            <children>
+                <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
+                      layoutY="325.0"
+                      styleClass="confirmation-box">
+                    <children>
+                        <Label text="Voulez-vous sauvegarder la partie en cours ?" textFill="WHITE" styleClass="text"/>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <Button text="Oui" onAction="#confirmSavePartie" styleClass="button1">
+                                <styleClass>
+                                    <String fx:value="button1"/>
+                                    <String fx:value="red_button"/>
+                                </styleClass>
+                            </Button>
+                            <Button text="Non" onAction="#returnMenu">
+                                <styleClass>
+                                    <String fx:value="button1"/>
+                                    <String fx:value="purple_button"/>
+                                </styleClass>
+                            </Button>
+                            <Button text="Annuler" onAction="#closeConfirmationMenu" styleClass="close_button">
+                                <styleClass>
+                                    <String fx:value="button1"/>
+                                    <String fx:value="close_button"/>
+                                </styleClass>
+                            </Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+
+        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
+        </Pane>
+
+        <Pane fx:id="popupWin" visible="false" styleClass="confirmationOverlay">
+            <children>
+                <VBox fx:id="borderWin" alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0"
+                      layoutX="525.0"
+                      layoutY="325.0"
+                      styleClass="win-box-red">
+                    <children>
+                        <Label fx:id="whoWon" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian"
+                               textFill="WHITE" styleClass="text"/>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <Button fx:id="colorButton" text="Oui" onAction="#okWin" styleClass="button1">
+                            </Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+
+    </children>
+</StackPane>

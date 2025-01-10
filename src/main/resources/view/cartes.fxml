@@ -100,6 +100,14 @@
                             <GaussianBlur radius="22.75" />
                         </effect>
                     </ImageView>
+                    <Button layoutX="1044.0" layoutY="630.0" onAction="#CategoryImage" prefHeight="66.0"
+                            prefWidth="67.0">
+                        <styleClass>
+                            <String fx:value="button1"/>
+                            <String fx:value="close_button"/>
+                            <String fx:value="image-button"/>
+                        </styleClass>
+                    </Button>
                 </children>
                 <styleClass>
                     <String fx:value="dark_petit_panneau" />

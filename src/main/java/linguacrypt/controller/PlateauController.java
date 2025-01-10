@@ -1,19 +1,29 @@
 package linguacrypt.controller;
 
+import com.google.zxing.common.BitMatrix;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import linguacrypt.model.CarteBase;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
+import linguacrypt.model.Carte;
+import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +54,12 @@ public class PlateauController implements Observer {
     @FXML
     private ImageView filtre2;
     @FXML
+    private ImageView turnQR;
+    @FXML
+    private ImageView qrCode;
+    @FXML
+    private ImageView lingualogo;
+    @FXML
     private Pane confirmationOverlay;
     @FXML
     private Pane confirmationOverlayMenu;
@@ -59,19 +75,107 @@ public class PlateauController implements Observer {
     private VBox borderWin;
 
     @FXML
+    private Label blueTimer;
+    @FXML
+    private Label redTimer;
+
+    private Timeline timeline;
+
+    private boolean isTimerRunning = false;
+
+    private void initializeTimer() {
+        if (jeu.getPartie().getTimer() != -1) {
+            // Si c'est une nouvelle partie, initialise les temps
+            if (jeu.getPartie().getwon() == -1) {
+                jeu.getPartie().setBlueTimeLeft ((jeu.getPartie().getTimer() / 2));
+                jeu.getPartie().setRedTimeLeft ((jeu.getPartie().getTimer() / 2));
+            }
+            updateTimerLabels();
+
+            if (timeline == null) {
+                timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+                    if (jeu.getPartie().getPlateau().isBlueTurn()) {
+                        jeu.getPartie().setBlueTimeLeft(jeu.getPartie().getBlueTimeLeft()-1);
+                    } else {
+                        jeu.getPartie().setRedTimeLeft(jeu.getPartie().getRedTimeLeft()-1);
+                    }
+                    updateTimerLabels();
+                    checkTimeOut();
+                }));
+                timeline.setCycleCount(Timeline.INDEFINITE);
+            }
+        }
+    }
+
+    private void updateTimerLabels() {
+        int blueMinutes = jeu.getPartie().getBlueTimeLeft()/ 60;
+        int blueSeconds = jeu.getPartie().getBlueTimeLeft() % 60;
+        int redMinutes = jeu.getPartie().getRedTimeLeft() / 60;
+        int redSeconds = jeu.getPartie().getRedTimeLeft() % 60;
+
+        blueTimer.setText(String.format("%02d:%02d", blueMinutes, blueSeconds));
+        redTimer.setText(String.format("%02d:%02d", redMinutes, redSeconds));
+    }
+
+    private void checkTimeOut() {
+        if (jeu.getPartie().getBlueTimeLeft() <= 0) {
+            stopTimer();
+            jeu.getPartie().setRedWon();
+            revealCard();
+            jeu.victoireRouge();
+            labelEquipe.setText("Victoire des rouges !");
+            showWinnerPopup("Rouge");
+        } else if (jeu.getPartie().getRedTimeLeft() <= 0) {
+            stopTimer();
+            jeu.getPartie().setBlueWon();
+            revealCard();
+            jeu.victoireBleue();
+            labelEquipe.setText("Victoire des bleus !");
+            showWinnerPopup("Bleue");
+        }
+    }
+
+    private void startTimer() {
+        if (jeu.getPartie().getTimer() != -1 && !isTimerRunning) {
+            timeline.play();
+            isTimerRunning = true;
+        }
+    }
+
+    private void stopTimer() {
+        if (timeline != null) {
+            timeline.pause();
+            isTimerRunning = false;
+        }
+    }
+
+    @FXML
     private void confirmNouvellePartie() {
+        stopTimer();
         confirmationOverlay.setVisible(false);
         jeu.getPartie().newPlateau();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
+        jeu.getPartie().newPlateau();
         jeu.notifyObservers();
+
     }
 
     @FXML
     private void cancelNouvellePartie() {
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
         confirmationOverlay.setVisible(false);
     }
 
     @FXML
     private void confirmSavePartie() {
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
+        stopTimer();
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
@@ -80,11 +184,18 @@ public class PlateauController implements Observer {
 
     @FXML
     private void cancelSavePartie() {
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
         confirmationOverlayMenu.setVisible(false);
     }
 
     @FXML
     private void returnMenu() {
+        stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlayMenu.setVisible(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
@@ -92,11 +203,17 @@ public class PlateauController implements Observer {
 
     @FXML
     private void closeConfirmationMenu() {
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
         confirmationOverlayMenu.setVisible(false);
     }
 
     @FXML
     private void okWin() {
+        if (jeu.getPartie().getwon() == 2) {
+            startTimer();
+        }
         popupWin.setVisible(false);
     }
 
@@ -133,6 +250,7 @@ public class PlateauController implements Observer {
 
 
     private void afficherCartes() {
+        turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
@@ -181,12 +299,17 @@ public class PlateauController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
 
-                    assert carte != null;
-                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    Carte carte = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carteAnchor = creerCarte(carte.getWord());
 
-                    gridPane.add(carte, i, j);
+                    DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
+                    carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
+                    carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
+                    carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
+                    gridPane.add(carteAnchor, i, j);
+                    handleMouseEnter(i, j, carteAnchor);
+
                 }
             }
         } else {
@@ -204,24 +327,55 @@ public class PlateauController implements Observer {
                 for (int j = 0; j < row; j++) {
                     final int currentI = i;
                     final int currentJ = j;
-                    AnchorPane carte = creerPetiteCarte(jeu.getPartie().getPlateau().getCard(i, j).getWord());
+                    Carte carte = (Carte) jeu.getPartie().getPlateau().getCard(i, j);
+                    AnchorPane carteAnchor = creerPetiteCarte(carte.getWord());
 
-                    assert carte != null;
-                    carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
+                    carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
 
-                    gridPane.add(carte, i, j);
+                    gridPane.add(carteAnchor, i, j);
                 }
             }
 
         }
 
         this.updateLabel();
+        initializeTimer();
     }
+
+    private void handleMouseEnter(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setSemiCovered(couleur, true);
+        String style;
+
+        this.updateLabel();
+    }
+
+    private void handleMouseExit(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setSemiCovered(couleur, false);
+
+        this.updateLabel();
+    }
+
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
         if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
             return;
         }
+
 
         if (jeu.getPartie().getwon() == -1) {
             jeu.getPartie().setPartieBegin();
@@ -239,7 +393,6 @@ public class PlateauController implements Observer {
                 carte.setStyle(style);
                 jeu.getPartie().getPlateau().updatePoint(CardType.RED);
                 jeu.getPartie().getPlateau().updateTurn(CardType.RED);
-                // Recouvrir la carte
                 break;
             case CardType.BLUE:
                 style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
@@ -266,22 +419,27 @@ public class PlateauController implements Observer {
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
+            jeu.victoireBleue();
+            labelEquipe.setText("Victoire des bleus !");
             revealCard();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
+            jeu.victoireRouge();
+            labelEquipe.setText("Victoire des rouges !");
             revealCard();
             showWinnerPopup("Rouge");
         }
+
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
-        this.updateLabel();
     }
 
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
-            for (CarteBase card : row) {
+            for (CarteBase c : row) {
+                Carte card = (Carte) c;
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {
                     card.setCovered();
@@ -298,21 +456,22 @@ public class PlateauController implements Observer {
     }
 
     private void showWinnerPopup(String winningTeam) {
+        stopTimer();
         if (winningTeam.equals("Rouge")) {
-            whoWon.setText("L'équipe Rouge a gagné !");
+            whoWon.setText("L'équipe rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
             colorButton.getStyleClass().add("red_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-red");
-        }
-        else {
-            whoWon.setText("L'équipe Bleue a gagné !");
+        } else {
+            whoWon.setText("L'équipe bleue a gagné !");
             whoWon.setStyle("-fx-text-fill: #3399FF;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
             colorButton.getStyleClass().add("blue_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-blue");
+
         }
         popupWin.setVisible(true);
     }
@@ -356,7 +515,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Bleu");
+            labelEquipe.setText("C'est au tour des bleus");
         } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
@@ -367,7 +526,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.RED_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Rouge");
+            labelEquipe.setText("C'est au tour des rouges");
         }
 
 
@@ -383,34 +542,43 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleNouvellePartie() {
+        stopTimer();
         if (jeu.getPartie().getwon() == 2) {
             confirmationOverlay.setVisible(true);
         } else {
             confirmNouvellePartie();
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         }
     }
 
     @FXML
     private void handleMenuPrincipal() {
-        if (jeu.getPartie().getwon() != -1) {
+        if (jeu.getPartie().getwon() == 2) {
             confirmationOverlayMenu.setVisible(true);
-        }
-        else {
+        } else {
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
         }
     }
 
+    /**
+     * La fonction permet de sauvegarder une partie non fini q
+     * Elle lit l'etat de la partie actuelle et sauvegarde le tout en format Json
+     */
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Partie", "*.json"));
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
-                jeu.getPartie().savePartie(fichier.getAbsolutePath());
-                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
-                System.out.println(fichier.getAbsolutePath());
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                filesavehandler.savePartie(jeu.getPartie(), fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }
@@ -421,6 +589,10 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleTourSuivant() {
+        if (isTimerRunning) {
+            stopTimer();
+            startTimer();
+        }
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
 
@@ -446,10 +618,32 @@ public class PlateauController implements Observer {
 
     }
 
+    @FXML
+    public void afficheQRcode() {
+        try {
+            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode(); // Génération du QR code
+            WritableImage qrImage = jeu.getPartie().getPlateau().getKey().bitMatrixToImage(qrcode); // Convertit le BitMatrix en WritableImage
+            qrCode.setImage(qrImage); // Affiche l'image dans l'ImageView
+            qrCode.setVisible(true); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(false);
+        } catch (Exception e) {
+            DataUtils.logException(e, "Erreur lors de la génération du QR code");
+        }
+        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche()); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
+        jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
+    }
+
+
     @Override
     public void reagir() {
         if (jeu.getView().equals("Plateau")) {
             afficherCartes();
+            // Si c'est une nouvelle partie (pas de carte révélée)
+            if (jeu.getPartie().getwon() == -1) {
+                initializeTimer();
+                startTimer(); // Démarre le timer immédiatement
+            }
         }
     }
 }

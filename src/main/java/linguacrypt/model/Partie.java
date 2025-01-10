@@ -13,14 +13,32 @@ import java.util.ArrayList;
  * Contient la largeur du plateau
  * Contient la hauteur du plateau
  */
-public class Partie implements Serializable {
+public class Partie {
     private PlateauBase plateau;
     private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné mais la partie est commencé; -1 la partie n'est pas encore commencé
     private int timer;
-    private ArrayList<String> words;
+    private ArrayList<String> cardsAttribute;
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;
+    private int blueTimeLeft;
+    private int redTimeLeft;
+
+    public int getBlueTimeLeft() {
+        return blueTimeLeft;
+    }
+
+    public void setBlueTimeLeft(int blueTimeLeft) {
+        this.blueTimeLeft = blueTimeLeft;
+    }
+
+    public int getRedTimeLeft() {
+        return redTimeLeft;
+    }
+
+    public void setRedTimeLeft(int redTimeLeft) {
+        this.redTimeLeft = redTimeLeft;
+    }
 
     /**
      * Charge une partie à partir d'un fichier.
@@ -32,9 +50,7 @@ public class Partie implements Serializable {
      */
     public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            Partie partie = (Partie) ois.readObject();
-            System.out.println("Partie chargée avec succès depuis " + filePath);
-            return partie;
+            return (Partie) ois.readObject();
         }
     }
 
@@ -87,7 +103,7 @@ public class Partie implements Serializable {
      * Permet de relancer une partie avec de nouvelles cartes sans changer les parametres.
      */
     public void newPlateau() {
-        this.plateau = new Plateau(this.widthParameter, this.heightParameter, words);
+        this.plateau = new Plateau(this.widthParameter, this.heightParameter, cardsAttribute, this.typePartie);
         this.won = -1;
     }
 
@@ -105,6 +121,10 @@ public class Partie implements Serializable {
      */
     public void setRedWon() {
         this.won = 1;
+    }
+
+    public boolean isWon() {
+        return (this.won == 0) || (this.won == 1);
     }
 
     /**
@@ -149,12 +169,12 @@ public class Partie implements Serializable {
         this.widthParameter = widthParameter;
     }
 
-    public ArrayList<String> getWords() {
-        return words;
+    public ArrayList<String> getCardsAttribute() {
+        return cardsAttribute;
     }
 
-    public void setWords(ArrayList<String> words) {
-        this.words = words;
+    public void setCardsAttribute(ArrayList<String> cardsAttribute) {
+        this.cardsAttribute = cardsAttribute;
     }
 
     public boolean RedWon() {

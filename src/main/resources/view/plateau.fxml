@@ -6,8 +6,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<StackPane prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau" stylesheets="@../css/gui.css"
-           xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="850.0" prefWidth="1450.0" styleClass="blue_main_panneau"
+           stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1"
            fx:controller="linguacrypt.controller.PlateauController">
     <children>
         <SplitPane dividerPositions="0.5" prefHeight="1082.0" prefWidth="1761.0">
@@ -26,7 +26,7 @@
                         </Button>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="28.0"
                                 layoutY="742.0" mnemonicParsing="false" onAction="#handleMenuPrincipal"
-                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu Principal"
+                                prefHeight="71.0" prefWidth="188.0" stylesheets="@../css/gui.css" text="Menu principal"
                                 textAlignment="CENTER" textFill="WHITE">
                             <styleClass>
                                 <String fx:value="button1"/>
@@ -37,16 +37,26 @@
                         <AnchorPane layoutX="28.0" layoutY="504.0" prefHeight="132.0" prefWidth="342.0"
                                     styleClass="dark_petit_panneau">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="14.0"
-                                       prefHeight="30.0" prefWidth="321.0" styleClass="text" text="Tour"
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="8.0"
+                                       prefHeight="24.0" prefWidth="288.0" styleClass="text" text="Temps de jeu"
                                        textFill="WHITE"/>
-                                <AnchorPane layoutX="23.0" layoutY="66.0" prefHeight="51.0" prefWidth="246.0"
-                                            styleClass="light_petit_panneau">
-                                    <children>
-                                        <Label alignment="CENTER" layoutX="7.0" layoutY="11.0" prefHeight="30.0"
-                                               prefWidth="288.0" text="0" textAlignment="CENTER" textFill="#f4cf0f"/>
-                                    </children>
-                                </AnchorPane>
+                                <HBox fx:id="timerContainer" styleClass="timer-container" alignment="CENTER"
+                                      layoutX="21.0" layoutY="55.0" prefWidth="300.0" spacing="10.0">
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="blue_petit_panneau">
+                                        <children>
+                                            <Label fx:id="blueTimer" alignment="CENTER" layoutX="0.0" layoutY="0.0"
+                                                   prefHeight="45.0" prefWidth="145.0" styleClass="timer-text"
+                                                   text="00:00" textFill="WHITE"/>
+                                        </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="45.0" prefWidth="145.0" styleClass="red_petit_panneau">
+                                        <children>
+                                            <Label fx:id="redTimer" alignment="CENTER" layoutX="0.0" layoutY="0.0"
+                                                   prefHeight="45.0" prefWidth="145.0" styleClass="timer-text"
+                                                   text="00:00" textFill="WHITE"/>
+                                        </children>
+                                    </AnchorPane>
+                                </HBox>
                             </children>
                         </AnchorPane>
                         <AnchorPane layoutX="28.0" layoutY="351.0" prefHeight="142.0" prefWidth="342.0"
@@ -79,8 +89,8 @@
                                 <Label fx:id="labelEquipe" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0"
                                        layoutY="266.0" prefHeight="30.0" prefWidth="329.0" styleClass="text"
                                        text="Tour de l'équipe Rouge" textAlignment="CENTER" textFill="WHITE"/>
-                                <ImageView fitHeight="289.0" fitWidth="273.0" layoutX="35.0" pickOnBounds="true"
-                                           preserveRatio="true">
+                                <ImageView fx:id="lingualogo" fitHeight="289.0" fitWidth="273.0" layoutX="35.0"
+                                           pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../assets/lingua.png"/>
                                     </image>
@@ -96,8 +106,8 @@
                                 <String fx:value="purple_button"/>
                             </styleClass>
                         </Button>
-                        <ImageView fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0" opacity="0.07"
-                                   pickOnBounds="true" fx:id="filtre2">
+                        <ImageView fx:id="filtre2" fitHeight="862.0" fitWidth="708.0" layoutX="-313.0" layoutY="-6.0"
+                                   opacity="0.07" pickOnBounds="true">
                             <image>
                                 <Image url="@../assets/filtre.png"/>
                             </image>
@@ -105,6 +115,21 @@
                                 <GaussianBlur radius="12.25"/>
                             </effect>
                         </ImageView>
+                        <Button layoutX="41.0" layoutY="41.0" mnemonicParsing="false" onAction="#afficheQRcode"
+                                prefHeight="43.0" prefWidth="42.0">
+                            <styleClass>
+                                <String fx:value="buttonnotmouve"/>
+                                <String fx:value="purple_button"/>
+                            </styleClass>
+                        </Button>
+                        <ImageView fx:id="turnQR" fitHeight="51.0" fitWidth="42.0" layoutX="41.0" layoutY="41.0"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/return.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="qrCode" fitHeight="257.0" fitWidth="257.0" layoutX="83.0" layoutY="34.0"
+                                   pickOnBounds="true" preserveRatio="true" visible="false"/>
                     </children>
                     <styleClass>
                         <String fx:value="main_panneau"/>
@@ -161,21 +186,20 @@
             </items>
         </SplitPane>
 
-        <Pane fx:id="confirmationOverlay" visible="false" styleClass="confirmationOverlay">
+        <Pane fx:id="confirmationOverlay" styleClass="confirmationOverlay" visible="false">
             <children>
-                <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
-                      layoutY="325.0"
-                      styleClass="confirmation-box">
+                <VBox alignment="CENTER" layoutX="525.0" layoutY="325.0" prefHeight="200.0" prefWidth="400.0"
+                      spacing="20.0" styleClass="confirmation-box">
                     <children>
-                        <Label text="Voulez-vous commencer une nouvelle partie ?" textFill="WHITE" styleClass="text"/>
+                        <Label styleClass="text" text="Voulez-vous commencer une nouvelle partie ?" textFill="WHITE"/>
                         <HBox alignment="CENTER" spacing="10.0">
-                            <Button text="Oui" onAction="#confirmNouvellePartie">
+                            <Button onAction="#confirmNouvellePartie" text="Oui">
                                 <styleClass>
                                     <String fx:value="button1"/>
                                     <String fx:value="red_button"/>
                                 </styleClass>
                             </Button>
-                            <Button text="Non" onAction="#cancelNouvellePartie">
+                            <Button onAction="#cancelNouvellePartie" text="Non">
                                 <styleClass>
                                     <String fx:value="button1"/>
                                     <String fx:value="purple_button"/>
@@ -187,27 +211,26 @@
             </children>
         </Pane>
 
-        <Pane fx:id="confirmationOverlayMenu" visible="false" styleClass="confirmationOverlay">
+        <Pane fx:id="confirmationOverlayMenu" styleClass="confirmationOverlay" visible="false">
             <children>
-                <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
-                      layoutY="325.0"
-                      styleClass="confirmation-box">
+                <VBox alignment="CENTER" layoutX="525.0" layoutY="325.0" prefHeight="200.0" prefWidth="400.0"
+                      spacing="20.0" styleClass="confirmation-box">
                     <children>
-                        <Label text="Voulez-vous sauvegarder la partie en cours ?" textFill="WHITE" styleClass="text"/>
+                        <Label styleClass="text" text="Voulez-vous sauvegarder la partie en cours ?" textFill="WHITE"/>
                         <HBox alignment="CENTER" spacing="10.0">
-                            <Button text="Oui" onAction="#confirmSavePartie" styleClass="button1">
+                            <Button onAction="#confirmSavePartie" styleClass="button1" text="Oui">
                                 <styleClass>
                                     <String fx:value="button1"/>
                                     <String fx:value="red_button"/>
                                 </styleClass>
                             </Button>
-                            <Button text="Non" onAction="#returnMenu">
+                            <Button onAction="#returnMenu" text="Non">
                                 <styleClass>
                                     <String fx:value="button1"/>
                                     <String fx:value="purple_button"/>
                                 </styleClass>
                             </Button>
-                            <Button text="Annuler" onAction="#closeConfirmationMenu" styleClass="close_button">
+                            <Button onAction="#closeConfirmationMenu" styleClass="close_button" text="Annuler">
                                 <styleClass>
                                     <String fx:value="button1"/>
                                     <String fx:value="close_button"/>
@@ -219,26 +242,23 @@
             </children>
         </Pane>
 
-        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
-        </Pane>
-        <Pane fx:id="confirmationOverlayMenuSave" visible="false" styleClass="confirmationOverlay">
+        <Pane fx:id="confirmationOverlayMenuSave" styleClass="confirmationOverlay" visible="false">
         </Pane>
 
-        <Pane fx:id="popupWin" visible="false" styleClass="confirmationOverlay">
+        <Pane fx:id="popupWin" styleClass="confirmationOverlay" visible="false">
             <children>
-                <VBox fx:id="borderWin" alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="200.0" layoutX="525.0"
-                      layoutY="325.0"
-                      styleClass="win-box-red">
+                <VBox fx:id="borderWin" alignment="CENTER" layoutX="525.0" layoutY="325.0" prefHeight="200.0"
+                      prefWidth="400.0" spacing="20.0" styleClass="win-box-red">
                     <children>
-                        <Label fx:id="whoWon" text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian" textFill="WHITE" styleClass="text"/>
+                        <Label fx:id="whoWon" styleClass="text"
+                               text="Tu ne devrais pas voir ça ! Il y a un bug ! Appelle Florian" textFill="WHITE"/>
                         <HBox alignment="CENTER" spacing="10.0">
-                            <Button fx:id="colorButton" text="Oui" onAction="#okWin" styleClass="button1">
+                            <Button fx:id="colorButton" onAction="#okWin" styleClass="button1" text="Oui">
                             </Button>
                         </HBox>
                     </children>
                 </VBox>
             </children>
         </Pane>
-
     </children>
 </StackPane>
