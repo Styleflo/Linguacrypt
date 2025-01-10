@@ -56,17 +56,29 @@ javafx {
 
 application {
     mainClass.set("linguacrypt.Main")
+    applicationDefaultJvmArgs = ["-Xmx1024m"] // Increase the heap size to 1024 MB
 }
 
 shadowJar {
     archiveClassifier.set("all") // Nom du fichier JAR final
     manifest {
         attributes("Main-Class": application.mainClass.get()) // Définit la classe principale
-
     }
 
     jar {
         enabled = false
     }
 
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass.get()
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
 }
