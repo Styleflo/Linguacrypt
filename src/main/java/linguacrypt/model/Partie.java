@@ -23,6 +23,15 @@ public class Partie {
     private TypePartie typePartie;
     private int blueTimeLeft;
     private int redTimeLeft;
+    private GameStatistics gameStatistics;
+
+    public void setGameStatistics(GameStatistics gameStatistics) {
+        this.gameStatistics = gameStatistics;
+    }
+
+    public GameStatistics getGameStatistics() {
+        return gameStatistics;
+    }
 
     public int getBlueTimeLeft() {
         return blueTimeLeft;
@@ -105,6 +114,7 @@ public class Partie {
     public void newPlateau() {
         this.plateau = new Plateau(this.widthParameter, this.heightParameter, cardsAttribute, this.typePartie);
         this.won = -1;
+
     }
 
     /**
