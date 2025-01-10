@@ -358,7 +358,7 @@ public class PlateauController implements Observer {
         }
 
         CardType couleur = currentCard.getType();
-        ImageCardController controller = (ImageCardController) carteAnchor.getUserData();
+        NeutralCardController controller = (NeutralCardController) carteAnchor.getUserData();
         DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé");
 
         controller.setRecouvert(couleur, true);
@@ -621,6 +621,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
+        stopTimer();
         if (jeu.getPartie().getwon() == 2) {
             confirmationOverlayMenu.setVisible(true);
         } else {
@@ -708,8 +709,8 @@ public class PlateauController implements Observer {
             // Si c'est une nouvelle partie (pas de carte révélée)
             if (jeu.getPartie().getwon() == -1) {
                 initializeTimer();
-                startTimer(); // Démarre le timer immédiatement
             }
         }
+        startTimer();
     }
 }

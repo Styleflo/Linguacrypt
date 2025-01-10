@@ -187,17 +187,14 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void closeConfirmationMenu() {
-
         if (jeu.getPartie().getwon() == 2) {
-            startTimer();
         }
-
+        startTimer();
         confirmationOverlayMenu.setVisible(false);
     }
 
     @FXML
     private void okWin() {
-
         if (jeu.getPartie().getwon() == 2) {
             startTimer();
         }
@@ -592,6 +589,7 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
+        stopTimer();
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
         } else {
@@ -659,9 +657,8 @@ public class PlateauImageController implements Observer {
             afficherCartes();
             if (jeu.getPartie().getwon() == -1) {
                 initializeTimer();
-                startTimer(); // Démarre le timer immédiatement
             }
         }
-
+        startTimer();
     }
 }
