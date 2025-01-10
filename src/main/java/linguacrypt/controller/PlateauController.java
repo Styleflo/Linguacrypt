@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -309,7 +311,6 @@ public class PlateauController implements Observer {
                     carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
                     carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
-                    handleMouseEnter(i, j, carteAnchor);
 
                 }
             }
@@ -333,7 +334,8 @@ public class PlateauController implements Observer {
 
                     DataUtils.assertNotNull(carteAnchor, "CarteAnchor non initialisé dans PlateauController.afficherCartes()");
                     carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
-
+                    carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
+                    carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
                     afficheCardClicked(i, j, carteAnchor, carte);
                 }
@@ -447,6 +449,11 @@ public class PlateauController implements Observer {
             jeu.getPartie().setPartieBegin();
         }
         // Récupérer la couleur de la carte depuis le modèle
+        String audioFile = getClass().getResource("/soundtrack/carte2.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
         CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
         NeutralCardController controller = (NeutralCardController) carte.getUserData();
         DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
@@ -522,6 +529,11 @@ public class PlateauController implements Observer {
 
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
+        String audioFile = getClass().getResource("/soundtrack/Applaudissements.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
         if (winningTeam.equals("Rouge")) {
             whoWon.setText("L'équipe rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
@@ -546,6 +558,7 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMot(mot);
             return card;
@@ -560,6 +573,7 @@ public class PlateauController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Neutral_card_vp.fxml"));
             AnchorPane card = loader.load();
             NeutralCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMot(mot);
             return card;
@@ -690,7 +704,8 @@ public class PlateauController implements Observer {
             if (jeu.getPartie().getwon() == -1) {
                 initializeTimer();
             }
+
+            startTimer();
         }
-        startTimer();
     }
 }

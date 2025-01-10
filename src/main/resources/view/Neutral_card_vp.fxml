@@ -1,73 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="69.0" prefWidth="112.0" styleClass="card"
-            stylesheets="@../css/Neutral_card_vp.css" xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="linguacrypt.controller.NeutralCardController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="112.0" styleClass="card" stylesheets="@../css/Neutral_card_vp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.NeutralCardController">
     <children>
-        <AnchorPane layoutX="7.0" layoutY="4.0" prefHeight="56.0" prefWidth="90.0" styleClass="small_rectangle"
-                    AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0"
-                    AnchorPane.topAnchor="4.0">
+        <AnchorPane layoutX="7.0" layoutY="4.0" prefHeight="56.0" prefWidth="98.0" styleClass="small_rectangle" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="4.0">
             <children>
-                <VBox alignment="BASELINE_RIGHT" layoutX="6.0" layoutY="8.0" prefHeight="9.0" prefWidth="84.0"
-                      AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0"
-                      AnchorPane.topAnchor="6.0">
+                <VBox alignment="BASELINE_RIGHT" layoutX="6.0" layoutY="8.0" prefHeight="9.0" prefWidth="84.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="6.0">
                     <children>
-                        <Pane prefHeight="27.0" prefWidth="75.0" VBox.vgrow="ALWAYS"/>
+                        <Pane prefHeight="27.0" prefWidth="75.0" VBox.vgrow="ALWAYS" />
                         <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/neutral_head.png"/>
+                                <Image url="@../assets/neutral_head.png" />
                             </image>
                         </ImageView>
                         <Pane prefHeight="0.0" prefWidth="113.0">
                             <children>
-                                <Line endX="-55.0" layoutX="55.0" layoutY="1.0" styleClass="ligne"/>
+                                <Line endX="-55.0" layoutX="55.0" layoutY="1.0" styleClass="ligne" />
                             </children>
                         </Pane>
-                        <Pane prefHeight="6.0" prefWidth="291.0"/>
+                        <Pane prefHeight="6.0" prefWidth="291.0" />
                         <VBox prefHeight="46.0" prefWidth="260.0" styleClass="text_rectangle">
                             <children>
-                                <Label fx:id="labelMot" alignment="CENTER" prefHeight="52.0" prefWidth="246.0"
-                                       text="Label">
+                                <Label fx:id="labelMot" alignment="CENTER" prefHeight="52.0" prefWidth="246.0" text="Label">
                                     <font>
-                                        <Font size="35.0"/>
+                                        <Font size="35.0" />
                                     </font>
                                 </Label>
-                                <Pane prefHeight="247.0" prefWidth="253.0"/>
+                                <Pane prefHeight="247.0" prefWidth="253.0" />
                             </children>
                         </VBox>
                     </children>
                 </VBox>
             </children>
         </AnchorPane>
-        <ImageView fx:id="coveredBlue" fitHeight="128.0" fitWidth="184.0" layoutX="-9.0" layoutY="-11.0"
-                   pickOnBounds="true" visible="false">
+        <ImageView fx:id="coveredpetitBlue" fitHeight="69.0" fitWidth="112.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/aled.png"/>
+                <Image url="@../assets/mai_petit.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="coveredBlack" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
-                   pickOnBounds="true" visible="false">
+        <ImageView fx:id="coveredpetitBlack" fitHeight="69.0" fitWidth="112.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/s200_gerald.oster.jpg"/>
+                <Image url="@../assets/garance_petit.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="coveredWhite" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
-                   pickOnBounds="true" visible="false">
+        <ImageView fx:id="coveredpetitWhite" fitHeight="69.0" fitWidth="112.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/clef.png"/>
+                <Image url="@../assets/gael_petit.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="coveredRed" fitHeight="110.0" fitWidth="167.0" layoutX="1.0" layoutY="-1.0"
-                   pickOnBounds="true" visible="false">
+        <ImageView fx:id="coveredpetitRed" fitHeight="69.0" fitWidth="112.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/lingua.png"/>
+                <Image url="@../assets/ely_petit.png" />
+            </image>
+        </ImageView>
+        <!-- images semi covered-->
+        <ImageView fx:id="coveredsemipetitRed" fitHeight="69.0" fitWidth="112.0" layoutX="0" layoutY="0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/ely_petit_compresse.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredsemipetitBlue" fitHeight="69.0" fitWidth="112.0" layoutX="0" layoutY="0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/mai_petit_compresse.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredsemipetitBlack" fitHeight="69.0" fitWidth="112.0" layoutX="0" layoutY="0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/garance_petit_compresse.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="coveredsemipetitWhite" fitHeight="69.0" fitWidth="112.0" layoutX="0" layoutY="0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/gael_petit_compresse.png" />
             </image>
         </ImageView>
     </children>
