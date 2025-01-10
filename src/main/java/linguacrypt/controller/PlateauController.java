@@ -344,7 +344,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseEnter(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())){
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -358,7 +358,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseExit(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -442,7 +442,6 @@ public class PlateauController implements Observer {
                 Carte card = (Carte) c;
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {
-                    card.setCovered();
                     String style = switch (card.getType()) {
                         case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
                         case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
