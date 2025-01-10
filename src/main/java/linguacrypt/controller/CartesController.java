@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
@@ -35,6 +36,10 @@ public class CartesController implements Observer {
     private List<String> currentMots;
     private int currentThemeIndex;
     private ArrayList<String> themes;
+
+    //popup nv Carte
+    @FXML
+    private StackPane panneauNvCarte;
 
 
     public CartesController() {
@@ -219,6 +224,7 @@ public class CartesController implements Observer {
         dialog.setTitle("Ajouter un mot");
         dialog.setHeaderText("Ajouter un mot à la collection");
         dialog.setContentText("Veuillez entrer un mot :");
+        panneauNvCarte.setVisible(true);
 
         Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
         okButton.setDisable(true);
@@ -316,6 +322,18 @@ public class CartesController implements Observer {
     private void CategoryImage() {
         jeu.setView("CartesImages");
         jeu.notifyObservers();
+    }
+
+    //PopUp Nouvelle Carte
+
+    @FXML
+    private void handleAnnulerpopup(){
+        panneauNvCarte.setVisible(false);
+    }
+
+    @FXML
+    private void handleValiderPopup(){
+        panneauNvCarte.setVisible(false);
     }
 
     @Override
