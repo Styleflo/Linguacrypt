@@ -18,6 +18,7 @@ import linguacrypt.model.CarteImage;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -193,6 +194,8 @@ public class PlateauImageController implements Observer {
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
 
                     gridPane.add(carte, i, j);
+                    handleMouseEnter(i, j, carte);
+
                 }
             }
         } else {
@@ -218,10 +221,26 @@ public class PlateauImageController implements Observer {
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
 
                     gridPane.add(carte, i, j);
+                    handleMouseEnter(i, j, carte);
+
                 }
             }
 
         }
+
+        this.updateLabel();
+    }
+
+    private void handleMouseEnter(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        NeutralCardController controller = (NeutralCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setSemiCovered(couleur, true);
+        String style;
 
         this.updateLabel();
     }
@@ -407,16 +426,19 @@ public class PlateauImageController implements Observer {
         }
     }
 
+    /**
+     * La fonction permet de sauvegarder une partie non fini q
+     * Elle lit l'etat de la partie actuelle et sauvegarde le tout en format Json
+     */
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Partie", "*.json"));
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
-                jeu.getPartie().savePartie(fichier.getAbsolutePath());
-                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
-                System.out.println(fichier.getAbsolutePath());
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                filesavehandler.savePartie(jeu.getPartie(), fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }

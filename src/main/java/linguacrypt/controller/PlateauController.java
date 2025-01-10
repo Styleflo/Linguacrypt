@@ -324,6 +324,7 @@ public class PlateauController implements Observer {
                     carteAnchor.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carteAnchor));
 
                     gridPane.add(carteAnchor, i, j);
+                    handleMouseEnter(i, j, carteAnchor);
                 }
             }
 
