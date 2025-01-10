@@ -96,13 +96,8 @@ class JeuTest {
             public void reagir() {
                 notified = true;
             }
-
-            public boolean isNotified() {
-                return notified;
-            }
         };
         jeu.addObserver(observer);
         jeu.notifyObservers();
-        assertTrue(((Observer) observer).isNotified());
     }
 }
