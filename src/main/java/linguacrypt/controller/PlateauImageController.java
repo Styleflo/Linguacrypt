@@ -169,6 +169,9 @@ public class PlateauImageController implements Observer {
     @FXML
     private void confirmNouvellePartie() {
         stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlay.setVisible(false);
         jeu.initializeNewGameStatistics();
         jeu.getPartie().newPlateau();
@@ -186,6 +189,9 @@ public class PlateauImageController implements Observer {
     @FXML
     private void confirmSavePartie() {
         stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlayMenu.setVisible(false);
         confirmationOverlayMenuSave.setVisible(true);
         savePartie();
@@ -204,6 +210,9 @@ public class PlateauImageController implements Observer {
     @FXML
     private void returnMenu() {
         stopTimer();
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         confirmationOverlayMenu.setVisible(false);
         jeu.setView("MenuInitial");
         jeu.notifyObservers();
@@ -686,6 +695,9 @@ public class PlateauImageController implements Observer {
         } else {
             confirmNouvellePartie();
         }
+        qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+        lingualogo.setVisible(true);
+        jeu.getPartie().getPlateau().setqrcodeaffiche(false);
     }
 
     @FXML
@@ -694,6 +706,9 @@ public class PlateauImageController implements Observer {
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
         } else {
+            qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
+            lingualogo.setVisible(true);
+            jeu.getPartie().getPlateau().setqrcodeaffiche(false);
             jeu.setView("MenuInitial");
             jeu.notifyObservers();
         }
