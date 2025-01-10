@@ -11,6 +11,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 10, 10);
     -fx-wrap-text: true;
     -fx-line-spacing: 7px;
+    -fx-transition: transform 0.3s ease-in-out; /* Transition sur 'transform' */
 }
 
 .button1:hover {

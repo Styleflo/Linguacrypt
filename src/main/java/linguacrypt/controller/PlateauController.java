@@ -254,6 +254,7 @@ public class PlateauController implements Observer {
         turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
+
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv
@@ -273,7 +274,6 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
         }
-
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans PlateauController.afficherCartes()");
 
         gridPane.getChildren().clear();
@@ -410,7 +410,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseEnter(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())){
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -424,7 +424,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseExit(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -438,7 +438,7 @@ public class PlateauController implements Observer {
 
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
-        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
+        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()|| jeu.getPartie().isWon()) {
             return;
         }
 
@@ -481,7 +481,7 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
-
+        updateLabel();
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
@@ -508,7 +508,6 @@ public class PlateauController implements Observer {
                 Carte card = (Carte) c;
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {
-                    card.setCovered();
                     String style = switch (card.getType()) {
                         case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
                         case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
@@ -661,27 +660,8 @@ public class PlateauController implements Observer {
             startTimer();
         }
         jeu.getPartie().getPlateau().changeTurn();
-        updateLabel();
+        this.updateLabel();
 
-        boolean currentVisibility1 = imageview1.isVisible();
-        imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
-        boolean currentVisibility2 = imageview2.isVisible();
-        imageview2.setVisible(!currentVisibility2);  // Si visible, devient inv
-        if (panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
-            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
-            panneau_changer.getStyleClass().add("main_panneau");
-            panneau_changer.getStyleClass().add("red_main_panneau");
-            panneau_changer2.getStyleClass().clear();
-            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
-            panneau_changer2.getStyleClass().add("logo_panneau");
-        } else {
-            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
-            panneau_changer.getStyleClass().add("main_panneau");
-            panneau_changer.getStyleClass().add("blue_main_panneau");
-            panneau_changer2.getStyleClass().clear();
-            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
-            panneau_changer2.getStyleClass().add("logo_panneau");
-        }
 
     }
 
