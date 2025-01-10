@@ -2,6 +2,7 @@ package linguacrypt.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,9 @@ public class MainController implements Observer {
     private StackPane cartesImageRoot;
 
     private StackPane parametresRoot;
+
+    private StackPane statsRoot;
+
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -139,6 +143,20 @@ public class MainController implements Observer {
         }
     }
 
+    public void setStats() throws IOException {
+        FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/view/stats.fxml"));
+        statsRoot = statsLoader.load();
+        StatsController statsController = statsLoader.getController();
+        statsController.setJeu(jeu);
+        jeu.addObserver(statsController);
+
+        AnchorPane.setTopAnchor(statsRoot, 0.0);
+        AnchorPane.setBottomAnchor(statsRoot, 0.0);
+        AnchorPane.setLeftAnchor(statsRoot, 0.0);
+        AnchorPane.setRightAnchor(statsRoot, 0.0);
+
+    }
+
     public void setParametre() {
         // Charger le fichier FXML du menu et obtenir le contrôleur Plateau
         try {
@@ -170,6 +188,7 @@ public class MainController implements Observer {
             case "Parametres" -> content.getChildren().add(parametresRoot);
             case "PlateauImage" -> content.getChildren().add(plateauImageRoot);
             case "CartesImages" -> content.getChildren().add(cartesImageRoot);
+            case "Stats" -> content.getChildren().add(statsRoot);
             case null, default -> System.out.println(jeu.getView());
         }
     }

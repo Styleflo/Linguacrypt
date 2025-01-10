@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.StatsController">
+    <children>
+        <!-- Background Images -->
+        <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
+            <image>
+                <Image url="@../assets/fond_flou.gif" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.21" pickOnBounds="true">
+            <image>
+                <Image url="@../assets/filtre.png" />
+            </image>
+            <effect>
+                <GaussianBlur radius="24.25" />
+            </effect>
+        </ImageView>
+
+        <!-- Main Content -->
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/parametre.css">
+            <children>
+                <!-- Main Panel (Increased width) -->
+                <Pane layoutX="200.0" layoutY="79.0" prefHeight="673.0" prefWidth="1050.0" styleClass="dark_petit_panneau" stylesheets="@../css/parametre.css" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+                    <children>
+                        <!-- Title Panel (Centered) -->
+                        <AnchorPane layoutX="366.0" layoutY="33.0" prefHeight="71.0" prefWidth="338.0" styleClass="blue_petit_panneau">
+                            <children>
+                                <Label layoutX="87.0" layoutY="21.0" styleClass="text" text="Statistiques" />
+                            </children>
+                        </AnchorPane>
+
+                        <!-- Win Statistics (Centered) -->
+                        <HBox alignment="CENTER" layoutX="175.0" layoutY="150.0" prefWidth="700.0" spacing="300" />
+
+                        <!-- Games History -->
+                        <VBox alignment="CENTER" layoutX="75.0" layoutY="330.0" prefHeight="250.0" prefWidth="900.0" spacing="20.0" styleClass="darkdark_petit_panneau">
+                            <children>
+                                <Label styleClass="text" text="Historique des parties" />
+                                <ScrollPane hbarPolicy="NEVER" prefHeight="350.0" prefWidth="880.0" styleClass="theme-scroll-pane" vbarPolicy="ALWAYS">
+                                    <content>
+                                        <VBox fx:id="gamesContainer" alignment="CENTER" prefWidth="865.0" spacing="10.0" styleClass="theme-box" />
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </VBox>
+
+                        <!-- Menu Button -->
+                        <Button layoutX="29.0" layoutY="609.0" mnemonicParsing="false" onAction="#handleMenuInitial" prefHeight="39.0" prefWidth="89.0" styleClass="button1, close_button" text="Menu" />
+                         <!-- Blue Wins -->
+                         <AnchorPane layoutX="74.0" layoutY="150.0" prefHeight="134.0" prefWidth="279.0" styleClass="blue_petit_panneau">
+                             <VBox alignment="CENTER" layoutX="3.0" layoutY="27.0" prefHeight="80.0" prefWidth="302.0" spacing="20">
+                                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="284.0" styleClass="text" text="Victoires Bleues" />
+                                 <Label fx:id="blueWinsLabel" alignment="CENTER" styleClass="text" text="0" />
+                             </VBox>
+                         </AnchorPane>
+
+                         <!-- Red Wins -->
+                         <AnchorPane layoutX="691.0" layoutY="150.0" prefHeight="134.0" prefWidth="284.0" styleClass="red_petit_panneau">
+                             <VBox alignment="CENTER" layoutX="14.0" layoutY="27.0" prefHeight="80.0" prefWidth="251.0" spacing="20">
+                                 <Label alignment="CENTER" prefHeight="30.0" prefWidth="263.0" styleClass="text" text="Victoires Rouges" />
+                                 <Label fx:id="redWinsLabel" alignment="CENTER" styleClass="text" text="0" />
+                             </VBox>
+                         </AnchorPane>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+
+        <!-- Details Popup -->
+        <Pane fx:id="detailsPopup" styleClass="confirmationOverlay" stylesheets="@../css/parametre.css" visible="false">
+            <children>
+                <VBox alignment="CENTER" layoutX="525.0" layoutY="175.0" prefHeight="500.0" prefWidth="600.0" spacing="20.0" styleClass="confirmation-box" stylesheets="@../css/parametre.css">
+                    <children>
+                        <Label fx:id="popupTitle" styleClass="text" textFill="WHITE" />
+                        <ScrollPane prefHeight="400.0" prefWidth="380.0" styleClass="theme-scroll-pane">
+                            <content>
+                                <VBox fx:id="statsDetails" alignment="CENTER" spacing="10.0" styleClass="theme-box">
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                        <HBox alignment="CENTER" spacing="20">
+                            <Button onAction="#closePopup" stylesheets="@../css/gui.css" text="Fermer">
+                        <styleClass>
+                           <String fx:value="red_button" />
+                           <String fx:value="button1" />
+                        </styleClass></Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+    </children>
+</StackPane>

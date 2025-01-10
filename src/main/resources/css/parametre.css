@@ -42,7 +42,7 @@
 }
 
 .red_button {
-    -fx-background-color: red; /* Green */
+    -fx-background-color: #cc0002; /* Green */
     -fx-text-fill: white;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .red_petit_panneau {
-    -fx-background-color: #f70d1a;
+    -fx-background-color: #cc0002;
     -fx-background-radius: 20px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .orange_button {
-    -fx-background-color: orange;
+    -fx-background-color: #185ad7;
     -fx-text-fill: white;
 
 }
@@ -84,8 +84,8 @@
 }
 
 .button1:hover {
-    -fx-translate-x: 8px; /* Déplacer de 10px vers la droite */
-    -fx-translate-y: 8px; /* Déplacer de 10px vers le bas */
+    -fx-translate-x: 2px; /* Déplacer de 10px vers la droite */
+    -fx-translate-y: 2px; /* Déplacer de 10px vers le bas */
 }
 
 .button2 {
@@ -200,4 +200,8 @@
 .purple_button {
     -fx-background-color: green;
     -fx-text-fill: white;
+}
+
+.damien{
+    -fx-background-color: #a4dfed; /* Green */
 }
