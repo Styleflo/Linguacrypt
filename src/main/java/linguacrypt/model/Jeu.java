@@ -53,10 +53,6 @@ public class Jeu {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        Slider volumeSlider = new Slider();
-        volumeSlider.setMin(0);
-        volumeSlider.setMax(1);
-        volumeSlider.setValue(0.2); // Valeur initiale du volume (50%)
     }
 
     /**
