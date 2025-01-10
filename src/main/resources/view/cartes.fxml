@@ -26,7 +26,7 @@
             <Image url="@../assets/filtre.png" />
         </image>
         <effect>
-            <GaussianBlur radius="25.0" />
+            <GaussianBlur radius="25.0"/>
         </effect>
     </ImageView>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
