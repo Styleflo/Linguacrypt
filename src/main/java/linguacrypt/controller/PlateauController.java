@@ -132,7 +132,6 @@ public class PlateauController implements Observer {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
                 }
             }
-            jeu.printGameStatistics();
 
             showWinnerPopup("Rouge");
         } else if (jeu.getPartie().getRedTimeLeft() <= 0) {
@@ -148,7 +147,6 @@ public class PlateauController implements Observer {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
                 }
             }
-            jeu.printGameStatistics();
 
             showWinnerPopup("Bleue");
         }
@@ -465,7 +463,6 @@ public class PlateauController implements Observer {
                 stats.setBlueTeamWon(jeu.getPartie().BlueWon());
             }
             showWinnerPopup("Bleue");
-            jeu.printGameStatistics();
 
         }
         if (jeu.getPartie().RedWon()) {
@@ -479,7 +476,6 @@ public class PlateauController implements Observer {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
                 }
             }
-            jeu.printGameStatistics();
 
         }
 
