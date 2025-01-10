@@ -111,6 +111,15 @@ public class PlateauImageController implements Observer {
                 timeline.setCycleCount(Timeline.INDEFINITE);
             }
         }
+        else {
+
+            blueTimer.setVisible(false);
+            redTimer.setVisible(false);
+
+            jeu.getPartie().setBlueTimeLeft (0);
+            jeu.getPartie().setRedTimeLeft (0);
+
+        }
     }
 
 
@@ -133,8 +142,15 @@ public class PlateauImageController implements Observer {
             GameStatistics stats = jeu.getCurrentGameStats();
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
-                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                    jeu.getTimeTracker().stop();
+
+
+                    if (jeu.getPartie().getTimer() != -1) {
+                        stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    }else {
+                        stats.setTotalTime((int) jeu.getTimeTracker().getDuration().getSeconds());
+                    }
                 }
             }
 
@@ -147,8 +163,15 @@ public class PlateauImageController implements Observer {
             GameStatistics stats = jeu.getCurrentGameStats();
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
-                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                    jeu.getTimeTracker().stop();
+
+
+                    if (jeu.getPartie().getTimer() != -1) {
+                        stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    }else {
+                        stats.setTotalTime((int) jeu.getTimeTracker().getDuration().getSeconds());
+                    }
                 }
             }
 
@@ -482,15 +505,42 @@ public class PlateauImageController implements Observer {
         }
 
         jeu.getPartie().updateWin();
+        GameStatistics stats = jeu.getCurrentGameStats();
 
         if (jeu.getPartie().BlueWon()) {
             revealCard();
             jeu.victoireBleue();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                    jeu.getTimeTracker().stop();
+
+
+                    if (jeu.getPartie().getTimer() != -1) {
+                        stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    }else {
+                        stats.setTotalTime((int) jeu.getTimeTracker().getDuration().getSeconds());
+                    }
+                }
+            }
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
             revealCard();
             jeu.victoireRouge();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                    jeu.getTimeTracker().stop();
+
+
+                    if (jeu.getPartie().getTimer() != -1) {
+                        stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    }else {
+                        stats.setTotalTime((int) jeu.getTimeTracker().getDuration().getSeconds());
+                    }
+                }
+            }
             showWinnerPopup("Rouge");
         }
         this.updateLabel();
@@ -578,8 +628,15 @@ public class PlateauImageController implements Observer {
             jeu.victoireBleue();
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
-                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                    jeu.getTimeTracker().stop();
+
+
+                    if (jeu.getPartie().getTimer() != -1) {
+                        stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    }else {
+                        stats.setTotalTime((int) jeu.getTimeTracker().getDuration().getSeconds());
+                    }
                 }
             }
 
@@ -590,8 +647,15 @@ public class PlateauImageController implements Observer {
             jeu.victoireRouge();
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
-                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                    jeu.getTimeTracker().stop();
+
+
+                    if (jeu.getPartie().getTimer() != -1) {
+                        stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    }else {
+                        stats.setTotalTime((int) jeu.getTimeTracker().getDuration().getSeconds());
+                    }
                 }
             }
 
