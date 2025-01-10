@@ -65,8 +65,8 @@ public class ParametreController implements Observer {
 
 
     public ParametreController() {
-        width = 0;
-        height = 0;
+        width = 5;
+        height = 5;
     }
 
     public void handleFlecheGaucheTimer() {
@@ -218,6 +218,8 @@ private void handleValider() {
             }
         }
     }
+    System.out.println(nbr_carte_selectionne);
+    System.out.println(width*height);
 
     if (nbr_carte_selectionne < width * height) {
         // Afficher une pop-up pour demander à ajouter un thème car il manque des images pour construire le plateau
@@ -261,7 +263,6 @@ private void handleValider() {
 
         if (Images.isSelected() && !Mots.isSelected()) {
             partieBuilder.setTimer(currentTime);
-            partieBuilder.resetTypePartie();
             partieBuilder.setTypePartie(TypePartie.IMAGES);
             jeu.setView("PlateauImage");
             Partie partie = partieBuilder.getResult();
@@ -269,7 +270,6 @@ private void handleValider() {
             jeu.notifyObservers();
         } else if (Mots.isSelected() && !Images.isSelected()) {
             partieBuilder.setTimer(currentTime);
-            partieBuilder.resetTypePartie();
             jeu.setView("Plateau");
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
