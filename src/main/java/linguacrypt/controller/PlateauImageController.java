@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -19,6 +21,7 @@ import linguacrypt.config.GameConfig;
 import linguacrypt.model.*;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -200,17 +203,14 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void closeConfirmationMenu() {
-
         if (jeu.getPartie().getwon() == 2) {
-            startTimer();
         }
-
+        startTimer();
         confirmationOverlayMenu.setVisible(false);
     }
 
     @FXML
     private void okWin() {
-
         if (jeu.getPartie().getwon() == 2) {
             startTimer();
         }
@@ -305,8 +305,12 @@ public class PlateauImageController implements Observer {
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI,currentJ,carte));
+                    carte.setOnMouseExited(event -> handleMouseExit(currentI,currentJ,carte));
 
                     gridPane.add(carte, i, j);
+                    //handleMouseEnter(i, j, carte);
+                    afficheCardClicked(i, j, carte, carteImage);
                 }
             }
         } else {
@@ -330,8 +334,12 @@ public class PlateauImageController implements Observer {
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI,currentJ,carte));
+                    carte.setOnMouseExited(event -> handleMouseExit(currentI,currentJ,carte));
 
                     gridPane.add(carte, i, j);
+                    //handleMouseEnter(i, j, carte);
+                    afficheCardClicked(i, j, carte, carteImage);
                 }
             }
 
@@ -340,14 +348,83 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
-    private void handleCardClick(int x, int y, AnchorPane carte) {
-        if (!isTimerRunning && jeu.getPartie().getTimer() != -1) {
-            startTimer();
+    public void afficheCardClicked(int x, int y, AnchorPane carteAnchor, CarteImage carteImage) {
+        if (!carteImage.isCovered()) {
+            return;
         }
 
         CarteBase currentCard = jeu.getPartie().getPlateau().getCard(x, y);
 
-        if (currentCard.isCovered()) {
+
+        if (jeu.getPartie().getwon() == -1) {
+            jeu.getPartie().setPartieBegin();
+        }
+
+        CardType couleur = currentCard.getType();
+        ImageCardController controller = (ImageCardController) carteAnchor.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé");
+
+        controller.setRecouvert(couleur, true);
+        String style;
+
+        switch (couleur) {
+            case CardType.RED:
+                style = "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                carteAnchor.setStyle(style);
+                jeu.getPartie().getPlateau().updatePoint(CardType.RED);
+                jeu.getPartie().getPlateau().updateTurn(CardType.RED);
+                // Recouvrir la carte
+                break;
+            case CardType.BLUE:
+                style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                carteAnchor.setStyle(style);
+                jeu.getPartie().getPlateau().updatePoint(CardType.BLUE);
+                jeu.getPartie().getPlateau().updateTurn(CardType.BLUE);
+                break;
+            case CardType.BLACK:
+                style = "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                carteAnchor.setStyle(style);
+                if (jeu.getPartie().getPlateau().isBlueTurn()) {
+                    jeu.getPartie().setRedWon();
+                } else {
+                    jeu.getPartie().setBlueWon();
+                }
+                break;
+            case CardType.WHITE:
+                style = "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
+                carteAnchor.setStyle(style);
+                jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
+                break;
+        }
+
+        jeu.getPartie().updateWin();
+
+        if (jeu.getPartie().BlueWon()) {
+            revealCard();
+            jeu.victoireBleue();
+            showWinnerPopup("Bleue");
+        }
+        if (jeu.getPartie().RedWon()) {
+            revealCard();
+            jeu.victoireRouge();
+            showWinnerPopup("Rouge");
+        }
+        this.updateLabel();
+    }
+
+    private void handleCardClick(int x, int y, AnchorPane carte) {
+        if (!isTimerRunning && jeu.getPartie().getTimer() != -1) {
+            startTimer();
+        }
+        String audioFile = getClass().getResource("/soundtrack/carte2.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+        CarteBase currentCard = jeu.getPartie().getPlateau().getCard(x, y);
+
+        if (currentCard.isCovered()||jeu.getPartie().isWon()) {
             return;
         }
 
@@ -441,9 +518,34 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
+    private void handleMouseEnter(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())){
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        ImageCardController controller = (ImageCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setsemiRecouvert(couleur, true);
+        String style;
+
+        this.updateLabel();
+    }
+
+    private void handleMouseExit(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        ImageCardController controller = (ImageCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setsemiRecouvert(couleur, false);
+
+        this.updateLabel();
+    }
 
 
-    //TODO faire comme pour le plateau des mots avec des reveal pas cover
     private void revealCard() {
         CarteBase[][] listCard = jeu.getPartie().getPlateau().getCards();
         for (CarteBase[] row : listCard) {
@@ -451,16 +553,24 @@ public class PlateauImageController implements Observer {
                 CarteImage card = (CarteImage) c;
                 AnchorPane carteVisu = findAnchorCard(card.getUrl());  // Modifié pour utiliser getUrl()
                 if (carteVisu != null) {
-                    card.setCovered();
-                    ImageCardController controller = (ImageCardController) carteVisu.getUserData();
-                    controller.setRecouvert(card.getType(), true);
+                    String style = switch (card.getType()) {
+                        case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
+                        case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
+                        case CardType.BLACK -> "-fx-background-color: " + GameConfig.BLACK_CARD_COLOR + ";";
+                        case CardType.WHITE -> "-fx-background-color: " + GameConfig.WHITE_CARD_COLOR + ";";
+                    };
+                    carteVisu.setStyle(style);
                 }
             }
         }
     }
-
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
+        String audioFile = getClass().getResource("/soundtrack/Applaudissements.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
         if (winningTeam.equals("Rouge")) {
             whoWon.setText("L'équipe Rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
@@ -484,6 +594,7 @@ public class PlateauImageController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMyImage(url);
             return card;
@@ -498,6 +609,7 @@ public class PlateauImageController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card_vp.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMyImage(url);
             return card;
@@ -555,6 +667,7 @@ public class PlateauImageController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
+        stopTimer();
         if (jeu.getPartie().getwon() != -1) {
             confirmationOverlayMenu.setVisible(true);
         } else {
@@ -563,16 +676,19 @@ public class PlateauImageController implements Observer {
         }
     }
 
+    /**
+     * La fonction permet de sauvegarder une partie non fini q
+     * Elle lit l'etat de la partie actuelle et sauvegarde le tout en format Json
+     */
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Partie", "*.json"));
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
-                jeu.getPartie().savePartie(fichier.getAbsolutePath());
-                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
-                System.out.println(fichier.getAbsolutePath());
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                filesavehandler.savePartie(jeu.getPartie(), fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }
@@ -591,25 +707,6 @@ public class PlateauImageController implements Observer {
         jeu.getPartie().getPlateau().changeTurn();
         updateLabel();
 
-        boolean currentVisibility1 = imageview1.isVisible();
-        imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
-        boolean currentVisibility2 = imageview2.isVisible();
-        imageview2.setVisible(!currentVisibility2);  // Si visible, devient inv
-        if (panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
-            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
-            panneau_changer.getStyleClass().add("main_panneau");
-            panneau_changer.getStyleClass().add("red_main_panneau");
-            panneau_changer2.getStyleClass().clear();
-            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
-            panneau_changer2.getStyleClass().add("logo_panneau");
-        } else {
-            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
-            panneau_changer.getStyleClass().add("main_panneau");
-            panneau_changer.getStyleClass().add("blue_main_panneau");
-            panneau_changer2.getStyleClass().clear();
-            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
-            panneau_changer2.getStyleClass().add("logo_panneau");
-        }
 
     }
 
@@ -617,11 +714,12 @@ public class PlateauImageController implements Observer {
     public void reagir() {
         if (jeu.getView().equals("PlateauImage")) {
             afficherCartes();
+
             if (jeu.getPartie().getwon() == -1) {
                 initializeTimer();
-                startTimer(); // Démarre le timer immédiatement
             }
-        }
 
+            startTimer();
+        }
     }
 }

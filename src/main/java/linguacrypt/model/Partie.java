@@ -64,7 +64,7 @@ public class Partie {
     }
 
     /**
-     * Explicite.
+     * Cela retourne un plateau base
      */
     public PlateauBase getPlateau() {
         return this.plateau;

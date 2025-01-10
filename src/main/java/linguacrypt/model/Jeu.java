@@ -1,10 +1,12 @@
 package linguacrypt.model;
 
+import javafx.scene.control.Slider;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import linguacrypt.config.GameConfig;
 import linguacrypt.controller.Observer;
-import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.GameDataManager;
 import linguacrypt.utils.DataUtils;
-import linguacrypt.utils.ImagesFileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,27 +18,15 @@ import java.util.ArrayList;
  */
 public class Jeu {
     private final ArrayList<Observer> observers = new ArrayList<>();
-    private final CardsDataManager cardsDataManager;
-    private final ImagesFileHandler imagesFileHandler;
+    private final GameDataManager gameDataManager;
     private Partie partie;
     private String currentView;
     private int victoireBleue;
     private int victoireRouge;
+    private MediaPlayer mediaPlayer;
     private ArrayList<GameStatistics> gameStatistics = new ArrayList<>();
     private int currentGameId = -1;
     private GameStatistics currentGameStats;
-
-    public Jeu() throws IOException {
-        // Peut etre des trucs à faire mais pour l'instant ça va !
-
-        currentView = "MenuInitial";
-        cardsDataManager = new CardsDataManager(GameConfig.CARDS_FILE);
-        imagesFileHandler = new ImagesFileHandler(GameConfig.CARDS_IMAGES_FILE);
-        victoireBleue = 0;
-        victoireRouge = 0;
-        initializeNewGameStatistics();
-
-    }
 
     public void printGameStatistics() {
         for (GameStatistics gs : gameStatistics) {
@@ -76,7 +66,23 @@ public class Jeu {
         this.victoireRouge = victoireRouge +1;
     }
 
+    public Jeu() throws IOException {
+        // Peut etre des trucs à faire mais pour l'instant ça va !
+        currentView = "MenuInitial";
+        gameDataManager = new GameDataManager(GameConfig.CARDS_FILE);
+        victoireBleue = 0;
+        victoireRouge = 0;
+        String audioFile = getClass().getResource("/soundtrack/main_theme_3.mp3").toExternalForm();
 
+        Media media = new Media(audioFile);
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+        victoireBleue = 0;
+        victoireRouge = 0;
+        initializeNewGameStatistics();
+    }
 
     /**
      * Permet de recuperer la liste des observers.
@@ -85,15 +91,6 @@ public class Jeu {
      */
     public ArrayList<Observer> getObservers() {
         return this.observers;
-    }
-
-    /**
-     * Permet de recuperer le FileHandler pour les images
-     *
-     * @return ImagesFileHandler
-     */
-    public ImagesFileHandler getImagesFileHandler() {
-        return this.imagesFileHandler;
     }
 
     /**
@@ -174,7 +171,7 @@ public class Jeu {
      * Une equipe a alors gagné.
      */
 
-    public CardsDataManager getWordsFileHandler() {
-        return cardsDataManager;
+    public GameDataManager getGameDataManager() {
+        return gameDataManager;
     }
 }
