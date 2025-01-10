@@ -671,7 +671,7 @@ public class PlateauImageController implements Observer {
             if (jeu.getPartie().getwon() == -1) {
                 initializeTimer();
             }
+            startTimer();
         }
-        startTimer();
     }
 }
