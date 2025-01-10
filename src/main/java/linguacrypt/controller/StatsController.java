@@ -60,7 +60,7 @@ public class StatsController implements Observer {
 
         // Temps total restant
         String timeStr = formatTime(stats.getTotalTime());
-        Label timeLabel = new Label("Temps restant: " + timeStr);
+        Label timeLabel = new Label("Temps : " + timeStr);
 
         // Vainqueur
         String winner = stats.isBlueTeamWon() ? "Équipe Bleue" : "Équipe Rouge";
