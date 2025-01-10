@@ -2,6 +2,7 @@ package linguacrypt.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -22,7 +23,7 @@ public class StatsController implements Observer {
     private VBox gamesContainer;
 
     @FXML
-    private AnchorPane detailsPopup;
+    private Pane detailsPopup;
 
     @FXML
     private Label popupTitle;
