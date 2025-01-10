@@ -80,25 +80,24 @@ public class PlateauController implements Observer {
     private Label redTimer;
 
     private Timeline timeline;
-    private int blueTimeLeft;
-    private int redTimeLeft;
+
     private boolean isTimerRunning = false;
 
     private void initializeTimer() {
         if (jeu.getPartie().getTimer() != -1) {
             // Si c'est une nouvelle partie, initialise les temps
             if (jeu.getPartie().getwon() == -1) {
-                blueTimeLeft = jeu.getPartie().getTimer() / 2;
-                redTimeLeft = jeu.getPartie().getTimer() / 2;
+                jeu.getPartie().setBlueTimeLeft ((jeu.getPartie().getTimer() / 2));
+                jeu.getPartie().setRedTimeLeft ((jeu.getPartie().getTimer() / 2));
             }
             updateTimerLabels();
 
             if (timeline == null) {
                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
                     if (jeu.getPartie().getPlateau().isBlueTurn()) {
-                        blueTimeLeft--;
+                        jeu.getPartie().setBlueTimeLeft(jeu.getPartie().getBlueTimeLeft()-1);
                     } else {
-                        redTimeLeft--;
+                        jeu.getPartie().setRedTimeLeft(jeu.getPartie().getRedTimeLeft()-1);
                     }
                     updateTimerLabels();
                     checkTimeOut();
@@ -109,26 +108,28 @@ public class PlateauController implements Observer {
     }
 
     private void updateTimerLabels() {
-        int blueMinutes = blueTimeLeft / 60;
-        int blueSeconds = blueTimeLeft % 60;
-        int redMinutes = redTimeLeft / 60;
-        int redSeconds = redTimeLeft % 60;
+        int blueMinutes = jeu.getPartie().getBlueTimeLeft()/ 60;
+        int blueSeconds = jeu.getPartie().getBlueTimeLeft() % 60;
+        int redMinutes = jeu.getPartie().getRedTimeLeft() / 60;
+        int redSeconds = jeu.getPartie().getRedTimeLeft() % 60;
 
         blueTimer.setText(String.format("%02d:%02d", blueMinutes, blueSeconds));
         redTimer.setText(String.format("%02d:%02d", redMinutes, redSeconds));
     }
 
     private void checkTimeOut() {
-        if (blueTimeLeft <= 0) {
+        if (jeu.getPartie().getBlueTimeLeft() <= 0) {
             stopTimer();
             jeu.getPartie().setRedWon();
             revealCard();
+            jeu.victoireRouge();
             labelEquipe.setText("Victoire des rouges !");
             showWinnerPopup("Rouge");
-        } else if (redTimeLeft <= 0) {
+        } else if (jeu.getPartie().getRedTimeLeft() <= 0) {
             stopTimer();
             jeu.getPartie().setBlueWon();
             revealCard();
+            jeu.victoireBleue();
             labelEquipe.setText("Victoire des bleus !");
             showWinnerPopup("Bleue");
         }
@@ -418,11 +419,13 @@ public class PlateauController implements Observer {
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
+            jeu.victoireBleue();
             labelEquipe.setText("Victoire des bleus !");
             revealCard();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
+            jeu.victoireRouge();
             labelEquipe.setText("Victoire des rouges !");
             revealCard();
             showWinnerPopup("Rouge");

@@ -181,6 +181,11 @@
     -fx-text-fill: white;
 }
 
+.white_button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
 .confirmationOverlay {
     -fx-background-color: rgba(0, 0, 0, 0.5);
 }
@@ -230,4 +235,13 @@
     -fx-background-size: 40 40;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+}
+
+.win-box-white {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-padding: 20;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
