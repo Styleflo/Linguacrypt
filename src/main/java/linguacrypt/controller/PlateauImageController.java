@@ -111,6 +111,15 @@ public class PlateauImageController implements Observer {
                 timeline.setCycleCount(Timeline.INDEFINITE);
             }
         }
+        else {
+
+            blueTimer.setVisible(false);
+            redTimer.setVisible(false);
+
+            jeu.getPartie().setBlueTimeLeft (0);
+            jeu.getPartie().setRedTimeLeft (0);
+
+        }
     }
 
 

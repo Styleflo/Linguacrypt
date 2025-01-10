@@ -150,7 +150,6 @@ public class PlateauController implements Observer {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
                     jeu.getTimeTracker().stop();
 
-
                     if (jeu.getPartie().getTimer() != -1) {
                         stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
                     }else {
@@ -171,7 +170,6 @@ public class PlateauController implements Observer {
                 if (stats != null) {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
                     jeu.getTimeTracker().stop();
-
 
                     if (jeu.getPartie().getTimer() != -1) {
                         stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
