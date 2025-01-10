@@ -176,3 +176,7 @@
 .button-selected {
     -fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);
 }
+
+.damien{
+    -fx-background-color: #a4dfed; /* Green */
+}
