@@ -291,6 +291,8 @@ public class PlateauImageController implements Observer {
 
                     assert carte != null;
                     carte.setOnMouseClicked(event -> handleCardClick(currentI, currentJ, carte));
+                    carte.setOnMouseEntered(event -> handleMouseEnter(currentI,currentJ,carte));
+                    carte.setOnMouseExited(event -> handleMouseExit(currentI,currentJ,carte));
 
                     gridPane.add(carte, i, j);
                 }
@@ -395,7 +397,32 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
+    private void handleMouseEnter(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())){
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        ImageCardController controller = (ImageCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setsemiRecouvert(couleur, true);
+        String style;
 
+        this.updateLabel();
+    }
+
+    private void handleMouseExit(int x, int y, AnchorPane carte) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())) {
+            return;
+        }
+        // Récupérer la couleur de la carte depuis le modèle
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        ImageCardController controller = (ImageCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
+        controller.setsemiRecouvert(couleur, false);
+
+        this.updateLabel();
+    }
 
     //TODO faire comme pour le plateau des mots avec des reveal pas cover
     private void revealCard() {

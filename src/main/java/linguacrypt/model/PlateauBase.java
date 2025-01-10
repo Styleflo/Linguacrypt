@@ -125,6 +125,7 @@ public abstract class PlateauBase {
      * Explicite
      */
     public void changeTurn() {
+
         this.isBlueTurn = !this.isBlueTurn;
     }
 
