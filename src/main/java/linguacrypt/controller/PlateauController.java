@@ -10,19 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import linguacrypt.config.GameConfig;
-import linguacrypt.model.Carte;
-import linguacrypt.model.CarteBase;
-import linguacrypt.model.Jeu;
-import linguacrypt.utils.CardType;
-import linguacrypt.utils.DataUtils;
+import linguacrypt.model.*;
+import linguacrypt.utils.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -150,7 +144,6 @@ public class PlateauController implements Observer {
         stopTimer();
         confirmationOverlay.setVisible(false);
         jeu.getPartie().newPlateau();
-        jeu.notifyObservers();
         qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
         lingualogo.setVisible(true);
         jeu.getPartie().getPlateau().setqrcodeaffiche(false);
@@ -305,6 +298,8 @@ public class PlateauController implements Observer {
                     carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
                     carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
+                    handleMouseEnter(i, j, carteAnchor);
+
                 }
             }
         } else {
@@ -547,8 +542,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        stopTimer();
-        if (jeu.getPartie().getwon() != -1) {
+        if (jeu.getPartie().getwon() == 2 ) {
             confirmationOverlayMenu.setVisible(true);
         } else {
             qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
@@ -559,16 +553,19 @@ public class PlateauController implements Observer {
         }
     }
 
+    /**
+     * La fonction permet de sauvegarder une partie non fini q
+     * Elle lit l'etat de la partie actuelle et sauvegarde le tout en format Json
+     */
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Partie", "*.json"));
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
-                jeu.getPartie().savePartie(fichier.getAbsolutePath());
-                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
-                System.out.println(fichier.getAbsolutePath());
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                filesavehandler.savePartie(jeu.getPartie(), fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }

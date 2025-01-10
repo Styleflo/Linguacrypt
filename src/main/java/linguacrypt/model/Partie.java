@@ -1,5 +1,6 @@
 package linguacrypt.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import linguacrypt.config.GameConfig;
 
 import java.io.*;
@@ -13,33 +14,14 @@ import java.util.ArrayList;
  * Contient la largeur du plateau
  * Contient la hauteur du plateau
  */
-public class Partie implements Serializable {
+public class Partie {
     private PlateauBase plateau;
     private int won; // 0= bleu a gagné; 1=rouge a gagné; 2 = personne a gagné mais la partie est commencé; -1 la partie n'est pas encore commencé
     private int timer;
     private ArrayList<String> cardsAttribute;
-    private ArrayList<String> words;
     private int heightParameter;
     private int widthParameter;
     private TypePartie typePartie;
-
-    /**
-     * Charge une partie à partir d'un fichier.
-     *
-     * @param filePath Le chemin du fichier à charger.
-     * @return La partie chargée.
-     * @throws IOException            Si une erreur survient lors de la lecture du fichier.
-     * @throws ClassNotFoundException Si la classe de l'objet n'est pas trouvée.
-     */
-    public static Partie loadPartie(String filePath) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            return (Partie) ois.readObject();
-        }
-    }
-
-    public void setWords(ArrayList<String> words) {
-        this.words = words;
-    }
 
     /**
      * Explicite.
