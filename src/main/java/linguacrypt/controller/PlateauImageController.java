@@ -330,20 +330,6 @@ public class PlateauImageController implements Observer {
         this.updateLabel();
     }
 
-    private void handleMouseEnter(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
-            return;
-        }
-        // Récupérer la couleur de la carte depuis le modèle
-        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
-        NeutralCardController controller = (NeutralCardController) carte.getUserData();
-        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
-        controller.setSemiCovered(couleur, true);
-        String style;
-
-        this.updateLabel();
-    }
-
     public void afficheCardClicked(int x, int y, AnchorPane carteAnchor, CarteImage carteImage) {
         if (!carteImage.isCovered()) {
             return;
