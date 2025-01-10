@@ -1,14 +1,18 @@
 package linguacrypt.controller;
 
 import com.google.zxing.common.BitMatrix;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -16,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -367,15 +372,62 @@ public class PlateauImageController implements Observer {
     }
     @FXML
     public void afficheQRcode() {
-        System.out.println("afficheQRcode est bien lancée");
         try {
-            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode(); // Génération du QR code
-            WritableImage qrImage = jeu.getPartie().getPlateau().getKey().bitMatrixToImage(qrcode); // Convertit le BitMatrix en WritableImage
-            qrCode.setImage(qrImage); // Affiche l'image dans l'ImageView
+            // Génération du QR code de base
+            BitMatrix qrcode = jeu.getPartie().getPlateau().getKey().to_qrcode();
+
+            // Marges réduites
+            int padding = 15;
+            int width = qrcode.getWidth() + (2 * padding);
+            int height = qrcode.getHeight() + (2 * padding);
+
+            WritableImage finalImage = new WritableImage(width, height);
+            PixelWriter pixelWriter = finalImage.getPixelWriter();
+
+            // Couleurs simples mais contrastées
+            Color bgColor = Color.WHITE;
+            Color qrColor = Color.rgb(0, 0, 150);  // Bleu foncé pour un bon contraste
+
+            // Remplissage du fond
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    pixelWriter.setColor(x, y, bgColor);
+                }
+            }
+
+            // Dessin du QR code
+            for (int x = 0; x < qrcode.getWidth(); x++) {
+                for (int y = 0; y < qrcode.getHeight(); y++) {
+                    if (qrcode.get(x, y)) {
+                        pixelWriter.setColor(x + padding, y + padding, qrColor);
+                    }
+                }
+            }
+
+            // Application simple des effets
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(0.1);
+            colorAdjust.setContrast(0.1);
+
+            // Application de l'image et de l'effet
+            qrCode.setImage(finalImage);
+            qrCode.setEffect(colorAdjust);
+            qrCode.setCache(true);
+            qrCode.setCacheHint(CacheHint.QUALITY);
+
+            // Animation simple
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(300), qrCode);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+
+            qrCode.setVisible(true);
+            lingualogo.setVisible(false);
+            fadeIn.play();
+
         } catch (Exception e) {
             DataUtils.logException(e, "Erreur lors de la génération du QR code");
         }
-        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche()); // Rendre l'ImageView visible si nécessaire
+        qrCode.setVisible(!jeu.getPartie().getPlateau().isqrcodeaffiche());
         lingualogo.setVisible(jeu.getPartie().getPlateau().isqrcodeaffiche());
         jeu.getPartie().getPlateau().setqrcodeaffiche(!jeu.getPartie().getPlateau().isqrcodeaffiche());
     }
