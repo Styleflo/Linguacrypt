@@ -37,7 +37,7 @@ public class CartesController implements Observer {
     private int currentThemeIndex;
     private ArrayList<String> themes;
 
-    //popup nv Carte
+    //popup nv Theme et carte
     @FXML
     private StackPane panneauNvCarte;
 
@@ -53,6 +53,18 @@ public class CartesController implements Observer {
     private String themeName;
 
     private String firstCard;
+
+    //popup nv carte
+    @FXML
+    private StackPane panneauNvCarte2;
+
+    private String nouvelleCarte;
+
+    @FXML
+    private TextField nouvelleCarteInput;
+
+    @FXML
+    private Button okButton2;
 
 
     public CartesController() {
@@ -233,21 +245,23 @@ public class CartesController implements Observer {
 
     @FXML
     private void handleAjouterMotAction() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Ajouter un mot");
-        dialog.setHeaderText("Ajouter un mot à la collection");
-        dialog.setContentText("Veuillez entrer un mot :");
+        nouvelleCarte = null;
+        if (nouvelleCarteInput != null) {
+            nouvelleCarteInput.clear();
+        }
 
-        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        okButton.setDisable(true);
+        panneauNvCarte2.setVisible(true);
 
-        dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> okButton.setDisable(newValue.trim().isEmpty()));
+        okButton2.setDisable(true);
+        nouvelleCarteInput.textProperty().addListener((obs, oldVal, newVal) ->okButton2.setDisable(nouvelleCarteInput.getText().trim().isEmpty()));
 
-        Optional<String> result = dialog.showAndWait();
+    }
+
+    private void handleAjouterMotActionSuite(){
         GameDataManager gameDataManager = jeu.getGameDataManager();
 
-        if (result.isPresent()) {
-            String mot = result.get().toLowerCase().trim();
+        if (nouvelleCarte != null) {
+            String mot = nouvelleCarte;
 
             if (mot.length() > GameConfig.MAX_WORD_SIZE) {
                 // Afficher une boîte de dialogue d'erreur
@@ -276,8 +290,12 @@ public class CartesController implements Observer {
     private void addNewTheme() {
         themeName = null;
         firstCard = null;
-        themeNameInput.clear();
-        firstCardInput.clear();
+        if (themeNameInput!=null) {
+            themeNameInput.clear();
+        }
+        if (firstCard!=null) {
+            firstCardInput.clear();
+        }
 
         panneauNvCarte.setVisible(true);
 
@@ -329,6 +347,7 @@ public class CartesController implements Observer {
     @FXML
     private void handleAnnulerpopup(){
         panneauNvCarte.setVisible(false);
+        panneauNvCarte2.setVisible(false);
     }
 
     @FXML
@@ -338,6 +357,15 @@ public class CartesController implements Observer {
             firstCard = firstCardInput.getText().toLowerCase().trim();
             panneauNvCarte.setVisible(false);
             addNewThemeSuite();
+        }
+    }
+
+    @FXML
+    private void handleValiderPopupCarte(){
+        if (!nouvelleCarteInput.getText().trim().isEmpty()){
+            nouvelleCarte = nouvelleCarteInput.getText().toLowerCase().trim();
+            panneauNvCarte2.setVisible(false);
+            handleAjouterMotActionSuite();
         }
     }
 
