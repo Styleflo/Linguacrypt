@@ -56,7 +56,7 @@ javafx {
 
 application {
     mainClass.set("linguacrypt.Main")
-    applicationDefaultJvmArgs = ["-Xmx1024m"] // Increase the heap size to 1024 MB
+    applicationDefaultJvmArgs = ["-Xmx5012m"] // Increase the heap size to 1024 MB
 }
 
 shadowJar {
