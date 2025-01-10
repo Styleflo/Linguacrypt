@@ -19,6 +19,7 @@ import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
 import linguacrypt.model.TypePartie;
 import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.DataUtils;
 import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
@@ -73,6 +74,10 @@ public class ParametreController implements Observer {
     public ParametreController() {
         width = 5;
         height = 5;
+    }
+
+    public void resetParametre() {
+        partieBuilder.resetall();
     }
 
     public void handleFlecheGaucheTimer() {
@@ -271,6 +276,7 @@ private void handleValider() {
             jeu.notifyObservers();
         } else if (Mots.isSelected() && !Images.isSelected()) {
             partieBuilder.setTimer(currentTime);
+            partieBuilder.setTypePartie(TypePartie.WORDS);
             Partie partie = partieBuilder.getResult();
             jeu.setPartie(partie);
             jeu.setView("Plateau");
@@ -330,5 +336,8 @@ private void handleValider() {
 
     @Override
     public void reagir() {
+        if (jeu.getView().equals("MenuInitial")) {
+            resetParametre();
+        }
     }
 }

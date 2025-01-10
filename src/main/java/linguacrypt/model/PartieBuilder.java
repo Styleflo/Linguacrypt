@@ -159,8 +159,9 @@ public class PartieBuilder {
      */
     public PartieBuilder setTypePartie(TypePartie typePartie) {
         this.partie.setTypePartie(typePartie);
-        this.partie.setCardsAttribute(this.imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes()));
-
+        if (typePartie == TypePartie.IMAGES) {
+            this.partie.setCardsAttribute(this.imagesFileHandler.getImagesByThemes(imagesFileHandler.getAllThemes()));
+        }
         return this;
     }
 
