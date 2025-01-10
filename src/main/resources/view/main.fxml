@@ -10,8 +10,6 @@
     </top>
     <center>
         <AnchorPane prefHeight="900.0" prefWidth="700.0" fx:id="content">
-            <children>
-            </children>
         </AnchorPane>
     </center>
 </BorderPane>

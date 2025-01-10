@@ -62,9 +62,11 @@ shadowJar {
     archiveClassifier.set("all") // Nom du fichier JAR final
     manifest {
         attributes("Main-Class": application.mainClass.get()) // Définit la classe principale
+
     }
 
     jar {
         enabled = false
     }
+
 }

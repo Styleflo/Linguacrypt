@@ -5,11 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="102.0" prefWidth="158.0" styleClass="small_rectangle"
             xmlns="http://javafx.com/javafx/23.0.1">
-    <children>
-        <ImageView fitHeight="115.0" fitWidth="158.0" pickOnBounds="true">
-            <image>
-                <Image url="@../assets/s200_gerald.oster.jpg"/>
-            </image>
-        </ImageView>
-    </children>
+    <ImageView fitHeight="115.0" fitWidth="158.0" pickOnBounds="true">
+        <Image url="@../assets/s200_gerald.oster.jpg"/>
+    </ImageView>
 </AnchorPane>
