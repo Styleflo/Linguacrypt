@@ -27,6 +27,7 @@ public class Jeu {
     private ArrayList<GameStatistics> gameStatistics = new ArrayList<>();
     private int currentGameId = -1;
     private GameStatistics currentGameStats;
+    private TimeTracker timeTracker = new TimeTracker();
 
     public void printGameStatistics() {
         for (GameStatistics gs : gameStatistics) {
@@ -40,6 +41,15 @@ public class Jeu {
         currentGameId++;
         currentGameStats = new GameStatistics(currentGameId);
         gameStatistics.add(currentGameStats);
+        timeTracker.start();
+    }
+
+    public TimeTracker getTimeTracker() {
+        return timeTracker;
+    }
+
+    public void setTimeTracker(TimeTracker timeTracker) {
+        this.timeTracker = timeTracker;
     }
 
     public GameStatistics getCurrentGameStats() {

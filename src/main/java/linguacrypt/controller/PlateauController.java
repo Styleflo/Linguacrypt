@@ -91,8 +91,8 @@ public class PlateauController implements Observer {
         if (jeu.getPartie().getTimer() != -1) {
             // Si c'est une nouvelle partie, initialise les temps
             if (jeu.getPartie().getwon() == -1) {
-                jeu.getPartie().setBlueTimeLeft ((jeu.getPartie().getTimer() / 2));
-                jeu.getPartie().setRedTimeLeft ((jeu.getPartie().getTimer() / 2));
+                jeu.getPartie().setBlueTimeLeft ((jeu.getPartie().getTimer() ));
+                jeu.getPartie().setRedTimeLeft ((jeu.getPartie().getTimer() ));
             }
             updateTimerLabels();
 
@@ -131,6 +131,7 @@ public class PlateauController implements Observer {
             GameStatistics stats = jeu.getCurrentGameStats();
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
+                    if (jeu.getPartie().getTimer() != -1)
                     stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
                 }
