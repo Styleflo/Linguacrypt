@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -400,7 +402,11 @@ public class PlateauImageController implements Observer {
         if (!isTimerRunning && jeu.getPartie().getTimer() != -1) {
             startTimer();
         }
+        String audioFile = getClass().getResource("/soundtrack/carte2.mp3").toExternalForm();
 
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
 
         CarteBase currentCard = jeu.getPartie().getPlateau().getCard(x, y);
 
@@ -514,6 +520,11 @@ public class PlateauImageController implements Observer {
     }
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
+        String audioFile = getClass().getResource("/soundtrack/Applaudissements.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
         if (winningTeam.equals("Rouge")) {
             whoWon.setText("L'équipe Rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
