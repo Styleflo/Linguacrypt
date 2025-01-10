@@ -12,13 +12,11 @@ public class TimeTracker {
     // Méthode pour démarrer le chronométrage
     public void start() {
         startTime = LocalDateTime.now();
-        System.out.println("Start time recorded: " + startTime);
     }
 
     // Méthode pour arrêter le chronométrage
     public void stop() {
         endTime = LocalDateTime.now();
-        System.out.println("End time recorded: " + endTime);
     }
 
     // Méthode pour calculer la durée entre startTime et endTime
