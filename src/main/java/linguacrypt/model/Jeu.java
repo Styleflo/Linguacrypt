@@ -22,6 +22,43 @@ public class Jeu {
     private String currentView;
     private int victoireBleue;
     private int victoireRouge;
+    private ArrayList<GameStatistics> gameStatistics = new ArrayList<>();
+    private int currentGameId = -1;
+    private GameStatistics currentGameStats;
+
+    public Jeu() throws IOException {
+        // Peut etre des trucs à faire mais pour l'instant ça va !
+
+        currentView = "MenuInitial";
+        cardsDataManager = new CardsDataManager(GameConfig.CARDS_FILE);
+        imagesFileHandler = new ImagesFileHandler(GameConfig.CARDS_IMAGES_FILE);
+        victoireBleue = 0;
+        victoireRouge = 0;
+        initializeNewGameStatistics();
+
+    }
+
+    public void printGameStatistics() {
+        for (GameStatistics gs : gameStatistics) {
+            gs.printAll();
+        }
+    }
+
+
+
+    public void initializeNewGameStatistics() {
+        currentGameId++;
+        currentGameStats = new GameStatistics(currentGameId);
+        gameStatistics.add(currentGameStats);
+    }
+
+    public GameStatistics getCurrentGameStats() {
+        return currentGameStats;
+    }
+
+    public ArrayList<GameStatistics> getGameStatistics() {
+        return gameStatistics;
+    }
 
     public int getVictoireBleue() {
         return victoireBleue;
@@ -39,14 +76,7 @@ public class Jeu {
         this.victoireRouge = victoireRouge +1;
     }
 
-    public Jeu() throws IOException {
-        // Peut etre des trucs à faire mais pour l'instant ça va !
-        currentView = "MenuInitial";
-        cardsDataManager = new CardsDataManager(GameConfig.CARDS_FILE);
-        imagesFileHandler = new ImagesFileHandler(GameConfig.CARDS_IMAGES_FILE);
-        victoireBleue = 0;
-        victoireRouge = 0;
-    }
+
 
     /**
      * Permet de recuperer la liste des observers.
@@ -99,9 +129,12 @@ public class Jeu {
      * permet de lier une partie à notre jeu
      * cela lance la partie
      */
+
     public void setPartie(Partie partie) {
         this.partie = partie;
+        initializeNewGameStatistics();
     }
+
 
     /**
      * Permet de recuperer la vue courrante.
