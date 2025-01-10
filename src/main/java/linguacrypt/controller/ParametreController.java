@@ -1,6 +1,8 @@
 package linguacrypt.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -16,6 +18,8 @@ import linguacrypt.utils.CardsDataManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParametreController implements Observer {
 
@@ -47,7 +51,18 @@ public class ParametreController implements Observer {
     private PartieBuilder partieBuilder;
     private ArrayList<String> themes;
 
+    private Map<String, Integer> themeWordCounts = new HashMap<>();
+
+    private int nbr_carte_selectionne;
+
+    private int width;
+
+    private int height;
+
+
     public ParametreController() {
+        width = 0;
+        height = 0;
     }
 
     public void handleFlecheGaucheTimer() {
@@ -105,6 +120,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle > 2) {
             label1.setText(String.valueOf(valeurActuelle - 1));
             partieBuilder.setHeightParameter(valeurActuelle - 1);
+            height = valeurActuelle-1;
         }
     }
 
@@ -114,6 +130,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle < 8) {
             label1.setText(String.valueOf(valeurActuelle + 1));
             partieBuilder.setHeightParameter(valeurActuelle + 1);
+            height = valeurActuelle+1;
         }
     }
 
@@ -123,6 +140,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle > 2) {
             label2.setText(String.valueOf(valeurActuelle - 1));
             partieBuilder.setWidthParameter(valeurActuelle - 1);
+            width = valeurActuelle-1;
         }
     }
 
@@ -132,6 +150,7 @@ public class ParametreController implements Observer {
         if (valeurActuelle < 8) {
             label2.setText(String.valueOf(valeurActuelle + 1));
             partieBuilder.setWidthParameter(valeurActuelle + 1);
+            width = valeurActuelle+1;
         }
     }
 
@@ -157,6 +176,9 @@ public class ParametreController implements Observer {
                 checkBox.setSelected(!checkBox.isSelected());
             });
 
+            int wordCount = cardsDataManager.getWordsByTheme(theme).size();
+            themeWordCounts.put(theme, wordCount);
+
             // Empêcher la propagation du clic de la checkbox à l'élément parent
             checkBox.setOnMouseClicked(event -> {
                 event.consume();
@@ -170,22 +192,42 @@ public class ParametreController implements Observer {
     }
 
     @FXML
-    private void handleValider() {
-        ArrayList<String> selectedThemes = new ArrayList<>();
-        for (javafx.scene.Node node : themeBox.getChildren()) {
-            if (node instanceof HBox hbox) {
-                for (javafx.scene.Node child : hbox.getChildren()) {
-                    if (child instanceof CheckBox checkBox) {
-                        if (checkBox.isSelected()) {
-                            Label label = (Label) hbox.getChildren().get(1);
-                            selectedThemes.add(label.getText());
+private void handleValider() {
+    ArrayList<String> selectedThemes = new ArrayList<>();
+    nbr_carte_selectionne = 0; // Réinitialiser le compteur de cartes sélectionnées
+
+    for (javafx.scene.Node node : themeBox.getChildren()) {
+        if (node instanceof HBox hbox) {
+            for (javafx.scene.Node child : hbox.getChildren()) {
+                if (child instanceof CheckBox checkBox) {
+                    if (checkBox.isSelected()) {
+                        // Vérifier que l'index est valide avant d'accéder à l'élément
+                        if (hbox.getChildren().size() > 1 && hbox.getChildren().get(1) instanceof Label label) {
+                            String theme = label.getText();
+                            selectedThemes.add(theme);
+                            
+                            // Ajouter la taille du thème au nombre de cartes sélectionnées
+                            if (themeWordCounts.containsKey(theme)) {
+                                nbr_carte_selectionne += themeWordCounts.get(theme);
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    if (nbr_carte_selectionne < width * height) {
+        // Afficher une pop-up pour demander à ajouter un thème car il manque des images pour construire le plateau
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Nombre de cartes insuffisant");
+        alert.setHeaderText(null);
+        alert.setContentText("Veuillez ajouter plus de thèmes car il manque des images pour construire le plateau.");
+        alert.showAndWait();
+    } else {
         partieBuilder.setUsedThemes(selectedThemes);
         lesthemes.setVisible(false);
+    }
     }
 
     @FXML
