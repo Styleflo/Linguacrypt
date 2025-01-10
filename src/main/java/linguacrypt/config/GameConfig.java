@@ -5,8 +5,7 @@ public class GameConfig {
     public static int DEFAULT_HEIGHT = 5;
     public static int DEFAULT_TIMER = -1;
 
-    public static String CARDS_FILE = "cards.json";
-    public static String CARDS_IMAGES_FILE = "cards_images.json";
+    public static String CARDS_FILE = "gameData.json";
     public static String QRCODE_PATH = "src/main/resources/assets/clef.png";
     public static String APP_DIR = ".linguacryptConfig";
     public static String USER_CONFIG_FILE = "userConfig.json";

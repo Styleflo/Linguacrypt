@@ -15,7 +15,7 @@ import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
 import linguacrypt.model.TypePartie;
-import linguacrypt.utils.CardsDataManager;
+import linguacrypt.utils.GameDataManager;
 import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
@@ -142,8 +142,8 @@ public class ParametreController implements Observer {
     @FXML
     public void handleThemes() {
         lesthemes.setVisible(true);
-        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
-        ArrayList<String> themes = cardsDataManager.getAllThemes();
+        GameDataManager gameDataManager = jeu.getGameDataManager();
+        ArrayList<String> themes = gameDataManager.getAllThemes();
         themeBox.getChildren().clear();
 
         for (String theme : themes) {
