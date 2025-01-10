@@ -415,7 +415,7 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
-
+        updateLabel();
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
@@ -593,7 +593,7 @@ public class PlateauController implements Observer {
             startTimer();
         }
         jeu.getPartie().getPlateau().changeTurn();
-        updateLabel();
+        this.updateLabel();
         boolean currentVisibility1 = imageview1.isVisible();
         imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
         boolean currentVisibility2 = imageview2.isVisible();
