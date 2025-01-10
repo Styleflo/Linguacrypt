@@ -1,5 +1,7 @@
 package linguacrypt.model;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import linguacrypt.config.GameConfig;
 import linguacrypt.controller.Observer;
 import linguacrypt.utils.CardsDataManager;
@@ -22,6 +24,7 @@ public class Jeu {
     private String currentView;
     private int victoireBleue;
     private int victoireRouge;
+    private MediaPlayer mediaPlayer;
 
     public int getVictoireBleue() {
         return victoireBleue;
@@ -46,6 +49,12 @@ public class Jeu {
         imagesFileHandler = new ImagesFileHandler(GameConfig.CARDS_IMAGES_FILE);
         victoireBleue = 0;
         victoireRouge = 0;
+        String audioFile = getClass().getResource("/soundtrack/main_theme_3.mp3").toExternalForm();
+
+        Media media = new Media(audioFile);
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
     /**
