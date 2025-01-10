@@ -19,6 +19,7 @@ public class WinnerPopupController implements Observer {
     public void show(String winningTeam) {
         winnerLabel.setText("L'équipe " + winningTeam + " a gagné !");
 
+
         // Définir les couleurs en fonction de l'équipe gagnante
         if (winningTeam.equalsIgnoreCase("Bleue")) {
             winnerLabel.setStyle("-fx-text-fill: " + GameConfig.BLUE_CARD_COLOR + ";");

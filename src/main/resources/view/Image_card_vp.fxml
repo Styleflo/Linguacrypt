@@ -2,26 +2,23 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="69.0" prefWidth="112.0" styleClass="card"
-            stylesheets="@../css/Neutral_card.css" xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="linguacrypt.controller.ImageCardController">
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="112.0" styleClass="card" stylesheets="@../css/Neutral_card.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.ImageCardController">
     <children>
-        <AnchorPane layoutX="4.0" layoutY="5.0" prefHeight="46.0" prefWidth="80.0" styleClass="small_rectangle"
-                    AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="6.0"
-                    AnchorPane.topAnchor="5.0">
+        <AnchorPane prefHeight="46.0" prefWidth="80.0" styleClass="small_rectangle" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0">
             <children>
-                <ImageView fx:id="cardImage" fitHeight="55.0" fitWidth="63.0" layoutX="20.0" layoutY="3.0"
-                           preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="18.0"
-                           AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="1.0"/>
+                <ImageView fx:id="cardImage" fitHeight="55.0" fitWidth="63.0" layoutX="20.0" layoutY="3.0" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="1.0" />
             </children>
         </AnchorPane>
-        <ImageView fx:id="coveredImage" fitHeight="128.0" fitWidth="184.0" layoutX="-9.0" layoutY="-11.0"
-                   pickOnBounds="true" visible="false">
+        <ImageView fx:id="coveredImagepetit" fitHeight="69.0" fitWidth="112.0" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../assets/aled.png"/>
+                <Image url="@../assets/ely_petit.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="semicoveredImagepetit" fitHeight="69.0" fitWidth="112.0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/ely_petit_compresse.png" />
             </image>
         </ImageView>
     </children>

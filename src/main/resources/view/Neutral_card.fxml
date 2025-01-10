@@ -63,6 +63,8 @@
                 <Image url="@../assets/hippo.png"/>
             </image>
         </ImageView>
+
+
         <!-- images semi covered-->
         <ImageView fx:id="coveredsemiRed" fitHeight="110.0" fitWidth="167.0" layoutX="0" layoutY="0"
                    pickOnBounds="true" visible="false">
@@ -88,5 +90,7 @@
                 <Image url="@../assets/moi_compresse.png" />
             </image>
         </ImageView>
+
+
     </children>
 </AnchorPane>
