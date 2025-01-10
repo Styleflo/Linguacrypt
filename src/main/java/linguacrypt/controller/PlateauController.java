@@ -23,6 +23,7 @@ import linguacrypt.config.GameConfig;
 import linguacrypt.model.Carte;
 import linguacrypt.model.CarteBase;
 import linguacrypt.model.CarteImage;
+import linguacrypt.model.GameStatistics;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
@@ -127,6 +128,14 @@ public class PlateauController implements Observer {
             revealCard();
             jeu.victoireRouge();
             labelEquipe.setText("Victoire des rouges !");
+            GameStatistics stats = jeu.getCurrentGameStats();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
             showWinnerPopup("Rouge");
         } else if (jeu.getPartie().getRedTimeLeft() <= 0) {
             stopTimer();
@@ -134,6 +143,14 @@ public class PlateauController implements Observer {
             revealCard();
             jeu.victoireBleue();
             labelEquipe.setText("Victoire des bleus !");
+            GameStatistics stats = jeu.getCurrentGameStats();
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
             showWinnerPopup("Bleue");
         }
     }
@@ -161,6 +178,7 @@ public class PlateauController implements Observer {
         lingualogo.setVisible(true);
         jeu.getPartie().getPlateau().setqrcodeaffiche(false);
         jeu.getPartie().newPlateau();
+        jeu.initializeNewGameStatistics();
         jeu.notifyObservers();
 
     }
@@ -439,15 +457,16 @@ public class PlateauController implements Observer {
     }
 
 
+
     private void handleCardClick(int x, int y, AnchorPane carte) {
         if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()|| jeu.getPartie().isWon()) {
             return;
         }
 
-
         if (jeu.getPartie().getwon() == -1) {
             jeu.getPartie().setPartieBegin();
         }
+
         // Récupérer la couleur de la carte depuis le modèle
         String audioFile = getClass().getResource("/soundtrack/carte2.mp3").toExternalForm();
 
@@ -455,6 +474,23 @@ public class PlateauController implements Observer {
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
+        boolean isBlueTurn = jeu.getPartie().getPlateau().isBlueTurn();
+
+        // Mettre à jour les statistiques
+        GameStatistics stats = jeu.getCurrentGameStats();
+        if (stats != null && !jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
+            if (isBlueTurn) {
+                stats.addBlueGuess(couleur == CardType.BLUE);
+                if (couleur == CardType.RED) {
+                    stats.cardGivenToOpponent(true);
+                }
+            } else {
+                stats.addRedGuess(couleur == CardType.RED);
+                if (couleur == CardType.BLUE) {
+                    stats.cardGivenToOpponent(false);
+                }
+            }
+        }
         NeutralCardController controller = (NeutralCardController) carte.getUserData();
         DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
         controller.setRecouvert(couleur, true);
@@ -495,6 +531,10 @@ public class PlateauController implements Observer {
             jeu.victoireBleue();
             labelEquipe.setText("Victoire des bleus !");
             revealCard();
+            if (stats != null) {
+                stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+            }
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
@@ -502,6 +542,13 @@ public class PlateauController implements Observer {
             labelEquipe.setText("Victoire des rouges !");
             revealCard();
             showWinnerPopup("Rouge");
+            if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
+                if (stats != null) {
+                    stats.setTotalTime(jeu.getPartie().getTimer() - jeu.getPartie().getBlueTimeLeft() - jeu.getPartie().getRedTimeLeft());
+                    stats.setBlueTeamWon(jeu.getPartie().BlueWon());
+                }
+            }
+
         }
 
         // Marquer la carte comme révélée dans le modèle si nécessaire
@@ -515,6 +562,7 @@ public class PlateauController implements Observer {
                 Carte card = (Carte) c;
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {
+                    card.setCovered();
                     String style = switch (card.getType()) {
                         case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
                         case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
@@ -534,6 +582,7 @@ public class PlateauController implements Observer {
         Media media = new Media(audioFile);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
+
         if (winningTeam.equals("Rouge")) {
             whoWon.setText("L'équipe rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
