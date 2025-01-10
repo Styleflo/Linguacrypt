@@ -3,9 +3,11 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 
 public class ImageCardController {
+    private Jeu jeu;
     @FXML
     private ImageView cardImage;
     @FXML
@@ -17,6 +19,10 @@ public class ImageCardController {
     @FXML
     public void initialize() {
 
+    }
+
+    public void setJeu(Jeu jeu) {
+        this.jeu = jeu;
     }
 
     public void setMyImage(String url) {
@@ -34,6 +40,7 @@ public class ImageCardController {
     }
 
     public void setRecouvert(CardType type, boolean recouvert) {
+
         if (coveredImage != null) {
             String coverImageUrl = switch (type) {
                 case RED -> "/assets/hippo.png";

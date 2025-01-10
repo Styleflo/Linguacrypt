@@ -469,6 +469,7 @@ public class PlateauImageController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMyImage(url);
             return card;
@@ -483,6 +484,7 @@ public class PlateauImageController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Image_card_vp.fxml"));
             AnchorPane card = loader.load();
             ImageCardController controller = loader.getController();
+            controller.setJeu((jeu));
             card.setUserData(controller);
             controller.setMyImage(url);
             return card;

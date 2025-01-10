@@ -3,9 +3,11 @@ package linguacrypt.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 
 public class NeutralCardController {
+    private Jeu jeu;
     @FXML
     private Label labelMot;
 
@@ -32,7 +34,9 @@ public class NeutralCardController {
 
     @FXML
     private ImageView coveredsemiBlack;
-
+    public void setJeu(Jeu jeu) {
+        this.jeu = jeu;
+    }
     public void setMot(String mot) {
         labelMot.setText(mot);
     }
