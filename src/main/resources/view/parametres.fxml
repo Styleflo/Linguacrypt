@@ -208,8 +208,18 @@
                         </content>
                     </ScrollPane>
                     <HBox spacing="20" alignment="CENTER">
-                        <Button text="Valider" onAction="#handleValider" styleClass="green_button"/>
-                        <Button text="Annuler" onAction="#handleAnnuler" styleClass="red_button"/>
+                        <Button text="Valider" onAction="#handleValider">
+                           <styleClass>
+                              <String fx:value="button1"/>
+                              <String fx:value="purple_button"/>
+                           </styleClass>
+                        </Button>
+                        <Button text="Annuler" onAction="#handleAnnuler">
+                           <styleClass>
+                              <String fx:value="button1"/>
+                              <String fx:value="red_button"/>
+                           </styleClass>
+                        </Button>
                     </HBox>
                 </children>
             </VBox>
