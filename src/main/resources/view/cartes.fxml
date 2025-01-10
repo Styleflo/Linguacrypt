@@ -1,104 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.GaussianBlur?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css"
-           xmlns="http://javafx.com/javafx/23.0.1" fx:controller="linguacrypt.controller.CartesController">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="850.0" prefWidth="1450.0" stylesheets="@../css/gui.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linguacrypt.controller.CartesController">
     <ImageView fitHeight="850.0" fitWidth="1450.0" pickOnBounds="true">
         <image>
-            <Image url="@../assets/fond_test_1.gif"/>
+            <Image url="@../assets/fond_flou.gif" />
         </image>
     </ImageView>
     <ImageView fitHeight="850.0" fitWidth="1450.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../assets/filtre.png"/>
+            <Image url="@../assets/filtre.png" />
         </image>
         <effect>
-            <GaussianBlur radius="25.0"/>
+            <GaussianBlur radius="25.0" />
         </effect>
     </ImageView>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="570.0">
         <children>
             <AnchorPane layoutX="160.0" layoutY="24.0" prefHeight="801.0" prefWidth="1130.0">
                 <children>
-                    <HBox alignment="CENTER" layoutX="52.0" layoutY="712.0" spacing="80.0"/>
-                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="41.0" layoutY="14.0" prefHeight="605.0"
-                                prefWidth="1054.0" stylesheets="@../css/scroll.css">
+                    <HBox alignment="CENTER" layoutX="52.0" layoutY="712.0" spacing="80.0" />
+                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="41.0" layoutY="14.0" prefHeight="605.0" prefWidth="1054.0" stylesheets="@../css/scroll.css">
                         <content>
                             <GridPane fx:id="gridPane" prefHeight="567.0" prefWidth="1052.0">
                                 <columnConstraints>
-                                    <ColumnConstraints/>
+                                    <ColumnConstraints />
                                 </columnConstraints>
                                 <rowConstraints>
-                                    <RowConstraints/>
+                                    <RowConstraints />
                                 </rowConstraints>
                                 <styleClass>
-                                    <String fx:value="light_petit_panneau"/>
-                                    <String fx:value="bordure_speciale"/>
+                                    <String fx:value="light_petit_panneau" />
+                                    <String fx:value="bordure_speciale" />
                                 </styleClass>
                             </GridPane>
                         </content>
                         <styleClass>
-                            <String fx:value="dark_petit_panneau"/>
-                            <String fx:value="scroll-pane"/>
-                            <String fx:value="scroll-bar"/>
+                            <String fx:value="dark_petit_panneau" />
+                            <String fx:value="scroll-pane" />
+                            <String fx:value="scroll-bar" />
                         </styleClass>
                     </ScrollPane>
-                    <Button layoutX="218.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0"
-                            prefWidth="67.0" text="&lt;">
+                    <Button layoutX="218.0" layoutY="630.0" onAction="#previousCategory" prefHeight="66.0" prefWidth="67.0" text="&lt;">
                         <styleClass>
-                            <String fx:value="button1"/>
-                            <String fx:value="red_button"/>
+                            <String fx:value="button1" />
+                            <String fx:value="red_button" />
                         </styleClass>
                     </Button>
-                    <Button layoutX="854.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0"
-                            text="&gt;">
+                    <Button layoutX="854.0" layoutY="630.0" onAction="#nextCategory" prefHeight="66.0" prefWidth="67.0" text="&gt;">
                         <styleClass>
-                            <String fx:value="button1"/>
-                            <String fx:value="red_button"/>
+                            <String fx:value="button1" />
+                            <String fx:value="red_button" />
                         </styleClass>
                     </Button>
-                    <Button layoutX="141.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction"
-                            prefHeight="66.0" prefWidth="282.0" text="Menu Principal">
+                    <Button layoutX="141.0" layoutY="708.0" mnemonicParsing="false" onAction="#handleRevenirMenuAction" prefHeight="66.0" prefWidth="282.0" text="Menu Principal">
                         <styleClass>
-                            <String fx:value="button1"/>
-                            <String fx:value="w"/>
-                            <String fx:value="orange_button"/>
+                            <String fx:value="button1" />
+                            <String fx:value="w" />
+                            <String fx:value="orange_button" />
                         </styleClass>
                     </Button>
-                    <Pane layoutX="304.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0"
-                          styleClass="red_petit_panneau">
+                    <Pane layoutX="304.0" layoutY="630.0" prefHeight="66.0" prefWidth="527.0" styleClass="red_petit_panneau">
                         <children>
-                            <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0"
-                                   layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle"
-                                   textFill="WHITE"/>
+                            <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="18.0" prefHeight="30.0" prefWidth="502.0" text="Collection Actuelle" textFill="WHITE" />
                         </children>
                     </Pane>
-                    <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewTheme"
-                            prefHeight="66.0" prefWidth="253.0" text="Nouveau thème">
+                    <Button layoutX="714.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewTheme" prefHeight="66.0" prefWidth="253.0" text="Nouveau thème">
                         <styleClass>
-                            <String fx:value="button1"/>
-                            <String fx:value="w"/>
-                            <String fx:value="orange_button"/>
+                            <String fx:value="button1" />
+                            <String fx:value="w" />
+                            <String fx:value="orange_button" />
                         </styleClass>
                     </Button>
-                    <Button layoutX="441.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0"
-                            prefWidth="253.0" text="Ajouter une carte">
+                    <Button layoutX="441.0" layoutY="708.0" onAction="#handleAjouterMotAction" prefHeight="66.0" prefWidth="253.0" text="Ajouter une carte">
                         <styleClass>
-                            <String fx:value="button1"/>
-                            <String fx:value="purple_button"/>
+                            <String fx:value="button1" />
+                            <String fx:value="purple_button" />
                         </styleClass>
                     </Button>
-                    <ImageView fx:id="filtre" fitHeight="790.0" fitWidth="1142.0" layoutY="3.0" opacity="0.21"
-                               pickOnBounds="true">
+                    <ImageView fx:id="filtre" fitHeight="790.0" fitWidth="1142.0" layoutY="3.0" opacity="0.21" pickOnBounds="true">
                         <image>
-                            <Image url="@../assets/filtre.png"/>
+                            <Image url="@../assets/filtre.png" />
                         </image>
                         <effect>
-                            <GaussianBlur radius="22.75"/>
+                            <GaussianBlur radius="22.75" />
                         </effect>
                     </ImageView>
                     <Button layoutX="1044.0" layoutY="630.0" onAction="#CategoryImage" prefHeight="66.0"
@@ -111,8 +110,8 @@
                     </Button>
                 </children>
                 <styleClass>
-                    <String fx:value="dark_petit_panneau"/>
-                    <String fx:value="bordure_blanche"/>
+                    <String fx:value="dark_petit_panneau" />
+                    <String fx:value="bordure_blanche" />
                 </styleClass>
             </AnchorPane>
         </children>
