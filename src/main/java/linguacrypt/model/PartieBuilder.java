@@ -26,8 +26,6 @@ public class PartieBuilder {
         this.partie = new Partie();
         this.cardsDataManager = jeu.getWordsFileHandler();
         this.imagesFileHandler = jeu.getImagesFileHandler();
-        CardsDataManager cardsDataManager = jeu.getWordsFileHandler();
-        partie.setWords(this.cardsDataManager.getWordsByThemes(cardsDataManager.getAllThemes()));
         partie.setTimer(GameConfig.DEFAULT_TIMER);
         partie.setWidthParameter(GameConfig.DEFAULT_WIDTH);
         partie.setHeightParameter(GameConfig.DEFAULT_HEIGHT);

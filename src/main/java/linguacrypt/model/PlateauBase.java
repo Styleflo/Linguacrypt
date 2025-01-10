@@ -1,8 +1,8 @@
 package linguacrypt.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import linguacrypt.utils.CardType;
-
-import java.io.Serializable;
 
 /**
  * Contient une Clef (la feuille qui dit les mots à faire deviner
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Contient le nombre de poitn bleu
  * Contient le nombre de poitn bleu
  */
-public abstract class PlateauBase implements Serializable {
+public abstract class PlateauBase {
     protected final Clef key;
     protected final int[] coveredCardsCounts;
     protected boolean isBlueTurn;
@@ -31,6 +31,20 @@ public abstract class PlateauBase implements Serializable {
         pointRed = 0;
         isBlueTurn = key.isBlueStarting();
         coveredCardsCounts = new int[4];
+    }
+
+    @JsonCreator
+    public PlateauBase(@JsonProperty("key") Clef key, @JsonProperty("coveredCardsCounts") int[] coveredCardsCounts,
+                       @JsonProperty("isBlueTurn") boolean isBlueTurn, @JsonProperty("redTurn") boolean isRedTurn,
+                       @JsonProperty("pointBlue") int pointBlue, @JsonProperty("pointRed") int pointRed,
+                       @JsonProperty("qrcodeaffiche") boolean qrcodeaffiche) {
+        this.key = key;
+        this.coveredCardsCounts = coveredCardsCounts;
+        this.isBlueTurn = isBlueTurn;
+        this.pointBlue = pointBlue;
+        this.pointRed = pointRed;
+        this.qrcodeaffiche = qrcodeaffiche;
+
     }
 
     /**
@@ -111,7 +125,9 @@ public abstract class PlateauBase implements Serializable {
      * Explicite
      */
     public void changeTurn() {
+
         this.isBlueTurn = !this.isBlueTurn;
+
     }
 
     /**

@@ -11,7 +11,12 @@
                 <ImageView fx:id="cardImage" fitHeight="88.0" fitWidth="99.0" layoutX="22.0" layoutY="3.0" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="3.0" />
             </children>
         </AnchorPane>
-        <ImageView fx:id="coveredImage" fitHeight="128.0" fitWidth="184.0" layoutX="-9.0" layoutY="-11.0" pickOnBounds="true" visible="false">
+        <ImageView fx:id="coveredImage" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
+            <image>
+                <Image url="@../assets/aled.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="semicoveredImage" fitHeight="110.0" fitWidth="167.0" pickOnBounds="true" visible="false">
             <image>
                 <Image url="@../assets/aled.png" />
             </image>

@@ -23,6 +23,7 @@ import linguacrypt.model.CarteBase;
 import linguacrypt.model.Jeu;
 import linguacrypt.utils.CardType;
 import linguacrypt.utils.DataUtils;
+import linguacrypt.utils.FileSaveDeleteHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,25 +80,24 @@ public class PlateauController implements Observer {
     private Label redTimer;
 
     private Timeline timeline;
-    private int blueTimeLeft;
-    private int redTimeLeft;
+
     private boolean isTimerRunning = false;
 
     private void initializeTimer() {
         if (jeu.getPartie().getTimer() != -1) {
             // Si c'est une nouvelle partie, initialise les temps
             if (jeu.getPartie().getwon() == -1) {
-                blueTimeLeft = jeu.getPartie().getTimer() / 2;
-                redTimeLeft = jeu.getPartie().getTimer() / 2;
+                jeu.getPartie().setBlueTimeLeft ((jeu.getPartie().getTimer() / 2));
+                jeu.getPartie().setRedTimeLeft ((jeu.getPartie().getTimer() / 2));
             }
             updateTimerLabels();
 
             if (timeline == null) {
                 timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
                     if (jeu.getPartie().getPlateau().isBlueTurn()) {
-                        blueTimeLeft--;
+                        jeu.getPartie().setBlueTimeLeft(jeu.getPartie().getBlueTimeLeft()-1);
                     } else {
-                        redTimeLeft--;
+                        jeu.getPartie().setRedTimeLeft(jeu.getPartie().getRedTimeLeft()-1);
                     }
                     updateTimerLabels();
                     checkTimeOut();
@@ -108,25 +108,29 @@ public class PlateauController implements Observer {
     }
 
     private void updateTimerLabels() {
-        int blueMinutes = blueTimeLeft / 60;
-        int blueSeconds = blueTimeLeft % 60;
-        int redMinutes = redTimeLeft / 60;
-        int redSeconds = redTimeLeft % 60;
+        int blueMinutes = jeu.getPartie().getBlueTimeLeft()/ 60;
+        int blueSeconds = jeu.getPartie().getBlueTimeLeft() % 60;
+        int redMinutes = jeu.getPartie().getRedTimeLeft() / 60;
+        int redSeconds = jeu.getPartie().getRedTimeLeft() % 60;
 
         blueTimer.setText(String.format("%02d:%02d", blueMinutes, blueSeconds));
         redTimer.setText(String.format("%02d:%02d", redMinutes, redSeconds));
     }
 
     private void checkTimeOut() {
-        if (blueTimeLeft <= 0) {
+        if (jeu.getPartie().getBlueTimeLeft() <= 0) {
             stopTimer();
             jeu.getPartie().setRedWon();
             revealCard();
+            jeu.victoireRouge();
+            labelEquipe.setText("Victoire des rouges !");
             showWinnerPopup("Rouge");
-        } else if (redTimeLeft <= 0) {
+        } else if (jeu.getPartie().getRedTimeLeft() <= 0) {
             stopTimer();
             jeu.getPartie().setBlueWon();
             revealCard();
+            jeu.victoireBleue();
+            labelEquipe.setText("Victoire des bleus !");
             showWinnerPopup("Bleue");
         }
     }
@@ -150,7 +154,6 @@ public class PlateauController implements Observer {
         stopTimer();
         confirmationOverlay.setVisible(false);
         jeu.getPartie().newPlateau();
-        jeu.notifyObservers();
         qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
         lingualogo.setVisible(true);
         jeu.getPartie().getPlateau().setqrcodeaffiche(false);
@@ -250,6 +253,7 @@ public class PlateauController implements Observer {
         turnQR.setMouseTransparent(true);
         filtre.setMouseTransparent(true);
         filtre2.setMouseTransparent(true);
+
         if (jeu.getPartie().getPlateau().isBlueTurn()) {
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv
@@ -269,7 +273,6 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
         }
-
         DataUtils.assertNotNull(jeu, "Jeu non initialisé dans PlateauController.afficherCartes()");
 
         gridPane.getChildren().clear();
@@ -305,6 +308,8 @@ public class PlateauController implements Observer {
                     carteAnchor.setOnMouseEntered(event -> handleMouseEnter(currentI, currentJ, carteAnchor));
                     carteAnchor.setOnMouseExited(event -> handleMouseExit(currentI, currentJ, carteAnchor));
                     gridPane.add(carteAnchor, i, j);
+                    handleMouseEnter(i, j, carteAnchor);
+
                 }
             }
         } else {
@@ -339,7 +344,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseEnter(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())){
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -353,7 +358,7 @@ public class PlateauController implements Observer {
     }
 
     private void handleMouseExit(int x, int y, AnchorPane carte) {
-        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered()) || jeu.getPartie().isWon()) {
+        if ((!jeu.getPartie().getPlateau().getCard(x, y).isCovered())) {
             return;
         }
         // Récupérer la couleur de la carte depuis le modèle
@@ -361,14 +366,13 @@ public class PlateauController implements Observer {
         NeutralCardController controller = (NeutralCardController) carte.getUserData();
         DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
         controller.setSemiCovered(couleur, false);
-        String style;
 
         this.updateLabel();
     }
 
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
-        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()) {
+        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()|| jeu.getPartie().isWon()) {
             return;
         }
 
@@ -411,20 +415,24 @@ public class PlateauController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
-
+        updateLabel();
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
+            jeu.victoireBleue();
+            labelEquipe.setText("Victoire des bleus !");
             revealCard();
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
+            jeu.victoireRouge();
+            labelEquipe.setText("Victoire des rouges !");
             revealCard();
             showWinnerPopup("Rouge");
         }
+
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
-        this.updateLabel();
     }
 
     private void revealCard() {
@@ -434,7 +442,6 @@ public class PlateauController implements Observer {
                 Carte card = (Carte) c;
                 AnchorPane carteVisu = findAnchorCard(card.getWord());
                 if (carteVisu != null) {
-                    card.setCovered();
                     String style = switch (card.getType()) {
                         case CardType.RED -> "-fx-background-color: " + GameConfig.RED_CARD_COLOR + ";";
                         case CardType.BLUE -> "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
@@ -450,19 +457,20 @@ public class PlateauController implements Observer {
     private void showWinnerPopup(String winningTeam) {
         stopTimer();
         if (winningTeam.equals("Rouge")) {
-            whoWon.setText("L'équipe Rouge a gagné !");
+            whoWon.setText("L'équipe rouge a gagné !");
             whoWon.setStyle("-fx-text-fill: #f70d1a;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
             colorButton.getStyleClass().add("red_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-red");
         } else {
-            whoWon.setText("L'équipe Bleue a gagné !");
+            whoWon.setText("L'équipe bleue a gagné !");
             whoWon.setStyle("-fx-text-fill: #3399FF;");
             colorButton.getStyleClass().removeIf(classe -> classe.startsWith("blue"));
             colorButton.getStyleClass().add("blue_button");
             borderWin.getStyleClass().removeIf(classe -> classe.startsWith("win-box"));
             borderWin.getStyleClass().add("win-box-blue");
+
         }
         popupWin.setVisible(true);
     }
@@ -496,7 +504,6 @@ public class PlateauController implements Observer {
     }
 
     public void updateLabel() {
-        // todo : mettre qui gagne en cas de victoire
         if (this.jeu.getPartie().getPlateau().isBlueTurn()) {
             imageview1.setVisible(true);  // Si visible, devient inv
             imageview2.setVisible(false);  // Si visible, devient inv
@@ -507,7 +514,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_bleu");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.BLUE_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Bleu");
+            labelEquipe.setText("C'est au tour des bleus");
         } else {
             imageview1.setVisible(false);  // Si visible, devient inv
             imageview2.setVisible(true);  // Si visible, devient inv
@@ -518,7 +525,7 @@ public class PlateauController implements Observer {
             panneau_changer2.getStyleClass().add("logo_panneau_rouge");
             panneau_changer2.getStyleClass().add("logo_panneau");
             labelEquipe.setText(GameConfig.RED_TURN_TEXT);
-            labelEquipe.setText("C'est le tour de Rouge");
+            labelEquipe.setText("C'est au tour des rouges");
         }
 
 
@@ -547,8 +554,7 @@ public class PlateauController implements Observer {
 
     @FXML
     private void handleMenuPrincipal() {
-        stopTimer();
-        if (jeu.getPartie().getwon() != -1) {
+        if (jeu.getPartie().getwon() == 2) {
             confirmationOverlayMenu.setVisible(true);
         } else {
             qrCode.setVisible(false); // Rendre l'ImageView visible si nécessaire
@@ -559,16 +565,19 @@ public class PlateauController implements Observer {
         }
     }
 
+    /**
+     * La fonction permet de sauvegarder une partie non fini q
+     * Elle lit l'etat de la partie actuelle et sauvegarde le tout en format Json
+     */
     private void savePartie() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sauvegarder la partie en cours");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Jeu", "*.alb"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Partie", "*.json"));
         File fichier = fileChooser.showSaveDialog(new Stage());
         if (fichier != null) {
             try {
-                jeu.getPartie().savePartie(fichier.getAbsolutePath());
-                System.out.println("Partie sauvegardé dans : " + fichier.getAbsolutePath());
-                System.out.println(fichier.getAbsolutePath());
+                FileSaveDeleteHandler filesavehandler = new FileSaveDeleteHandler();
+                filesavehandler.savePartie(jeu.getPartie(), fichier.getAbsolutePath());
             } catch (IOException e) {
                 System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
             }
@@ -584,27 +593,8 @@ public class PlateauController implements Observer {
             startTimer();
         }
         jeu.getPartie().getPlateau().changeTurn();
-        updateLabel();
+        this.updateLabel();
 
-        boolean currentVisibility1 = imageview1.isVisible();
-        imageview1.setVisible(!currentVisibility1);  // Si visible, devient inv
-        boolean currentVisibility2 = imageview2.isVisible();
-        imageview2.setVisible(!currentVisibility2);  // Si visible, devient inv
-        if (panneau_changer.getStyleClass().get(1).equals("blue_main_panneau")) {
-            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
-            panneau_changer.getStyleClass().add("main_panneau");
-            panneau_changer.getStyleClass().add("red_main_panneau");
-            panneau_changer2.getStyleClass().clear();
-            panneau_changer2.getStyleClass().add("logo_panneau_rouge");
-            panneau_changer2.getStyleClass().add("logo_panneau");
-        } else {
-            panneau_changer.getStyleClass().clear(); // Supprimer toutes les classes existantes
-            panneau_changer.getStyleClass().add("main_panneau");
-            panneau_changer.getStyleClass().add("blue_main_panneau");
-            panneau_changer2.getStyleClass().clear();
-            panneau_changer2.getStyleClass().add("logo_panneau_bleu");
-            panneau_changer2.getStyleClass().add("logo_panneau");
-        }
 
     }
 
