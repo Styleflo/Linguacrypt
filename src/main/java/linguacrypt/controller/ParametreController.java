@@ -246,6 +246,7 @@ public class ParametreController implements Observer {
             choisirThemeButton.setVisible(false);
             themesAleatoiresButton.setVisible(false);
         } else {
+            Mots.setSelected(true);
             choisirThemeButton.setVisible(true);
             themesAleatoiresButton.setVisible(true);
         }
