@@ -75,7 +75,7 @@ public class NeutralCardController {
 
     public void setRecouvert(CardType color, boolean recouvert) {
 
-        if (jeu.getPartie().getPlateau().getKey().getHeight() < 7 && jeu.getPartie().getPlateau().getKey().getWidth() < 6) {
+        if (jeu.getPartie().getPlateau().getKey().getHeight() < 6 && jeu.getPartie().getPlateau().getKey().getWidth() < 7) {
             switch (color) {
                 case CardType.BLUE:
                     coveredBlue.setVisible(recouvert);
@@ -114,7 +114,7 @@ public class NeutralCardController {
         Media media = new Media(audioFile);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        if (jeu.getPartie().getPlateau().getKey().getHeight() < 7 && jeu.getPartie().getPlateau().getKey().getWidth() < 6) {
+        if (jeu.getPartie().getPlateau().getKey().getHeight() < 6 && jeu.getPartie().getPlateau().getKey().getWidth() < 7) {
 
             switch (color) {
                 case CardType.BLUE:

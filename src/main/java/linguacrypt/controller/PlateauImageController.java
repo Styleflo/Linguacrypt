@@ -551,18 +551,7 @@ public class PlateauImageController implements Observer {
     }
 
     private void handleCardClick(int x, int y, AnchorPane carte) {
-        if (!isTimerRunning && jeu.getPartie().getTimer() != -1) {
-            startTimer();
-        }
-        String audioFile = getClass().getResource("/soundtrack/carte2.mp3").toExternalForm();
-
-        Media media = new Media(audioFile);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-
-        CarteBase currentCard = jeu.getPartie().getPlateau().getCard(x, y);
-
-        if (currentCard.isCovered()||jeu.getPartie().isWon()) {
+        if (jeu.getPartie().getPlateau().getCard(x, y).isCovered()|| jeu.getPartie().isWon()) {
             return;
         }
 
@@ -570,8 +559,13 @@ public class PlateauImageController implements Observer {
             jeu.getPartie().setPartieBegin();
         }
 
-        CardType couleur = currentCard.getType();
+        // Récupérer la couleur de la carte depuis le modèle
+        String audioFile = getClass().getResource("/soundtrack/carte2.mp3").toExternalForm();
 
+        Media media = new Media(audioFile);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        CardType couleur = jeu.getPartie().getPlateau().getCard(x, y).getType();
         boolean isBlueTurn = jeu.getPartie().getPlateau().isBlueTurn();
 
         // Mettre à jour les statistiques
@@ -589,9 +583,9 @@ public class PlateauImageController implements Observer {
                 }
             }
         }
-        ImageCardController controller = (ImageCardController) carte.getUserData();
-        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé");
 
+        ImageCardController controller = (ImageCardController) carte.getUserData();
+        DataUtils.assertNotNull(controller, "Contrôleur de carte non initialisé dans PlateauController.handleCardClick()");
         controller.setRecouvert(couleur, true);
         String style;
 
@@ -601,7 +595,6 @@ public class PlateauImageController implements Observer {
                 carte.setStyle(style);
                 jeu.getPartie().getPlateau().updatePoint(CardType.RED);
                 jeu.getPartie().getPlateau().updateTurn(CardType.RED);
-                // Recouvrir la carte
                 break;
             case CardType.BLUE:
                 style = "-fx-background-color: " + GameConfig.BLUE_CARD_COLOR + ";";
@@ -624,12 +617,13 @@ public class PlateauImageController implements Observer {
                 jeu.getPartie().getPlateau().updateTurn(CardType.WHITE);
                 break;
         }
-
+        updateLabel();
         jeu.getPartie().updateWin();
 
         if (jeu.getPartie().BlueWon()) {
-            revealCard();
             jeu.victoireBleue();
+            labelEquipe.setText("Victoire des bleus !");
+            revealCard();
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
@@ -643,12 +637,13 @@ public class PlateauImageController implements Observer {
                     }
                 }
             }
-
             showWinnerPopup("Bleue");
         }
         if (jeu.getPartie().RedWon()) {
-            revealCard();
             jeu.victoireRouge();
+            labelEquipe.setText("Victoire des rouges !");
+            revealCard();
+            showWinnerPopup("Rouge");
             if (jeu.getPartie().BlueWon() || jeu.getPartie().RedWon()) {
                 if (stats != null) {
                     stats.setBlueTeamWon(jeu.getPartie().BlueWon());
@@ -663,11 +658,10 @@ public class PlateauImageController implements Observer {
                 }
             }
 
-            showWinnerPopup("Rouge");
         }
+
         // Marquer la carte comme révélée dans le modèle si nécessaire
         jeu.getPartie().getPlateau().getCard(x, y).setCovered();
-        this.updateLabel();
     }
 
     private void handleMouseEnter(int x, int y, AnchorPane carte) {

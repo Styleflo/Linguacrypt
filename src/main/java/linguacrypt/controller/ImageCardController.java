@@ -71,7 +71,8 @@ public class ImageCardController {
                     System.err.println("Erreur lors du chargement de l'image de couverture: " + e.getMessage());
                 }
             }
-        }else{
+        }
+        else{
             if (coveredImagepetit != null) {
                 String coverImageUrl = switch (type) {
                     case RED -> "/assets/ely_petit.png";
