@@ -9,30 +9,6 @@
            minWidth="-Infinity"
            prefHeight="850.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/23.0.1"
            fx:controller="linguacrypt.controller.ParametreController">
-    <Pane fx:id="lesthemes" visible="false" styleClass="confirmationOverlay" stylesheets="@../css/parametre.css">
-        <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="500.0" layoutX="525.0" layoutY="175.0"
-              styleClass="confirmation-box" stylesheets="@../css/parametre.css">
-            <Label text="Sélectionnez vos thèmes" textFill="WHITE" styleClass="text"/>
-            <ScrollPane prefHeight="400.0" prefWidth="380.0" styleClass="theme-scroll-pane">
-                <VBox fx:id="themeBox" alignment="CENTER" spacing="10.0" styleClass="theme-box">
-                </VBox>
-            </ScrollPane>
-            <HBox spacing="20" alignment="CENTER">
-                <Button text="Valider" onAction="#handleValider">
-                    <styleClass>
-                        <String fx:value="button1"/>
-                        <String fx:value="purple_button"/>
-                    </styleClass>
-                </Button>
-                <Button text="Annuler" onAction="#handleAnnuler">
-                    <styleClass>
-                        <String fx:value="button1"/>
-                        <String fx:value="red_button"/>
-                    </styleClass>
-                </Button>
-            </HBox>
-        </VBox>
-    </Pane>
     <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="popup" maxHeight="-Infinity" maxWidth="-Infinity"
                 minHeight="-Infinity"
                 minWidth="-Infinity" prefHeight="216.0" prefWidth="332.0"
@@ -212,5 +188,29 @@
             </ImageView>
         </Pane>
     </AnchorPane>
+    <Pane fx:id="lesthemes" visible="false" styleClass="confirmationOverlay" stylesheets="@../css/parametre.css">
+        <VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" prefHeight="500.0" layoutX="525.0" layoutY="175.0"
+              styleClass="confirmation-box" stylesheets="@../css/parametre.css">
+            <Label text="Sélectionnez vos thèmes" textFill="WHITE" styleClass="text"/>
+            <ScrollPane prefHeight="400.0" prefWidth="380.0" styleClass="theme-scroll-pane">
+                <VBox fx:id="themeBox" alignment="CENTER" spacing="10.0" styleClass="theme-box">
+                </VBox>
+            </ScrollPane>
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="Valider" onAction="#handleValider">
+                    <styleClass>
+                        <String fx:value="button1"/>
+                        <String fx:value="purple_button"/>
+                    </styleClass>
+                </Button>
+                <Button text="Annuler" onAction="#handleAnnuler">
+                    <styleClass>
+                        <String fx:value="button1"/>
+                        <String fx:value="red_button"/>
+                    </styleClass>
+                </Button>
+            </HBox>
+        </VBox>
+    </Pane>
 </StackPane>
 

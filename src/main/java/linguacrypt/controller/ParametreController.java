@@ -204,6 +204,7 @@ public class ParametreController implements Observer {
 
     @FXML
     private void handleValider() {
+        lesthemes.setVisible(false);
         ArrayList<String> selectedThemes = new ArrayList<>();
         nbr_carte_selectionne = 0; // Réinitialiser le compteur de cartes sélectionnées
 
