@@ -2,7 +2,9 @@
 **TELECOM Nancy - 06/01 au 10/01**
 
 
-Les instructions sur l'organisation et les attendus de la semaine se trouvent dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
+# Vidéo de présentation du jeu
+
+La vidéo de présentation se trouve [ici](https://youtu.be/lk_9dFJCqv0).
 
 # Guide de configuration et d'exécution du projet
 
