@@ -36,6 +36,8 @@ public class MainController implements Observer {
 
     private StackPane statsRoot;
 
+    private StackPane eggRoot;
+
 
     public void MainControlleur() {
         // Constructeur par défaut requis pour le contrôleur FXML
@@ -62,6 +64,25 @@ public class MainController implements Observer {
 
             content.getChildren().clear();
             content.getChildren().add(menuInitialRoot);
+        } catch (IOException e) {
+            DataUtils.logException(e, "Erreur lors du chargement du menu initial");
+        }
+    }
+
+    public void setEasterEgg() {
+        // Charger le fichier FXML de l'easter egg
+        try {
+            FXMLLoader menuInitialLoader = new FXMLLoader(getClass().getResource("/view/egg.fxml"));
+            eggRoot = menuInitialLoader.load();
+            EggController easterEgg = menuInitialLoader.getController();
+            easterEgg.setJeu(jeu);
+            jeu.addObserver(easterEgg);
+
+            AnchorPane.setTopAnchor(menuInitialRoot, 0.0);
+            AnchorPane.setBottomAnchor(menuInitialRoot, 0.0);
+            AnchorPane.setLeftAnchor(menuInitialRoot, 0.0);
+            AnchorPane.setRightAnchor(menuInitialRoot, 0.0);
+
         } catch (IOException e) {
             DataUtils.logException(e, "Erreur lors du chargement du menu initial");
         }
@@ -189,6 +210,7 @@ public class MainController implements Observer {
             case "PlateauImage" -> content.getChildren().add(plateauImageRoot);
             case "CartesImages" -> content.getChildren().add(cartesImageRoot);
             case "Stats" -> content.getChildren().add(statsRoot);
+            case "Egg" -> content.getChildren().add(eggRoot);
             case null, default -> System.out.println(jeu.getView());
         }
     }

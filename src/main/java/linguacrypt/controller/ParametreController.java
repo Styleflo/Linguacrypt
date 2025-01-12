@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import linguacrypt.config.GameConfig;
 import linguacrypt.model.Jeu;
 import linguacrypt.model.Partie;
 import linguacrypt.model.PartieBuilder;
@@ -76,6 +77,16 @@ public class ParametreController implements Observer {
 
     public void resetParametre() {
         partieBuilder.resetall();
+        currentTime = -1;
+        labelTimer.setText("∞");
+        themesAleatoiresButton.getStyleClass().add("button-selected");
+        Mots.setSelected(true);
+        label1.setText("5");
+        label2.setText("5");
+        width = GameConfig.DEFAULT_WIDTH;
+        height = GameConfig.DEFAULT_HEIGHT;
+        themeWordCounts.clear();
+
     }
 
     public void handleFlecheGaucheTimer() {
@@ -91,21 +102,28 @@ public class ParametreController implements Observer {
     }
 
     public void handleFlecheDroiteTimer() {
-        if (currentTime == -1) {
+        if (currentTime == -10) {
+            currentTime = -1;
+        }
+         else if (currentTime == -1) {
             currentTime = MIN_TIME;
         } else if (currentTime < MAX_TIME) {
             // Augmente de 30 secondes
             currentTime = Math.min(MAX_TIME, currentTime + 30);
         } else {
-            currentTime = -1;
+            currentTime = -10;
         }
         updateTimerLabel();
     }
 
     private void updateTimerLabel() {
-        if (currentTime == -1) {
+        if (currentTime == -10) {
+            labelTimer.setText("??");
+        }
+        else if (currentTime == -1) {
             labelTimer.setText("∞");
-        } else {
+        }
+        else {
             int minutes = currentTime / 60;
             int seconds = currentTime % 60;
             labelTimer.setText(String.format("%02d:%02d", minutes, seconds));
@@ -270,7 +288,11 @@ public class ParametreController implements Observer {
     @FXML
     private void handleValiderTout() throws IOException {
 
-        if (Images.isSelected() && !Mots.isSelected()) {
+        if (currentTime == -10) {
+            jeu.setView("Egg");
+            jeu.notifyObservers();
+        }
+        else if (Images.isSelected() && !Mots.isSelected()) {
             partieBuilder.setTimer(currentTime);
             partieBuilder.setTypePartie(TypePartie.IMAGES);
             jeu.setView("PlateauImage");
